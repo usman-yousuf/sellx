@@ -30,7 +30,7 @@
                     <td align="center" valign="top" style="">
                         <table border="0" cellpadding="20" cellspacing="0"  style="width:100%;padding-bottom:0px;">
                             <tr>
-                                <td style="padding: 0 0 20px 0;font-family: 'Lato', sans-serif;font-size: 20px;text-align:center;color:#334150;font-weight: 800;">Hi, {{ $name }}!</td>
+                                <td style="padding: 0 0 20px 0;font-family: 'Lato', sans-serif;font-size: 20px;text-align:center;color:#334150;font-weight: 800;">Hi !</td>
                             </tr>
                             <tr>
                                 <td style="padding: 0 0 20px 0;text-align:center;color:#334150;font-family: 'Lato', sans-serif;font-size: 16px;font-weight:400;">There was a request to reset your password!</td>
