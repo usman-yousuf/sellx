@@ -16,7 +16,7 @@ class TwilioController extends Controller
 	private $client;
 
 	function __construct(){
-       	
+
        	$this->client = new Client(config('app.TWILIO_ACCOUNT_SID'), config('app.TWILIO_AUTH_TOKEN'));
     }
 
@@ -41,13 +41,20 @@ class TwilioController extends Controller
 
     }
 
+    /**
+     * Valiate Phone Number
+     *
+     * @param integer $number
+     * @param integer $countrycode
+     *
+     * @return void
+     */
     public function validNumber($number, $countrycode){
-
     	try {
-    		$apiResponse = $this->client->lookups->v1->phoneNumbers($request->number)->fetch(["countryCode" => $request->countrycode]);
+    		$apiResponse = $this->client->lookups->v1->phoneNumbers($number)->fetch(["countryCode" => $countrycode]);
     		return $apiResponse;
-    	
-    	} catch (Exception $e) {
+
+    	} catch (\Exception $e) {
     		return sendError($e->getMessage(), []);
     	}
     }

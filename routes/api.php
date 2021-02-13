@@ -26,6 +26,9 @@ Route::group([ 'prefix' => 'auth'], function () {
     Route::post('recover_password', 'App\Http\Controllers\AuthController@recoverPassword');
 
     Route::post('verify_user', 'App\Http\Controllers\AuthController@verifyUser');
+    Route::post('resend_activation_token', 'App\Http\Controllers\AuthController@resendVerificationToken');
+    // Route::post('verify_user', 'App\Http\Controllers\AuthController@verifyUser');
+
 
 
     Route::group([ 'middleware' => 'auth:api'], function() {
