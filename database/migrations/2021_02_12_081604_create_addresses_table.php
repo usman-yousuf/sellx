@@ -20,6 +20,8 @@ class CreateAddressesTable extends Migration
             $table->integer('profile_id')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->string('reciever_name')->nullable();
+
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
@@ -28,6 +30,7 @@ class CreateAddressesTable extends Migration
             $table->text('address2')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->boolean('default')->default(false);
 
             $table->timestamps();
             $table->softDeletes();
