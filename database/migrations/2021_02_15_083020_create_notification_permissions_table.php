@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFeedbacksTable extends Migration
+class CreateNotificationPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateFeedbacksTable extends Migration
      */
     public function up()
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
+        Schema::create('notification_permissions', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
 
             $table->integer('profile_id')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('email');
-            $table->string('message');
+            $table->boolean('is_email_enable')->default(false);
+            $table->boolean('is_push_enable')->default(false);
+            $table->boolean('is_sms_enable')->default(false);
 
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +35,6 @@ class CreateFeedbacksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('notification_permissions');
     }
 }

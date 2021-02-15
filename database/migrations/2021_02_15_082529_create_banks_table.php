@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class CreateBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
-            
-            $table->string('iso')->nullable();
+            $table->string('uuid')->unique();
+
+            $table->integer('profile_id')->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
+
             $table->string('name')->nullable();
-            $table->string('nicename')->nullable();
-            $table->string('iso3')->nullable();
-            $table->string('numcode')->nullable();
-            $table->string('phonecode')->nullable();
+            $table->string('iban')->nullable();
+            $table->string('swift_code')->nullable();
+            $table->string('branch_code')->nullable();            
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +37,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('banks');
     }
 }
