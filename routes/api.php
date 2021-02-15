@@ -22,12 +22,13 @@ Route::group([ 'prefix' => 'auth'], function () {
     Route::post('login', 'App\Http\Controllers\AuthController@login');
     Route::post('signup', 'App\Http\Controllers\AuthController@signup');
     Route::post('social_login', 'App\Http\Controllers\AuthController@socialLogin');
-    Route::post('forgot_password', 'App\Http\Controllers\AuthController@forgotPasswordCode');
-    Route::post('recover_password', 'App\Http\Controllers\AuthController@recoverPassword');
+    // Route::post('forgot_password', 'App\Http\Controllers\AuthController@forgotPasswordCode');
+    // Route::post('recover_password', 'App\Http\Controllers\AuthController@recoverPassword');
 
     Route::post('verify_user', 'App\Http\Controllers\AuthController@verifyUser');
     Route::post('resend_activation_token', 'App\Http\Controllers\AuthController@resendVerificationToken');
-    // Route::post('verify_user', 'App\Http\Controllers\AuthController@verifyUser');
+    Route::post('forgot_password', 'App\Http\Controllers\AuthController@forgotPassword');
+    Route::post('reset_password', 'App\Http\Controllers\AuthController@resetPassword');
 
 
 
@@ -36,6 +37,7 @@ Route::group([ 'prefix' => 'auth'], function () {
         Route::get('logout', 'App\Http\Controllers\AuthController@logout');
         Route::post('change_social_password', 'App\Http\Controllers\AuthController@changeSocialLoginPassword');
 
+        Route::post('update_password', 'App\Http\Controllers\AuthController@updatePassword');
     });
 
 });

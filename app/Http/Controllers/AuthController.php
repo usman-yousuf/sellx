@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\PasswordReset;
 use App\Models\Profile;
 use App\Models\SignupVerification;
 use App\Models\User;
@@ -17,48 +18,106 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-
+    /**
+     * Login User
+     *
+     * @param Request $request
+     * @return void
+     */
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required_without:phone_number|string|email',
-            'phone_code' => 'required_without:email',
-            'phone_number' => 'required_without:email',
-            'password' => 'required_without:social_email',
-            'socail_email' => 'required_without:email',
-        ]);
+        // setup validation Rules
+        $rules = [
+            'is_social' => 'required',
+        ];
+        if($request->is_social){
+            $rules = array_merge($rules, [
+                'social_email' => 'required|email',
+                'social_id' => 'required',
+                'social_type' => 'required',
+            ]);
+        }
+        else{ // email or phone based verification
+            $rules = array_merge($rules, [
+                'password' => 'required|min:6',
+            ]);
+            if(isset($request->email) && ($request->email != '')){ // email
+                $rules = array_merge($rules, [
+                    'email' => 'required|email',
+                ]);
+            }
+            else{ // phone
+                $rules = array_merge($rules, [
+                    'phone_code' => 'required|min:2',
+                    'phone_number' => 'required|min:6',
+                ]);
+            }
+        }
+        // dd($request->all(), $rules);
+
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $credentials = $request->only('email', 'password');
-        $check = getUser()->where('email', $request->email)->first();
-        if ($check && ($check->email_verified_at == null || $check->email_verified_at == '')) {
-            $code = mt_rand(1000, 9999);
-            Log::info($code);
-            Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($check) {
-                $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to($check->email)->subject('Verification');
-            });
-            $data['code'] = $code;
-            return sendError('not_verified', $data);
+        // dd($request->all());
+        if($request->is_social){
+            return $this->socialLogin($request);
         }
-        if (Auth::attempt($credentials)) {
-            $user = $request->user();
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-            if ($request->remember_me)
-                $token->expires_at = Carbon::now()->addWeeks(1);
-            $token->save();
-            Profile::where('id', $user->profile_id)->update(['is_online' => true]);
+        else {
+            // get user
+            if(isset($request->email) && ($request->email !='')){
+                $foundUser = User::where('email', $request->email)->first();
+            }
+            else{
+                $foundUser = User::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number)->first();
+            }
+            if(null == $foundUser){
+                return sendError('username of Password is incorrect', []);
+            }
 
-            $data['access_token'] = $tokenResult->accessToken;
-            $data['token_type'] = 'Bearer';
-            $data['expires_at'] = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
-            $data['user'] = getUser()->where('id', $request->user()->id)->first();
-            return sendSuccess('Login successfully.', $data);
+            // verify hased password
+            if (!\Hash::check($request->password, $foundUser->password)) {
+                return sendError('username of Password is incorrect', []);
+            }
+
+            // determine if user if verifeid or not
+            if(isset($request->email) && ($request->email !='')){
+                if($foundUser->email_verified_at == null){
+                    $response = $this->resendVerificationToken($request)->getData();
+                    $data = $response->data;
+                    return sendError('New Verification Code sent', $data);
+                }
+            }
+            else{
+                if($foundUser->phone_verified_at == null){
+                    $response = $this->resendVerificationToken($request)->getData();
+                    // dd($response);
+                    $data = $response->data;
+                    return sendError('New Verification Code sent', $data);
+                }
+            }
+
+            // login user to application
+            Auth::loginUsingId($foundUser->id);
+            if(Auth::check()){
+                $tokenResult = $foundUser->createToken('Personal Access Token');
+                $token = $tokenResult->token;
+                if ($request->remember_me)
+                $token->expires_at = Carbon::now()->addWeeks(1);
+                $token->save();
+
+                $data['access_token'] = $tokenResult->accessToken;
+                $data['token_type'] = 'Bearer';
+                $data['expires_at'] = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
+                $data['user'] = User::where('id', $request->user()->id)->first();
+                return sendSuccess('Login successfully.', $data);
+            }
+            else{
+                return sendError('Something went wrong while loggin in application', []);
+            }
         }
         return sendError('Email or password is incorrect.', null);
     }
@@ -72,13 +131,14 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required_if: is_social,0|string|email|unique:users',
+            'email' => 'required_if: is_social,0|string|email',
             'email' => 'required_without:phone_number',
+            'email' => 'unique:users',
 
             'phone_number' => 'required_without:email|unique:users',
             'phone_code' => 'required_without:email', // asically country code
 
-            'password' => 'required_if:is_social,0',
+            'password' => 'min:6|required_if:is_social,0',
 
             'is_social' => 'required|in:1,0',
             'social_id' => 'required_if:is_social,1',
@@ -99,7 +159,7 @@ class AuthController extends Controller
             }
         }
 
-        $code = mt_rand(1000, 9999);
+        $code = mt_rand(100000, 999999);
 
         // determine if user Already Exists of have voilated UNIQUE values
         $existingUser = User::where('email', $request->email)->orWhere('phone_number', $request->phone_number)->first();
@@ -150,6 +210,7 @@ class AuthController extends Controller
                 $user->social_id = $request->social_id;
                 $user->social_email = $request->social_email;
                 $user->social_type = $request->social_type;
+                $user->is_social = $request->is_social;
             }
 
             if ($user->save()) {
@@ -164,27 +225,7 @@ class AuthController extends Controller
                         DB::rollBack();
                         return sendError('Something went wrong while sending Activation Code.', []);
                     }
-                    // $verificationModel = new SignupVerification();
-                    // if (isset($request->phone_number) && isset($request->phone_code)) {
-                    //     if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
-                    //         return sendError('Somthing went wrong while send Code over phone', NULL);
-                    //     }
-                    //     $verificationModel->type = 'phone';
-                    //     $verificationModel->phone = $request->phone_code . $request->phone_number;
-                    //     $verificationModel->email = null;
-                    // } else {
-                    //     Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($user) {
-                    //         $m->from(config('mail.from.address'), config('mail.from.name'));
-                    //         $m->to($user->email)->subject('Verification');
-                    //     });
-                    //     $verificationModel->type = 'email';
-                    //     $verificationModel->email = $request->email;
-                    //     $verificationModel->phone = null;
-                    // }
-                    // $verificationModel->token = $code;
-                    // $verificationModel->created_at = date('Y-m-d H:i:s');
 
-                    // $verificationModel->save();
                     Log::info($code);
 
                     $data['code'] = $code;
@@ -201,7 +242,6 @@ class AuthController extends Controller
         DB::rollBack();
         return sendError('There is some problem.', null);
     }
-
 
     /**
      * Send Activation Code
@@ -288,7 +328,7 @@ class AuthController extends Controller
         $data['access_token'] = $tokenResult->accessToken;
         $data['token_type'] = 'Bearer';
         $data['expires_at'] = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
-        $data['user'] = getUser()->where('id', $request->user()->id)->first();
+        $data['user'] = User::where('id', $request->user()->id)->first();
         return sendSuccess('Login successfully.', $data);
     }
 
@@ -304,7 +344,8 @@ class AuthController extends Controller
             'activation_code' => 'required',
 
             'email' => 'required_without:phone_number|email',
-            'phone_number' => 'required_without:email', // asically country code
+            'phone_number' => 'required_without:email',
+            'phone_code' => 'required_without:email', // basically country code
         ]);
 
         if ($validator->fails()) {
@@ -358,7 +399,8 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required_without:phone_number|email',
-            'phone_number' => 'required_without:email', // asically country code
+            'phone_number' => 'required_without:email',
+            'phone_code' => 'required_without:email', // basically country code
         ]);
 
         if ($validator->fails()) {
@@ -380,19 +422,19 @@ class AuthController extends Controller
 
         // get verification code based on email|phone
         if(isset($request->email) && $request->email != ''){
-            $veridicationModel = SignupVerification::where('email', $request->email)->where('token', $request->activation_code)->first();
+            $veridicationModel = SignupVerification::where('email', $request->email)->first();
         }
         else{
-            $veridicationModel = SignupVerification::where('phone', $request->phone_code . $request->phone_number)->where('token',$request->activation_code)->first();
+            $veridicationModel = SignupVerification::where('phone', $request->phone_code . $request->phone_number)->first();
         }
 
+        // create existing verification code and delete old one
         if(null != $veridicationModel){
             $veridicationModel->delete();
         }
-        $code = mt_rand(1000, 9999);
+        $code = mt_rand(100000, 999999);
 
         if(!$this->sendVerificationToken($user, $code, $request)){
-            DB::rollBack();
             return sendError('Something went wrong while sending Activation Code.', []);
         }
 
@@ -400,5 +442,146 @@ class AuthController extends Controller
         return sendSuccess('Verification Token sent Successfully.', $data);
     }
 
+    /**
+     * Send an Email when Password is Forgotton
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required_without:phone_number|email',
+            'phone_number' => 'required_without:email',
+            'phone_code' => 'required_without:email', // basically country code
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        if(isset($request->email) && $request->email != ''){
+            $user = User::where('email', $request->email)->first();
+        }
+        else{
+            $user = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
+        }
+
+        if(null == $user){
+            return sendError('Invalid or Expired Information Provided', null);
+        }
+
+        if($user->is_social){
+            return sendError('Please update your password at your Social media', null);
+        }
+
+        // set password reset token
+        $code = mt_rand(100000, 999999);
+        $resetCode = PasswordReset::generatePasswordResetToken($request, $code);
+        if(!$resetCode){
+            return sendError('Somthing went wrong while Creating Reset Password Code', NULL);
+        }
+
+        // send token at email|phone number
+        if(isset($request->email) && $request->email != ''){
+            Mail::send('email_template.forgot_password', ['code' => $code], function ($m) use ($user) {
+                $m->from(config('mail.from.address'), config('mail.from.name'));
+                $m->to($user->email)->subject('Verification');
+            });
+        }
+        else{
+            $twilio = new TwilioController;
+            if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
+                return sendError('Somthing went wrong while send Code over phone', NULL);
+            }
+        }
+
+        return sendSuccess('Reset Token Sent Successfully.', []);
+    }
+
+    /**
+     * Reset Password
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required_without:phone_number|email',
+            'new_password' => 'required|min:6',
+            'code' => 'required',
+            'phone_number' => 'required_without:email',
+            'phone_code' => 'required_without:email', // basically country code
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        if(isset($request->email) && $request->email != ''){
+            $user = User::where('email', $request->email)->first();
+        }
+        else{
+            $user = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
+        }
+        if(null == $user){
+            return sendError('Invalid or Expired Information Provided', null);
+        }
+        // dd($request->all());
+        // delete password reset toke
+        $status = PasswordReset::deleteResetToken($request);
+        if($status < 0){
+            return sendError('Something went wrong...', []);
+        }
+
+        if($status){ // token deleted successfully
+            // update user password
+            $user->password = bcrypt($request->password);
+            if($user->save()){
+                return sendSuccess('Password Reset Successfully', []);
+            }
+            else{
+                return sendError('Inetranl Server Error', []);
+            }
+        }
+        else{
+            return sendError('Invalid or Expired Token Provided.', []);
+        }
+
+
+
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|min:6',
+            'new_password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+        // verify hased password
+        // dd($request->user());
+        $model = User::where('id', $request->user()->id)->first();
+        if(null == $model){
+            return sendError('Invalid or Expired information provided', []);
+        }
+
+        if (!\Hash::check($request->old_password, $model->password)) {
+            return sendError('Password is incorrect', []);
+        }
+
+
+        $model->password = bcrypt($request->new_password);
+        $data['user'] = $model->save();
+
+        return sendSuccess('Password Reset Successfully', $data);
+    }
 
 }
