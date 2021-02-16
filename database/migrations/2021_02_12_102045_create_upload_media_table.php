@@ -20,16 +20,16 @@ class CreateUploadMediaTable extends Migration
             $table->integer('profile_id')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('type');
-            $table->integer('ref_id')->nullable();
+            $table->string('type')->nullable(); // model type
+            $table->integer('ref_id')->nullable(); // model id if not profile
 
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('path');
-            $table->string('media_type');
-            $table->string('media_format');
-            $table->string('media_size');
-            $table->string('media_ratio');
-            $table->string('media_thumbnail');
+            $table->string('media_type')->nullable();
+            $table->string('media_format')->nullable();
+            $table->string('media_size')->nullable();
+            $table->string('media_ratio')->nullable();
+            $table->string('media_thumbnail')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

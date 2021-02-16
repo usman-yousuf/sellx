@@ -29,4 +29,12 @@ class Category extends Model
 
     use SoftDeletes;
 
+    /**
+     * Get all of the categories for the profile.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('\App\Models\Profile', 'profile_categories');
+    }
+
 }

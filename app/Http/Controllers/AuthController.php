@@ -418,7 +418,7 @@ class AuthController extends Controller
             $user = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
         }
         if(null == $user){
-            return sendError('Invalid or Expired Information Provided', null);
+            return sendError('Invalid Information Provided', null);
         }
 
         // get verification code based on email|phone
@@ -428,6 +428,7 @@ class AuthController extends Controller
         else{
             $veridicationModel = SignupVerification::where('phone', $request->phone_code . $request->phone_number)->where('token',$request->activation_code)->first();
         }
+        // dd($request->all(), $veridicationModel);
         if(null == $veridicationModel){
             return sendError('Invalid or Expired Information Provided', null);
         }
