@@ -2,22 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
 use App\Models\PasswordReset;
-use App\Models\Profile;
 use App\Models\SignupVerification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    /**
+     * Functin to call when tken has expired
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function noAuth(Request $request)
+    {
+        return sendSuccess('Please login again', []);
+    }
+
+    /**
+     * Logout user from application
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        if($request->user()  == null){
+            return sendError('Invalid User', []);
+        }
+        else{
+            $token = $request->user()->token();
+            $token->revoke();
+            return sendSuccess('Logout Successfully', []);
+        }
+    }
+
     /**
      * Login User
      *
@@ -86,16 +112,22 @@ class AuthController extends Controller
             // determine if user if verifeid or not
             if(isset($request->email) && ($request->email !='')){
                 if($foundUser->email_verified_at == null){
-                    $response = $this->resendVerificationToken($request)->getData();
-                    $data = $response->data;
+                    $response = $this->resendVerificationToken($request);
+                    if(!$response){
+                        return sendError('Something went wrong while sending verification token', []);
+                    }
+                    $data = $response;
                     return sendError('New Verification Code sent', $data);
                 }
             }
             else{
                 if($foundUser->phone_verified_at == null){
-                    $response = $this->resendVerificationToken($request)->getData();
+                    $response = $this->resendVerificationToken($request);
                     // dd($response);
-                    $data = $response->data;
+                    if(!$response){
+                        return sendError('Something went wrong while sending verification token', []);
+                    }
+                    $data = $response;
                     return sendError('New Verification Code sent', $data);
                 }
             }
@@ -229,6 +261,7 @@ class AuthController extends Controller
                     Log::info($code);
 
                     $data['code'] = $code;
+                    $data['user'] = $user;
                     return sendSuccess('Successfully created user', $data);
                 }
             }
@@ -257,7 +290,8 @@ class AuthController extends Controller
         if (isset($request->phone_number) && isset($request->phone_code)) {
             $twilio = new TwilioController;
             if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
-                return sendError('Somthing went wrong while send Code over phone', NULL);
+                return fasle;
+                // return sendError('Somthing went wrong while send Code over phone', NULL);
             }
             $verificationModel->type = 'phone';
             $verificationModel->phone = (strpos($request->phone_number, '+') > -1)? $request->phone_number : $request->phone_code . $request->phone_number;
@@ -274,6 +308,12 @@ class AuthController extends Controller
         $verificationModel->token = $code;
         $verificationModel->created_at = date('Y-m-d H:i:s');
 
+        if (isset($request->phone_number) && isset($request->phone_code)) {
+            $user->phone_verified_at = null;
+        }
+        else{
+            $user->email_verified_at = null;
+        }
         return ($verificationModel->save());
     }
 
@@ -318,7 +358,7 @@ class AuthController extends Controller
             return sendError('not_registered.', null);
         }
 
-        Auth::login($user);
+        $request->user()->login($user);
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
@@ -417,7 +457,8 @@ class AuthController extends Controller
             $user = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
         }
         if(null == $user){
-            return sendError('Invalid or Expired Information Provided', null);
+            return false;
+            // return sendError('Invalid or Expired Information Provided', null);
         }
 
         // get verification code based on email|phone
@@ -435,11 +476,13 @@ class AuthController extends Controller
         $code = mt_rand(100000, 999999);
 
         if(!$this->sendVerificationToken($user, $code, $request)){
-            return sendError('Something went wrong while sending Activation Code.', []);
+            return false;
+            // return sendError('Something went wrong while sending Activation Code.', []);
         }
 
         $data['user'] = $user;
-        return sendSuccess('Verification Token sent Successfully.', $data);
+        return $data;
+        // return sendSuccess('Verification Token sent Successfully.', $data);
     }
 
     /**
@@ -550,11 +593,14 @@ class AuthController extends Controller
         else{
             return sendError('Invalid or Expired Token Provided.', []);
         }
-
-
-
     }
 
+    /**
+     * Update Password
+     *
+     * @param Request $request
+     * @return void
+     */
     public function updatePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [

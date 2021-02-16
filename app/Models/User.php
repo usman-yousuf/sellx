@@ -41,4 +41,45 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function profiles()
+    {
+        return $this->hasMany('\App\Models\Profile', 'user_id', 'id');
+    }
+
+    public function activeProfile()
+    {
+        return $this->hasOne('\App\Models\Profile', 'user_id', 'id');
+    }
+
+    /**
+     * Updted User Chunks info
+     *
+     * @param Request $request
+     * @param String $user_uuid
+     *
+     * @return void
+     */
+    public static function updateUserChunks($request, $user_uuid)
+    {
+        $model = self::where('uuid', $user_uuid)->first();
+        $model->updated_at = date('Y-m-d H:i:s');
+
+        if($request->screen_type == 'phone'){
+            $model->phone_number = $request->phone_number;
+            $model->phone_code = $request->phone_code;
+        }
+        else if($request->screen_type == 'email'){
+            $model->email = $request->email;
+        }
+
+        try{
+            $model->save();
+            return $model;
+        }
+        catch(\Exception $ex){
+            // dd($ex->getMessage());
+            return false;
+        }
+    }
 }
