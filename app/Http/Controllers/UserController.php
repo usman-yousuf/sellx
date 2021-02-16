@@ -212,24 +212,26 @@ class UserController extends Controller
         return sendSuccess('Profile Updated Successfully.', $data);
     }
 
-    public function becomeAuctionar(Request $request)
+    public function becomeAuctioneer(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_uuid' => 'required',
+            'profile_uuid' => 'required',
             'name' => 'required',
-            'attrachments' => 'required|string', // comma seperated attachments URLs
-            'product_categories[]' => 'required|string', // categories
+            'attachments' => 'required|string', // comma seperated attachments URLs
+            'product_categories' => 'required', // categories
         ]);
 
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $user_uuid = (isset($request->user_uuid) && ($request->user_uuid != ''))? $request->user_uuid : $request->user()->uuid;
+        $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
 
-        $foundModel = User::where('uuid', $user_uuid)->first();
+        $foundModel = Profile::where('uuid', $profile_uuid)->first();
         if(null == $foundModel){
             return sendError('Invalid information provided', []);
         }
+
+        dd($request->all());
     }
 }
