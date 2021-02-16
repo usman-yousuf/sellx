@@ -60,5 +60,5 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('delete_address', 'App\Http\Controllers\AddressController@deleteAddress');
 
     // Send Feedbacks
-    //Route::post('send_feedback', 'App\Http\Controllers\UserController@sendFeedback');
+    Route::post('send_feedback', 'App\Http\Controllers\UserController@sendFeedback');
 });

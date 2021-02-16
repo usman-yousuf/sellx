@@ -212,26 +212,36 @@ class UserController extends Controller
         return sendSuccess('Profile Updated Successfully.', $data);
     }
 
-    // public function sendFeedback(Request $request){
-    //     $validator = Validator::make($request->all(), [
-    //         'profile_uuid' => 'required',
-    //         'email' => 'required|string|email',
-    //         'message' => 'required|min:20',
-    //     ]);
+    public function sendFeedback(Request $request){
+        
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'required',
+            'email' => 'required|string|email',
+            'message' => 'required|min:20',
+        ]);
 
-    //     if ($validator->fails()) {
-    //         $data['validation_error'] = $validator->getMessageBag();
-    //         return sendError($validator->errors()->all()[0], $data);
-    //     }
-    //     $profile_uuid = $request->profile_uuid;
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+        $profile_uuid = $request->profile_uuid;
 
-    //     $profile = Profile::where('uuid', $profile_uuid)->first();
+        $profile = Profile::where('uuid', $profile_uuid)->first();
 
-    //     Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($user) {
-    //         $m->from(config('mail.from.address'), config('mail.from.name'));
-    //         $m->to($user->email)->subject('Verification');
-    //     });
-    // }
+        try {
+            Mail::send('email_template.feedback', ['email' => $email, 'name' => $profile->first_name, 'message' => $request->message], function ($m) use ($profile) {
+                $m->from(config('mail.from.address'), config('mail.from.name'));
+                $m->to(config('mail.from.address'))->subject('Feedback');
+            });
+
+            return sendSuccess('Feedback Sent Successfully.', null);
+        } catch (Exception $e) {
+                
+                $data['exception_error'] = $e->getMessage();
+                return sendError('There is some problem.', $data);
+            }
+    }
+
     public function becomeAuctionar(Request $request)
     {
         $validator = Validator::make($request->all(), [
