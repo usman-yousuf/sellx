@@ -248,7 +248,7 @@ class UserController extends Controller
             'user_uuid' => 'required',
             'name' => 'required',
             'attrachments' => 'required|string', // comma seperated attachments URLs
-            'product_categories' => 'required|string', // categories
+            'product_categories[]' => 'required|string', // categories
         ]);
 
         if ($validator->fails()) {
@@ -257,6 +257,9 @@ class UserController extends Controller
         }
         $user_uuid = (isset($request->user_uuid) && ($request->user_uuid != ''))? $request->user_uuid : $request->user()->uuid;
 
-        // $foundModel = User::where('uuid', $uuid);
+        $foundModel = User::where('uuid', $user_uuid)->first();
+        if(null == $foundModel){
+            return sendError('Invalid information provided', []);
+        }
     }
 }

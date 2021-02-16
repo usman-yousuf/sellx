@@ -135,15 +135,14 @@ class AuthController extends Controller
             // login user to application
             Auth::loginUsingId($foundUser->id);
             if(Auth::check()){
-                $tokenResult = $foundUser->createToken('Personal Access Token');
-                $token = $tokenResult->token;
-                if ($request->remember_me)
-                $token->expires_at = Carbon::now()->addWeeks(1);
-                $token->save();
+                // Ahmed Nawaz Butt
+                $result = $this->createAuthorizationToken($request, $foundUser);
+                if(!$result['status']){
+                    return sendError('Something went wrong while creating Auth Token', []);
+                }
+                $data = [];
+                $data = array_merge($data, $result['data']);
 
-                $data['access_token'] = $tokenResult->accessToken;
-                $data['token_type'] = 'Bearer';
-                $data['expires_at'] = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
                 $data['user'] = User::where('id', $request->user()->id)->first();
                 return sendSuccess('Login successfully.', $data);
             }
@@ -152,6 +151,22 @@ class AuthController extends Controller
             }
         }
         return sendError('Email or password is incorrect.', null);
+    }
+
+    public function createAuthorizationToken($request, $foundUser)
+    {
+        $tokenResult = $foundUser->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        if ($request->remember_me){
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        }
+        $token->save();
+
+        $data['access_token'] = $tokenResult->accessToken;
+        $data['token_type'] = 'Bearer';
+        $data['expires_at'] = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
+
+        return getInternalSuccessResponse($data, 'token created successfully');
     }
 
     /**
@@ -192,6 +207,7 @@ class AuthController extends Controller
         }
 
         $code = mt_rand(100000, 999999);
+        Log::info('Activation Code is: '.$code);
 
         // determine if user Already Exists of have voilated UNIQUE values
         $existingUser = User::where('email', $request->email)->orWhere('phone_number', $request->phone_number)->first();
@@ -425,8 +441,24 @@ class AuthController extends Controller
             $user->phone_verified_at = date('Y-m-d H:i:s');
         }
         $user->save();
-        $data['user'] = $user;
-        return sendSuccess('Verified successfully.', $data);
+
+        // login user to application
+        Auth::loginUsingId($user->id);
+        if(Auth::check()){
+            // Ahmed Nawaz Butt
+            $result = $this->createAuthorizationToken($request, $user);
+            if(!$result['status']){
+                return sendError('Something went wrong while creating Auth Token', []);
+            }
+            $data = [];
+            $data = array_merge($data, $result['data']);
+
+            $data['user'] = $user;
+            return sendSuccess('Verified successfully.', $data);
+        }
+        else{
+            return sendError('Something went wrong while loggin in application', []);
+        }
     }
 
     /**
