@@ -57,4 +57,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_profile_addresses', 'App\Http\Controllers\AddressController@getProfileAddresses');
     Route::post('update_address', 'App\Http\Controllers\AddressController@updateAddress');
     Route::post('delete_address', 'App\Http\Controllers\AddressController@deleteAddress');
+
+    // Send Feedbacks
+    //Route::post('send_feedback', 'App\Http\Controllers\UserController@sendFeedback');
 });
