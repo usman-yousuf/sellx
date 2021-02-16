@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConstantsTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateConstantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('constants', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
-            $table->string('uuid')->nullable();
-
+            
             $table->string('name')->nullable();
-            $table->string('value')->nullable();
-            $table->enum('type', ['on_board', 'off_board', 'in_app', 'profile', 'settings', 'auctions', 'my_feed', 'dashboard', 'watch_list'])->nullable();
-            $table->string('image_path')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('country_code')->nullable();
+            $table->string('district')->nullable();
+            $table->string('population')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +33,6 @@ class CreateConstantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('constants');
+        Schema::dropIfExists('cities');
     }
 }

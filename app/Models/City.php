@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Constant extends Model
+class City extends Model
 {
     use HasFactory;
 
-    protected $table = 'constants';
+    protected $table = 'cities';
     public $timestamps = true;
 
     protected $fillable = [
-        'uuid',
         'name',
-        'value',
-        'type',
-        'image_path',
-        'status',
+        'country_code',
+        'district',
+        'population',
     ];
 
 
