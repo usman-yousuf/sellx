@@ -17,10 +17,12 @@ class CreateAddressesTable extends Migration
             $table->increments('id')->unsigned(false);
             $table->string('uuid')->unique();
 
-            $table->integer('profile_id')->nullable();
+            $table->integer('profile_id');
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('reciever_name')->nullable();
+            $table->string('reciever_name')->nullable()->comment('Title of the address');
+            $table->string('phone_code')->nullable();
+            $table->string('phone_number')->nullable();
 
             $table->string('city')->nullable();
             $table->string('state')->nullable();

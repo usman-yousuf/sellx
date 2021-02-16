@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('send_message', 'App\Http\Controllers\TwilioController@sendMessage');
 Route::post('valid_number', 'App\Http\Controllers\TwilioController@validNumber');
 
+Route::post('get_cities', 'App\Http\Controllers\NoAuthController@getCities');
+Route::post('get_countries', 'App\Http\Controllers\NoAuthController@getCountries');
+Route::post('get_languages', 'App\Http\Controllers\NoAuthController@getLanguages');
+Route::post('get_constants', 'App\Http\Controllers\NoAuthController@getConstants');
+Route::post('get_categories', 'App\Http\Controllers\NoAuthController@getCategories');
+Route::post('get_currencies', 'App\Http\Controllers\NoAuthController@getCurrencies');
+
+
 Route::group([ 'prefix' => 'auth'], function () {
 
     Route::post('login', 'App\Http\Controllers\AuthController@login');

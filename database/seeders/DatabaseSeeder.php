@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
+            CitySeeder::class,
+            ConstantSeeder::class,
+            CategorySeeder::class,
             CountriesSeeder::class,
             CurrenciesSeeder::class,
             LanguagesSeeder::class,

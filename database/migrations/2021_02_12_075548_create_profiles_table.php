@@ -29,6 +29,8 @@ class CreateProfilesTable extends Migration
             $table->date('dob')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
 
+            $table->string('country')->nullable();
+
             $table->boolean('is_online')->default(FALSE);
             $table->enum('profile_type', ['buyer', 'auctioner'])->default('buyer');
             $table->boolean('is_approved')->default(false);
