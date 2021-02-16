@@ -42,6 +42,9 @@ if(!function_exists('print_array')){
     }
 }
 
+/**
+ * check if phone number is valid or not
+ */
 if(!function_exists('isPhoneValid')){
     function isPhoneValid($phone_code, $phone_number)
     {

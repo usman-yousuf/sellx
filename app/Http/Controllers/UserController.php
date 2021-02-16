@@ -26,7 +26,7 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
         // dd($request->user()->uuid);
-        $uuid = (isset($request->user_id) && ($request->user_id != ''))? $request->user_id : $request->user()->uuid;
+        $uuid = (isset($request->user_uuid) && ($request->user_uuid != ''))? $request->user_uuid : $request->user()->uuid;
         $user = User::where('uuid', $uuid)->with('activeProfile', 'profiles')->first();
         if(null == $user){
             return sendError('Invalid or Expired information provided', []);
@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function getProfile(Request $request)
     {
-        $uuid = (isset($request->profile_id) && ($request->profile_id != ''))? $request->profile_id : $request->user()->activeProfile->uuid;
+        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->activeProfile->uuid;
         $profile = Profile::where('uuid', $uuid)->with('user', 'defaultAddress')->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $rules = [
             'screen_type' => 'required|in:phone,email,username,names,image',
-            'profile_id' => 'required',
+            'profile_uuid' => 'required',
         ];
 
         if($request->screen_type == 'phone'){
@@ -99,7 +99,7 @@ class UserController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $profile_uuid = $request->profile_id;
+        $profile_uuid = $request->profile_uuid;
 
         // determine if profile exists
         $profile = Profile::where('uuid', $profile_uuid)->first();
@@ -140,7 +140,7 @@ class UserController extends Controller
             $authCtrlObj = new AuthController();
             $code = mt_rand(100000, 999999);
             $authCtrlObj->sendVerificationToken($profile->user, $code, $request); // send verification email
-            $profile = Profile::where('id', $chunkUpdateResult->active_profile_id)->with('user', 'country')->first();
+            $profile = Profile::where('id', $chunkUpdateResult->active_profile_id)->with('user', 'defaultAddress')->first();
             $data['profile'] = $profile;
             return sendSuccess('Profile Updated Successfully.', $data);
         }
@@ -157,7 +157,7 @@ class UserController extends Controller
             // update user chunk
             $chunkUpdateResult = Profile::updateProfileChunks($request, $profile->uuid);
             if(!$chunkUpdateResult){
-                return sendError('Something went wroong while updating Profile', []);
+                return sendError('Something went wrong while updating Profile', []);
             }
             $data['profile'] = $chunkUpdateResult;
             return sendSuccess('Profile Updated Successfully.', $data);
@@ -173,7 +173,7 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
+            'user_uuid' => 'required',
             'first_name' => 'required|min:3',
             'last_name' => 'string',
             'username' => 'required',
@@ -188,7 +188,7 @@ class UserController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $user_uuid = $request->user_id;
+        $user_uuid = (isset($request->user_uuid) && ($request->user_uuid != ''))? $request->user_uuid : $request->user()->uuid;
 
         // determine if user exists
         $user = User::where('uuid', $user_uuid)->first();
@@ -196,19 +196,17 @@ class UserController extends Controller
             return sendError('Invalid or Expired Information Provided', []);
         }
 
-        if($request->screen_type == 'username'){
-            $foundUser = Profile::where('username', $request->username)->first();
-            if(null != $foundUser){
-                if($foundUser->profile_id != $user->activeProfile->id){ // email belongs to some another user
-                    return sendError('Username Already Exists', NULL);
-                }
+        $foundModel = Profile::where('username', $request->username)->first();
+        if(null != $foundModel){
+            if($foundModel->user_id != $user->id){ // email belongs to some another user
+                return sendError('Username Already Exists', NULL);
             }
         }
 
         // validate profile if given
         $updateResult = Profile::addUpdateModel($request, $user->id);
         if(!$updateResult){
-            return sendError('Something went wroong while updating Profile', []);
+            return sendError('Something went wrong while updating Profile', []);
         }
         $data['profile'] = $updateResult;
         return sendSuccess('Profile Updated Successfully.', $data);
@@ -234,4 +232,21 @@ class UserController extends Controller
     //         $m->to($user->email)->subject('Verification');
     //     });
     // }
+    public function becomeAuctionar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_uuid' => 'required',
+            'name' => 'required',
+            'attrachments' => 'required|string', // comma seperated attachments URLs
+            'product_categories' => 'required|string', // categories
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+        $user_uuid = (isset($request->user_uuid) && ($request->user_uuid != ''))? $request->user_uuid : $request->user()->uuid;
+
+        // $foundModel = User::where('uuid', $uuid);
+    }
 }
