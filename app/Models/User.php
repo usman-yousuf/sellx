@@ -42,11 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // all profiles of user
     public function profiles()
     {
         return $this->hasMany('\App\Models\Profile', 'user_id', 'id');
     }
 
+    // active profile of user
     public function activeProfile()
     {
         return $this->hasOne('\App\Models\Profile', 'user_id', 'id');

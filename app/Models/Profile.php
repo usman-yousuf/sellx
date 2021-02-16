@@ -12,16 +12,22 @@ class Profile extends Model
     protected $table = 'profiles';
     // protected $with = ['country'];
 
-    // get profile country
-    public function country()
+    // get profile user
+    public function user()
     {
-        return $this->belongsTo('App\Models\Country', 'country', 'id');
-        // return $this->hasMany('\App\Models\Profile', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    // get profile user
-    public function user(){
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    // get profile addresses
+    public function addresses()
+    {
+        return $this->hasMany('\App\Models\Address', 'profile_id', 'id');
+    }
+
+    // get default address
+    public function defaultAddress()
+    {
+        return $this->hasMany('\App\Models\Address', 'profile_id', 'id')->where('default', 1);
     }
 
     /**
@@ -49,7 +55,7 @@ class Profile extends Model
 
         try{
             $model->save();
-            $model = self::where('id', $model->id)->with('user')->with('country')->first();
+            $model = self::where('id', $model->id)->with('user')->first();
             return $model;
         }
         catch(\Exception $ex){
@@ -66,7 +72,7 @@ class Profile extends Model
      *
      * @return void
      */
-    public static function addUpdateModel($request, $user_id)
+    public static function addUpdateModel($request, $user_id = null)
     {
         if(isset($request->profile_id) && $request->profile_id != ''){
             $profile = Profile::where('uuid', $request->profile_id)->first();
@@ -87,7 +93,7 @@ class Profile extends Model
         $profile->first_name = $request->first_name;
         $profile->last_name = $request->last_name;
         $profile->username = $request->username;
-        $profile->country = $request->country_id;
+        $profile->country = $request->country;
         $profile->dob = $request->dob;
         $profile->profile_type = $request->profile_type;
         $profile->profile_image = $request->profile_image;
@@ -96,7 +102,7 @@ class Profile extends Model
             $profile->save();
             User::where('id', $profile->user_id)->update(['active_profile_id' =>$profile->id]); // update active profile
             // return $profile->with('user', 'country');
-            return Profile::find($profile->id)->with('user', 'country')->first();
+            return Profile::find($profile->id)->with('user')->first();
         }
         catch(\Exception $ex){
             // dd($ex->getMessage());

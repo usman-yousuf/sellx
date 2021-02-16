@@ -5,10 +5,21 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
+if(!function_exists('getInternalSuccessResponse')){
+    function getInternalSuccessResponse($data = [], $message = 'Success', $code = 200) {
+        return ['status' => true, 'message' => $message, 'data' => $data, 'responseCode' => $code];
+    }
+}
+
+if(!function_exists('getInternalErrorResponse')){
+    function getInternalErrorResponse($message = 'error', $data = [], $code = 500) {
+        return ['status' => false, 'message' => $message, 'data' => $data, 'responseCode' => $code];
+    }
+}
 
 if(!function_exists('sendSuccess')){
     function sendSuccess($message, $data) {
-        return Response::json(['status' => true, 'message' => $message, 'data' => $data], 200);
+    return Response::json(['status' => true, 'message' => $message, 'data' => $data], 200);
     }
 }
 
@@ -28,5 +39,16 @@ if(!function_exists('print_array')){
         if($exit){
             exit;
         }
+    }
+}
+
+if(!function_exists('isPhoneValid')){
+    function isPhoneValid($phone_code, $phone_number)
+    {
+        $twilio = new \App\Http\Controllers\TwilioController();
+        if (!$twilio->validNumber($phone_code . $phone_number, $phone_code)) {
+            return false;
+        }
+        return true;
     }
 }

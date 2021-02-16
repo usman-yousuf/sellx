@@ -44,7 +44,7 @@ class UserController extends Controller
     public function getProfile(Request $request)
     {
         $uuid = (isset($request->profile_id) && ($request->profile_id != ''))? $request->profile_id : $request->user()->activeProfile->uuid;
-        $profile = Profile::where('uuid', $uuid)->with('user', 'country')->first();
+        $profile = Profile::where('uuid', $uuid)->with('user', 'defaultAddress')->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
         }
@@ -64,49 +64,35 @@ class UserController extends Controller
             'screen_type' => 'required|in:phone,email,username,names,image',
             'profile_id' => 'required',
         ];
-        if($request->screen_type == 'general'){
+
+        if($request->screen_type == 'phone'){
             $rules = array_merge($rules, [
-                // 'user_id' => 'required',
-                // 'first_name' => 'required|min:3',
-                // 'last_name' => 'string',
-                // 'username' => 'required|unique:profiles',
-                // 'country_id' => 'required',
-                // 'dob' => 'required',
-                // 'gender' => 'required|in:male,female',
-                // 'profile_type' => 'required|in:buyer,auctionar',
-                // 'profile_image' => 'required',
+                'phone_number' => 'required',
+                'phone_code' => 'required',
             ]);
         }
-        else{
-            if($request->screen_type == 'phone'){
-                $rules = array_merge($rules, [
-                    'phone_number' => 'required',
-                    'phone_code' => 'required',
-                ]);
-            }
-            else if($request->screen_type == 'email'){
-                $rules = array_merge($rules, [
-                    'email' => 'required|email',
-                ]);
-            }
-            else if($request->screen_type == 'username'){
-                $rules = array_merge($rules, [
-                    'username' => 'required|unique:profiles,username,' . $request->id,
-                ]);
-            }
-            else if($request->screen_type == 'names'){
-                $rules = array_merge($rules, [
-                    'first_name' => 'required|min:3',
-                    'last_name' => 'string',
-                ]);
-            }
-            else if($request->screen_type == 'image'){
-                $rules = array_merge($rules, [
-                    'profile_image' => 'required|string',
-                ]);
-            }
+        else if($request->screen_type == 'email'){
+            $rules = array_merge($rules, [
+                'email' => 'required|email',
+            ]);
         }
-        // dd($request->all(), $rules);
+        else if($request->screen_type == 'username'){
+            $rules = array_merge($rules, [
+                'username' => 'required|unique:profiles,username,' . $request->id,
+            ]);
+        }
+        else if($request->screen_type == 'names'){
+            $rules = array_merge($rules, [
+                'first_name' => 'required|min:3',
+                'last_name' => 'string',
+            ]);
+        }
+        else if($request->screen_type == 'image'){
+            $rules = array_merge($rules, [
+                'profile_image' => 'required|string',
+            ]);
+        }
+
         // validate given chunk
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -191,7 +177,7 @@ class UserController extends Controller
             'first_name' => 'required|min:3',
             'last_name' => 'string',
             'username' => 'required',
-            'country_id' => 'required',
+            'country' => 'required',
             'dob' => 'required',
             'gender' => 'required|in:male,female',
             'profile_type' => 'required|in:buyer,auctionar',
@@ -227,6 +213,4 @@ class UserController extends Controller
         $data['profile'] = $updateResult;
         return sendSuccess('Profile Updated Successfully.', $data);
     }
-
-
 }
