@@ -31,6 +31,28 @@ class Profile extends Model
     }
 
     /**
+     * Do something based on events of this model
+     *
+     * @return void
+     */
+    public static function boot() {
+        parent::boot();
+
+        // create notification_permission and localisation records
+        static::created(function (Profile $model) {
+            $temp = new LocalisationSetting();
+                $temp->profile_id = $model->id;
+                $temp->created_at = date('Y-m-d H:i:s');
+            $temp->save();
+
+            $temp = new NotificationPermission();
+                $temp->profile_id = $model->id;
+                $temp->created_at = date('Y-m-d H:i:s');
+            $temp->save();
+        });
+    }
+
+    /**
      * Update Profile Chunk info
      *
      * @param Request $request
@@ -74,8 +96,8 @@ class Profile extends Model
      */
     public static function addUpdateModel($request, $user_id = null)
     {
-        if(isset($request->profile_id) && $request->profile_id != ''){
-            $profile = Profile::where('uuid', $request->profile_id)->first();
+        if(isset($request->profile_uuid) && $request->profile_uuid != ''){
+            $profile = Profile::where('uuid', $request->profile_uuid)->first();
             if(null == $profile){
                 return sendError('Invalid or Expired Information Provided', []);
             }
@@ -97,7 +119,6 @@ class Profile extends Model
         $profile->dob = $request->dob;
         $profile->profile_type = $request->profile_type;
         $profile->profile_image = $request->profile_image;
-
         try{
             $profile->save();
             User::where('id', $profile->user_id)->update(['active_profile_id' =>$profile->id]); // update active profile
@@ -105,7 +126,7 @@ class Profile extends Model
             return Profile::find($profile->id)->with('user')->first();
         }
         catch(\Exception $ex){
-            // dd($ex->getMessage());
+            dd($ex->getMessage());
             return false;
         }
     }

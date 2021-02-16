@@ -25,7 +25,7 @@ class AddressController extends Controller
      */
     public function getProfileAddresses(Request $request)
     {
-        $uuid = (isset($request->profile_id) && ($request->profile_id != ''))? $request->profile_id : $request->user()->activeProfile->uuid;
+        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile : $request->user()->activeProfile->uuid;
         $profile = Profile::where('uuid', $uuid)->with('user')->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
@@ -43,7 +43,7 @@ class AddressController extends Controller
     public function updateAddress(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'profile_id' => 'required|string',
+            'profile_uuid' => 'required|string',
 
             'reciever_name' => 'required|string|min:3',
             'phone_code' => 'required|min:2', // basically country code
@@ -66,7 +66,7 @@ class AddressController extends Controller
         }
 
         // validate profile
-        $profile = Profile::where('uuid', $request->profile_id)->first();
+        $profile = Profile::where('uuid', $request->profile_uuid)->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
         }
@@ -95,14 +95,14 @@ class AddressController extends Controller
     public function deleteAddress(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'address_id' => 'required|string',
+            'address_uuid' => 'required|string',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $address = Address::where('uuid', $request->address_id)->first();
+        $address = Address::where('uuid', $request->address_uuid)->first();
         if(null == $address){
             return sendError('Invalid or Expired information provided', []);
         }
