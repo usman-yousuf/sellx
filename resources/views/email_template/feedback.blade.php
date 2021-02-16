@@ -91,7 +91,7 @@
                                             <th class="column-top" width="145" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:center;"><img src="https://drive.google.com/uc?id=1ZjnNmLoUrQaomtiTCJzKpLX-hZMjSzBr" width="124" height="53" border="0" alt="" /></td>
+                                                        <td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:center;"><img src="https://drive.google.com/uc?id=1GzfZiS9g32eIvCjXy0mHazq09E5NWs03" width="124" height="53" border="0" alt="" /></td>
                                                     </tr>
                                                 </table>
                                             </th>
@@ -133,7 +133,7 @@
                                                     </tr>
 
                                                     <tr>
-                                                    <td class="text-center pb25" style="color:#666666; font-family:'Muli', Arial,sans-serif; font-size:16px; line-height:30px; padding-bottom:25px;">{{$message}}
+                                                    <td class="text-center pb25" style="color:#666666; font-family:'Muli', Arial,sans-serif; font-size:16px; line-height:30px; padding-bottom:25px;">{!! $message_body !!}
                                                         <span class="m-hide"><br /></span></td>
                             
                                                     </tr>

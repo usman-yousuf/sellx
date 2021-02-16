@@ -215,7 +215,6 @@ class UserController extends Controller
     public function sendFeedback(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'required',
             'email' => 'required|string|email',
             'message' => 'required|min:20',
         ]);
@@ -224,15 +223,21 @@ class UserController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $profile_uuid = $request->profile_uuid;
+        $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->activeProfile->uuid;
 
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
         try {
-            Mail::send('email_template.feedback', ['email' => $email, 'name' => $profile->first_name, 'message' => $request->message], function ($m) use ($profile) {
+            Mail::send('email_template.feedback', ['email' => $request->email, 'name' => $profile->first_name, 'message_body' => $request->message], function ($m) use ($profile) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
                 $m->to(config('mail.from.address'))->subject('Feedback');
             });
+
+            // Live server - For later use
+            // Mail::send('email_template.feedback', ['email' => $request->email, 'name' => $profile->first_name, 'message_body' => $request->message], function ($m) use ($request, $profile) {
+            //     $m->from($request->email, $profile->first_name.$profile->last_name);
+            //     $m->to(config('mail.from.address'))->subject('Feedback');
+            // });
 
             return sendSuccess('Feedback Sent Successfully.', null);
         } catch (Exception $e) {
