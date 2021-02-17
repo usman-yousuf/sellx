@@ -252,7 +252,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required',
             'name' => 'required',
-            'attachments' => 'required|string', // comma seperated attachments URLs
+            'attachments' => 'required|string|min:5', // comma seperated attachments URLs
             'product_categories' => 'required', // categories
         ]);
 
@@ -264,9 +264,14 @@ class UserController extends Controller
 
         $foundModel = Profile::where('uuid', $profile_uuid)->first();
         if(null == $foundModel){
-            return sendError('Invalid information provided', []);
+            return sendError('Invalid Information Provided', []);
         }
 
-        dd($request->all());
+        $result = profile::addUpdateAuctioneer($request);
+        if(!$result['status']){
+            return sendError('Something went wrong while becoming Auctioneer', []);
+        }
+        $data['profile'] = $result['data'];
+        return sendSuccess('Auctioneer Created Successfully', $data);
     }
 }

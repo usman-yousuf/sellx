@@ -22,6 +22,8 @@ class CreateProfilesTable extends Migration
 
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('auction_house_name')->nullable();
+
             $table->string('username')->unique()->nullable();
             $table->text('profile_image')->nullable();
             $table->longText('bio')->nullable();
@@ -32,7 +34,7 @@ class CreateProfilesTable extends Migration
             $table->string('country')->nullable();
 
             $table->boolean('is_online')->default(FALSE);
-            $table->enum('profile_type', ['buyer', 'auctioner'])->default('buyer');
+            $table->enum('profile_type', ['buyer', 'auctioneer'])->default('buyer');
             $table->boolean('is_approved')->default(false);
 
             $table->timestamps();

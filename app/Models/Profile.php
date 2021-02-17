@@ -30,6 +30,17 @@ class Profile extends Model
         return $this->hasMany('\App\Models\Address', 'profile_id', 'id')->where('default', 1);
     }
 
+    // Get all of the categories for the profile.
+    public function categories()
+    {
+        return $this->belongsToMany('\App\Models\Category', 'profile_categories');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany('\App\Models\UploadMedia', 'profile_id', 'id');
+    }
+
     /**
      * Do something based on events of this model
      *
@@ -49,7 +60,73 @@ class Profile extends Model
                 $temp->profile_id = $model->id;
                 $temp->created_at = date('Y-m-d H:i:s');
             $temp->save();
+
+            if($model->profile_type == 'auctioneer'){
+
+            }
         });
+    }
+
+    /**
+     * Add|update an Auctioneer
+     *
+     * @param Request $request
+     * @return void
+     */
+    public static function addUpdateAuctioneer($request)
+    {
+        $model = self::where('profile_type', 'auctioneer')->first();
+        if(null == $model){
+            $model = new self();
+            $model->profile_type = 'auctioneer';
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->uuid = \Str::uuid();
+            $model->user_id = $request->user()->id;
+        }
+        else{
+            $model->updated_at = date('Y-m-d H:i:s');
+        }
+
+        $model->is_online = true;
+        $model->is_approved = false;
+        $model->auction_house_name = $request->auction_house_name;
+
+        try{
+            $model->save();
+
+            // save categories in db
+            $categories = $request->product_categories;
+            if(!empty($categories))
+            {
+                $cat_ids = [];
+                foreach ($categories as $key => $item) {
+                    $itemObj = Category::where('uuid', $item)->first();
+                    $cat_ids[] = $itemObj->id;
+                }
+
+                if(!empty($cat_ids)){
+                    $model->categories()->attach($cat_ids, ['created_at'=>date('Y-m-d H:i:s')]);
+                }
+            }
+
+            // save mode attachments in db
+            $attachmentResult = UploadMedia::addAttachments($request->attachments, $model->id, 'profile');
+            if(!$attachmentResult['status']){
+                // dd($attachmentResult);
+                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+            }
+
+            $user = User::where('id', $model->user->id)->first();
+            $user->active_profile_id = $model->id;
+            $updateResult = $user->save();
+
+            $model = self::where('id', $model->id)->with('user')->first();
+            return getInternalSuccessResponse($model);
+        }
+        catch(\Exception $ex){
+            // dd($ex->getMessage());
+            return getInternalErrorResponse($ex->getMessage(), [], $ex->getCode());
+        }
     }
 
     /**
@@ -126,7 +203,7 @@ class Profile extends Model
             return Profile::find($profile->id)->with('user')->first();
         }
         catch(\Exception $ex){
-            dd($ex->getMessage());
+            // dd($ex->getMessage());
             return false;
         }
     }

@@ -19,4 +19,36 @@ class NotificationPermission extends Model
     ];
 
     use SoftDeletes;
+
+    /**
+     * Update Notification Settings
+     *
+     * @param Request $request
+     * @param Integer $profile_id
+     * @return void
+     */
+    public static function updateSetting($request, $profile_id)
+    {
+        $model = self::where('profile_id', $profile_id)->first();
+        if(null == $model){
+            $model = new self();
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->profile_id = $profile_id;
+        }
+        else{
+            $model->updated_at = date('Y-m-d H:i:s');
+        }
+        $model->is_email_enable = $request->enable_email_notifications;
+        $model->is_push_enable = $request->enable_push_notifications;
+        $model->is_sms_enable = $request->enable_sms_notifications;
+
+        try{
+            $model->save();
+            return getInternalSuccessResponse($model);
+        }
+        catch(\Exception $ex){
+            // dd($ex->getMessage());
+            return getInternalErrorResponse($ex->getMessage(), [], $ex->getCode());
+        }
+    }
 }

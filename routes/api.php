@@ -61,4 +61,9 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // Send Feedbacks
     Route::post('send_feedback', 'App\Http\Controllers\UserController@sendFeedback');
+    // notification routes
+    Route::post('update_notification_setting', 'App\Http\Controllers\NotificationController@updateNotificationSetting');
+
+    // Localisation routes
+    Route::post('update_localisation_setting', 'App\Http\Controllers\LocalisationController@updateLocalisationSetting');
 });

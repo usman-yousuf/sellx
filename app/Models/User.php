@@ -51,7 +51,7 @@ class User extends Authenticatable
     // active profile of user
     public function activeProfile()
     {
-        return $this->hasOne('\App\Models\Profile', 'user_id', 'id');
+        return $this->hasOne('\App\Models\Profile', 'id', 'active_profile_id');
     }
 
     /**
