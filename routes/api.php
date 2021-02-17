@@ -58,4 +58,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_profile_addresses', 'App\Http\Controllers\AddressController@getProfileAddresses');
     Route::post('update_address', 'App\Http\Controllers\AddressController@updateAddress');
     Route::post('delete_address', 'App\Http\Controllers\AddressController@deleteAddress');
+
+    // notification routes
+    Route::post('update_notification_setting', 'App\Http\Controllers\NotificationController@updateNotificationSetting');
+
+    // Localisation routes
+    Route::post('update_localisation_setting', 'App\Http\Controllers\LocalisationController@updateLocalisationSetting');
 });

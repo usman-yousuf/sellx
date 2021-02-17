@@ -67,6 +67,12 @@ class Profile extends Model
         });
     }
 
+    /**
+     * Add|update an Auctioneer
+     *
+     * @param Request $request
+     * @return void
+     */
     public static function addUpdateAuctioneer($request)
     {
         $model = self::where('profile_type', 'auctioneer')->first();
@@ -109,6 +115,10 @@ class Profile extends Model
                 // dd($attachmentResult);
                 return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
             }
+
+            $user = User::where('id', $model->user->id)->first();
+            $user->active_profile_id = $model->id;
+            $updateResult = $user->save();
 
             $model = self::where('id', $model->id)->with('user')->first();
             return getInternalSuccessResponse($model);
