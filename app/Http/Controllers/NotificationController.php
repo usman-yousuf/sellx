@@ -146,24 +146,24 @@ class NotificationController extends Controller
         return $response;
     }
 
-    // Needs to Update According to Sellx
     public function getNotificationsPermission(Request $request){
         $profile_id = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->id;
 
-        $notificationPermissions = NotificationPermission::where('profile_id' ,$profile_id)->get();
+        $notificationPermissions = NotificationPermission::where('profile_id' ,$profile_id)->first();
 
         $data['notification_permissions'] = $notificationPermissions;
 
         return sendSuccess("User Notifications Permissions", $data);
     }
 
-    // Needs to Update According to Sellx
     public function getUnreadNotificationsCount(Request $request){
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
+        $profile_id = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->id;
+        
+        $unreadCount = Notification::whereRaw("id IN (SELECT id FROM notifications WHERE is_read = 0 and receiver_id = {$profile_id})")->count();
 
-        $unreadCount = Notification::whereRaw("id IN (SELECT id FROM notifications WHERE is_read = 0 and receiver_id = {$user_id})")->count();
-
-        return $unreadCount;
+        $data['unreadCount'] = $unreadCount;
+        
+        return sendSuccess("Notification Unread Counts.", $data);
     }
 
 

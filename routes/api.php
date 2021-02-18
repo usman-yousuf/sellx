@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Notification routes
     Route::post('update_notification_setting', 'App\Http\Controllers\NotificationController@updateNotificationSetting');
     Route::post('get_notifications', 'App\Http\Controllers\NotificationController@getNotifications');
+    Route::post('get_notification_permissions', 'App\Http\Controllers\NotificationController@getNotificationsPermission');
+    Route::post('get_unread_notification_counts', 'App\Http\Controllers\NotificationController@getUnreadNotificationsCount');
 
     // Localisation routes
     Route::post('update_localisation_setting', 'App\Http\Controllers\LocalisationController@updateLocalisationSetting');
