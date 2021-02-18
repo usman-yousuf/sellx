@@ -147,7 +147,7 @@ class NotificationController extends Controller
     }
 
     public function getNotificationsPermission(Request $request){
-        $profile_id = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->id;
+        $profile_id = (isset($request->profile_id) && ($request->profile_id != ''))? $request->profile_id : $request->user()->profile->id;
 
         $notificationPermissions = NotificationPermission::where('profile_id' ,$profile_id)->first();
 
@@ -157,7 +157,7 @@ class NotificationController extends Controller
     }
 
     public function getUnreadNotificationsCount(Request $request){
-        $profile_id = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->id;
+        $profile_id = (isset($request->profile_id) && ($request->profile_id != ''))? $request->profile_id : $request->user()->profile->id;
         
         $unreadCount = Notification::whereRaw("id IN (SELECT id FROM notifications WHERE is_read = 0 and receiver_id = {$profile_id})")->count();
 
