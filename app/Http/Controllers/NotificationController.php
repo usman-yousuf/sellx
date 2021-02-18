@@ -29,7 +29,7 @@ class NotificationController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->activeProfile->uuid;
+        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
         $profile = Profile::where('uuid', $uuid)->first();
         if(null == $profile){
             return sendError('Invalid or Expired information providesd', []);

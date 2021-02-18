@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         // dd($request->user()->uuid);
         $uuid = (isset($request->user_uuid) && ($request->user_uuid != ''))? $request->user_uuid : $request->user()->uuid;
-        $user = User::where('uuid', $uuid)->with('activeProfile', 'profiles')->first();
+        $user = User::where('uuid', $uuid)->with('profile', 'profiles')->first();
         if(null == $user){
             return sendError('Invalid or Expired information provided', []);
         }
@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function getProfile(Request $request)
     {
-        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->activeProfile->uuid;
+        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
         $profile = Profile::where('uuid', $uuid)->with('user', 'defaultAddress')->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
@@ -198,7 +198,7 @@ class UserController extends Controller
 
         $foundModel = Profile::where('username', $request->username)->first();
         if(null != $foundModel){
-            if($foundModel->user_id != $user->id){ // email belongs to some another user
+            if($foundModel->id != $user->profile->id){ // email belongs to some another user
                 return sendError('Username Already Exists', NULL);
             }
         }
@@ -213,11 +213,17 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Create|update an Auctioneer
+     *
+     * @param Request $request
+     * @return void
+     */
     public function becomeAuctioneer(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required',
-            'name' => 'required',
+            'auction_house_name' => 'required',
             'attachments' => 'required|string|min:5', // comma seperated attachments URLs
             'product_categories' => 'required', // categories
         ]);

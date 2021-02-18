@@ -17,7 +17,7 @@ class PermissionController extends Controller
     //  */
     // public function getProfileAddresses(Request $request)
     // {
-    //     $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile : $request->user()->activeProfile->uuid;
+    //     $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile : $request->user()->profile->uuid;
     //     $profile = Profile::where('uuid', $uuid)->with('user')->first();
     //     if(null == $profile){
     //         return sendError('Invalid or Expired information provided', []);
