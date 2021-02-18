@@ -208,6 +208,7 @@ class UserController extends Controller
         if(!$updateResult){
             return sendError('Something went wrong while updating Profile', []);
         }
+        $data['access_token'] = (str_replace('Bearer ', '', $request->header('Authorization')));
         $data['profile'] = $updateResult;
         return sendSuccess('Profile Updated Successfully.', $data);
     }
@@ -243,6 +244,7 @@ class UserController extends Controller
         if(!$result['status']){
             return sendError('Something went wrong while becoming Auctioneer', []);
         }
+        $data['access_token'] = (str_replace('Bearer ', '', $request->header('Authorization')));
         $data['profile'] = $result['data'];
         return sendSuccess('Auctioneer Created Successfully', $data);
     }
