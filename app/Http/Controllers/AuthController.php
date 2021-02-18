@@ -143,7 +143,7 @@ class AuthController extends Controller
                 $data = [];
                 $data = array_merge($data, $result['data']);
 
-                $data['user'] = User::where('id', $request->user()->id)->with('activeProfile')->first();
+                $data['user'] = User::where('id', $request->user()->id)->with('profile')->first();
                 return sendSuccess('Login successfully.', $data);
             }
             else{
