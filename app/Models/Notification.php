@@ -19,4 +19,14 @@ class Notification extends Model
     ];
 
     use SoftDeletes;
+
+    protected $with = ['sender'];
+
+    public function sender(){
+        return $this->belongsTo(Profile::class,'sender_id','id');
+    }
+
+    public function receiver(){
+        return $this->belongsTo(Profile::class,'receiver_id','id');
+    }
 }

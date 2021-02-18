@@ -55,3 +55,34 @@ if(!function_exists('isPhoneValid')){
         return true;
     }
 }
+
+/**
+ * Define the notification types || Update according to Sellx
+ */
+if( !function_exists('listNotficationTypes') ){
+    function listNotficationTypes(){
+        return [
+            'message_receive' =>'message_receive'
+            , 'post_like' => 'post_like'
+            , 'post_comment' => 'post_comment'
+            , 'post' => 'post'
+            , 'new_item_in_category' => 'new_item_in_category'
+            , 'product' => 'product'
+            , 'saved_item_price_decreased' => 'saved_item_price_decreased'
+            , 'saved_item_price_increased' => 'saved_item_price_increased'
+            , 'referral_request' => 'referral_request'
+            , 'event_online' => 'purchased_ticket_event_online'
+            , 'is_order_pending' => 'order_pending'
+            , 'is_order_accepted' => 'order_accepted'
+            , 'is_order_rejected' => 'order_rejected'
+            , 'is_order_delivered' => 'order_delivered'
+            , 'is_order_shipped' => 'order_shipped'
+            , 'is_purchased_ticket' => 'buy_ticket'
+            , 'is_make_donation' => 'make_donation'
+            , 'product_like' => 'product_like'
+            , 'is_account_connect' => 'account_connect'
+            , 'is_follow' => 'follow'
+        ];
+    }
+}
+
