@@ -57,7 +57,7 @@ if(!function_exists('isPhoneValid')){
 }
 
 /**
- * Define the notification types || Update according to Sellx
+ * Define the notification types || Needs to Update according to Sellx
  */
 if( !function_exists('listNotficationTypes') ){
     function listNotficationTypes(){
