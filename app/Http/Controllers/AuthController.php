@@ -64,12 +64,10 @@ class AuthController extends Controller
             ]);
         }
         else{ // email or phone based verification
-            $rules = array_merge($rules, [
-                'password' => 'required|min:6',
-            ]);
             if(isset($request->email) && ($request->email != '')){ // email
                 $rules = array_merge($rules, [
                     'email' => 'required|email',
+                    'password' => 'required|min:6',
                 ]);
             }
             else{ // phone
@@ -104,13 +102,15 @@ class AuthController extends Controller
                 return sendError('username of Password is incorrect', []);
             }
 
-            // verify hased password
-            if (!\Hash::check($request->password, $foundUser->password)) {
-                return sendError('username of Password is incorrect', []);
-            }
 
             // determine if user if verifeid or not
             if(isset($request->email) && ($request->email !='')){
+                
+                // verify hased password
+                if (!\Hash::check($request->password, $foundUser->password)) {
+                    return sendError('username of Password is incorrect', []);
+                }
+                
                 if($foundUser->email_verified_at == null){
                     $response = $this->resendVerificationToken($request);
                     if(!$response){
@@ -130,6 +130,14 @@ class AuthController extends Controller
                     $data = $response;
                     return sendError('New Verification Code sent', $data);
                 }
+
+                $response = $this->resendVerificationToken($request);
+                // dd($response);
+                if(!$response){
+                    return sendError('Something went wrong while Sending Verification token', []);
+                }
+                $data = $response;
+                return sendError('New Verification Code sent', $data);
             }
 
             // login user to application
@@ -177,22 +185,36 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required_if: is_social,0|string|email',
-            'email' => 'required_without:phone_number',
-            'email' => 'unique:users',
-
-            'phone_number' => 'required_without:email|unique:users',
-            'phone_code' => 'required_without:email', // asically country code
-
-            'password' => 'min:6|required_if:is_social,0',
-
+        $rules = [
             'is_social' => 'required|in:1,0',
-            'social_id' => 'required_if:is_social,1',
-            'social_type' => 'required_if:is_social,1',
-            'social_email' => 'required_if:is_social,1',
+        ];
 
-        ]);
+        if(isset($request->is_social) && $request->is_social == '1'){
+            $rules = array_merge($rules, [
+                'social_id' => 'required',
+                'social_type' => 'required',
+                'social_email' => 'required',
+            ]);
+        }
+        else{
+            if(isset($request->email) && $request->email != ''){
+                $rules = array_merge($rules, [
+                    'email' => 'required|string|email',
+                    'email' => 'unique:users',
+
+                    'password' => 'required',
+                    'password' => 'min:6',
+                ]);
+            }
+            else{
+                $rules = array_merge($rules, [
+                    'phone_number' => 'required|unique:users',
+                    'phone_code' => 'required',
+                ]);
+            }
+        }
+
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
