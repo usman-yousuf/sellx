@@ -401,11 +401,9 @@ class AuthController extends Controller
         if (!$user) {
             return sendError('not_registered.', null);
         }
-
-        // $user->email = $request->social_email;
+        
         \Auth::login($user);
-        // dd($request->user()->uuid);
-        // $request->user()->login($user);
+
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
