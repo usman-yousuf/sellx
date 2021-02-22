@@ -161,6 +161,12 @@ class AuthController extends Controller
         return sendError('Email or password is incorrect.', null);
     }
 
+    /**
+     * Create Authorization Token
+     *
+     * @param Request $request
+     * @return void
+     */
     public function createAuthorizationToken($request, $foundUser)
     {
         $tokenResult = $foundUser->createToken('Personal Access Token');
@@ -396,7 +402,10 @@ class AuthController extends Controller
             return sendError('not_registered.', null);
         }
 
-        $request->user()->login($user);
+        // $user->email = $request->social_email;
+        \Auth::login($user);
+        // dd($request->user()->uuid);
+        // $request->user()->login($user);
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
