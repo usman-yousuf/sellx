@@ -44,7 +44,7 @@ class AddressController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required|string',
-
+            'address_name' => 'required|string|min:3',
             'reciever_name' => 'required|string|min:3',
             'phone_code' => 'required|min:2', // basically country code
             'phone_number' => 'required|string|min:6',
@@ -58,7 +58,7 @@ class AddressController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
 
-            'default' => 'required|in:1,0',
+            'is_default' => 'required|in:1,0',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
