@@ -82,7 +82,7 @@ class AddressController extends Controller
             return sendError($address['message'], []);
         }
         $data['address'] = $address['data'];
-        return sendError('Address Saved Successfully', $data);
+        return sendSuccess('Address Saved Successfully', $data);
     }
 
     /**
