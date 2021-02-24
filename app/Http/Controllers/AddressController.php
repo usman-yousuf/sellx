@@ -25,7 +25,7 @@ class AddressController extends Controller
      */
     public function getProfileAddresses(Request $request)
     {
-        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile : $request->user()->profile->uuid;
+        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
         $profile = Profile::where('uuid', $uuid)->with('user')->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
@@ -44,7 +44,7 @@ class AddressController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required|string',
-
+            'address_name' => 'required|string|min:3',
             'reciever_name' => 'required|string|min:3',
             'phone_code' => 'required|min:2', // basically country code
             'phone_number' => 'required|string|min:6',
@@ -58,7 +58,7 @@ class AddressController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
 
-            'default' => 'required|in:1,0',
+            'is_default' => 'required|in:1,0',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -82,7 +82,7 @@ class AddressController extends Controller
             return sendError($address['message'], []);
         }
         $data['address'] = $address['data'];
-        return sendError('Address Saved Successfully', $data);
+        return sendSuccess('Address Saved Successfully', $data);
     }
 
     /**
@@ -107,6 +107,6 @@ class AddressController extends Controller
             return sendError('Invalid or Expired information provided', []);
         }
         $address->delete();
-        return sendError('Address Deleted Successfully', []);
+        return sendSuccess('Address Deleted Successfully', []);
     }
 }

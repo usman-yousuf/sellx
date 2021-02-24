@@ -46,6 +46,7 @@ class Address extends Model
             $model->profile_id = $profile_id;
         }
 
+        $model->address_name = $request->address_name;
         $model->reciever_name = $request->reciever_name;
         $model->phone_code = $request->phone_code;
         $model->phone_number = $request->phone_number;
@@ -59,7 +60,7 @@ class Address extends Model
         $model->latitude = $request->latitude;
         $model->longitude = $request->longitude;
 
-        $model->default = $request->default;
+        $model->is_default = $request->is_default;
 
         try{
             $model->save();

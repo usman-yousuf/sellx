@@ -199,8 +199,9 @@ class Profile extends Model
         try{
             $profile->save();
             User::where('id', $profile->user_id)->update(['active_profile_id' =>$profile->id]); // update active profile
-            // return $profile->with('user', 'country');
-            return Profile::find($profile->id)->with('user')->first();
+            
+            $model = Profile::where('id', $profile->id)->with('user')->first();
+            return $model;
         }
         catch(\Exception $ex){
             // dd($ex->getMessage());
