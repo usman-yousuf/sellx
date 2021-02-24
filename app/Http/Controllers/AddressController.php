@@ -107,6 +107,6 @@ class AddressController extends Controller
             return sendError('Invalid or Expired information provided', []);
         }
         $address->delete();
-        return sendError('Address Deleted Successfully', []);
+        return sendSuccess('Address Deleted Successfully', []);
     }
 }
