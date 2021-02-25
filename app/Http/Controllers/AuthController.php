@@ -541,7 +541,7 @@ class AuthController extends Controller
             return false;
             // return sendError('Something went wrong while sending Activation Code.', []);
         }
-        $data['code'] => $code;
+        $data['code'] = $code;
         $data['user'] = $user;
         // return $data;
         return sendSuccess('Verification Token Sent Successfully.', $data);
