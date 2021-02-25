@@ -29,6 +29,8 @@ class CurrenciesSeeder extends Seeder
             ['code' =>'BBD' , 'name' => 'Barbados Dollar', 'symbol' => '$' ],
             ['code' =>'BGN' , 'name' => 'Bulgarian Lev', 'symbol' => 'лв' ],
             ['code' =>'BMD' , 'name' => 'Bermudian Dollar', 'symbol' => '$' ],
+            ['code' =>'BHD' , 'name' => 'Bahraini Dinar', 'symbol' => 'د.ب' ],
+            ['code' =>'KWD' , 'name' => 'kuwaiti Dinar', 'symbol' => 'د.ك' ],
             ['code' =>'BND' , 'name' => 'Brunei Dollar', 'symbol' => '$' ],
             ['code' =>'BOB' , 'name' => 'BOV Boliviano Mvdol', 'symbol' => '$b' ],
             ['code' =>'BRL' , 'name' => 'Brazilian Real', 'symbol' => 'R$' ],

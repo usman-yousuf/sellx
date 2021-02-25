@@ -41,7 +41,9 @@ class NoAuthController extends Controller
 	}
 
 	public function getLanguages(Request $request){
-		$languages = Language::get();
+		$lan = array('en','ar'); 
+		
+		$languages = Language::whereIn('code', $lan)->get();
 
 		if($languages){
 			$data['languages'] = $languages;
@@ -51,7 +53,8 @@ class NoAuthController extends Controller
 	}
 
 	public function getCountries(Request $request){
-		$countries = Country::get();
+		$country = array('bahrain','kuwait', 'oman', 'qatar', 'saudi Arabia', 'united arab emirates'); 
+		$countries = Country::whereIn('name', $country)->get();
 
 		if($countries){
 			$data['countries'] = $countries;
@@ -71,7 +74,8 @@ class NoAuthController extends Controller
 	}
 
 	public function getCurrencies(Request $request){
-		$currencies = Currency::get();
+		$currency = array('bhd','awd', 'omr', 'qar', 'sar', 'aed', 'usd'); 
+		$currencies = Currency::whereIn('code', $currency)->get();
 
 		if($currencies){
 			$data['currencies'] = $currencies;
