@@ -27,7 +27,7 @@ class Profile extends Model
     // get default address
     public function defaultAddress()
     {
-        return $this->hasMany('\App\Models\Address', 'profile_id', 'id')->where('default', 1);
+        return $this->hasMany('\App\Models\Address', 'profile_id', 'id')->where('is_default', 1);
     }
 
     // Get all of the categories for the profile.
