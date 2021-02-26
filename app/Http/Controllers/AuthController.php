@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PasswordReset;
+use App\Models\Profile;
 use App\Models\SignupVerification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -105,12 +106,12 @@ class AuthController extends Controller
 
             // determine if user if verifeid or not
             if(isset($request->email) && ($request->email !='')){
-                
+
                 // verify hased password
                 if (!\Hash::check($request->password, $foundUser->password)) {
                     return sendError('username of Password is incorrect', []);
                 }
-                
+
                 if($foundUser->email_verified_at == null){
                     $response = $this->resendVerificationToken($request);
                     if(!$response){
@@ -401,7 +402,7 @@ class AuthController extends Controller
         if (!$user) {
             return sendError('not_registered.', null);
         }
-        
+
         \Auth::login($user);
 
         $tokenResult = $user->createToken('Personal Access Token');
@@ -438,17 +439,22 @@ class AuthController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
+        if(!isset($request->user_uuid) || null == $request->user_uuid){ // get user based on email|phone
+            if(isset($request->email) && $request->email != ''){
+                $user = User::where('email', $request->email)->first();
+            }
+            else{
+                $user = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
+            }
+        }
+        else{ // get logged in user
+            $user = User::where('uuid', $request->user_uuid)->first();
+        }
 
-        // get user based on email|phone
-        if(isset($request->email) && $request->email != ''){
-            $user = User::where('email', $request->email)->first();
-        }
-        else{
-            $user = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
-        }
         if(null == $user){
             return sendError('Invalid Information Provided', null);
         }
+        // dd($user);
 
         // get verification code based on email|phone
         if(isset($request->email) && $request->email != ''){
@@ -470,6 +476,17 @@ class AuthController extends Controller
         else{
             $user->phone_verified_at = date('Y-m-d H:i:s');
         }
+
+        // update user info
+        if( isset($request->user_uuid) && ($request->user_uuid != null) ){ // case: new email|phone is to be set
+            if (isset($request->email) && $request->email != '') {
+                $user->email = $request->email;
+            } else {
+                $user->phone_code = $request->phone_code;
+                $user->phone_number = $request->phone_number;
+            }
+        }
+
         $user->save();
 
         // login user to application
@@ -483,7 +500,12 @@ class AuthController extends Controller
             $data = [];
             $data = array_merge($data, $result['data']);
 
-            $data['user'] = $user;
+            if (!isset($request->user_uuid) || null == $request->user_uuid) {
+                $data['user'] = $user;
+            }
+            else{
+                $data['profile'] = Profile::where('id', $user->active_profile_id)->with('user')->first();
+            }
             return sendSuccess('Verified successfully.', $data);
         }
         else{

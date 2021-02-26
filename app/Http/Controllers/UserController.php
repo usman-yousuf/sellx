@@ -43,7 +43,15 @@ class UserController extends Controller
      */
     public function getProfile(Request $request)
     {
-        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
+        $uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : null;
+        if(null == $uuid){
+
+            $uuid = (null != $request->user()->profile)? $request->user()->profile->uuid : null;
+
+            if(null == $uuid){
+                return sendError('No Profile Found Against this user', []);
+            }
+        }
         $profile = Profile::where('uuid', $uuid)->with('user', 'defaultAddress')->first();
         if(null == $profile){
             return sendError('Invalid or Expired information provided', []);
@@ -107,7 +115,9 @@ class UserController extends Controller
             return sendError('Invalid or Expired Information Provided', []);
         }
 
+        // valdate user model info
         if( ($request->screen_type == 'phone') || ($request->screen_type == 'email') ){
+            // determine if phone|email does not belong to anothr user
             if($request->screen_type == 'phone'){
                 $foundUser = User::where('phone_number', $request->phone_number)->where('phone_code', $request->phone_code)->first();
                 if(null != $foundUser){
@@ -131,20 +141,17 @@ class UserController extends Controller
                 }
             }
 
-            // update user chunk
-            $chunkUpdateResult = User::updateUserChunks($request, $profile->user->uuid);
-            if(!$chunkUpdateResult){
-                return sendError('Something went wrong while updating Profile', []);
-            }
-            // resemd verification token
+            // send verification token
             $authCtrlObj = new AuthController();
             $code = mt_rand(100000, 999999);
             $authCtrlObj->sendVerificationToken($profile->user, $code, $request); // send verification email
-            $profile = Profile::where('id', $chunkUpdateResult->active_profile_id)->with('user', 'defaultAddress')->first();
+            $profile = Profile::where('id', $profile->id)->with('user', 'defaultAddress')->first();
+            $data['code'] = $code;
             $data['profile'] = $profile;
             return sendSuccess('Profile Updated Successfully.', $data);
         }
         else{
+            // validate profile modal info
             if($request->screen_type == 'username'){
                 $foundUser = Profile::where('username', $request->username)->first();
                 if(null != $foundUser){
@@ -159,6 +166,7 @@ class UserController extends Controller
             if(!$chunkUpdateResult){
                 return sendError('Something went wrong while updating Profile', []);
             }
+            $data['code'] = $code;
             $data['profile'] = $chunkUpdateResult;
             return sendSuccess('Profile Updated Successfully.', $data);
         }
