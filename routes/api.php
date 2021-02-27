@@ -26,6 +26,10 @@ Route::post('get_categories', 'App\Http\Controllers\NoAuthController@getCategori
 Route::post('get_currencies', 'App\Http\Controllers\NoAuthController@getCurrencies');
 
 
+Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
+Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
+
+
 Route::group([ 'prefix' => 'auth'], function () {
 
     Route::post('login', 'App\Http\Controllers\AuthController@login');
