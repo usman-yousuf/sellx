@@ -40,8 +40,14 @@
     <div id="loader" style="position: fixed; display: none;">
         <img src="{{ asset("lib/user/loader.gif") }}">
     </div>
+<header class="logout_header" style='top:0px;'>
 
-@yield('body')
+</header>
+
+    <div class="container">
+        @yield('body')
+    </div>
+
 
 @yield('footer')
 

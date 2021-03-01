@@ -15,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+
 });
+Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
+Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 

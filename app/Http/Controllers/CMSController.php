@@ -22,13 +22,16 @@ class CMSController extends Controller
 {
 	public function tos_page(Request $request)
     {
-		$data['view'] =  view('cms_pages.tos', [])->render();
-        return sendSuccess('Success', $data);
+        return view('cms_pages.tos', []);
+		// $data['view'] =  view('cms_pages.tos', [])->render();
+        // return sendSuccess('Success', $data);
 	}
 
     public function privacy_page(Request $request)
     {
-        $data['view'] =  view('cms_pages.privacy', [])->render();
-        return sendSuccess('Success', $data);
+        return view('cms_pages.privacy', []);
+
+        // $data['view'] =  view('cms_pages.privacy', [])->render();
+        // return sendSuccess('Success', $data);
     }
 }
