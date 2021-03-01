@@ -20,6 +20,28 @@ use App\Models\City;
 
 class NoAuthController extends Controller
 {
+	public function getInitialData(){
+		$lan = array('en','ar'); 
+		$country = array('bahrain','kuwait', 'oman', 'qatar', 'saudi Arabia', 'united arab emirates'); 
+		$currency = array('bhd','awd', 'omr', 'qar', 'sar', 'aed', 'usd'); 
+		
+		$constants = Constant::get();
+		$categories = Category::get();
+		$languages = Language::whereIn('code', $lan)->get();
+		$countries = Country::whereIn('name', $country)->get();
+	 	$currencies = Currency::whereIn('code', $currency)->get();
+		$cities = City::get();
+
+		$data['constants'] = $constants;
+		$data['categories'] = $categories;
+		$data['languages'] = $languages;
+		$data['countries'] = $countries;
+		$data['currencies'] = $currencies;
+		$data['cities'] = $cities;
+
+		return sendSuccess('success.', $data);
+	}
+
 	public function getConstants(Request $request){
 		$constants = Constant::get();
 
