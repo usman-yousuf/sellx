@@ -166,7 +166,6 @@ class UserController extends Controller
             if(!$chunkUpdateResult){
                 return sendError('Something went wrong while updating Profile', []);
             }
-            $data['code'] = $code;
             $data['profile'] = $chunkUpdateResult;
             return sendSuccess('Profile Updated Successfully.', $data);
         }
