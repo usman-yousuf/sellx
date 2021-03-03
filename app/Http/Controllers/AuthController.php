@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -273,12 +274,14 @@ class AuthController extends Controller
 
             // password for both social media and simple case
             if (isset($request->password)) {
-                $user->password = bcrypt($request->password);
+                // $user->password = bcrypt($request->password);
+                $user->password = Hash::make($request->password);
             } else {
                 if ($request->is_social == 1) {
                     // ignore in case of social media login
                 } else {
-                    $user->password = bcrypt(bcrypt(mt_rand(100000, 999999)));
+                    // $user->password = bcrypt(bcrypt(mt_rand(100000, 999999)));
+                    $user->password = Hash::make($code);
                 }
             }
 
@@ -666,7 +669,8 @@ class AuthController extends Controller
 
         if($status){ // token deleted successfully
             // update user password
-            $user->password = bcrypt($request->password);
+            // $user->password = bcrypt($request->password);
+            $user->password = Hash::make($request->password);
             if($user->save()){
                 return sendSuccess('Password Reset Successfully', []);
             }
@@ -708,7 +712,9 @@ class AuthController extends Controller
         }
 
 
-        $model->password = bcrypt($request->new_password);
+        // $model->password = bcrypt($request->new_password);
+        $model->password = Hash::make($request->new_password);
+
         $data['user'] = $model->save();
 
         return sendSuccess('Password Reset Successfully', $data);
