@@ -10,7 +10,6 @@ class Profile extends Model
 {
     use HasFactory, Notifiable;
     protected $table = 'profiles';
-    // protected $with = ['country'];
 
     // get profile user
     public function user()
@@ -39,6 +38,11 @@ class Profile extends Model
     public function attachments()
     {
         return $this->hasMany('\App\Models\UploadMedia', 'profile_id', 'id');
+    }
+
+    public function LocalisationSetting()
+    {
+        return $this->hasOne('\App\Models\LocalisationSetting', 'profile_id', 'id');
     }
 
     /**
