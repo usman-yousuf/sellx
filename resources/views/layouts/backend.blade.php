@@ -45,6 +45,9 @@
 	<script src="{{asset('admin/global_assets/js/demo_pages/datatables_advanced.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
 	<!-- /theme JS files -->
 
 </head>
@@ -435,7 +438,17 @@
                             <a href="#" class="nav-link"><i class="icon-users4"></i> <span>User Management</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="{{ route('admin.users') }}"  method="GET" class="nav-link">Users</a></li>
+                                <li class="nav-item"><a href="{{ route('admin.users') }}"  method="GET" class="nav-link">Buyers</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="icon-home8"></i> <span>Auction House</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item"><a href="#"  method="GET" class="nav-link">Auctioneers</a></li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item"><a href="#"  method="GET" class="nav-link">Approval Requests</a></li>
                             </ul>
                         </li>
 
