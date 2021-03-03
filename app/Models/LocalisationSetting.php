@@ -18,7 +18,24 @@ class LocalisationSetting extends Model
         'deleted_at',
     ];
 
+    protected $with = ['currency', 'country', 'language'];
+
     use SoftDeletes;
+
+    public function currency()
+    {
+        return $this->belongsTo('\App\Models\Currency', 'currency_id', 'id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('\App\Models\Country', 'country_id', 'id');
+    }
+
+    public function language()
+    {
+        return $this->belongsTo('\App\Models\Language', 'language_id', 'id');
+    }
 
     /**
      * Update Notification Settings
@@ -41,10 +58,11 @@ class LocalisationSetting extends Model
         $model->country_id = $request->country_id;
         $model->currency_id = $request->currency_id;
         $model->language_id = $request->language_id;
-        // dd($request->all());
+        $model->is_anonymity = $request->anonymity;
 
         try{
             $model->save();
+            $model = self::find($model->id);
             return getInternalSuccessResponse($model);
         }
         catch(\Exception $ex){

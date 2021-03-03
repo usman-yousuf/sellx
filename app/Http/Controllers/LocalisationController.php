@@ -19,9 +19,6 @@ class LocalisationController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required',
-            'country_id' => 'required',
-            'currency_id' => 'required',
-            'language_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +38,29 @@ class LocalisationController extends Controller
         }
         $model = $result['data'];
 
-        $data['notification_permissions'] = $model;
+        $data['localisation_settings'] = $model;
         return sendSuccess('Success', $data);
+    }
+
+    public function getLocalisationSetting(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
+        $profile = Profile::where('uuid', $profile_uuid)->with('LocalisationSetting')->first();
+
+        if($profile){
+            $data['profile'] = $profile;
+            return sendSuccess('Success', $data);
+        }
+        return sendError('Profile not found.', null);
+        
     }
 }

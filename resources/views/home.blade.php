@@ -1,36 +1,23 @@
-@extends('layouts.backend')
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
-    <!-- Page header -->
-            <div class="page-header page-header-light">
-                <div class="page-header-content header-elements-md-inline">
-                    <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Dashboard</h4>
-                        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-                    </div>
-                </div>
-
-                <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-                    <div class="d-flex">
-                        <div class="breadcrumb">
-                            <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                            <span class="breadcrumb-item active">Dashboard</span>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
                         </div>
+                    @endif
 
-                        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-                    </div>
+                    {{ __('You are logged in!') }}
                 </div>
             </div>
-            <!-- /page header -->
-
-
-            <!-- Content area -->
-            <div class="content pt-0" disabled>
-
-
-
-            </div>
-            <!-- /content area -->
-
+        </div>
+    </div>
+</div>
 @endsection

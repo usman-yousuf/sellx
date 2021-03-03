@@ -428,6 +428,13 @@
 								</span>
 							</a>
 						</li>
+						<li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="icon-users4"></i> <span>User Management</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item"><a href="{{ route('admin.users') }}"  method="GET" class="nav-link">Users</a></li>
+                            </ul>
+                        </li>
 
 					</ul>
 				</div>

@@ -71,4 +71,6 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // Localisation routes
     Route::post('update_localisation_setting', 'App\Http\Controllers\LocalisationController@updateLocalisationSetting');
+    Route::post('get_localisation_setting', 'App\Http\Controllers\LocalisationController@getLocalisationSetting');
+
 });

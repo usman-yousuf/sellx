@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,18 @@ Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::name('admin.')->group(function() {
+		
+		Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+		//USERS MANAGEMENT ROUTES
+	    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('users');
+	    Route::get('/admin/view/{uuid}', [UserManagementController::class, 'view'])->name('users.view');
+	    Route::get('/admin/users/edit/{uuid?}', [UserManagementController::class, 'edit'])->name('users.edit');
+	    Route::post('/admin/users/update/{uuid?}', [UserManagementController::class, 'update'])->name('users.update');
+	    Route::get('/admin/users/delete/{uuid?}', [UserManagementController::class, 'felete'])->name('users.delete');
+
+	});
+});
