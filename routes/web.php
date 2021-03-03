@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
