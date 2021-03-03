@@ -281,7 +281,7 @@ class AuthController extends Controller
                     // ignore in case of social media login
                 } else {
                     // $user->password = bcrypt(bcrypt(mt_rand(100000, 999999)));
-                    $user->password = Hash::make(mt_rand(100000, 999999));
+                    $user->password = Hash::make($code);
                 }
             }
 
