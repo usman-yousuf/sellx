@@ -42,6 +42,9 @@
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/heatmaps.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/pies.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/bullets.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/demo_pages/datatables_advanced.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
 	<!-- /theme JS files -->
 
 </head>
@@ -421,7 +424,7 @@
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item">
-							<a href="index.html" class="nav-link active">
+							<a href="{{ route('admin.home') }}" class="nav-link active">
 								<i class="icon-home4"></i>
 								<span>
 									Dashboard
