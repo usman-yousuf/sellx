@@ -627,6 +627,9 @@ class AuthController extends Controller
             }
         }
 
+
+        // dd($request->all(), $code, $resetCode);
+
         return sendSuccess('Reset Token Sent Successfully.', []);
     }
 
@@ -650,6 +653,7 @@ class AuthController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
+        // dd($request->new_password);
 
         if(isset($request->email) && $request->email != ''){
             $user = User::where('email', $request->email)->first();
@@ -670,7 +674,7 @@ class AuthController extends Controller
         if($status){ // token deleted successfully
             // update user password
             // $user->password = bcrypt($request->password);
-            $user->password = Hash::make($request->password);
+            $user->password = Hash::make($request->new_password);
             if($user->save()){
                 return sendSuccess('Password Reset Successfully', []);
             }
