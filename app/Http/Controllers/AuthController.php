@@ -673,7 +673,6 @@ class AuthController extends Controller
 
         if($status){ // token deleted successfully
             // update user password
-            // $user->password = bcrypt($request->password);
             $user->password = Hash::make($request->new_password);
             if($user->save()){
                 return sendSuccess('Password Reset Successfully', []);
