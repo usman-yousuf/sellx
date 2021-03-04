@@ -20,16 +20,19 @@ class UserManagementController extends Controller
 
 	public function view(Request $request, $uuid){
 		
-		$user = Profile::where('uuid', $uuid)->with('user')->with('LocalisationSetting')->first();
+		$user = Profile::where('uuid', $uuid)->with('user')->with('addresses')->with('LocalisationSetting')->with('notificationpermissions')->first();
 
 		return view('admin.usermanagement.view',compact('user',$user));
 	}
 
 	public function delete(Request $request, $uuid){
 		
-		$user = Profile::where('uuid', $uuid)->first();
-		dd($user->user_id);
-
-		return view('admin.usermanagement.view',compact('user',$user));
+		$profile = Profile::where('uuid', $uuid)->first();
+		$user = User::where('id', $profile->user_id)->first();
+		
+		if($user->delete() && $profile->delete()){
+			return redirect()->route('admin.users');
+		}
+		
 	}
 }

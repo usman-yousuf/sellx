@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
     use HasFactory, Notifiable;
+
+    use SoftDeletes;
 
     protected $with = ['countryInfo'];
 

@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profile extends Model
 {
     use HasFactory, Notifiable;
     protected $table = 'profiles';
+
+    use SoftDeletes;
 
     // get profile user
     public function user()
@@ -43,6 +46,10 @@ class Profile extends Model
     public function LocalisationSetting()
     {
         return $this->hasOne('\App\Models\LocalisationSetting', 'profile_id', 'id');
+    }
+    public function notificationpermissions()
+    {
+        return $this->hasOne('\App\Models\NotificationPermission', 'profile_id', 'id');
     }
 
     /**

@@ -38,9 +38,15 @@ class NotificationPermission extends Model
         else{
             $model->updated_at = date('Y-m-d H:i:s');
         }
-        $model->is_email_enable = $request->enable_email_notifications;
-        $model->is_push_enable = $request->enable_push_notifications;
-        $model->is_sms_enable = $request->enable_sms_notifications;
+        if(isset($request->enable_email_notifications)){
+            $model->is_email_enable = $request->enable_email_notifications;
+        }
+        if(isset($request->enable_push_notifications)){
+            $model->is_push_enable = $request->enable_push_notifications;
+        }
+        if(isset($request->enable_sms_notifications)){
+            $model->is_sms_enable = $request->enable_sms_notifications;
+        }
 
         try{
             $model->save();
