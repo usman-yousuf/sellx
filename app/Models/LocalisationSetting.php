@@ -55,10 +55,18 @@ class LocalisationSetting extends Model
         else{
             $model->updated_at = date('Y-m-d H:i:s');
         }
-        $model->country_id = $request->country_id;
-        $model->currency_id = $request->currency_id;
-        $model->language_id = $request->language_id;
-        $model->is_anonymity = $request->anonymity;
+        if(isset($request->country_id)){
+            $model->country_id = $request->country_id;
+        }
+        if(isset($request->currency_id)){
+            $model->currency_id = $request->currency_id;
+        }
+        if(isset($request->language_id)){
+            $model->language_id = $request->language_id;
+        }
+        if(isset($request->anonymity)) {
+            $model->is_anonymity = $request->anonymity;
+        }
 
         try{
             $model->save();
