@@ -60,7 +60,7 @@ class AuthController extends Controller
         ];
         if($request->is_social){
             $rules = array_merge($rules, [
-                'social_email' => 'required|email',
+                'social_email' => 'email|min:6',
                 'social_id' => 'required',
                 'social_type' => 'required',
             ]);
