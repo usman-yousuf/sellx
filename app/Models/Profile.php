@@ -206,11 +206,13 @@ class Profile extends Model
         $profile->country = $request->country;
         $profile->dob = $request->dob;
         $profile->profile_type = $request->profile_type;
-        $profile->profile_image = $request->profile_image;
+        if(isset($request->profile_image) && ('' != $request->profile_image)){
+            $profile->profile_image = $request->profile_image;
+        }
         try{
             $profile->save();
             User::where('id', $profile->user_id)->update(['active_profile_id' =>$profile->id]); // update active profile
-            
+
             $model = Profile::where('id', $profile->id)->with('user')->first();
             return $model;
         }

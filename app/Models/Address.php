@@ -12,6 +12,10 @@ class Address extends Model
 {
     use HasFactory, Notifiable;
 
+    protected $fillable = [
+        'is_default'
+    ];
+
     use SoftDeletes;
 
     protected $with = ['countryInfo'];

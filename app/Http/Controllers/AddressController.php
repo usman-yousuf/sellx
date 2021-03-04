@@ -85,6 +85,34 @@ class AddressController extends Controller
         return sendSuccess('Address Saved Successfully', $data);
     }
 
+    public function markDefault(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'required|string',
+            'address_uuid' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid', $request->profile_uuid)->first();
+        if (null == $profile) {
+            return sendError('Invalid or Expired information provided', []);
+        }
+
+        $address = Address::where('uuid', $request->address_uuid)->first();
+        if (null == $address) {
+            return sendError('Invalid or Expired information provided', []);
+        }
+
+        Address::where('profile_id', $profile->id)->update(['is_default' => false]); // make all address normal
+        $address->update(['is_default' => true]);
+
+        $data['address'] = $address;
+        return sendSuccess('Marked as Default Successfully', $data);
+    }
+
     /**
      * Delete an Address
      *

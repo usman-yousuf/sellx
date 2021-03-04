@@ -338,16 +338,17 @@ class AuthController extends Controller
         if (isset($request->phone_number) && isset($request->phone_code)) {
             $twilio = new TwilioController;
             if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
-                return fasle;
+                return false;
                 // return sendError('Somthing went wrong while send Code over phone', NULL);
             }
             $verificationModel->type = 'phone';
             $verificationModel->phone = (strpos($request->phone_number, '+') > -1)? $request->phone_number : $request->phone_code . $request->phone_number;
             $verificationModel->email = null;
         } else {
-            Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($user) {
+            $email_address = (null != $user->email)? $user->email : $request->email;
+            Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to($user->email)->subject('Verification');
+                $m->to($email_address)->subject('Verification');
             });
             $verificationModel->type = 'email';
             $verificationModel->email = $request->email;
@@ -356,12 +357,12 @@ class AuthController extends Controller
         $verificationModel->token = $code;
         $verificationModel->created_at = date('Y-m-d H:i:s');
 
-        if (isset($request->phone_number) && isset($request->phone_code)) {
-            $user->phone_verified_at = null;
-        }
-        else{
-            $user->email_verified_at = null;
-        }
+        // if (isset($request->phone_number) && isset($request->phone_code)) {
+        //     $user->phone_verified_at = null;
+        // }
+        // else{
+        //     $user->email_verified_at = null;
+        // }
         return ($verificationModel->save());
     }
 

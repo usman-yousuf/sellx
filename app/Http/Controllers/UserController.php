@@ -188,7 +188,7 @@ class UserController extends Controller
             'dob' => 'required',
             'gender' => 'required|in:male,female',
             'profile_type' => 'required|in:buyer,auctionar',
-            'profile_image' => 'required',
+            // 'profile_image' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -205,7 +205,7 @@ class UserController extends Controller
 
         $foundModel = Profile::where('username', $request->username)->first();
         if(null != $foundModel){
-            if($foundModel->id != $user->profile->id){ // email belongs to some another user
+            if($foundModel->id != $user->active_profile_id){ // email belongs to some another user
                 return sendError('Username Already Exists', NULL);
             }
         }
