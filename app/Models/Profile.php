@@ -12,6 +12,11 @@ class Profile extends Model
     use HasFactory, Notifiable;
     protected $table = 'profiles';
 
+
+    protected $fillable = [
+        'max_bid_limit',
+    ];
+
     use SoftDeletes;
 
     // get profile user
@@ -162,7 +167,9 @@ class Profile extends Model
         else if($request->screen_type == 'image'){
             $model->profile_image = $request->profile_image;
         }
-
+        else if($request->screen_type == 'bid_limit'){
+            $model->max_bid_limit = $request->max_bid_limit;
+        }
         try{
             $model->save();
             $model = self::where('id', $model->id)->with('user')->first();

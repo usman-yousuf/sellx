@@ -74,4 +74,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_localisation_setting', 'App\Http\Controllers\LocalisationController@updateLocalisationSetting');
     Route::post('get_localisation_setting', 'App\Http\Controllers\LocalisationController@getLocalisationSetting');
 
+    Route::post('validate_bank', 'App\Http\Controllers\RefundController@validateIBAN');
+    Route::post('refund_request', 'App\Http\Controllers\RefundController@refundRequest');
+    Route::post('get_refund_history', 'App\Http\Controllers\RefundController@getRefundHistory');
+
+
 });

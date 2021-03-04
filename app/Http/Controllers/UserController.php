@@ -69,7 +69,7 @@ class UserController extends Controller
     public function updateProfileChunks(Request $request)
     {
         $rules = [
-            'screen_type' => 'required|in:phone,email,username,names,image',
+            'screen_type' => 'required|in:phone,email,username,names,image,bid_limit',
             'profile_uuid' => 'required',
         ];
 
@@ -100,6 +100,12 @@ class UserController extends Controller
                 'profile_image' => 'required|string',
             ]);
         }
+        else if($request->screen_type == 'bid_limit'){
+            $rules = array_merge($rules, [
+                'max_bid_limit' => 'required',
+            ]);
+        }
+
 
         // validate given chunk
         $validator = Validator::make($request->all(), $rules);
