@@ -201,7 +201,7 @@ class AuthController extends Controller
             $rules = array_merge($rules, [
                 'social_id' => 'required',
                 'social_type' => 'required',
-                'social_email' => 'required',
+                'social_email' => 'email|min:6',
             ]);
         }
         else{
@@ -374,7 +374,8 @@ class AuthController extends Controller
     public function socialLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'social_email' => 'required_unless:social_type,apple,facebook,google,twitter|string|email',
+            // 'social_email' => 'required_unless:social_type,apple,facebook,google,twitter|string|email',
+            'social_email' => 'email|min:6',
             'social_id' => 'required',
             'social_type' => 'required'
         ]);
@@ -386,15 +387,20 @@ class AuthController extends Controller
 
         $user = null;
 
-        if ($request->social_type == 'apple') {
-            $user = User::where('social_id', $request->social_id)->first();
-        } else {
-            $user = User::where('social_email',  $request->social_email)->where('social_id', $request->social_id)->first();
-        }
+        if(isset($request->social_email) && ('' != $request->social_email)){
+            if ($request->social_type == 'apple') {
+                $user = User::where('social_id', $request->social_id)->where('social_type', $request->social_type)->first();
+            } else {
+                $user = User::where('social_email',  $request->social_email)->where('social_id', $request->social_id)->first();
+            }
 
-        $check1 = User::where('social_email',  $request->social_email)->first();
-        if (!$user && $check1) {
-            return sendError('Email has been registered already with another account.', null);
+            $check1 = User::where('social_email',  $request->social_email)->first();
+            if (!$user && $check1) {
+                return sendError('Email has been registered already with another account.', null);
+            }
+        }
+        else{
+            $user = User::where('social_id', $request->social_id)->where('social_type', $request->social_type)->first();
         }
 
         $check2 = User::where('social_id', $request->social_id)->first();
@@ -417,7 +423,7 @@ class AuthController extends Controller
         $data['access_token'] = $tokenResult->accessToken;
         $data['token_type'] = 'Bearer';
         $data['expires_at'] = Carbon::parse($tokenResult->token->expires_at)->toDateTimeString();
-        $data['user'] = User::where('id', $request->user()->id)->first();
+        $data['user'] = User::where('id', $request->user()->id)->with('profile')->first();
         return sendSuccess('Login successfully.', $data);
     }
 
