@@ -57,6 +57,17 @@
                         <div id="collapsible-controls-group1" class="collapse show">
                             <div class="card">
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
+                                            <div class="card-body text-center">
+                                                <div class="card-img-actions d-inline-block mb-3">
+                                                    <img class="img-fluid rounded-circle" src="{{$user->profile_image}}" width="170" height="170" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-6">
                                         <div class="card-body">
                                             <div class="container">
@@ -65,24 +76,49 @@
                                                         <table class="table table-striped">
                                                             <tbody>
                                                                 <tr>
-                                                                    <th>Name</th>
-                                                                    <td>Muhammad Babar Khan</td>
+                                                                    <th>First Name</th>
+                                                                    <td>{{$user->first_name}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Last Name</th>
+                                                                    <td>{{$user->last_name}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Username</th>
+                                                                    <td>{{$user->username}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Bio</th>
+                                                                    <td>{{$user->bio}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Date of birth</th>
+                                                                    <td>{{$user->dob}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Gender</th>
+                                                                    <td>{{$user->gender}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Profile Type</th>
-                                                                    <td>Personal</td>
+                                                                    <td>{{$user->profile_type}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Verification Status</th>
-                                                                    <td>
-                                                                        <span class="badge badge-danger">Not Verified</span>
-                                                                    </td>
+                                                                    <th>Status</th>
+                                                                    @if($user->is_approved == 1)
+                                                                        <td><span class="badge badge-success">Approved</span></td>
+                                                                    @elseif($user->is_approved == 0)
+                                                                        <td><span class="badge badge-danger">Unapproved</span></td>
+                                                                    @endif
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th>Gender</th>
+                                                                    <td>{{$user->gender}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Approval Status</th>
-                                                                    <td>
-                                                                        <span class="badge badge-success">Approved</span>
-                                                                    </td>
+                                                                    <th>Country</th>
+                                                                    <td>{{$user->country}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -99,24 +135,48 @@
                                                         <table class="table table-striped">
                                                             <tbody>
                                                                 <tr>
-                                                                    <th>Name</th>
-                                                                    <td>Muhammad Babar Khan</td>
+                                                                    <th>Email</th>
+                                                                    <td>{{$user->user->email}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Profile Type</th>
-                                                                    <td>Personal</td>
+                                                                    <th>Phone code</th>
+                                                                    <td>{{$user->user->phone_code}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Verification Status</th>
-                                                                    <td>
-                                                                        <span class="badge badge-danger">Not Verified</span>
-                                                                    </td>
+                                                                    <th>Phone Number</th>
+                                                                    <td>{{$user->user->phone_number}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Approval Status</th>
-                                                                    <td>
-                                                                        <span class="badge badge-success">Approved</span>
-                                                                    </td>
+                                                                    <th>Social Login</th>
+                                                                    @if($user->user->is_social == 1)
+                                                                        <td><span class="badge badge-success">Yes</span></td>
+                                                                    @elseif($user->user->is_social == 0)
+                                                                        <td><span class="badge badge-danger">No</span></td>
+                                                                    @endif
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Social Platform</th>
+                                                                    @if($user->user->social_type != null)
+                                                                        <td>{{$user->user->social_type}}</td>
+                                                                    @elseif($user->user->social_type == null)
+                                                                        <td>Empty</td>
+                                                                    @endif
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Social Email</th>
+                                                                    @if($user->user->social_email != null)
+                                                                        <td>{{$user->user->social_email}}</td>
+                                                                    @elseif($user->user->social_email == null)
+                                                                        <td>Empty</td>
+                                                                    @endif
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Social ID</th>
+                                                                    @if($user->user->social_id != null)
+                                                                        <td>{{$user->user->social_id}}</td>
+                                                                    @elseif($user->user->social_id == null)
+                                                                        <td>Empty</td>
+                                                                    @endif
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -147,37 +207,84 @@
                         </div>
 
                         <div id="collapsible-controls-group2" class="collapse">
-                            <div class="col-6">
+                            <div class="">
                                 <div class="card-body">
                                     <div class="container">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table class="table table-striped">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <td>Muhammad Babar Khan</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Profile Type</th>
-                                                            <td>Personal</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Verification Status</th>
-                                                            <td>
-                                                                <span class="badge badge-danger">Not Verified</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Approval Status</th>
-                                                            <td>
-                                                                <span class="badge badge-success">Approved</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                        @forelse($user->addresses as $address)
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <table class="table table-striped">
+                                                        <div><h6><label><b>Address# {{$loop->iteration}}</b></label></h6></div>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Address Name</th>
+                                                                <td>{{$address->address_name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Reciever Name</th>
+                                                                <td>{{$address->reciever_name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Phone Code</th>
+                                                                <td>{{$address->phone_code}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Phone Number</th>
+                                                                <td>{{$address->phone_number}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Address 1</th>
+                                                                <td>{{$address->address1}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Address 2</th>
+                                                                <td>{{$address->address2}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Zip</th>
+                                                                <td>{{$address->zip}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>State</th>
+                                                                <td>{{$address->state}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>City</th>
+                                                                <td>{{$address->city}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Country</th>
+                                                                <td>{{$address->countryInfo->nicename}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Latitude</th>
+                                                                <td>{{$address->latitude}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Longitude</th>
+                                                                <td>{{$address->longitude}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Default Address</th>
+                                                                @if($address->is_default == 1)
+                                                                    <td><span class="badge badge-success">Yes</span></td>
+                                                                @elseif($address->is_default == 0)
+                                                                    <td><span class="badge badge-danger">No</span></td>
+                                                                @endif
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @empty
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <table class="table table-striped">
+                                                        <div><h6><label><b>No Address Found</b></label></h6></div>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +308,7 @@
                         </div>
 
                         <div id="collapsible-controls-group3" class="collapse">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="card-body">
                                     <div class="container">
                                         <div class="row">
@@ -209,24 +316,22 @@
                                                 <table class="table table-striped">
                                                     <tbody>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <td>Muhammad Babar Khan</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Profile Type</th>
-                                                            <td>Personal</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Verification Status</th>
+                                                            <th>Currency</th>
                                                             <td>
-                                                                <span class="badge badge-danger">Not Verified</span>
+                                                                {{$user->LocalisationSetting->currency->code}}
+                                                                <br />
+                                                                {{$user->LocalisationSetting->currency->name}}
+                                                                <br />
+                                                                {{$user->LocalisationSetting->currency->symbol}}
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Approval Status</th>
-                                                            <td>
-                                                                <span class="badge badge-success">Approved</span>
-                                                            </td>
+                                                            <th>Country</th>
+                                                            <td>{{$user->LocalisationSetting->country->nicename}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Language</th>
+                                                            <td>{{$user->LocalisationSetting->language->name}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -255,7 +360,7 @@
                         </div>
 
                         <div id="collapsible-controls-group4" class="collapse">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="card-body">
                                     <div class="container">
                                         <div class="row">
@@ -263,23 +368,33 @@
                                                 <table class="table table-striped">
                                                     <tbody>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <td>Muhammad Babar Khan</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Profile Type</th>
-                                                            <td>Personal</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Verification Status</th>
+                                                            <th>Emails Enable</th>
                                                             <td>
-                                                                <span class="badge badge-danger">Not Verified</span>
+                                                                @if($user->notificationpermissions->is_email_enable == 1)
+                                                                    <span class="badge badge-success">Yes</span>
+                                                                @elseif($user->notificationpermissions->is_email_enable == 0)
+                                                                    <span class="badge badge-danger">No</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Approval Status</th>
+                                                            <th>Push Notifications Enable</th>
                                                             <td>
-                                                                <span class="badge badge-success">Approved</span>
+                                                                @if($user->notificationpermissions->is_push_enable == 1)
+                                                                    <span class="badge badge-success">Yes</span>
+                                                                @elseif($user->notificationpermissions->is_push_enable == 0)
+                                                                    <span class="badge badge-danger">No</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>SMS Enable</th>
+                                                            <td>
+                                                                @if($user->notificationpermissions->is_sms_enable == 1)
+                                                                    <span class="badge badge-success">Yes</span>
+                                                                @elseif($user->notificationpermissions->is_sms_enable == 0)
+                                                                    <span class="badge badge-danger">No</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     </tbody>

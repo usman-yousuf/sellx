@@ -21,7 +21,6 @@ class UserManagementController extends Controller
 	public function view(Request $request, $uuid){
 		
 		$user = Profile::where('uuid', $uuid)->with('user')->with('addresses')->with('LocalisationSetting')->with('notificationpermissions')->first();
-
 		return view('admin.usermanagement.view',compact('user',$user));
 	}
 

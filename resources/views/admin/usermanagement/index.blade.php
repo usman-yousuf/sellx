@@ -65,9 +65,9 @@
                                     <td><a href="#">{{$user->profile_type}}</a></td>
                                     <td>{{$user->dob}}</td>
                                     @if($user->is_approved == 1)
-                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td><span class="badge badge-success">Approved</span></td>
                                     @elseif($user->is_approved == 0)
-                                        <td><span class="badge badge-danger">Inactive</span></td>
+                                        <td><span class="badge badge-danger">Unapproved</span></td>
                                     @endif
                                     <td class="text-center">
                                         <div class="list-icons">
