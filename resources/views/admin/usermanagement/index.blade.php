@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="card-body">
-                        You can <code>Search</code>, <code>View</code>, <code>Update</code> & <code>Delete</code> the specific User from here.
+                        You can <code>Search</code>, <code>View</code> & <code>Delete</code> the specific User from here.
                     </div>
 
                     <table class="table datatable-show-all">
@@ -78,8 +78,8 @@
 
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
-                                                    <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a>
-                                                    <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
+                                                    <!-- <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a> -->
+                                                    <a href="{{route('admin.users.delete', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </div>

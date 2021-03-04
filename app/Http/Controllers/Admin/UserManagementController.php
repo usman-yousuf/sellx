@@ -20,7 +20,15 @@ class UserManagementController extends Controller
 
 	public function view(Request $request, $uuid){
 		
-		$user = Profile::where('uuid', $uuid)->with('user')->with('LocalisationSetting')->get();
+		$user = Profile::where('uuid', $uuid)->with('user')->with('LocalisationSetting')->first();
+
+		return view('admin.usermanagement.view',compact('user',$user));
+	}
+
+	public function delete(Request $request, $uuid){
+		
+		$user = Profile::where('uuid', $uuid)->first();
+		dd($user->user_id);
 
 		return view('admin.usermanagement.view',compact('user',$user));
 	}
