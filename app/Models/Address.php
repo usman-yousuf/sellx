@@ -35,8 +35,8 @@ class Address extends Model
      */
     public static function addUpdateAddress(Request $request, $profile_id = null)
     {
-        if(isset($request->address) && !empty($request->address)){
-            $model = self::where('uuid', $request->address)->first();
+        if(isset($request->address_uuid) && !empty($request->address_uuid)){
+            $model = self::where('uuid', $request->address_uuid)->first();
             $model->updated_at = date('Y-m-d H:i:s');
         }
         else{
