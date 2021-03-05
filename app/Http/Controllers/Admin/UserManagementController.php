@@ -14,7 +14,6 @@ class UserManagementController extends Controller
 {
 	public function index() {
 		$users = Profile::where('profile_type', 'buyer')->get();
-		
 		return view('admin.usermanagement.index',compact('users',$users));
 	}
 

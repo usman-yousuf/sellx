@@ -6,7 +6,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - User Management</h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Auctioneer Management</h4>
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                     </div>
                 </div>
@@ -14,9 +14,9 @@
                 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                     <div class="d-flex">
                         <div class="breadcrumb">
-                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> User Management</a>
-                            <span class="breadcrumb-item active">All Users</span>
-                            <span class="breadcrumb-item active">View User Details</span>
+                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Auctioneer Management</a>
+                            <span class="breadcrumb-item active">All Auctioneers</span>
+                            <span class="breadcrumb-item active">View Auctioneer Details</span>
                         </div>
 
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -34,14 +34,14 @@
                         Buyer's Personal Details
                     </h6>
                     <span class="text-muted d-block"></span>
-                    <span class="text-muted d-block"><code>User's Profile</code>, <code>Addresses</code>, <code>Localisation Settings</code> & <code>Notification Permission Setting</code></span>
+                    <span class="text-muted d-block"><code>Auctioneer's Profile</code>, <code>Addresses</code>, <code>Localisation Settings</code> & <code>Notification Permission Setting</code></span>
                 </div>
 
                 <div class="collapsible-sortable">
                     <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title">
-                                <a data-toggle="collapse" class="text-default" href="#collapsible-controls-group1"><b>User's Profile</b></a>
+                                <a data-toggle="collapse" class="text-default" href="#collapsible-controls-group1"><b>Auctioneer's Profile</b></a>
                             </h6>
 
                             <div class="header-elements">
@@ -76,28 +76,8 @@
                                                         <table class="table table-striped">
                                                             <tbody>
                                                                 <tr>
-                                                                    <th>First Name</th>
-                                                                    <td>{{$user->first_name}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Last Name</th>
-                                                                    <td>{{$user->last_name}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Username</th>
-                                                                    <td>{{$user->username}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Bio</th>
-                                                                    <td>{{$user->bio}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Date of birth</th>
-                                                                    <td>{{$user->dob}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Gender</th>
-                                                                    <td>{{$user->gender}}</td>
+                                                                    <th>Auction House Name</th>
+                                                                    <td>{{$user->auction_house_name}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Profile Type</th>
@@ -110,15 +90,6 @@
                                                                     @elseif($user->is_approved == 0)
                                                                         <td><span class="badge badge-danger">Unapproved</span></td>
                                                                     @endif
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <th>Gender</th>
-                                                                    <td>{{$user->gender}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Country</th>
-                                                                    <td>{{$user->country}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

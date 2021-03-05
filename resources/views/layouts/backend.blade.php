@@ -9,6 +9,7 @@
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{asset('admin/global_assets/css/icons/icomoon/styles.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('admin/global_assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
 
 	<link href="{{asset('admin/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('admin/assets/css/bootstrap_limitless.min.css')}}" rel="stylesheet" type="text/css">
@@ -48,6 +49,8 @@
 	<script src="{{asset('admin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
+	<script src="{{asset('admin/global_assets/js/demo_pages/form_select2.js')}}"></script>
+	
 	<!-- /theme JS files -->
 
 </head>
@@ -407,7 +410,7 @@
 							<div class="media-body">
 								<div class="media-title font-weight-semibold">{{\Auth::user()->name}}</div>
 								<div class="font-size-xs opacity-50">
-									<i class="icon-pin font-size-sm"></i> &nbsp;Santa Ana, CA
+									<i class="icon-pin font-size-sm"></i> &nbsp;Saudia Arabia, KSA
 								</div>
 							</div>
 
@@ -434,6 +437,46 @@
 								</span>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.categories') }}" class="nav-link">
+								<i class="icon-grid"></i>
+								<span>
+									Category Management
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.countries') }}" class="nav-link">
+								<i class="icon-office"></i>
+								<span>
+									Country Management
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.cities') }}" class="nav-link">
+								<i class="icon-city"></i>
+								<span>
+									City Management
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.currencies') }}" class="nav-link">
+								<i class="icon-cash2"></i>
+								<span>
+									Currency Management
+								</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.languages') }}" class="nav-link">
+								<i class="fas fa-language mr-3 fa-1x"></i>
+								<span>
+									Language Management
+								</span>
+							</a>
+						</li>
 						<li class="nav-item nav-item-submenu">
                             <a href="#" class="nav-link"><i class="icon-users4"></i> <span>User Management</span></a>
 
@@ -445,10 +488,10 @@
                             <a href="#" class="nav-link"><i class="icon-home8"></i> <span>Auction House</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="#"  method="GET" class="nav-link">Auctioneers</a></li>
+                                <li class="nav-item"><a href="{{ route('admin.auctioneer') }}"  method="GET" class="nav-link">Auctioneers</a></li>
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="#"  method="GET" class="nav-link">Approval Requests</a></li>
+                                <li class="nav-item"><a href="{{ route('admin.auctioneer.view_approval_request') }}"  method="GET" class="nav-link">Approval Requests</a></li>
                             </ul>
                         </li>
 
