@@ -82,7 +82,7 @@
 					</a>
 				</li>
 
-				<li class="nav-item dropdown">
+				<!-- <li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
 						<i class="icon-git-compare"></i>
 						<span class="d-md-none ml-2">Git updates</span>
@@ -162,13 +162,13 @@
 							</div>
 						</div>
 					</div>
-				</li>
+				</li> -->
 			</ul>
 
 			<span class="badge bg-success ml-md-3 mr-md-auto">Online</span>
 
 			<ul class="navbar-nav">
-				<li class="nav-item dropdown">
+				<!-- <li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
 						<i class="icon-people"></i>
 						<span class="d-md-none ml-2">Users</span>
@@ -349,7 +349,7 @@
 							<a href="#" class="bg-light text-grey w-100 py-2" data-popup="tooltip" title="Load more"><i class="icon-menu7 d-block top-0"></i></a>
 						</div>
 					</div>
-				</li>
+				</li> -->
 
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
@@ -358,11 +358,11 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<!-- <a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
 						<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
 						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a> -->
 						<a onclick="event.preventDefault();document.getElementById('logout-form').submit();" method="POST" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
 
 						<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
@@ -409,14 +409,14 @@
 
 							<div class="media-body">
 								<div class="media-title font-weight-semibold">{{\Auth::user()->name}}</div>
-								<div class="font-size-xs opacity-50">
+								<!-- <div class="font-size-xs opacity-50">
 									<i class="icon-pin font-size-sm"></i> &nbsp;Saudia Arabia, KSA
-								</div>
+								</div> -->
 							</div>
 
-							<div class="ml-3 align-self-center">
+							<!-- <div class="ml-3 align-self-center">
 								<a href="#" class="text-white"><i class="icon-cog3"></i></a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
