@@ -526,11 +526,11 @@
 						&copy; 2021. <a href="#">Admin Panel</a> by <a href="#" target="_blank">SellX</a>
 					</span>
 
-					<ul class="navbar-nav ml-lg-auto">
+					<!-- <ul class="navbar-nav ml-lg-auto">
 						<li class="nav-item"><a href="#" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
 						<li class="nav-item"><a href="#" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
 						<li class="nav-item"><a href="#" class="navbar-nav-link font-weight-semibold"><span class="text-pink-400"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
-					</ul>
+					</ul> -->
 				</div>
 			</div>
 			<!-- /footer -->
