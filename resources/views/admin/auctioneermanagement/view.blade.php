@@ -225,7 +225,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Country</th>
-                                                                <td>{{$address->countryInfo->nicename}}</td>
+                                                                <td>{{$address->countryInfo->nicename ?? 'not set'}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Latitude</th>

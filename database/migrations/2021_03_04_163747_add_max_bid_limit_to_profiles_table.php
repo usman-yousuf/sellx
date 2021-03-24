@@ -14,7 +14,7 @@ class AddMaxBidLimitToProfilesTable extends Migration
     public function up()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            $table->string('max_bid_limit')->nullable();
+            $table->string('max_bid_limit')->default('1000')->nullable();
         });
     }
 
