@@ -7,6 +7,7 @@ use App\Models\PasswordReset;
 use App\Models\Profile;
 use App\Models\SignupVerification;
 use App\Models\User;
+use App\Models\Reviews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -295,4 +296,73 @@ class UserController extends Controller
         $data['profile'] = $result['data'];
         return sendSuccess('Auctioneer Created Successfully', $data);
     }
+
+    public function sendReviews(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            // 'sender_profile_uuid' => 'required|exists:profiles,uuid',
+            'receiver_profile_uuid' => 'required|exists:profiles,uuid',
+            'message' => 'required',
+            'rating' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+        
+        $sender_profile_uuid = (isset($request->sender_profile_uuid) && ($request->sender_profile_uuid != ''))? $request->sender_profile_uuid : $request->user()->profile->uuid;
+
+        $senderModel = Profile::where('uuid', $sender_profile_uuid)->first();
+        $receiverModel = Profile::where('uuid', $request->receiver_profile_uuid)->first();
+
+        if($senderModel == null || $receiverModel == null){
+            return sendError('Invalid Information Provided', []);
+        }
+
+        DB::beginTransaction();
+        
+        $model = new Reviews();
+        
+        $model->uuid = \Str::uuid();
+        $model->sender_profile_id =  $senderModel->id;
+        $model->receiver_profile_id = $receiverModel->id;
+        $model->message = $request->message;
+        $model->rating = $request->rating;
+
+        if($model->save()){
+            DB::commit();
+
+            $data['review'] = $model;
+            return sendSuccess('Review Send Successfully', $data);
+        }
+
+        DB::rollBack();
+        return sendError('There is something wrong.', []);
+
+    }
+
+    public function getReviews(Request $request){
+        $validator = Validator::make($request->all(), [
+            // 'profile_uuid' => 'required|exists:profiles,uuid'
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
+
+        $model = Profile::where('uuid', $profile_uuid)->first();
+
+        $reviews = Reviews::where('receiver_profile_id', $model->id)->get();
+
+        if($reviews == null){
+            return sendSuccess('No reviews found.', null);
+        }
+        
+        $data['reviews'] = $reviews;
+        return sendSuccess('Reviews Found.', $data);
+
+    }
+
 }

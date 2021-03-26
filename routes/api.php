@@ -55,22 +55,26 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_profile_chunks', 'App\Http\Controllers\UserController@updateProfileChunks');
     Route::post('become_auctioneer', 'App\Http\Controllers\UserController@becomeAuctioneer');
 
-    // address routes
+    // ADDRESS
     Route::post('get_profile_addresses', 'App\Http\Controllers\AddressController@getProfileAddresses');
     Route::post('update_address', 'App\Http\Controllers\AddressController@updateAddress');
     Route::post('mark_address_default', 'App\Http\Controllers\AddressController@markDefault');
     Route::post('delete_address', 'App\Http\Controllers\AddressController@deleteAddress');
 
-    // Send Feedbacks
+    // Feedbacks
     Route::post('send_feedback', 'App\Http\Controllers\UserController@sendFeedback');
 
-    // Notification routes
+    // Reviews
+    Route::post('send_review', 'App\Http\Controllers\UserController@sendReviews');
+    Route::post('get_reviews', 'App\Http\Controllers\UserController@getReviews');
+
+    // Notification
     Route::post('update_notification_setting', 'App\Http\Controllers\NotificationController@updateNotificationSetting');
     Route::post('get_notifications', 'App\Http\Controllers\NotificationController@getNotifications');
     Route::post('get_notification_permissions', 'App\Http\Controllers\NotificationController@getNotificationsPermission');
     Route::post('get_unread_notification_counts', 'App\Http\Controllers\NotificationController@getUnreadNotificationsCount');
 
-    // Localisation routes
+    // Localisation
     Route::post('update_localisation_setting', 'App\Http\Controllers\LocalisationController@updateLocalisationSetting');
     Route::post('get_localisation_setting', 'App\Http\Controllers\LocalisationController@getLocalisationSetting');
 

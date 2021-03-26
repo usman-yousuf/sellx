@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class SubCategories extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'sub_categories';
     public $timestamps = true;
 
     protected $fillable = [
         'uuid',
+        'cat_id',
         'name',
         'slug',
         'status',
@@ -29,8 +30,8 @@ class Category extends Model
 
     use SoftDeletes;
 
-    public function subCategories(){
-        return $this->hasMany(SubCategories::class, 'cat_id', 'id');
+    public function subCategoriesLevel3(){
+        return $this->hasMany(SubCategoriesLevel3::class, 'sub_cat_id', 'id');
     }
 
 }

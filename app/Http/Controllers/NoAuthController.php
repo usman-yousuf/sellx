@@ -26,7 +26,7 @@ class NoAuthController extends Controller
 		$currency = array('bhd','awd', 'omr', 'qar', 'sar', 'aed', 'usd'); 
 		
 		$constants = Constant::get();
-		$categories = Category::get();
+		$categories = Category::with('subCategories.subCategoriesLevel3')->get();
 		$languages = Language::whereIn('code', $lan)->get();
 		$countries = Country::whereIn('name', $country)->get();
 	 	$currencies = Currency::whereIn('code', $currency)->get();
