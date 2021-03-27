@@ -19,6 +19,62 @@ class Profile extends Model
 
     use SoftDeletes;
 
+    protected $appends = ['is_followed', 'followers_count', 'following_count', 'average_rating', 'total_ratings_count'];
+
+    public function getTotalRatingsCountAttribute(){
+        if(\Auth::check()){
+            $res = \DB::select("SELECT count(*) as total_ratings FROM `reviews` where receiver_profile_id = ".\Auth::user()->active_profile_id);
+            return (int)$res[0]->total_ratings;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public function getAverageRatingAttribute(){
+        if(\Auth::check()){
+            $res = \DB::select("SELECT count(*) as total_ratings, sum(rating) as average_rating FROM `reviews` where receiver_profile_id = ".\Auth::user()->active_profile_id);
+            return (double)$res[0]->average_rating/(int)$res[0]->total_ratings;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    function getFollowersCountAttribute(){
+        if(app('request')->user() != null){
+            $profile_id = (app('request')->profile_id != null) ? app('request')->profile_id : app('request')->user()->active_profile_id;
+            if($profile_id){
+                $res1 = \DB::select("SELECT COUNT( DISTINCT (following_id)) AS follower_count FROM `followers` WHERE profile_id = ? ", [$profile_id]);
+                return $res1[0]->follower_count;
+            }
+        }
+        return 0;
+    }
+
+    function getFollowingCountAttribute(){
+        if (app('request')->user() != null) {
+            $profile_id = (app('request')->profile_id != null) ? app('request')->profile_id : app('request')->user()->active_profile_id;
+            if($profile_id){
+                $res1 = \DB::select("SELECT COUNT( DISTINCT (profile_id)) AS following_count FROM `followers` WHERE following_id = ?", [$profile_id]);
+                return $res1[0]->following_count;
+            }
+        }
+        return 0;
+    }
+
+    use SoftDeletes;
+
+    public function getIsFollowedAttribute(){
+        if(\Auth::check()){
+            $res = \DB::select("SELECT count(*) as is_followed FROM `followers` where profile_id = ".$this->id." and following_id = ".\Auth::user()->active_profile_id);
+            return (int)$res[0]->is_followed;
+        }
+        else{
+            return 0;
+        }
+    }
+
     // get profile user
     public function user()
     {

@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\SignupVerification;
 use App\Models\User;
 use App\Models\Reviews;
+use App\Models\Followers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -363,6 +364,97 @@ class UserController extends Controller
         $data['reviews'] = $reviews;
         return sendSuccess('Reviews Found.', $data);
 
+    }
+
+    public function followUnfollow(Request $request){
+        $validator = Validator::make($request->all(),[
+            'following_uuid' => 'required|exists:profiles,uuid'
+        ]);
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
+        $model = Profile::where('uuid', $profile_uuid)->first();
+
+        $following_model = Profile::where('uuid', $request->following_uuid)->first();
+
+        $check = Followers::where('following_id', $following_model->id)->where('profile_id', $model->id)->first();
+        
+        if($check){
+
+            $check->forceDelete();
+
+            return sendSuccess('Unfollow successfully.', 0);
+        }
+
+        DB::beginTransaction();
+        
+        $follow = new Followers;
+        $follow->uuid = \Str::uuid();
+        $follow->profile_id = $model->id;
+        $follow->following_id = $following_model->id;
+        $follow->status = true;
+
+        if($follow->save()) {
+
+            DB::commit();
+
+            return sendSuccess('Follow successfully.', 1);
+        }
+        DB::rollBack();
+        return sendError('There is some problem.', null);
+    }
+
+    /**
+     * Get User Followings
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getUserFollowings(Request $request)
+    {
+        $profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
+
+        $profile = Profile::where('uuid', $profile_uuid)->first();
+        
+        $models = Followers::where('following_id', $profile->id)->with('following');
+
+        $cloned_models = clone $models;
+
+        if(isset($request->offset) && isset($request->limit)){
+            $models = $models->offset($request->offset)->limit($request->limit);
+        }
+        $data['followings'] = $models->get();
+        $data['total'] = $cloned_models->count();
+
+        return sendSuccess('Success', $data);
+    }
+
+    /**
+     * Get User Followings
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getUserFollowers(Request $request)
+    {
+        $profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
+
+        $profile = Profile::where('uuid', $profile_uuid)->first();
+
+        $models = Followers::where('profile_id', $profile->id)->with('follower');
+
+        $cloned_models = clone $models;
+        if(isset($request->offset) && isset($request->limit)){
+            $models->offset($request->offset)->limit($request->limit);
+        }
+
+        $data['followers'] = $models->get();
+        $data['total'] = $cloned_models->count();
+
+        return sendSuccess('Success', $data);
     }
 
 }

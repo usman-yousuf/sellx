@@ -68,6 +68,12 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('send_review', 'App\Http\Controllers\UserController@sendReviews');
     Route::post('get_reviews', 'App\Http\Controllers\UserController@getReviews');
 
+    //FOLLOW-UNFOLLOW
+
+    Route::post('follow_unfollow', 'App\Http\Controllers\UserController@followUnfollow');
+    Route::post('followings', 'App\Http\Controllers\UserController@getUserFollowings');
+    Route::post('followers', 'App\Http\Controllers\UserController@getUserFollowers');
+
     // Notification
     Route::post('update_notification_setting', 'App\Http\Controllers\NotificationController@updateNotificationSetting');
     Route::post('get_notifications', 'App\Http\Controllers\NotificationController@getNotifications');
@@ -81,6 +87,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('validate_bank', 'App\Http\Controllers\RefundController@validateIBAN');
     Route::post('refund_request', 'App\Http\Controllers\RefundController@refundRequest');
     Route::post('get_refund_history', 'App\Http\Controllers\RefundController@getRefundHistory');
+
+
 
 
 });
