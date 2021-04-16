@@ -18,8 +18,8 @@ class SubCategoryLevelThreeSeeder extends Seeder
         \DB::table('sub_categories_level_3')->truncate();
 
         $rows = array(
-            array('uuid' => \Str::uuid(), 'sub_cat_id' => '1', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
-            array('uuid' => \Str::uuid(), 'sub_cat_id' => '2', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
+            array('id' => '1', 'uuid' => \Str::uuid(), 'sub_cat_id' => '1', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
+            array('id' => '2', 'uuid' => \Str::uuid(), 'sub_cat_id' => '2', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
         );
 
         \DB::table('sub_categories_level_3')->insert($rows);

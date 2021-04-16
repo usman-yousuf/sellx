@@ -18,8 +18,8 @@ class SubCategorySeeder extends Seeder
         \DB::table('sub_categories')->truncate();
 
         $rows = array(
-            array('uuid' => \Str::uuid(), 'cat_id' => '1', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
-            array('uuid' => \Str::uuid(), 'cat_id' => '3', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
+            array('id' => '1', 'uuid' => \Str::uuid(), 'cat_id' => '1', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
+            array('id' => '2', 'uuid' => \Str::uuid(), 'cat_id' => '3', 'name' => 'Other', 'slug' => 'other', 'status' => '1', 'created_at' => date('Y-m-d H:i:s')),
         );
 
         \DB::table('sub_categories')->insert($rows);
