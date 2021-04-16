@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             CurrenciesSeeder::class,
             LanguagesSeeder::class,
 
-            subCategorySeeder::class,
+            SubCategorySeeder::class,
             SubCategoryLevelThreeSeeder::class,
         ]);
     }
