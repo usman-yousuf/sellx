@@ -38,15 +38,17 @@ class UploadMedia extends Model
         $code = 200;
         if(!empty($attchments)){
             foreach ($attchments as $key => $item) {
-                $file_urls[] = $item;
+                if(!empty(trim($item))){
+                    $file_urls[] = $item;
+                }
             }
+
             if(!empty($file_urls)){
                 foreach ($file_urls as $key => $item) {
                     $model = new self();
                     $model->uuid = \Str::uuid();
                     $model->profile_id = $profile_id;
                     $model->path = $item;
-                    $model->type = $model_type;
                     $model->type = $model_type;
                     $model->ref_id = $model_id;
                     $model->created_at = date('Y-m-d H:m:i');

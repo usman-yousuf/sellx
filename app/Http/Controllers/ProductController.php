@@ -28,7 +28,7 @@ class ProductController extends Controller
 
         if(isset($request->profile_uuid) && ($request->profile_uuid != '') ){
             $profile = Profile::where('uuid', $request->profile_uuid)->first();
-            
+
             if($profile != null){
             	$products->where('profile_id', $profile->id);
             }
@@ -40,7 +40,7 @@ class ProductController extends Controller
         }
 
         $models = $products->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->get();
-        
+
         $data['products'] = $models;
         $data['total'] = $clone_products->count();
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-		
+
 		$profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
 		$profile = Profile::where('uuid', $profile_uuid)->first();
 
@@ -78,10 +78,10 @@ class ProductController extends Controller
 
 		if($request->product_uuid != null){
 			$product = Product::where('uuid', $request->product_uuid)->first();
-            
+
             $message = 'Updated Successfully';
             $is_updated = true;
-            
+
             if($product == null){
                 return sendError('Product not found.', null);
             }
@@ -133,7 +133,24 @@ class ProductController extends Controller
 
         	// save mode attachments in db
         	if($request->attachments != null){
-            	$attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $request->attachments, $product->id, 'product');
+                // dd($request->attachments);
+                $uploadMedias = UploadMedia::select('path')
+                    ->where('profile_id', $request->user()->profile->id)
+                    ->where('type', 'product')
+                    ->where('ref_id', $product->id)
+                    ->get();
+                // dd($uploadMedias);
+                $dbPaths = [];
+                if($uploadMedias->count()){
+                    foreach ($uploadMedias as $media) {
+                        $dbPaths[] = $media->path;
+                    }
+                }
+                $request_files = explode(',', $request->attachments);
+                $filesToAdd = array_diff($request_files, $dbPaths);
+                $attachments = implode(',', $filesToAdd);
+
+            	$attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $attachments, $product->id, 'product');
         	}
 
             if(!$attachmentResult['status']){
@@ -144,10 +161,44 @@ class ProductController extends Controller
         	$data['product'] = Product::where('id', $product->id)->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->first();
         	return sendSuccess($message, $data);
         }
-        
+
         DB::rollBack();
         return sendError('There is some problem.', null);
 
 	}
+
+    public function deleteProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_uuid' => 'nullable|exists:products,uuid',
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $model = Product::where('uuid', $request->product_uuid)->first();
+        if(null == $model){
+            return sendError('Product Not Found', []);
+        }
+        if($model->profile_id != $request->user()->active_profile_id){
+            return sendError('You are Authorized to delete this product', []);
+        }
+
+        try{
+            UploadMedia::where('profile_id', $request->user()->profile->id)
+                ->where('type', 'product')
+                ->where('ref_id', $model->id)
+                ->delete();
+
+            $model->delete();
+            return sendSuccess('Product Deleted Successfully', []);
+        }
+        catch(\Exception $ex){
+            return sendError($ex->getMessage(), []);
+        }
+
+        dd($request->all(), $request->user()->active_profile_id);
+    }
 
 }

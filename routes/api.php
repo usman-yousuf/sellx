@@ -89,8 +89,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_refund_history', 'App\Http\Controllers\RefundController@getRefundHistory');
 
     //PRODUCTS
-    Route::post('update_product', 'App\Http\Controllers\ProductController@updateProduct');
     Route::post('get_products', 'App\Http\Controllers\ProductController@getProducts');
+    Route::post('update_product', 'App\Http\Controllers\ProductController@updateProduct');
+    Route::post('delete_product', 'App\Http\Controllers\ProductController@deleteProduct');
 
 
 });

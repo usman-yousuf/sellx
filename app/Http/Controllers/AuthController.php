@@ -101,7 +101,7 @@ class AuthController extends Controller
                 $foundUser = User::where('phone_code', $request->phone_code)->where('phone_number', $request->phone_number)->first();
             }
             if(null == $foundUser){
-                return sendError('username of Password is incorrect', []);
+                return sendError('username or Password is incorrect', []);
             }
 
 
@@ -110,7 +110,7 @@ class AuthController extends Controller
 
                 // verify hased password
                 if (!\Hash::check($request->password, $foundUser->password)) {
-                    return sendError('username of Password is incorrect', []);
+                    return sendError('username or Password is incorrect', []);
                 }
 
                 if($foundUser->email_verified_at == null){
