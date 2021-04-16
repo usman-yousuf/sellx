@@ -182,7 +182,7 @@ class Profile extends Model
             }
 
             // save mode attachments in db
-            $attachmentResult = UploadMedia::addAttachments($request->attachments, $model->id, 'profile');
+            $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $request->attachments, $model->id, 'profile');
             if(!$attachmentResult['status']){
                 // dd($attachmentResult);
                 return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
@@ -284,4 +284,6 @@ class Profile extends Model
             return false;
         }
     }
+
+    
 }

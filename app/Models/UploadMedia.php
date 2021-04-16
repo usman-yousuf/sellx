@@ -29,7 +29,7 @@ class UploadMedia extends Model
      * @param [type] $model_type
      * @return void
      */
-    public static function addAttachments($urls, $model_id, $model_type = 'profile')
+    public static function addAttachments($profile_id, $urls, $model_id, $model_type)
     {
         $status = true;
         $attchments = explode(',', $urls);
@@ -40,12 +40,11 @@ class UploadMedia extends Model
             foreach ($attchments as $key => $item) {
                 $file_urls[] = $item;
             }
-            // dd($attchments);
             if(!empty($file_urls)){
                 foreach ($file_urls as $key => $item) {
                     $model = new self();
                     $model->uuid = \Str::uuid();
-                    $model->profile_id = ('profile' == $model_type)? $model_id : null;
+                    $model->profile_id = $profile_id;
                     $model->path = $item;
                     $model->type = $model_type;
                     $model->type = $model_type;
