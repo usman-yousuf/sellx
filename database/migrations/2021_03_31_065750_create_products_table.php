@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
 
             $table->string('title');
             $table->string('description');
+            $table->integer('available_quantity');
 
             $table->double('min_bid')->default(0.0);
             $table->double('max_bid')->default(0.0);

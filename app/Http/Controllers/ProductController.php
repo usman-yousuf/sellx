@@ -58,6 +58,7 @@ class ProductController extends Controller
             'product_uuid' => 'nullable|exists:products,uuid',
             'title' => 'required|string',
             'description' => 'required|string',
+            'available_quantity' => 'required',
             'cat_id' => 'required',
             'sub_cat_id' => 'required',
             'sub_cat_level_3_id' => 'required',
@@ -105,6 +106,8 @@ class ProductController extends Controller
         	$product->title = $request->title;
     	if(isset($request->description))
         	$product->description = $request->description;
+        if(isset($request->available_quantity))
+            $product->available_quantity = (int)$request->available_quantity;
         if(isset($request->min_bid))
         	$product->min_bid = $request->min_bid;
         if(isset($request->max_bid))
@@ -116,30 +119,14 @@ class ProductController extends Controller
 
         if($product->save()){
 
-        	// UNDER CONSTRUCTION
-        	// $old_media = UploadMedia::where('profile_id', $profile->id)
-         //        ->where(function($q) use($product){
-         //            $q->where('ref_id', $product->id)->where('type', 'product');
-         //        })->pluck('id')->toArray();
-
-         //    $remove_media = $old_media;
-         //    if(isset($request->product_media) && count($request->product_media) > 0){
-         //        ProductMedia::whereIn('id', $request->product_media)->update(['product_id' => $product->id]);
-         //        $remove_media = array_values(array_diff($old_media, $request->product_media));
-         //    }
-         //    $request->request->replace(['product_media' => $remove_media]);
-         //    $this->discardProductMedia($request);
-
-
         	// save mode attachments in db
         	if($request->attachments != null){
-                // dd($request->attachments);
                 $uploadMedias = UploadMedia::select('path')
                     ->where('profile_id', $request->user()->profile->id)
                     ->where('type', 'product')
                     ->where('ref_id', $product->id)
                     ->get();
-                // dd($uploadMedias);
+
                 $dbPaths = [];
                 if($uploadMedias->count()){
                     foreach ($uploadMedias as $media) {

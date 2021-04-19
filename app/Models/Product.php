@@ -21,6 +21,7 @@ class Product extends Model
         'sub_cat_id_level_3',
         'title',
         'description',
+        'available_quantity',
         'max_bid',
         'min_bid',
         'start_bid',
