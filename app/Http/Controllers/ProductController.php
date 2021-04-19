@@ -58,7 +58,7 @@ class ProductController extends Controller
             'product_uuid' => 'nullable|exists:products,uuid',
             'title' => 'required|string',
             'description' => 'required|string',
-            'available_quantity' => 'required',
+            'available_quantity' => 'required|integer',
             'cat_id' => 'required',
             'sub_cat_id' => 'required',
             'sub_cat_level_3_id' => 'required',
