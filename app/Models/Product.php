@@ -25,7 +25,9 @@ class Product extends Model
         'max_bid',
         'min_bid',
         'start_bid',
-        'target_price'
+        'target_price',
+        'is_sell_out',
+        'is_added_in_auction'
     ];
 
 
@@ -51,6 +53,11 @@ class Product extends Model
 
     public function medias(){
         return $this->hasMany(UploadMedia::class, 'ref_id', 'id')->where('type', 'product');
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo('App\Models\Profile', 'profile_id', 'id');
     }
 
 }

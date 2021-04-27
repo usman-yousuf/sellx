@@ -92,7 +92,6 @@ class ProductController extends Controller
             $message = 'Created Successfully';
             $is_updated = false;
         }
-        //dd($request->all());
 
         if(isset($profile->id))
         	$product->profile_id = $profile->id;
@@ -119,7 +118,7 @@ class ProductController extends Controller
 
         if($product->save()){
 
-        	// save mode attachments in db
+        	// Save Mode Attachments in DB
         	if($request->attachments != null){
                 $uploadMedias = UploadMedia::select('path')
                     ->where('profile_id', $request->user()->profile->id)
@@ -166,10 +165,13 @@ class ProductController extends Controller
 
         $model = Product::where('uuid', $request->product_uuid)->first();
         if(null == $model){
-            return sendError('Product Not Found', []);
+            return sendError('Product Not Found', null);
         }
         if($model->profile_id != $request->user()->active_profile_id){
-            return sendError('You are Authorized to delete this product', []);
+            return sendError('You are Authorized to delete this product', null);
+        }
+        if($model->is_added_in_auction == true){
+            return sendError('Cannot delete the product, already in Auction.', null);
         }
 
         try{
@@ -185,7 +187,6 @@ class ProductController extends Controller
             return sendError($ex->getMessage(), []);
         }
 
-        dd($request->all(), $request->user()->active_profile_id);
     }
 
 }

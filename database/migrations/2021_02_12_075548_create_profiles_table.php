@@ -33,7 +33,7 @@ class CreateProfilesTable extends Migration
 
             $table->string('country')->nullable();
 
-            $table->boolean('is_online')->default(FALSE);
+            $table->boolean('is_online')->default(false);
             $table->enum('profile_type', ['buyer', 'auctioneer'])->default('buyer');
             $table->boolean('is_approved')->default(false);
 

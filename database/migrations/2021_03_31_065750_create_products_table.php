@@ -38,6 +38,9 @@ class CreateProductsTable extends Migration
             $table->double('start_bid')->default(0.0);
             $table->double('target_price')->default(0.0);
 
+            $table->boolean('is_sell_out')->default(false);
+            $table->boolean('is_added_in_auction')->default(false);
+
             $table->timestamps();
             $table->softDeletes();
         });
