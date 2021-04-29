@@ -104,6 +104,12 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_auction', [AuctionController::class, 'updateAuction']);
     Route::post('go_online', [AuctionController::class, 'toggleLiveAuction']);
 
+    Route::post('get_dummy_auctions', [AuctionController::class, 'getDummyAuctions']);
+    Route::post('update_dummy_auctions', [AuctionController::class, 'updateDummyAuction']);
+    Route::post('delete_dummy_auction', [AuctionController::class, 'deleteDummyAuction']);
+
+
+
 
 
 });

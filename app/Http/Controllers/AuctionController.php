@@ -3,16 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
-use App\Models\AuctionProduct;
 use App\Models\Product;
 use App\Models\Profile;
 use App\Models\UploadMedia;
+use App\Models\DummyAuction;
 use Illuminate\Http\Request;
+use App\Models\AuctionProduct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AuctionController extends Controller
 {
+    #region - DUMMY - START
+        public function updateDummyAuction(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'auction_id' => 'string|exists:auctions,id',
+                'is_live' => 'required|in:0,1',
+                'online_url' => 'required_if:is_live,1',
+                'name' => 'required'
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            if(isset($request->auction_id) && ('' != $request->auction_id) ){ // update Auction
+                $model = DummyAuction::where('id', $request->auction_id)->first();
+            }
+            else{ // new Auction
+                $model = new DummyAuction();
+            }
+
+            $model->is_live = $request->is_live;
+            if($request->is_live){
+                $model->online_url = $request->online_url;
+            }
+            $model->name = $request->name;
+
+            try{
+                $model->save();
+                return sendSuccess('Auction Added Successfully', $model);
+            }
+            catch(\Exception $ex){
+                return sendError($ex->getMessage(), $ex->getTrace());
+            }
+        }
+
+        public function deleteDummyAuction(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'auction_id' => 'string|exists:auctions,id',
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $model = DummyAuction::where('id', $request->auction_id)->first();
+            if(null == $model){
+                return sendError('Record not Found', []);
+            }
+
+            try{
+                $model->delete();
+                return sendSuccess('Auction Deleted Successfully', []);
+            }
+            catch(\Exception $ex){
+                return sendError($ex->getMessage(), $ex->getTrace());
+            }
+        }
+
+        public function getDummyAuctions(Request $request)
+        {
+            $models = DummyAuction::orderBy('id', 'DESC')->get();
+
+            return sendSuccess('list', $models);
+        }
+    #endregion - DUMMY - END
+
     #region - API end points - START
         /**
          * Get Auctions based on given filters
@@ -99,11 +168,17 @@ class AuctionController extends Controller
         public function deleteAuctionProduct(Request $request)
         {
             $validator = Validator::make($request->all(), [
+                'auction_uuid' => 'required|string|exists:auctions,uuid',
                 'product_uuid' => 'required|string|exists:products,uuid',
             ]);
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();
                 return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $auction = Auction::where('uuid', $request->auction_uuid)->first();
+            if (null == $auction) {
+                return sendError('No Record Found', []);
             }
 
             $product = Product::where('uuid', $request->product_uuid)->first();
@@ -112,7 +187,8 @@ class AuctionController extends Controller
             }
 
             try {
-                AuctionProduct::where('product_id', $product->id)->delete();
+                AuctionProduct::where('product_id', $product->id)->where('auction_id', $auction->id)->delete();
+                Product::where('id', $product->id)->update(['is_added_in_auction' => (bool)false]);
                 return sendSuccess('Record(s) Deleted Successfully', []);
             } catch (\Exception $ex) {
                 return sendError('Something went wrong while deleting Auction Products', []);
@@ -227,14 +303,20 @@ class AuctionController extends Controller
                     // dd($existingProductIds);
                     // dd($requestedProductIds, $existingProductIds);
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
+                    // dd($productIdsToAdd);
                     foreach($productIdsToAdd as $id){
                         $temp = new AuctionProduct();
                         $temp->uuid = \Str::uuid();
                         $temp->auction_id = $model->id;
                         $temp->product_id = $id;
-                        $temp->sort_order = (boolean)true;
+                        $temp->sort_order = 1;
                         $temp->created_at = date('Y-m-d H:i:s');
                         $temp->save();
+
+                        $status = Product::where('id', $id)->update([
+                            'is_added_in_auction' => (bool)true
+                        ]);
+                        // dd($status);
                     }
                 }
                 DB::commit();
@@ -247,6 +329,12 @@ class AuctionController extends Controller
             return sendSuccess('Record Saved Successfully', $auction);
         }
 
+        /**
+         * Toggle Auction Live Status
+         *
+         * @param Request $request
+         * @return void
+         */
         public function toggleLiveAuction(Request $request)
         {
             $validator = Validator::make($request->all(), [
