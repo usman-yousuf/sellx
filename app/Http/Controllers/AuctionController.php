@@ -18,7 +18,7 @@ class AuctionController extends Controller
         public function updateDummyAuction(Request $request)
         {
             $validator = Validator::make($request->all(), [
-                'auction_id' => 'string|exists:auctions,id',
+                'auction_id' => 'string|exists:dummy_live_auctions,id',
                 'is_live' => 'required|in:0,1',
                 'online_url' => 'required_if:is_live,1',
                 'name' => 'required'
@@ -30,12 +30,16 @@ class AuctionController extends Controller
 
             if(isset($request->auction_id) && ('' != $request->auction_id) ){ // update Auction
                 $model = DummyAuction::where('id', $request->auction_id)->first();
+                if(null == $model){
+                    return sendError('No Record Found', []);
+                }
             }
             else{ // new Auction
                 $model = new DummyAuction();
             }
 
-            $model->is_live = $request->is_live;
+            $model->is_live = (int)$request->is_live;
+
             if($request->is_live){
                 $model->online_url = $request->online_url;
             }
