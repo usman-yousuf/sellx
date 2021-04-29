@@ -34,6 +34,13 @@ class ProductController extends Controller
             }
         }
 
+        if(isset($request->categories) && ('' != $request->categories)){
+            $categories = explode(',', $request->categories);
+            if(!empty($categories)){
+                $products->whereIn('cat_id', $categories);
+            }
+        }
+
         $clone_products = clone $products;
         if(isset($request->offset) && isset($request->limit)){
             $products->offset($request->offset)->limit($request->limit);
