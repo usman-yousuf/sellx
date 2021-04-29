@@ -28,6 +28,8 @@ class CreateAuctionProductsTable extends Migration
             $table->integer('last_extended_time')->default(false)->nullable()->comment('Time extended in minutes');
             $table->dateTime('closure_time')->nullable()->comment('Closing time when the lot is done being in Auction');
 
+            $table->enum('status', ['completed', 'pending', 'aborted'])->default('pending');
+
             $table->softDeletes();
             $table->timestamps();
         });

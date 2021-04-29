@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_profile', 'App\Http\Controllers\UserController@updateProfile');
     Route::post('update_profile_chunks', 'App\Http\Controllers\UserController@updateProfileChunks');
     Route::post('become_auctioneer', 'App\Http\Controllers\UserController@becomeAuctioneer');
+    Route::post('switch_profile', 'App\Http\Controllers\UserController@switchProfile');
+
 
     // ADDRESS
     Route::post('get_profile_addresses', 'App\Http\Controllers\AddressController@getProfileAddresses');
@@ -100,6 +102,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('delete_auction', [AuctionController::class, 'deleteAuction']);
     Route::post('delete_auction_product', [AuctionController::class, 'deleteAuctionProduct']);
     Route::post('update_auction', [AuctionController::class, 'updateAuction']);
+    Route::post('go_online', [AuctionController::class, 'toggleLiveAuction']);
 
 
 
