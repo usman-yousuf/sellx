@@ -186,7 +186,9 @@ class Profile extends Model
                 $cat_ids = [];
                 foreach ($categories as $key => $item) {
                     $itemObj = Category::where('uuid', $item)->first();
-                    $cat_ids[] = $itemObj->id;
+                    if(null != $itemObj){
+                        $cat_ids[] = $itemObj->id;
+                    }
                 }
 
                 if(!empty($cat_ids)){
@@ -200,7 +202,6 @@ class Profile extends Model
                 // dd($attachmentResult);
                 return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
             }
-
             $user = User::where('id', $model->user->id)->first();
             $user->active_profile_id = $model->id;
             $updateResult = $user->save();

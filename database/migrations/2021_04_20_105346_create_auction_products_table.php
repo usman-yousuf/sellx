@@ -15,7 +15,7 @@ class CreateAuctionProductsTable extends Migration
     {
         Schema::create('auction_products', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
-            $table->string('uuid')->nullable();
+            $table->uuid('uuid')->nullable();
 
             $table->integer('auction_id')->nullable();
             $table->foreign('auction_id')->references('id')->on('auctions')->onUpdate('cascade')->onDelete('cascade');
@@ -23,8 +23,15 @@ class CreateAuctionProductsTable extends Migration
             $table->integer('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->timestamps();
+            $table->integer('sort_order')->default(1);
+
+            $table->integer('last_extended_time')->default(false)->nullable()->comment('Time extended in minutes');
+            $table->dateTime('closure_time')->nullable()->comment('Closing time when the lot is done being in Auction');
+
+            $table->enum('status', ['completed', 'pending', 'aborted'])->default('pending');
+
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

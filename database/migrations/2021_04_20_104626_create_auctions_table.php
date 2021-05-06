@@ -15,15 +15,23 @@ class CreateAuctionsTable extends Migration
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
-            $table->string('uuid')->nullable();
+            $table->uuid('uuid')->nullable();
+
+            $table->integer('auctioneer_id');
+            $table->foreign('auctioneer_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('title');
+            $table->enum('status', ['completed', 'in-progress', 'pending', 'cancelled', 'aborted'])->default('pending');
 
-            $table->boolean('is_schedule')->default(false);
-            $table->dateTime('schedule_date_time')->default(false);
+            $table->boolean('is_scheduled')->default(false);
+            $table->dateTime('scheduled_date_time')->nullable();
 
-            $table->timestamps();
+            $table->boolean('is_live')->default(false);
+            $table->string('online_url')->nullable();
+
+
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

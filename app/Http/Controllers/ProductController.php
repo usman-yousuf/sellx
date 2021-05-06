@@ -34,6 +34,13 @@ class ProductController extends Controller
             }
         }
 
+        if(isset($request->categories) && ('' != $request->categories)){
+            $categories = explode(',', $request->categories);
+            if(!empty($categories)){
+                $products->whereIn('cat_id', $categories);
+            }
+        }
+
         $clone_products = clone $products;
         if(isset($request->offset) && isset($request->limit)){
             $products->offset($request->offset)->limit($request->limit);
@@ -259,6 +266,12 @@ class ProductController extends Controller
 
 	}
 
+    /**
+     * Delete a Product
+     *
+     * @param Request $request
+     * @return void
+     */
     public function deleteProduct(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -274,7 +287,7 @@ class ProductController extends Controller
             return sendError('Product Not Found', null);
         }
         if($model->profile_id != $request->user()->active_profile_id){
-            return sendError('You are Authorized to delete this product', null);
+            return sendError('You are Not Authorized to delete this product', null);
         }
         if($model->is_added_in_auction == true){
             return sendError('Cannot delete the product, already in Auction.', null);

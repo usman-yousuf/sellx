@@ -60,4 +60,23 @@ class Product extends Model
         return $this->belongsTo('App\Models\Profile', 'profile_id', 'id');
     }
 
+    public function auction_products()
+    {
+        return $this->hasMany(AuctionProduct::class, 'product_id', 'id');
+    }
+
+    /**
+     * Boot Method of Modal
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // delete an Auction
+        static::deleting(function ($model) {
+            $model->auction_products()->delete(); // auction_products
+            $model->medias()->delete(); // medias
+        });
+    }
+
 }

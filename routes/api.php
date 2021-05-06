@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuctionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_profile', 'App\Http\Controllers\UserController@updateProfile');
     Route::post('update_profile_chunks', 'App\Http\Controllers\UserController@updateProfileChunks');
     Route::post('become_auctioneer', 'App\Http\Controllers\UserController@becomeAuctioneer');
+    Route::post('switch_profile', 'App\Http\Controllers\UserController@switchProfile');
+
 
     // ADDRESS
     Route::post('get_profile_addresses', 'App\Http\Controllers\AddressController@getProfileAddresses');
@@ -92,6 +95,21 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_products', 'App\Http\Controllers\ProductController@getProducts');
     Route::post('update_product', 'App\Http\Controllers\ProductController@updateProduct');
     Route::post('delete_product', 'App\Http\Controllers\ProductController@deleteProduct');
+
+
+    // Auctions
+    Route::post('get_auctions', [AuctionController::class, 'getAuctions']);
+    Route::post('delete_auction', [AuctionController::class, 'deleteAuction']);
+    Route::post('delete_auction_product', [AuctionController::class, 'deleteAuctionProduct']);
+    Route::post('update_auction', [AuctionController::class, 'updateAuction']);
+    Route::post('go_online', [AuctionController::class, 'toggleLiveAuction']);
+
+    Route::post('get_dummy_auctions', [AuctionController::class, 'getDummyAuctions']);
+    Route::post('update_dummy_auctions', [AuctionController::class, 'updateDummyAuction']);
+    Route::post('delete_dummy_auction', [AuctionController::class, 'deleteDummyAuction']);
+
+
+
 
 
 });
