@@ -66,14 +66,47 @@ class ProductController extends Controller
             'max_bid' => 'required|gt:min_bid',
             'start_bid' => 'required|min:1',
             'target_price' => 'required|gt:start_bid'
+
+            'category' => 'required|string',
+            
+            'brand' => 'required_if:category,watches|
+                        required_if:category,leatherette|
+                        required_if:category,bags|
+                        required_if:category,wallet|
+                        required_if:category,pens|
+                        required_if:category,perfume|
+                        required_if:category,oud|
+                        required_if:category,3|
+                        required_if:category,jewellery',
+            
+            'make' => 'required_if:category,cars|
+                        required_if:category,bike|
+                        required_if:category,big_vehicle',
+            'inspection_report_document' => 'required_if:category,cars|
+                                            required_if:category,bike|
+                                            required_if:category,big_vehicle',
+            
+            'city' => 'required_if:category,plate_number',
+            'code' => 'required_if:category,plate_number',
+            'number' => 'required_if:category,plate_number',
+
+            'location' => 'required_if:category,properties',
+            'type' => 'required_if:category,properties',
+            'total_area' => 'required_if:category,properties',
+            'affection_plan_document' => 'required_if:category,properties',
+
+
         ]);
         if($validator->fails()){
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
+        dd('TEST PASS');
 
 		$profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
 		$profile = Profile::where('uuid', $profile_uuid)->first();
+
+        $category = Category::where('id', $request->cat_id)->first();
 
 		DB::beginTransaction();
 
@@ -116,6 +149,79 @@ class ProductController extends Controller
         if(isset($request->target_price))
         	$product->target_price = $request->target_price;
 
+        if($category =='watches'){
+            $product->brand = $request->;
+            $product->model = $request->;
+            $product->material = $request->;
+            $product->year_of_production = $request->;
+            $product->condition = $request->;
+            $product->scope_of_delivery = $request->;
+            $product->reference_number = $request->;
+            $product->size = $request->;
+            $product->dial = $request->;
+        }
+        if($category =='cars' || $category =='bike' || $category =='big_vehicle'){
+            $product->make = $request->;
+            $product->model = $request->;
+            $product->year = $request->;
+            $product->vin = $request->;
+            $product->exterior = $request->;
+            $product->transmission = $request->;
+            $product->fuel = $request->;
+            $product->keys = $request->;
+            $product->doors = $request->;
+            $product->seats = $request->;
+            $product->odometer = $request->;
+            $product->body_type = $request->;
+            $product->country_of_made = $request->;
+            $product->inspection_report_document = $request->; //(pdf)
+        }
+        if($category =='plate_number'){
+            $product->city = $request->;
+            $product->code = $request->;
+            $product->number = $request->;
+        }
+        if($category =='bags' || $category =='wallet' || $category =='leatherette'){
+            $product->brand = $request->; 
+            $product->color = $request->;
+            $product->size = $request->;
+            $product->material = $request->;
+            $product->scope_of_delivery = $request->;
+        }
+        if($category == 'pens'){
+            $product->brand = $request->;
+            $product->material = $request->;
+            $product->size = $request->;
+            $product->scope_of_delivery = $request->;
+        }
+        if($category == 'perfume' || $category == 'oud'){
+            $product->brand = $request->;
+            $product->size = $request->;
+            $product->weight = $request->;
+        }
+        if($category == 'animals'){
+            $product->age = $request->;
+            $product->type = $request->;
+            $product->color = $request->;
+        }
+        if($category == 'properties'){
+            $product->location = $request->;
+            $product->type = $request->;
+            $product->total_area = $request->; 
+            $product->affection_plan_document = $request->; //(pdf) (sd)
+        }
+        if($category == 'jewellery'){
+            $product->brand = $request->;
+            $product->model = $request->;
+            $product->material = $request->;
+            $product->year_of_production = $request->;
+            $product->condition = $request->;
+            $product->scope_of_delivery = $request->;
+            $product->reference_number = $request->;
+            $product->size = $request->;
+            $product->weight = $request->;
+        }
+        
         if($product->save()){
 
         	// Save Mode Attachments in DB

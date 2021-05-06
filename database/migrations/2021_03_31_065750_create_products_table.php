@@ -33,6 +33,39 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->integer('available_quantity');
 
+            $table->string('brand')->nullable();
+            $table->string('model')->nullable();
+            $table->string('material')->nullable();
+            $table->string('year_of_production')->nullable();
+            $table->string('condition')->nullable();
+            $table->string('scope_of_delivery')->nullable();
+            $table->string('reference_number')->nullable();
+            $table->string('size')->nullable();
+            $table->string('dial')->nullable();
+            $table->string('make')->nullable(); 
+            $table->string('year')->nullable();
+            $table->string('vin')->nullable();
+            $table->string('exterior')->nullable();
+            $table->string('transmission')->nullable();
+            $table->string('fuel')->nullable();
+            $table->string('keys')->nullable();
+            $table->string('doors')->nullable();
+            $table->string('seats')->nullable();
+            $table->string('odometer')->nullable();
+            $table->string('body_type')->nullable(); 
+            $table->string('country_of_made')->nullable();
+            $table->string('city')->nullable();
+            $table->string('code')->nullable();
+            $table->string('number')->nullable();
+            $table->string('color')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('age')->nullable();
+            $table->string('type')->nullable();
+            $table->string('location')->nullable();
+            $table->string('total_area')->nullable();
+            $table->string('inspection_report_document')->nullable(); //(pdf)
+            $table->string('affection_plan_document')->nullable(); //(pdf)
+            
             $table->double('min_bid')->default(0.0);
             $table->double('max_bid')->default(0.0);
             $table->double('start_bid')->default(0.0);
