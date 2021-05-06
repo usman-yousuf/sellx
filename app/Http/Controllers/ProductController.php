@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\UploadMedia;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -72,7 +73,7 @@ class ProductController extends Controller
             'min_bid' => 'required|min:1',
             'max_bid' => 'required|gt:min_bid',
             'start_bid' => 'required|min:1',
-            'target_price' => 'required|gt:start_bid'
+            'target_price' => 'required|gt:start_bid',
 
             'category' => 'required|string',
             
@@ -102,13 +103,11 @@ class ProductController extends Controller
             'total_area' => 'required_if:category,properties',
             'affection_plan_document' => 'required_if:category,properties',
 
-
         ]);
         if($validator->fails()){
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        dd('TEST PASS');
 
 		$profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
 		$profile = Profile::where('uuid', $profile_uuid)->first();
@@ -157,76 +156,76 @@ class ProductController extends Controller
         	$product->target_price = $request->target_price;
 
         if($category =='watches'){
-            $product->brand = $request->;
-            $product->model = $request->;
-            $product->material = $request->;
-            $product->year_of_production = $request->;
-            $product->condition = $request->;
-            $product->scope_of_delivery = $request->;
-            $product->reference_number = $request->;
-            $product->size = $request->;
-            $product->dial = $request->;
+            $product->brand = $request->brand;
+            $product->model = $request->model;
+            $product->material = $request->material;
+            $product->year_of_production = $request->year_of_production;
+            $product->condition = $request->condition;
+            $product->scope_of_delivery = $request->scope_of_delivery;
+            $product->reference_number = $request->reference_number;
+            $product->size = $request->size;
+            $product->dial = $request->dial;
         }
         if($category =='cars' || $category =='bike' || $category =='big_vehicle'){
-            $product->make = $request->;
-            $product->model = $request->;
-            $product->year = $request->;
-            $product->vin = $request->;
-            $product->exterior = $request->;
-            $product->transmission = $request->;
-            $product->fuel = $request->;
-            $product->keys = $request->;
-            $product->doors = $request->;
-            $product->seats = $request->;
-            $product->odometer = $request->;
-            $product->body_type = $request->;
-            $product->country_of_made = $request->;
-            $product->inspection_report_document = $request->; //(pdf)
+            $product->make = $request->make;
+            $product->model = $request->model;
+            $product->year = $request->year;
+            $product->vin = $request->vin;
+            $product->exterior = $request->exterior;
+            $product->transmission = $request->transmission;
+            $product->fuel = $request->fuel;
+            $product->keys = $request->keys;
+            $product->doors = $request->doors;
+            $product->seats = $request->seats;
+            $product->odometer = $request->odometer;
+            $product->body_type = $request->body_type;
+            $product->country_of_made = $request->country_of_made;
+            $product->inspection_report_document = $request->inspection_report_document; //(pdf)
         }
         if($category =='plate_number'){
-            $product->city = $request->;
-            $product->code = $request->;
-            $product->number = $request->;
+            $product->city = $request->city;
+            $product->code = $request->code;
+            $product->number = $request->number;
         }
         if($category =='bags' || $category =='wallet' || $category =='leatherette'){
-            $product->brand = $request->; 
-            $product->color = $request->;
-            $product->size = $request->;
-            $product->material = $request->;
-            $product->scope_of_delivery = $request->;
+            $product->brand = $request->brand;
+            $product->color = $request->color;
+            $product->size = $request->size;
+            $product->material = $request->material;
+            $product->scope_of_delivery = $request->scope_of_delivery;
         }
         if($category == 'pens'){
-            $product->brand = $request->;
-            $product->material = $request->;
-            $product->size = $request->;
-            $product->scope_of_delivery = $request->;
+            $product->brand = $request->brand;
+            $product->material = $request->material;
+            $product->size = $request->size;
+            $product->scope_of_delivery = $request->scope_of_delivery;
         }
         if($category == 'perfume' || $category == 'oud'){
-            $product->brand = $request->;
-            $product->size = $request->;
-            $product->weight = $request->;
+            $product->brand = $request->brand;
+            $product->size = $request->size;
+            $product->weight = $request->weight;
         }
         if($category == 'animals'){
-            $product->age = $request->;
-            $product->type = $request->;
-            $product->color = $request->;
+            $product->age = $request->age;
+            $product->type = $request->type;
+            $product->color = $request->color;
         }
         if($category == 'properties'){
-            $product->location = $request->;
-            $product->type = $request->;
-            $product->total_area = $request->; 
-            $product->affection_plan_document = $request->; //(pdf) (sd)
+            $product->location = $request->location;
+            $product->type = $request->type;
+            $product->total_area = $request->total_area; 
+            $product->affection_plan_document = $request->affection_plan_document; //(pdf) (sd)
         }
         if($category == 'jewellery'){
-            $product->brand = $request->;
-            $product->model = $request->;
-            $product->material = $request->;
-            $product->year_of_production = $request->;
-            $product->condition = $request->;
-            $product->scope_of_delivery = $request->;
-            $product->reference_number = $request->;
-            $product->size = $request->;
-            $product->weight = $request->;
+            $product->brand = $request->brand;
+            $product->model = $request->model;
+            $product->material = $request->material;
+            $product->year_of_production = $request->year_of_production;
+            $product->condition = $request->condition;
+            $product->scope_of_delivery = $request->scope_of_delivery;
+            $product->reference_number = $request->reference_number;
+            $product->size = $request->size;
+            $product->weight = $request->weight;
         }
         
         if($product->save()){
