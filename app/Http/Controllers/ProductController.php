@@ -180,7 +180,6 @@ class ProductController extends Controller
             $product->odometer = $request->odometer;
             $product->body_type = $request->body_type;
             $product->country_of_made = $request->country_of_made;
-            $product->inspection_report_document = $request->inspection_report_document; //(pdf)
         }
         if($category =='plate_number'){
             $product->city = $request->city;
@@ -214,7 +213,6 @@ class ProductController extends Controller
             $product->location = $request->location;
             $product->type = $request->type;
             $product->total_area = $request->total_area; 
-            $product->affection_plan_document = $request->affection_plan_document; //(pdf) (sd)
         }
         if($category == 'jewellery'){
             $product->brand = $request->brand;

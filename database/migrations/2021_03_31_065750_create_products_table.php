@@ -63,8 +63,6 @@ class CreateProductsTable extends Migration
             $table->string('type')->nullable();
             $table->string('location')->nullable();
             $table->string('total_area')->nullable();
-            $table->string('inspection_report_document')->nullable(); //(pdf)
-            $table->string('affection_plan_document')->nullable(); //(pdf)
             
             $table->double('min_bid')->default(0.0);
             $table->double('max_bid')->default(0.0);
