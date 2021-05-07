@@ -255,6 +255,54 @@ class ProductController extends Controller
                 return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
             }
 
+            if($request->inspection_report_document != null){
+                $uploadMedias = UploadMedia::select('path')
+                    ->where('profile_id', $request->user()->profile->id)
+                    ->where('type', 'product')
+                    ->where('ref_id', $product->id)
+                    ->get();
+
+                $dbPaths = [];
+                if($uploadMedias->count()){
+                    foreach ($uploadMedias as $media) {
+                        $dbPaths[] = $media->path;
+                    }
+                }
+                $request_files = explode(',', $request->inspection_report_document);
+                $filesToAdd = array_diff($request_files, $dbPaths);
+                $inspection_report_document = implode(',', $filesToAdd);
+
+                $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $inspection_report_document, $product->id, 'product');
+            }
+
+            if(!$attachmentResult['status']){
+                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+            }
+
+            if($request->affection_plan_document != null){
+                $uploadMedias = UploadMedia::select('path')
+                    ->where('profile_id', $request->user()->profile->id)
+                    ->where('type', 'product')
+                    ->where('ref_id', $product->id)
+                    ->get();
+
+                $dbPaths = [];
+                if($uploadMedias->count()){
+                    foreach ($uploadMedias as $media) {
+                        $dbPaths[] = $media->path;
+                    }
+                }
+                $request_files = explode(',', $request->affection_plan_document);
+                $filesToAdd = array_diff($request_files, $dbPaths);
+                $affection_plan_document = implode(',', $filesToAdd);
+
+                $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $affection_plan_document, $product->id, 'product');
+            }
+
+            if(!$attachmentResult['status']){
+                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+            }
+
         	DB::commit();
         	$data['product'] = Product::where('id', $product->id)->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->first();
         	return sendSuccess($message, $data);
