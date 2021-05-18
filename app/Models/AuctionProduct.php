@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Bidding;
 
 class AuctionProduct extends Model
 {
@@ -30,5 +31,10 @@ class AuctionProduct extends Model
     public function auction()
     {
         return $this->belongsTo(Auction::class, 'auction_id', 'id');
+    }
+
+    public function biddings()
+    {
+        return $this->hasMany(Bidding::class,);
     }
 }

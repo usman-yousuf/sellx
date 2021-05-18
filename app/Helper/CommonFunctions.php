@@ -86,3 +86,64 @@ if( !function_exists('listNotficationTypes') ){
     }
 }
 
+if( !function_exists('get_locale_datetime') ){
+    /**
+     * Get dateTime Timezone of Guest User hitting the application
+     *
+     * @param String $utc_datetime
+     * @param String $targetFormat
+     *
+     * @return void
+     */
+    function get_locale_datetime($utc_datetime, $givenIp, $targetFormat = 'Y-m-d H:i:s')
+    {
+        $tz = get_local_timezone($givenIp);
+        $dateString = Carbon::create($utc_datetime)->timezone($tz)->format($targetFormat);
+
+        return $dateString;
+    }
+}
+
+
+if( !function_exists('get_local_timezone') ){
+    function get_local_timezone($givenIp)
+    {
+        if($givenIp == '127.0.0.1' || $givenIp == '::1'){
+            $ip = "119.73.121.52";
+        }else{
+            $ip = $givenIp;
+        }
+
+        $tz = \Session::get('timezone') ?? '';
+        if($tz == ''){
+            $url = 'http://ip-api.com/json/'.$ip;
+            $tz = file_get_contents($url);
+            $tz = json_decode($tz,true)['timezone'];
+
+            \Session::put('timezone', $tz);
+        }
+        return $tz;
+    }
+}
+
+if( !function_exists('get_utc_datetime')){
+    /**
+     * Get DateTime in UTC against given user locale
+     *
+     * @param String $local_datetime
+     * @param ip $givenIp
+     * @param String $targetFormat
+     *
+     * @return String Converted DateTime in UTC
+     */
+    function get_utc_datetime($local_datetime, $givenIp, $targetFormat = 'Y-m-d H:i:s'){
+        $locale_tz = get_local_timezone($givenIp);
+        $tz_to = 'UTC';
+
+        $dt = new \DateTime($local_datetime, new \DateTimeZone($locale_tz));
+        $dt->setTimeZone(new \DateTimeZone($tz_to));
+        $utc_datetime = $dt->format($targetFormat);
+
+        return $utc_datetime;
+    }
+}
