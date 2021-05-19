@@ -254,11 +254,12 @@ class ProductController extends Controller
                 $attachments = implode(',', $filesToAdd);
 
             	$attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $attachments, $product->id, 'product');
-        	}
-
-            if(!$attachmentResult['status']){
-                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                
+                if(!$attachmentResult['status']){
+                    return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                }
             }
+
 
             if($request->inspection_report_document != null){
                 $uploadMedias = UploadMedia::select('path')
@@ -278,11 +279,12 @@ class ProductController extends Controller
                 $inspection_report_document = implode(',', $filesToAdd);
 
                 $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $inspection_report_document, $product->id, 'product');
+                
+                if(!$attachmentResult['status']){
+                    return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                }
             }
 
-            if(!$attachmentResult['status']){
-                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
-            }
 
             if($request->affection_plan_document != null){
                 $uploadMedias = UploadMedia::select('path')
@@ -302,11 +304,12 @@ class ProductController extends Controller
                 $affection_plan_document = implode(',', $filesToAdd);
 
                 $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $affection_plan_document, $product->id, 'product');
+                
+                if(!$attachmentResult['status']){
+                    return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                }
             }
 
-            if(!$attachmentResult['status']){
-                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
-            }
 
         	DB::commit();
         	$data['product'] = Product::where('id', $product->id)->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->first();
