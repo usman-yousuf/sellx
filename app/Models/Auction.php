@@ -62,6 +62,11 @@ class Auction extends Model
         return $this->hasMany(UploadMedia::class, 'ref_id', 'id')->where('type', 'auction');
     }
 
+    public function biddings()
+    { 
+        return $this->hasMany(Bidding::class, 'auction_id', 'id');
+    }
+
 
 
     /**

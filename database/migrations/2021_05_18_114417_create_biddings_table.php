@@ -14,7 +14,31 @@ class CreateBiddingsTable extends Migration
     public function up()
     {
         Schema::create('biddings', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id')->unsigned(false);
+            $table->uuid('uuid')->nullable();
+
+            $table->integer('auction_id')->nullable();
+            $table->foreign('auction_id')->references('id')->on('auctions')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('auction_product_id')->nullable();
+            $table->foreign('auction_product_id')->references('id')->on('auction_products')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->double('bid_price')->default(0.0);
+
+            //to be updated after Sold
+            //if is_fixed_price is true bid_price will be null
+            //quantity avlaible only if is_fixed_price is true 
+            $table->boolean('is_fixed_price')->default(false);
+            $table->double('single_unit_price')->default(0.0);
+            $table->integer('quantity')->default(1);
+            $table->double('total_price')->default(0.0);
+            $table->enum('status', ['bid_won', 'purchased'])->default(null);
+
+            $table->dateTime('sold_date_time')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

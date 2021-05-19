@@ -14,6 +14,16 @@ class Bidding extends Model
 
     public function auction_product()
     {
-        return $this->hasMany(AuctionProduct::class,);
+        return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id');
+    }
+
+    public function auction()
+    {
+        return $this->belongsTo(Auction::class, 'auction_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(user::class, 'user_id', 'id');
     }
 }

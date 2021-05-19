@@ -34,7 +34,7 @@ class AuctionProduct extends Model
     }
 
     public function biddings()
-    {
-        return $this->hasMany(Bidding::class,);
+    { 
+        return $this->hasMany(Bidding::class, 'auction_product_id', 'id');
     }
 }
