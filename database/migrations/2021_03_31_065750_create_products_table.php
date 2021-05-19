@@ -63,6 +63,9 @@ class CreateProductsTable extends Migration
             $table->string('type')->nullable();
             $table->string('location')->nullable();
             $table->string('total_area')->nullable();
+
+            $table->enum('auction_type', ['not_preselected', 'ticker_price', 'fixed_price', 'from_zero'])->nullable();
+            $table->string('set_timer')->nullable();
             
             $table->double('min_bid')->default(0.0);
             $table->double('max_bid')->default(0.0);
