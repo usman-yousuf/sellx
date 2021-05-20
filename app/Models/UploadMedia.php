@@ -29,15 +29,16 @@ class UploadMedia extends Model
      * @param [type] $model_type
      * @return void
      */
-    public static function addAttachments($profile_id, $urls, $model_id, $model_type)
+    public static function addAttachments($profile_id, $urls, $model_id, $model_type, $media_type=null, $media_format=null, $media_size=null, $media_ratio=null, $media_thumbnail=null)
     {
+        //dd($profile_id, $urls, $model_id, $model_type, $media_type, $media_format, $media_size, $media_ratio, $media_thumbnail);
         $status = true;
-        $attchments = explode(',', $urls);
+        $attachments = explode(',', $urls);
         $file_urls = [];
         $message = 'Success';
         $code = 200;
-        if(!empty($attchments)){
-            foreach ($attchments as $key => $item) {
+        if(!empty($attachments)){
+            foreach ($attachments as $key => $item) {
                 if(!empty(trim($item))){
                     $file_urls[] = $item;
                 }
@@ -51,6 +52,13 @@ class UploadMedia extends Model
                     $model->path = $item;
                     $model->type = $model_type;
                     $model->ref_id = $model_id;
+
+                    $model->media_type = $media_type;
+                    $model->media_format = $media_format;
+                    $model->media_size = $media_size;
+                    $model->media_ratio = $media_ratio;
+                    $model->media_thumbnail = $media_thumbnail;
+
                     $model->created_at = date('Y-m-d H:m:i');
                     try{
                         $model->save();
