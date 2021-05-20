@@ -35,7 +35,7 @@ class CreateBiddingsTable extends Migration
             $table->double('single_unit_price')->default(0.0);
             $table->integer('quantity')->default(1);
             $table->double('total_price')->default(0.0);
-            $table->enum('status', ['bid_won', 'purchased'])->default(null);
+            $table->enum('status', ['bid_won', 'purchased'])->nullable();
 
             $table->dateTime('sold_date_time')->nullable();
             $table->softDeletes();

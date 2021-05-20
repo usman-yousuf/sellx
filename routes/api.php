@@ -111,7 +111,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('delete_dummy_auction', [AuctionController::class, 'deleteDummyAuction']);
 
     //bidding
-    Route::post('get_bidding', [BiddingController::class, 'store']);
+    Route::post('get_bidding', [BiddingController::class, 'index']);
     Route::post('bidding', [BiddingController::class, 'store']);
     Route::post('sale_complete', [BiddingController::class, 'update']);
 

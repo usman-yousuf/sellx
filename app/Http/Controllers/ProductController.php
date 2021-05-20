@@ -232,6 +232,7 @@ class ProductController extends Controller
 
         	// Save Mode Attachments in DB
         	if($request->attachments != null){
+                dd(json_decode($request->attachments));
                 $uploadMedias = UploadMedia::select('path')
                     ->where('profile_id', $request->user()->profile->id)
                     ->where('type', 'product')
