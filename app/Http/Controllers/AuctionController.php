@@ -6,6 +6,7 @@ use App\Models\Auction;
 use App\Models\Product;
 use App\Models\Profile;
 use App\Models\UploadMedia;
+use App\Models\Watchlist;
 use App\Models\DummyAuction;
 use Illuminate\Http\Request;
 use App\Models\AuctionProduct;
@@ -127,8 +128,13 @@ class AuctionController extends Controller
                 $utc_datetime = get_utc_datetime($request->is_upcoming, $request->ip());
                 $models->where('scheduled_date_time', '>' , $utc_datetime);
             }
+            if(isset($request->keywords) && ('' != $request->keywords)){
+                $models->where('title', '<>', '');
+                $models->where('title', 'LIKE', "%{$request->keywords}%");
+            }
 
             $cloned_models = clone $models;
+            
             if(isset($request->offset) && isset($request->limit) ){
                 $models->offset($request->offset)->limit($request->limit);
             }
@@ -382,6 +388,96 @@ class AuctionController extends Controller
                 DB::rollBack();
                 return sendError('Something Went wrong while updating Auction Live Status', []);
             }
+        }
+
+        public function getWatchlist(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'profile_uuid' => 'required|string|exists:profiles,uuid'
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $profile = Profile::where('uuid', $request->profile_uuid)->first();
+            if (null == $profile) {
+                return sendError('Profile not Found', []);
+            }
+
+            $models = Watchlist::where('profile_id', $profile->id);
+
+            $cloned_models = clone $models;
+            
+            if(isset($request->offset) && isset($request->limit) ){
+                $models->offset($request->offset)->limit($request->limit);
+            }
+
+            $data['watchlist'] = $models->get();
+            $data['total_watchlist_items'] = $cloned_models->count();
+            
+            return sendSuccess('Success', $data);
+        }
+
+        public function AddToWatchlist(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'auction_uuid' => 'required|string|exists:auctions,uuid',
+                'profile_uuid' => 'required|string|exists:profiles,uuid'
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $profile = Profile::where('uuid', $request->profile_uuid)->first();
+            if (null == $profile) {
+                return sendError('Profile not Found', []);
+            }
+
+            $auction = Auction::where('uuid', $request->auction_uuid)->first();
+            if (null == $auction) {
+                return sendError('Auction not Found', []);
+            }
+
+            $check = Watchlist::where('profile_id', $profile->id)->where('auction_id', $auction->id)->first();
+            if($check != null){
+                return sendError('Auction already added in watchlist', null);
+            }
+
+            $model = new Watchlist();
+
+            $model->uuid = \Str::uuid();
+            $model->profile_id = $profile->id;
+            $model->auction_id = $auction->id;
+
+            if($model->save()){
+                $data['watchlist'] = Watchlist::find($model->id);
+                return sendSuccess('Auction added to watchlist successfully', $data);
+            }
+        }
+
+        public function RemoveFromWatchlist(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'watchlist_uuid' => 'required|string|exists:watchlist,uuid'
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $model = Watchlist::where('uuid', $request->watchlist_uuid)->first();
+            
+            if (null == $model) {
+                return sendError('Watchlist item not Found', null);
+            }
+
+            if($model->delete()){
+                return sendSuccess('Auction removed from watchlist successfully.', null);
+            }
+
+            return sendError('Something went wrong, please try again.', null);
         }
 
     #endregion - API end points - END
