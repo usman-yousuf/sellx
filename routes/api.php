@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuctionController;
+use App\Http\Controllers\BiddingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +97,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_products', 'App\Http\Controllers\ProductController@getProducts');
     Route::post('update_product', 'App\Http\Controllers\ProductController@updateProduct');
     Route::post('delete_product', 'App\Http\Controllers\ProductController@deleteProduct');
+    Route::post('test_product', 'App\Http\Controllers\ProductController@test');
 
 
     // Auctions
@@ -109,6 +111,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_dummy_auctions', [AuctionController::class, 'updateDummyAuction']);
     Route::post('delete_dummy_auction', [AuctionController::class, 'deleteDummyAuction']);
 
+    //bidding
+    Route::post('get_bidding', [BiddingController::class, 'index']);
+    Route::post('bidding', [BiddingController::class, 'store']);
 
 
 

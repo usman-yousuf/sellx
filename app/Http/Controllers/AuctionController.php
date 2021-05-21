@@ -132,7 +132,13 @@ class AuctionController extends Controller
             if(isset($request->offset) && isset($request->limit) ){
                 $models->offset($request->offset)->limit($request->limit);
             }
+
             $data['auctions'] = $models->get();
+
+            foreach($data['auctions'] as $key => $dt){
+                $dt["scheduled_date_time"] = get_locale_datetime($dt["scheduled_date_time"],\Request::ip());
+            }
+
             $data['total_auctions_count'] = $cloned_models->count();
 
             return sendSuccess('Success', $data);
@@ -253,7 +259,7 @@ class AuctionController extends Controller
 
             $model->title = $request->title;
             $model->is_scheduled = $request->is_scheduled;
-            $model->scheduled_date_time = $request->scheduled_date_time;
+            $model->scheduled_date_time = get_utc_datetime($request->scheduled_date_time,\Request::ip());
             $model->is_live = $request->is_live;
 
             try{
@@ -334,6 +340,8 @@ class AuctionController extends Controller
                 return sendError($ex->getMessage(), $ex->getTrace());
             }
             $auction = Auction::where('id', $model->id)->with(['medias', 'auction_products','auctioneer'])->first();
+            $auction["scheduled_date_time"] = get_locale_datetime($auction["scheduled_date_time"],\Request::ip());
+
             return sendSuccess('Record Saved Successfully', $auction);
         }
 

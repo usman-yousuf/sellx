@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasOne('\App\Models\Profile', 'id', 'active_profile_id');
     }
 
+    public function biddings()
+    { 
+        return $this->hasMany(Bidding::class, 'user_id', 'id');
+    }
+
     /**
      * Updted User Chunks info
      *

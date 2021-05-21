@@ -35,6 +35,8 @@ class ProductController extends Controller
             }
         }
 
+        // $products = Product::where('profile_id', $request->profile_uuid)->orderBy('created_at', 'desc');
+
         if(isset($request->categories) && ('' != $request->categories)){
             $categories = explode(',', $request->categories);
             if(!empty($categories)){
@@ -237,6 +239,7 @@ class ProductController extends Controller
 
         	// Save Mode Attachments in DB
         	if($request->attachments != null){
+                dd(json_decode($request->attachments));
                 $uploadMedias = UploadMedia::select('path')
                     ->where('profile_id', $request->user()->profile->id)
                     ->where('type', 'product')
@@ -427,6 +430,10 @@ class ProductController extends Controller
             return sendError($ex->getMessage(), []);
         }
 
+    }
+
+    public function test(Request $request){
+        return sendSuccess('success', $request->all() ?? "ABC");
     }
 
 }
