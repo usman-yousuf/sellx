@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_profile_chunks', 'App\Http\Controllers\UserController@updateProfileChunks');
     Route::post('become_auctioneer', 'App\Http\Controllers\UserController@becomeAuctioneer');
     Route::post('switch_profile', 'App\Http\Controllers\UserController@switchProfile');
+    Route::post('get_auction_house', 'App\Http\Controllers\UserController@getAuctionHouse');
 
 
     // ADDRESS

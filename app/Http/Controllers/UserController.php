@@ -379,6 +379,30 @@ class UserController extends Controller
 
     }
 
+    public function getAuctionHouse(Request $request){
+        $validator = Validator::make($request->all(), [
+            'keywords' => 'required|string'
+        ]);
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $AuctionHouse = Profile::where('auction_house_name', '<>', '')->where('profile_type', 'auctioneer');
+        $AuctionHouse->where('auction_house_name', 'LIKE', "%{$request->keywords}%");
+
+        $cloned_auction_houses = clone $AuctionHouse;
+
+        $data['AuctionHouse'] = $AuctionHouse->with('user')->get();
+        $data['Total_AuctionHouse'] = $cloned_auction_houses->count();
+        
+        if($data['Total_AuctionHouse'] > 0){
+            return sendSuccess('Search found.', $data);
+        }
+        return sendError('Search not found.', null);
+
+    }
+
     public function getReviews(Request $request){
         $validator = Validator::make($request->all(), [
             // 'profile_uuid' => 'required|exists:profiles,uuid'
