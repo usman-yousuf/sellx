@@ -37,4 +37,9 @@ class AuctionProduct extends Model
     { 
         return $this->hasMany(Bidding::class, 'auction_product_id', 'id');
     }
+
+    public function complains()
+    { 
+        return $this->hasMany(Complain::class, 'auction_product_id', 'id');
+    }
 }

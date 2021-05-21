@@ -23,8 +23,8 @@ class CreateBiddingsTable extends Migration
             $table->integer('auction_product_id')->nullable();
             $table->foreign('auction_product_id')->references('id')->on('auction_products')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('profile_id')->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->double('bid_price')->default(0.0);
 

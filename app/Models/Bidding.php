@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use App\Models\AuctionProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,6 @@ class Bidding extends Model
 
     public function user()
     {
-        return $this->belongsTo(user::class, 'user_id', 'id');
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 }

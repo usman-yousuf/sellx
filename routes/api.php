@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BiddingController;
+use App\Http\Controllers\BuyerRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -114,6 +115,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     //bidding
     Route::post('get_bidding', [BiddingController::class, 'index']);
     Route::post('bidding', [BiddingController::class, 'store']);
+
+    //complain
+    Route::post('get_complain', [BuyerRequestController::class, 'index']);
+    Route::post('update_complain', [BuyerRequestController::class, 'store']);
 
 
 
