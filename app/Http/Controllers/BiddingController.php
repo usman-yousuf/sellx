@@ -81,7 +81,7 @@ class BiddingController extends Controller
         $bids = $bids->get();
         $total_bids = $cloned_models->count();
 
-        
+
         return sendSuccess('Data',$bids);
         
     }
@@ -166,9 +166,7 @@ class BiddingController extends Controller
                 'sold_date_time' => Carbon::now(),
             ];
 
-            $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
-
-            $bid = Bidding::where('id', $bid->id)
+            $bid = Bidding::where('uuid', $request->bidding_uuid)
                 ->where('is_fixed_price',0)
                 ->update($biddings);
             
