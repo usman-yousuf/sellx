@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(Bidding::class, 'user_id', 'id');
     }
 
+    public function complains()
+    { 
+        return $this->hasMany(Complain::class, 'user_id', 'id');
+    }
+
     /**
      * Updted User Chunks info
      *

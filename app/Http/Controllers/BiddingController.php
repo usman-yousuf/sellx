@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Auction;
 use App\Models\AuctionProduct;
 use App\Models\Bidding;
-use App\Models\user;
+use App\Models\Profile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -25,8 +25,8 @@ class BiddingController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'auction_uuid' => 'exists:auctions,uuid|required_with:max_bid_price',
-            'user_uuid' => 'exists:users,uuid',
-            'biddind_uuid' => 'exists:biddings,uuid',
+            'profile_uuid' => 'exists:profiles,uuid',
+            'bidding_uuid' => 'exists:biddings,uuid',
             'auction_product_uuid' =>'exists:auction_products,uuid',
             'max_bid_price' => 'exists:auctions,uuid',
         ]);
@@ -37,17 +37,17 @@ class BiddingController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        // Bid_id,user_id,Auction_id and max price filter
+        // Bid_id,profile_id,Auction_id and max price filter
         //  Max Price filter only works with auction_id
         $bids  = Bidding::orderBy('created_at', 'DESC');
-        if(isset($request->biddind_uuid)){
+        if(isset($request->bidding_uuid)){
 
-            $bids->where('uuid',$request->biddind_uuid);
+            $bids->where('uuid',$request->bidding_uuid);
         }
-        else if(isset($request->user_uuid)){
+        else if(isset($request->profile_uuid)){
 
-            $user = user::where('uuid',$request->user_uuid)->first();
-            $bids->where('user_id',$user->id);
+            $profile = Profile::where('uuid',$request->profile_uuid)->first();
+            $bids->where('profile_id',$profile->id);
         }
         else if(isset($request->auction_product_uuid)){
 
@@ -81,7 +81,7 @@ class BiddingController extends Controller
         $bids = $bids->get();
         $total_bids = $cloned_models->count();
 
-        
+
         return sendSuccess('Data',$bids);
         
     }
@@ -91,9 +91,34 @@ class BiddingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function user_bids(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'exists:profiles,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid', $request->profile_uuid)->first();
+
+        $bids  = Bidding::orderBy('created_at', 'DESC');      
+        $bid_all = $bids->where('profile_id', $profile->id)->get();
+        $bid_won = $bids->where('profile_id', $profile->id)->where('status', 'bid_won')->get();
+
+        $data = [$bid_won, $bid_all];
+
+        if($data){
+            return sendSuccess("Data Found", $data);
+        }
+        else{
+            return sendError('No Data Found',$data);
+        }
+
     }
 
     /**
@@ -142,7 +167,7 @@ class BiddingController extends Controller
         $validator = Validator::make($request->all(), [
             'auction_uuid' => 'string|exists:auctions,uuid',
             'auction_product_uuid' => 'string|exists:auction_products,uuid',
-            'user_uuid' => 'string|exists:users,uuid',
+            'profile_uuid' => 'string|exists:profiles,uuid',
             'bid_price' => 'required_without_all:bidding_uuid',
             'is_fixed_price' => 'boolean|required_without_all:bid_price,bidding_uuid',
             'single_unit_price' => 'required_with_all:is_fixed_price|numeric|min:1',
@@ -155,7 +180,7 @@ class BiddingController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $user = user::where('uuid',$request->user_uuid)->first();
+        $profile = Profile::where('uuid',$request->profile_uuid)->first();
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
 
@@ -166,9 +191,7 @@ class BiddingController extends Controller
                 'sold_date_time' => Carbon::now(),
             ];
 
-            $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
-
-            $bid = Bidding::where('id', $bid->id)
+            $bid = Bidding::where('uuid', $request->bidding_uuid)
                 ->where('is_fixed_price',0)
                 ->update($biddings);
             
@@ -192,11 +215,11 @@ class BiddingController extends Controller
                 return sendError("Bid price Must be more than",$auction_product->product->start_bid);
             }
 
-            if($request->bid_price >= $min_bid_value && $request->bid_price <= $max_bid_value){
+            else if( ($request->bid_price >= $min_bid_value && $request->bid_price <= $max_bid_value) || $last_max_bid == 0){
 
                 $bidding = [
                     'uuid' => Str::uuid(),
-                    'user_id' => $user->id,
+                    'profile_id' => $profile->id,
                     'auction_id' => $auction->id,
                     'auction_product_id' => $auction_product->id,
                     'bid_price' => $request->bid_price,
@@ -216,7 +239,7 @@ class BiddingController extends Controller
                 'uuid' => Str::uuid(),
                 'auction_id' => $request->auction_id,
                 'auction_product_id' => $request->auction_product_id,
-                'user_id' => $request->user_id,
+                'profile_id' => $request->profile_id,
                 'is_fixed_price' => $request->is_fixed_price,
                 'single_unit_price' => $request->single_unit_price,
                 'quantity' => $request->quantity,
