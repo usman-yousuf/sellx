@@ -91,9 +91,34 @@ class BiddingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function user_bids(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'exists:profiles,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid', $request->profile_uuid)->first();
+
+        $bids  = Bidding::orderBy('created_at', 'DESC');      
+        $bid_all = $bids->where('profile_id', $profile->id)->get();
+        $bid_won = $bids->where('profile_id', $profile->id)->where('status', 'bid_won')->get();
+
+        $data = [$bid_won, $bid_all];
+
+        if($data){
+            return sendSuccess("Data Found", $data);
+        }
+        else{
+            return sendError('No Data Found',$data);
+        }
+
     }
 
     /**
