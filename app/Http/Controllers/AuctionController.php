@@ -105,7 +105,7 @@ class AuctionController extends Controller
 
             $models = Auction::
                     orderBy('created_at', 'DESC')
-                    ->with(['auction_products', 'auctioneer', 'medias']);
+                    ->with(['medias', 'auction_products','auctioneer']);
 
             // set logged in user profile if not given
             if( isset($profile_uuid) && ('' != $request->profile_uuid)){
@@ -114,16 +114,22 @@ class AuctionController extends Controller
                 if(null == $auctioneer){
                     return sendError('Invalid User Provided', []);
                 }
-                // $request->profile_uuid = $request->user()->profile->uuid;
                 $models->where('auctioneer_id', $auctioneer->id);
             }
 
             if(isset($request->status) && ('' != $request->status)){
                 $models->whereIn('status', [$request->status]);
             }
+            if(isset($request->is_live) && ('' != $request->is_live)){
+                $models->where('is_live', $request->is_live);
+            }
+            if(isset($request->is_upcoming) && ('' != $request->is_upcoming)){
+                $utc_datetime = get_utc_datetime($request->is_upcoming, $request->ip());
+                $models->where('scheduled_date_time', '>' , $utc_datetime);
+            }
 
             $cloned_models = clone $models;
-            if( isset($request->offset) && isset($request->limit) ){
+            if(isset($request->offset) && isset($request->limit) ){
                 $models->offset($request->offset)->limit($request->limit);
             }
 
@@ -310,10 +316,9 @@ class AuctionController extends Controller
                     foreach ($auction_product_ids as $item) {
                         $existingProductIds[] = $item->product_id;
                     }
-                    // dd($existingProductIds);
-                    // dd($requestedProductIds, $existingProductIds);
+
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
-                    // dd($productIdsToAdd);
+
                     foreach($productIdsToAdd as $id){
                         $temp = new AuctionProduct();
                         $temp->uuid = \Str::uuid();
@@ -326,7 +331,6 @@ class AuctionController extends Controller
                         $status = Product::where('id', $id)->update([
                             'is_added_in_auction' => (bool)true
                         ]);
-                        // dd($status);
                     }
                 }
                 DB::commit();
@@ -335,8 +339,9 @@ class AuctionController extends Controller
             {
                 return sendError($ex->getMessage(), $ex->getTrace());
             }
-            $auction = Auction::where('id', $model->id)->with(['auction_products','auctioneer', 'medias'])->first();
+            $auction = Auction::where('id', $model->id)->with(['medias', 'auction_products','auctioneer'])->first();
             $auction["scheduled_date_time"] = get_locale_datetime($auction["scheduled_date_time"],\Request::ip());
+
             return sendSuccess('Record Saved Successfully', $auction);
         }
 

@@ -26,6 +26,8 @@ class Product extends Model
         'min_bid',
         'start_bid',
         'target_price',
+        'auction_type',
+        'set_timer',
         'is_sell_out',
         'is_added_in_auction'
     ];

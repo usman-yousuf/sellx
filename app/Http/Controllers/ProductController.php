@@ -76,6 +76,8 @@ class ProductController extends Controller
             'max_bid' => 'required|gt:min_bid',
             'start_bid' => 'required|min:1',
             'target_price' => 'required|gt:start_bid',
+            'auction_type' => 'required',
+            'set_timer' => 'required',
 
             'category' => 'required|string',
             
@@ -156,8 +158,12 @@ class ProductController extends Controller
         	$product->start_bid = $request->start_bid;
         if(isset($request->target_price))
         	$product->target_price = $request->target_price;
+        if(isset($request->auction_type))
+            $product->auction_type = $request->auction_type;
+        if(isset($request->set_timer))
+            $product->set_timer = $request->set_timer;
 
-        if($category =='watches'){
+        if($category->slug =='watches'){
             $product->brand = $request->brand;
             $product->model = $request->model;
             $product->material = $request->material;
@@ -168,7 +174,7 @@ class ProductController extends Controller
             $product->size = $request->size;
             $product->dial = $request->dial;
         }
-        if($category =='cars' || $category =='bike' || $category =='big_vehicle'){
+        if($category->slug =='cars' || $category->slug =='bike' || $category->slug =='big_vehicle'){
             $product->make = $request->make;
             $product->model = $request->model;
             $product->year = $request->year;
@@ -183,40 +189,41 @@ class ProductController extends Controller
             $product->body_type = $request->body_type;
             $product->country_of_made = $request->country_of_made;
         }
-        if($category =='plate_number'){
+        if($category->slug =='plate_number'){
             $product->city = $request->city;
             $product->code = $request->code;
             $product->number = $request->number;
         }
-        if($category =='bags' || $category =='wallet' || $category =='leatherette'){
+        if($category->slug =='bags' || $category->slug =='wallet' || $category->slug =='leatherette'){
             $product->brand = $request->brand;
             $product->color = $request->color;
             $product->size = $request->size;
             $product->material = $request->material;
             $product->scope_of_delivery = $request->scope_of_delivery;
         }
-        if($category == 'pens'){
+        if($category->slug == 'pens'){
             $product->brand = $request->brand;
             $product->material = $request->material;
             $product->size = $request->size;
             $product->scope_of_delivery = $request->scope_of_delivery;
         }
-        if($category == 'perfume' || $category == 'oud'){
+        if($category->slug == 'perfume' || $category->slug == 'oud'){
             $product->brand = $request->brand;
             $product->size = $request->size;
             $product->weight = $request->weight;
         }
-        if($category == 'animals'){
+        if($category->slug == 'animals'){
             $product->age = $request->age;
             $product->type = $request->type;
             $product->color = $request->color;
         }
-        if($category == 'properties'){
+
+        if($category->slug == 'properties'){
             $product->location = $request->location;
             $product->type = $request->type;
             $product->total_area = $request->total_area; 
         }
-        if($category == 'jewellery'){
+        if($category->slug == 'jewellery'){
             $product->brand = $request->brand;
             $product->model = $request->model;
             $product->material = $request->material;
@@ -245,16 +252,39 @@ class ProductController extends Controller
                         $dbPaths[] = $media->path;
                     }
                 }
-                $request_files = explode(',', $request->attachments);
-                $filesToAdd = array_diff($request_files, $dbPaths);
-                $attachments = implode(',', $filesToAdd);
+                
+                $request_files = json_decode($request->attachments);
+                
+                $requested_paths = [];
+                if($request_files){
+                    foreach ($request_files as $file) {
+                        $requested_paths[] = $file->path;
+                    }
+                }
+                
+                $filesToAdd = array_diff($requested_paths, $dbPaths);
 
-            	$attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $attachments, $product->id, 'product');
-        	}
+                $AddFileToDB = [];
+                if($request_files){
+                    foreach ($request_files as $file) {
+                        foreach ($filesToAdd as $filetocheck) {
+                            if($filetocheck == $file->path){
+                                $AddFileToDB[] = $file;
+                            }   
+                        }
+                    }
+                }
+                if($AddFileToDB){
+                    foreach($AddFileToDB as $media) {
+                        $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $media->path, $product->id, 'product', $media->media_type, $media->media_format, $media->media_size, $media->media_ratio, $media->media_thumbnail);
 
-            if(!$attachmentResult['status']){
-                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                        if(!$attachmentResult['status']){
+                            return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                        }
+                    }
+                }
             }
+
 
             if($request->inspection_report_document != null){
                 $uploadMedias = UploadMedia::select('path')
@@ -269,16 +299,39 @@ class ProductController extends Controller
                         $dbPaths[] = $media->path;
                     }
                 }
-                $request_files = explode(',', $request->inspection_report_document);
-                $filesToAdd = array_diff($request_files, $dbPaths);
-                $inspection_report_document = implode(',', $filesToAdd);
+                
+                $request_files = json_decode($request->inspection_report_document);
+                
+                $requested_paths = [];
+                if($request_files){
+                    foreach ($request_files as $file) {
+                        $requested_paths[] = $file->path;
+                    }
+                }
+                
+                $filesToAdd = array_diff($requested_paths, $dbPaths);
 
-                $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $inspection_report_document, $product->id, 'product');
+                $AddFileToDB = [];
+                if($request_files){
+                    foreach ($request_files as $file) {
+                        foreach ($filesToAdd as $filetocheck) {
+                            if($filetocheck == $file->path){
+                                $AddFileToDB[] = $file;
+                            }   
+                        }
+                    }
+                }
+                if($AddFileToDB){
+                    foreach($AddFileToDB as $media) {
+                        $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $media->path, $product->id, 'product', $media->media_type, $media->media_format, $media->media_size, $media->media_ratio, $media->media_thumbnail);
+
+                        if(!$attachmentResult['status']){
+                            return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                        }
+                    }
+                }
             }
 
-            if(!$attachmentResult['status']){
-                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
-            }
 
             if($request->affection_plan_document != null){
                 $uploadMedias = UploadMedia::select('path')
@@ -293,16 +346,39 @@ class ProductController extends Controller
                         $dbPaths[] = $media->path;
                     }
                 }
-                $request_files = explode(',', $request->affection_plan_document);
-                $filesToAdd = array_diff($request_files, $dbPaths);
-                $affection_plan_document = implode(',', $filesToAdd);
+                
+                $request_files = json_decode($request->affection_plan_document);
+                
+                $requested_paths = [];
+                if($request_files){
+                    foreach ($request_files as $file) {
+                        $requested_paths[] = $file->path;
+                    }
+                }
+                
+                $filesToAdd = array_diff($requested_paths, $dbPaths);
 
-                $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $affection_plan_document, $product->id, 'product');
+                $AddFileToDB = [];
+                if($request_files){
+                    foreach ($request_files as $file) {
+                        foreach ($filesToAdd as $filetocheck) {
+                            if($filetocheck == $file->path){
+                                $AddFileToDB[] = $file;
+                            }   
+                        }
+                    }
+                }
+                if($AddFileToDB){
+                    foreach($AddFileToDB as $media) {
+                        $attachmentResult = UploadMedia::addAttachments($request->user()->profile->id, $media->path, $product->id, 'product', $media->media_type, $media->media_format, $media->media_size, $media->media_ratio, $media->media_thumbnail);
+
+                        if(!$attachmentResult['status']){
+                            return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
+                        }
+                    }
+                }
             }
 
-            if(!$attachmentResult['status']){
-                return getInternalErrorResponse($attachmentResult['message'], [], $attachmentResult['responseCode']);
-            }
 
         	DB::commit();
         	$data['product'] = Product::where('id', $product->id)->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->first();

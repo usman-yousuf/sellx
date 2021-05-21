@@ -15,8 +15,6 @@ class Auction extends Model
     protected $table = 'auctions';
     public $timestamps = true;
 
-    // protected $with = ['auction_products', 'auctioneer'];
-
     protected $dates = [
         'created_at',
         'updated_at',
@@ -54,7 +52,7 @@ class Auction extends Model
 
     public function auctioneer()
     {
-        return $this->belongsTo(Profile::class, 'auctioneer_id', 'id');
+        return $this->belongsTo(Profile::class, 'auctioneer_id', 'id')->with('user');
     }
 
     public function medias()

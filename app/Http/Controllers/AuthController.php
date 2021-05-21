@@ -410,7 +410,7 @@ class AuthController extends Controller
         }
 
         if (!$user) {
-            return sendError('not_registered.', null);
+            return sendError('Not registered.', null);
         }
 
         \Auth::login($user);
