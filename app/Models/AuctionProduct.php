@@ -14,7 +14,9 @@ class AuctionProduct extends Model
     protected $table = 'auction_products';
     public $timestamps = true;
 
-    protected $with = ['product'];
+    protected $with = ['product', 'biddings'];
+
+    protected $withCount = ['biddings'];
 
 
     protected $dates = [
