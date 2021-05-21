@@ -113,7 +113,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     //bidding
     Route::post('get_bidding', [BiddingController::class, 'index']);
     Route::post('bidding', [BiddingController::class, 'store']);
-    Route::post('sale_complete', [BiddingController::class, 'update']);
 
 
 
