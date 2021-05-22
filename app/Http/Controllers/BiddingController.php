@@ -105,8 +105,6 @@ class BiddingController extends Controller
         $bid_all = $bids->where('profile_id', $profile->id)->get();
         $bid_won = $bids->where('profile_id', $profile->id)->where('status', 'bid_won')->get();
 
-        dd();
-
         $data = [
             "Won Lots"=>$bid_won,
             "Bid Lots"=>$bid_all];
