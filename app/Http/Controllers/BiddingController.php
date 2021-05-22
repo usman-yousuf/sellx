@@ -44,17 +44,12 @@ class BiddingController extends Controller
 
             $bids->where('uuid',$request->bidding_uuid);
         }
-        else if(isset($request->profile_uuid)){
+        if(isset($request->profile_uuid)){
 
             $profile = Profile::where('uuid',$request->profile_uuid)->first();
             $bids->where('profile_id',$profile->id);
         }
-        else if(isset($request->auction_product_uuid)){
-
-            $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
-            $bids->where('auction_product_id',$auction_product->id);
-        }
-        else if(isset($request->auction_uuid)){
+        if(isset($request->auction_uuid)){
 
             $auction = Auction::where('uuid',$request->auction_uuid)->first();
 
@@ -95,7 +90,7 @@ class BiddingController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'exists:profiles,uuid',
+            'profile_uuid' => 'required|exists:profiles,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -110,13 +105,14 @@ class BiddingController extends Controller
         $bid_all = $bids->where('profile_id', $profile->id)->get();
         $bid_won = $bids->where('profile_id', $profile->id)->where('status', 'bid_won')->get();
 
-        $data = [$bid_won, $bid_all];
+        dd();
 
-        if($data){
+        $data = [
+            "Won Lots"=>$bid_won,
+            "Bid Lots"=>$bid_all];
+
+        if ($data){
             return sendSuccess("Data Found", $data);
-        }
-        else{
-            return sendError('No Data Found',$data);
         }
 
     }
@@ -219,9 +215,9 @@ class BiddingController extends Controller
 
                 $bidding = [
                     'uuid' => Str::uuid(),
-                    'profile_id' => $profile->id,
                     'auction_id' => $auction->id,
                     'auction_product_id' => $auction_product->id,
+                    'profile_id' => $profile->id,
                     'bid_price' => $request->bid_price,
                     'total_price' => $request->bid_price,
                 ];
@@ -237,9 +233,9 @@ class BiddingController extends Controller
 
             $bidding = [
                 'uuid' => Str::uuid(),
-                'auction_id' => $request->auction_id,
-                'auction_product_id' => $request->auction_product_id,
-                'profile_id' => $request->profile_id,
+                'auction_id' => $auction->id,
+                'auction_product_id' => $auction_product->id,
+                'profile_id' => $profile->id,
                 'is_fixed_price' => $request->is_fixed_price,
                 'single_unit_price' => $request->single_unit_price,
                 'quantity' => $request->quantity,
