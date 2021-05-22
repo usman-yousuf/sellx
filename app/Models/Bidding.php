@@ -12,8 +12,7 @@ class Bidding extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    protected $with = ['user'];
+    protected $with = ['auction_product', 'user'];
 
     public function auction_product()
     {
