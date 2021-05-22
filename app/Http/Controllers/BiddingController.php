@@ -101,13 +101,14 @@ class BiddingController extends Controller
 
         $profile = Profile::where('uuid', $request->profile_uuid)->first();
 
-        $bids  = Bidding::orderBy('created_at', 'DESC');      
+        $bids  = Bidding::orderBy('created_at', 'DESC');     
         $bid_all = $bids->where('profile_id', $profile->id)->get();
         $bid_won = $bids->where('profile_id', $profile->id)->where('status', 'bid_won')->get();
 
+        // dd($bid_all); 
         $data = [
-            "Won Lots"=>$bid_won,
-            "Bid Lots"=>$bid_all];
+            "Won_Lots"=>$bid_won,
+            "Bid_Lots"=>$bid_all];
 
         if ($data){
             return sendSuccess("Data Found", $data);
@@ -178,6 +179,7 @@ class BiddingController extends Controller
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
 
+        //For Update bid Sold This BLock 
         if(isset($request->bidding_uuid)){
 
             $biddings = [
@@ -196,6 +198,7 @@ class BiddingController extends Controller
 
                 return sendSuccess("Sold",$bid);
         }
+        //End Update
 
         //Work if is_fixed_price is not fixed,if bid and fixed both are given it will go for purchased
         if(!$request->is_fixed_price??''){ 
