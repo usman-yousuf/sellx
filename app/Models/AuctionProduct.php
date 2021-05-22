@@ -14,7 +14,10 @@ class AuctionProduct extends Model
     protected $table = 'auction_products';
     public $timestamps = true;
 
-    protected $with = ['product', 'biddings'];
+    protected $with = [
+        'product', 
+        'biddings'
+    ];
 
     protected $withCount = ['biddings'];
 
@@ -37,7 +40,7 @@ class AuctionProduct extends Model
 
     public function biddings()
     { 
-        return $this->hasMany(Bidding::class, 'auction_product_id', 'id');
+        return $this->hasMany(Bidding::class,'auction_product_id', 'id');
     }
 
     public function complains()

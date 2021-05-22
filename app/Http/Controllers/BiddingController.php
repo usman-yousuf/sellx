@@ -98,17 +98,19 @@ class BiddingController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-
         $profile = Profile::where('uuid', $request->profile_uuid)->first();
         if(null == $profile){
             return sendError('User Not Found', []);
         }
 
+
         $bids  = Bidding::where('profile_id', $profile->id)->orderBy('created_at', 'DESC');
+        // dd($bids);
         $won = clone $bids;
         $won = $won->where('status', 'bid_won')->get();
         $bids = $bids->get();
 
+        // dd($bids);
         $data = [
             "all_bids" => $bids,
             "won_bids" => $won,
