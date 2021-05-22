@@ -28,4 +28,9 @@ class Bidding extends Model
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
+
+    public function sold()
+    {
+        return $this->hasOne(Sold::class, 'bidding_id', 'id');
+    }
 }

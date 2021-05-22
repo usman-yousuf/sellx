@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BiddingController;
 use App\Http\Controllers\BuyerRequestController;
+use App\Http\Controllers\SoldController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -126,7 +127,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_complain', [BuyerRequestController::class, 'index']);
     Route::post('update_complain', [BuyerRequestController::class, 'store']);
 
-
+    //sold
+    Route::post('get_sold', [SoldController::class, 'get_sold']);
+    Route::post('update_sold', [SoldController::class, 'update_sold']);
 
 
 });
