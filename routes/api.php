@@ -5,6 +5,7 @@ use App\Http\Controllers\BiddingController;
 use App\Http\Controllers\BuyerRequestController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SoldController;
+use App\Http\Controllers\ViewerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -137,5 +138,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_comment', [CommentController::class, 'get_comment']);
     Route::post('update_comment', [CommentController::class, 'update_comment']);
 
+    //
+    Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
 
 });

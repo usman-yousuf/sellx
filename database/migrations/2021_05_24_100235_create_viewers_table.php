@@ -26,6 +26,8 @@ class CreateViewersTable extends Migration
             $table->integer('profile_id')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
             
+            $table->timestamp('left_at');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

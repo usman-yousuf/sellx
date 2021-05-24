@@ -8,8 +8,8 @@ use App\Models\Auction;
 use App\Models\AuctionProduct;
 use App\Models\Bidding;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 // use GuzzleHttp\Psr7\str;
 

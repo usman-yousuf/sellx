@@ -49,15 +49,16 @@ class SoldController extends Controller
 
         $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
 
-
         $sold = [
             'uuid' => Str::uuid(),
             'bidding_id' => $bid->id,
+            'profile_id' => $bid->profile_id,
+            'auction_id' => $bid->auction_id,
+            'auction_product_id' => $bid->auction_product_id,
             'price' => $bid->total_price,
             'type' => $bid->status,
             'status' => $request->status,
             'total_price' => $bid->total_price,
-            // 'discount' => $bid->id,
         ];
 
         if(isset($request->discount)){
