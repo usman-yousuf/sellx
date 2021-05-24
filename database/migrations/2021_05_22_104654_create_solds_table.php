@@ -24,7 +24,7 @@ class CreateSoldsTable extends Migration
             $table->double('discount')->default(0.0);
             $table->double('total_price')->default(0.0);
             $table->enum('type', ['bid_won', 'purchased'])->nullable();
-            $table->enum('status', ['pending', 'paid','on_hold','reversed'])->nullable();
+            $table->enum('status', ['pending', 'paid','on_hold','reversed','shipped'])->nullable();
 
             $table->timestamps();
         });

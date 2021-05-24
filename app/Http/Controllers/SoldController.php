@@ -17,7 +17,15 @@ class SoldController extends Controller
      */
     public function get_sold(Request $request)
     {
-        
+        $validator = Validator::make($request->all(), [
+            'sold_uuid' => 'required|exists:profiles,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
     }
 
     /**
@@ -46,18 +54,18 @@ class SoldController extends Controller
             'uuid' => Str::uuid(),
             'bidding_id' => $bid->id,
             'price' => $bid->total_price,
-            // 'discount' => $bid->id,
-            // 'total_price' => $bid->id,
             'type' => $bid->status,
             'status' => $request->status,
+            'total_price' => $bid->total_price,
+            // 'discount' => $bid->id,
         ];
 
         if(isset($request->discount)){
             $total = $bid->total_price - ($bid->total_price * ($request->discount/100));
             $sold += [
-                'total_price' => $request->discount, 
-                'total_price' => $total, 
+                'discount' => $request->discount, 
             ];
+            $sold['total_price'] = $total;
         }
 
         $sold = Sold::create($sold);

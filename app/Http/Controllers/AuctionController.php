@@ -541,9 +541,31 @@ class AuctionController extends Controller
      * @param  \App\Models\Auction  $auction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Auction $auction)
+    public function backToList(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'auction_product_uuid' => 'required|exists:auction_products,uuid',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction_product = AuctionProduct::orderBy('created_at', 'DESC');
+        $auction_product_current_order = clone $auction_product;
+
+        $auction_product_current_order = $auction_product_current_order->where('uuid',$request->auction_product_uuid)->first();
+        $auction_product_last_order = $auction_product->first();
+
+        $auction_product = [
+            'sort_order' => $auction_product_current_order->sort_order + $auction_product_last_order->sort_order,
+        ];
+
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->update($auction_product);
+
+        return sendSuccess('Back to list',$auction_product);
+
     }
 
     /**

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Profile;
 use App\Models\Auction;
 use App\Models\AuctionProduct;
 use App\Models\Bidding;
-use App\Models\Profile;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -24,10 +24,10 @@ class BiddingController extends Controller
     public function index(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'auction_uuid' => 'exists:auctions,uuid|required_with:max_bid_price',
             'profile_uuid' => 'exists:profiles,uuid',
-            'bidding_uuid' => 'exists:biddings,uuid',
+            'auction_uuid' => 'exists:auctions,uuid|required_with:max_bid_price',
             'auction_product_uuid' =>'exists:auction_products,uuid',
+            'bidding_uuid' => 'exists:biddings,uuid',
             'max_bid_price' => 'exists:auctions,uuid',
         ]);
 
@@ -98,19 +98,19 @@ class BiddingController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
+
         $profile = Profile::where('uuid', $request->profile_uuid)->first();
+
         if(null == $profile){
             return sendError('User Not Found', []);
         }
 
 
         $bids  = Bidding::where('profile_id', $profile->id)->orderBy('created_at', 'DESC');
-        // dd($bids);
         $won = clone $bids;
         $won = $won->where('status', 'bid_won')->get();
         $bids = $bids->get();
 
-        // dd($bids);
         $data = [
             "all_bids" => $bids,
             "won_bids" => $won,
@@ -219,9 +219,9 @@ class BiddingController extends Controller
 
                 $bidding = [
                     'uuid' => Str::uuid(),
+                    'profile_id' => $profile->id,
                     'auction_id' => $auction->id,
                     'auction_product_id' => $auction_product->id,
-                    'profile_id' => $profile->id,
                     'bid_price' => $request->bid_price,
                     'total_price' => $request->bid_price,
                 ];

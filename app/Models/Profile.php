@@ -127,6 +127,16 @@ class Profile extends Model
         return $this->hasOne('\App\Models\NotificationPermission', 'profile_id', 'id');
     }
 
+    public function biddings()
+    { 
+        return $this->hasMany(Bidding::class, 'profile_id', 'id');
+    }
+
+    public function comments()
+    { 
+        return $this->hasMany(Comment::class, 'profile_id', 'id');
+    }
+
     /**
      * Do something based on events of this model
      *

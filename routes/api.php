@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BiddingController;
 use App\Http\Controllers\BuyerRequestController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SoldController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -108,6 +109,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('delete_auction_product', [AuctionController::class, 'deleteAuctionProduct']);
     Route::post('update_auction', [AuctionController::class, 'updateAuction']);
     Route::post('go_online', [AuctionController::class, 'toggleLiveAuction']);
+    Route::post('back_to_list', [AuctionController::class, 'backToList']);
 
     // Watchlist
     Route::post('add_to_watchlist', [AuctionController::class, 'AddToWatchlist']);
@@ -130,6 +132,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     //sold
     Route::post('get_sold', [SoldController::class, 'get_sold']);
     Route::post('update_sold', [SoldController::class, 'update_sold']);
+
+    //comment
+    Route::post('get_comment', [CommentController::class, 'get_comment']);
+    Route::post('update_comment', [CommentController::class, 'update_comment']);
 
 
 });
