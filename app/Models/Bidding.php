@@ -21,7 +21,7 @@ class Bidding extends Model
 
     public function auction()
     {
-        return $this->belongsTo(Auction::class, 'auction_id', 'id');
+        return $this->belongsTo(Auction::class, 'auction_id', 'id')->without(['biddings']);
     }
 
     public function user()

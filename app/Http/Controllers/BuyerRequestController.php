@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use App\Models\BuyerRequest;
 use App\Models\AuctionProduct;
+use App\Models\BuyerRequest;
+use App\Models\Profile;
+use App\Models\Sold;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class BuyerRequestController extends Controller
 {
@@ -104,6 +105,14 @@ class BuyerRequestController extends Controller
         ];
 
         $complained = BuyerRequest::create($compilain);
+
+        if($complained){
+            $sold = [
+                'status' => 'on_hold',
+            ];
+
+            Sold::where('auction_product_id',$auction_product->id)->where('profile_id',$profile->id)->update($sold);
+        }
 
         return sendSuccess('Complain Registered Sucessfully', $complained);
     }
