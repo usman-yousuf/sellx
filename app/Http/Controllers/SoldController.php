@@ -63,8 +63,9 @@ class SoldController extends Controller
     public function update_sold(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'bidding_uuid' => 'required|exists:biddings,uuid',        
-            'status' => 'required|string',
+            'bidding_uuid' => 'required_without:shipping_uuid|exists:biddings,uuid',        
+            'shipping_uuid' => 'required_without:bidding_uuid|exists:solds,uuid',
+            'status' => 'string|required',
         ]);
 
         if ($validator->fails()) {
@@ -73,15 +74,19 @@ class SoldController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
+        if(isset($request->shipping_uuid)){
+            $sold = [
+                'status' => $request->status,
+            ];
+
+            $sold = Sold::where('uuid',$request->shipping_uuid)->update($sold);
+
+            return sendSuccess('Updated Status',$sold);
+        }
+
         $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
 
-        if(Sold::where('bidding_id', $bid->id)->first() /*&& isset($request->status)*/){
-
-            // $sold = [
-            //     'status' => $request->status,
-            // ];
-            // $sold = Sold::where('bidding_id', $bid->id)->update($sold);
-            // return sendSuccess('Updated Status',$sold);
+        if(Sold::where('bidding_id', $bid->id)->first() ){
             return sendError('Bid already sold',[]);
         }
 
