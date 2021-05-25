@@ -16,10 +16,11 @@ class AuctionProduct extends Model
 
     protected $with = [
         'product', 
-        'biddings'
+        'biddings',
+        'viewers',
     ];
 
-    protected $withCount = ['biddings'];
+    protected $withCount = ['biddings','viewers'];
 
 
     protected $dates = [
@@ -41,6 +42,11 @@ class AuctionProduct extends Model
     public function biddings()
     { 
         return $this->hasMany(Bidding::class,'auction_product_id', 'id');
+    }
+
+    public function viewers()
+    { 
+        return $this->hasMany(Viewer::class,'auction_product_id', 'id');
     }
 
     public function comments()

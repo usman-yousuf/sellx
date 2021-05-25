@@ -165,10 +165,11 @@ class BiddingController extends Controller
             'auction_uuid' => 'string|exists:auctions,uuid|required_with:auction_product_uuid,profile_uuid,bid_price',
             'auction_product_uuid' => 'string|exists:auction_products,uuid|required_with:auction_uuid,profile_uuid,bid_price',
             'profile_uuid' => 'string|exists:profiles,uuid|required_with:auction_product_uuid,auction_uuid,bid_price',
-            'bid_price' => 'required_without_all:bidding_uuid,is_fixed_price|required_with:auction_product_uuid,auction_uuid,profile_uuid',
+            'bid_price' => 'required_without_all:bidding_uuid,is_fixed_price',
             'is_fixed_price' => 'boolean|required_without_all:bid_price,bidding_uuid',
             'single_unit_price' => 'required_with_all:is_fixed_price|numeric|min:1',
             'quantity' => 'required_with_all:is_fixed_price|numeric|min:1',
+            'bidding_uuid' => 'required_without_all:auction_uuid,auction_product_uuid,profile_uuid,bid_price,is_fixed_price'
         ]);
 
         if ($validator->fails()) {

@@ -34,8 +34,8 @@ class BuyerRequestController extends Controller
 
         if(isset($request->user_uuid)){
 
-            $user = User::where('uuid',$request->user_uuid)->first();
-            $data->where('user_id', $user);
+            $profile = Profile::where('uuid',$request->user_uuid)->first();
+            $data->where('profile_id', $profile->id);
         }
 
         $cloned_models = clone $data;

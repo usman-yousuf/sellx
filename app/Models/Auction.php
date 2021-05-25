@@ -70,6 +70,11 @@ class Auction extends Model
         return $this->hasMany(Comment::class, 'auction_id', 'id');
     }
 
+    public function viewers()
+    { 
+        return $this->hasMany(Viewer::class,'auction_id', 'id');
+    }
+
 
 
     /**

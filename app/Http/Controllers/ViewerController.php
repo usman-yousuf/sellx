@@ -45,10 +45,10 @@ class ViewerController extends Controller
     public function update_viewer(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'required_with:auction_uuid,auction_product_uuid|exists:profiles,uuid',
-            'auction_uuid' => 'required_with:profile_uuid,auction_product_uuid|exists:auctions,uuid',
-            'auction_product_uuid' =>'required_with:auction_uuid,profile_uuid|exists:auction_products,uuid',
-            'viewer_uuid' =>'required_with:left_at|exists:viewers,uuid',
+            'profile_uuid' => 'required_with:auction_uuid,auction_product_uuid|required_without:viewer_uuid,left_at|exists:profiles,uuid',
+            'auction_uuid' => 'required_with:profile_uuid,auction_product_uuid|required_without:viewer_uuid,left_at|exists:auctions,uuid',
+            'auction_product_uuid' =>'required_with:auction_uuid,profile_uuid|required_without:viewer_uuid,left_at|exists:auction_products,uuid',
+            'viewer_uuid' =>'required_with:left_at|required_without:auction_uuid,auction_product_uuid,profile_uuid|exists:viewers,uuid',
             'left_at' =>'required_with:viewer_uuid|required_without:auction_uuid,auction_product_uuid,profile_uuid',
         ]);
 

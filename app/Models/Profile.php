@@ -132,6 +132,11 @@ class Profile extends Model
         return $this->hasMany(Bidding::class, 'profile_id', 'id');
     }
 
+    public function viewers()
+    { 
+        return $this->hasMany(Viewer::class, 'profile_id', 'id');
+    }
+
     public function comments()
     { 
         return $this->hasMany(Comment::class, 'profile_id', 'id');
