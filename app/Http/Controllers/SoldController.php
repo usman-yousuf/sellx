@@ -64,7 +64,7 @@ class SoldController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'bidding_uuid' => 'required|exists:biddings,uuid',        
-            'status' => 'required',        
+            'status' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -74,6 +74,16 @@ class SoldController extends Controller
         }
 
         $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
+
+        if(Sold::where('bidding_id', $bid->id)->first() /*&& isset($request->status)*/){
+
+            // $sold = [
+            //     'status' => $request->status,
+            // ];
+            // $sold = Sold::where('bidding_id', $bid->id)->update($sold);
+            // return sendSuccess('Updated Status',$sold);
+            return sendError('Bid already sold',[]);
+        }
 
         $sold = [
             'uuid' => Str::uuid(),
@@ -88,6 +98,7 @@ class SoldController extends Controller
         ];
 
         if(isset($request->discount)){
+
             $total = $bid->total_price - ($bid->total_price * ($request->discount/100));
             $sold += [
                 'discount' => $request->discount, 
