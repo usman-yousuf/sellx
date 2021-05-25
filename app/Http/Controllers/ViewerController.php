@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\viewer;
+use App\Models\Viewer;
 use App\Models\Profile;
 use App\Models\Auction;
 use App\Models\AuctionProduct;
