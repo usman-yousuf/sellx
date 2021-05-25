@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sold;
 use App\Models\Bidding;
+use App\Models\Sold;
+use App\Models\Profile;
+use App\Models\Auction;
+use App\Models\AuctionProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class SoldController extends Controller
 {
@@ -17,15 +20,38 @@ class SoldController extends Controller
      */
     public function get_sold(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'sold_uuid' => 'required|exists:profiles,uuid',
-        ]);
 
-        if ($validator->fails()) {
+        $sold  = Sold::orderBy('created_at', 'DESC');
+        if(isset($request->bidding_uuid)){
 
-            $data['validation_error'] = $validator->getMessageBag();
-            return sendError($validator->errors()->all()[0], $data);
+            $bid = bidding::where('uuid',$request->bidding_uuid)->first();
+            $sold->where('bidding_id',$bid->id);
+
         }
+        if(isset($request->profile_uuid)){
+
+            $profile = Profile::where('uuid',$request->profile_uuid)->first();
+            $sold->where('profile_id',$profile->id);
+        }
+        if(isset($request->auction_uuid)){
+
+            $auction = Auction::where('uuid',$request->auction_uuid)->first();
+            $sold->where('auction_id',$request->auction_id)->get();
+        }
+        else{
+
+            $result = sold::all();
+        }
+
+        $cloned_models = clone $sold;
+        if(isset($request->offset) && isset($request->limit)){
+            $sold->offset($request->offset)->limit($request->limit);
+        }
+        $sold = $sold->get();
+        $total_sold = $cloned_models->count();
+
+
+        return sendSuccess('Data',$sold);
     }
 
     /**

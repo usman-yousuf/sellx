@@ -17,9 +17,24 @@ class ViewerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function get_viewer(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'auction_uuid' => 'required|exists:auctions,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction = Auction::where('uuid',$request->auction_uuid)->first();
+
+        $viewer = Viewer::where('auction_id',$auction->id)->get();
+
+        return sendSuccess("Viewers",$viewer);
+
     }
 
     /**
@@ -31,10 +46,10 @@ class ViewerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'required_with:auction_uuid,auction_product_uuid|exists:profiles,uuid',
-            'auction_uuid' => 'required_with:profile_uuid,auction_product_uuid|exists:auctions,uuid|required_with:max_bid_price',
+            'auction_uuid' => 'required_with:profile_uuid,auction_product_uuid|exists:auctions,uuid',
             'auction_product_uuid' =>'required_with:auction_uuid,profile_uuid|exists:auction_products,uuid',
             'viewer_uuid' =>'required_with:left_at|exists:viewers,uuid',
-            'left_at' =>'required_with:viewer_uuid|required_without:auction_uuid,auction_product_uuid,profile_uuid,uuid',
+            'left_at' =>'required_with:viewer_uuid|required_without:auction_uuid,auction_product_uuid,profile_uuid',
         ]);
 
         if ($validator->fails()) {

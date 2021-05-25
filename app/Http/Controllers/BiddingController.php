@@ -28,7 +28,6 @@ class BiddingController extends Controller
             'auction_uuid' => 'exists:auctions,uuid|required_with:max_bid_price',
             'auction_product_uuid' =>'exists:auction_products,uuid',
             'bidding_uuid' => 'exists:biddings,uuid',
-            'max_bid_price' => 'exists:auctions,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -163,10 +162,10 @@ class BiddingController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'auction_uuid' => 'string|exists:auctions,uuid',
-            'auction_product_uuid' => 'string|exists:auction_products,uuid',
-            'profile_uuid' => 'string|exists:profiles,uuid',
-            'bid_price' => 'required_without_all:bidding_uuid',
+            'auction_uuid' => 'string|exists:auctions,uuid|required_with:auction_product_uuid,profile_uuid,bid_price',
+            'auction_product_uuid' => 'string|exists:auction_products,uuid|required_with:auction_uuid,profile_uuid,bid_price',
+            'profile_uuid' => 'string|exists:profiles,uuid|required_with:auction_product_uuid,auction_uuid,bid_price',
+            'bid_price' => 'required_without_all:bidding_uuid,is_fixed_price|required_with:auction_product_uuid,auction_uuid,profile_uuid',
             'is_fixed_price' => 'boolean|required_without_all:bid_price,bidding_uuid',
             'single_unit_price' => 'required_with_all:is_fixed_price|numeric|min:1',
             'quantity' => 'required_with_all:is_fixed_price|numeric|min:1',

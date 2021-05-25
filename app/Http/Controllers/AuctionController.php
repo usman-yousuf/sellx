@@ -160,6 +160,7 @@ class AuctionController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'auction_uuid' => 'required|string|exists:auctions,uuid',
+                'product_uuid' => 'required|string|exists:products,uuid',
             ]);
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();
@@ -170,9 +171,14 @@ class AuctionController extends Controller
             if(null == $model){
                 return sendError('No Record Found', []);
             }
+            $product = Product::where('uuid', $request->product_uuid)->first();
+            if (null == $product) {
+                return sendError('No Record Found', []);
+            }
 
             try{
                 $model->delete();
+                Product::where('id', $product->id)->update(['is_added_in_auction' => (bool)false]);
                 return sendSuccess('Record Deleted Successfully', []);
             }
             catch(\Exception $ex)
@@ -529,9 +535,30 @@ class AuctionController extends Controller
      * @param  \App\Models\Auction  $auction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Auction $auction)
+    public function get_live_auction(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'is_live' => 'required|numeric|min:1',
+            'auctioneer_uuid' => 'exists:profiles,uuid',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction = Auction::where('is_live',1)->get();
+
+        // if(isset($request->auctioneer_uuid)){
+        //     $auctioneer = Profile::where('uuid', $request->auctioneer_uuid);
+        //     $auction->where('auctioneer_id',$auctioneer->id);
+        // }
+
+        // $auction->get();
+
+
+        return sendSuccess("Auction Live",$auction);
+
     }
 
     /**

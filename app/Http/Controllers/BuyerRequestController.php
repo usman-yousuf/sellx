@@ -18,6 +18,7 @@ class BuyerRequestController extends Controller
      */
     public function index(Request $request)
     {
+        
 
         $data = BuyerRequest::orderBy('created_at', 'DESC');
 
