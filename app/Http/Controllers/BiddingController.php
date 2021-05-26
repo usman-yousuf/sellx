@@ -41,15 +41,18 @@ class BiddingController extends Controller
         // Bid_id,profile_id,Auction_id and max price filter
         //  Max Price filter only works with auction_id
         $bids  = Bidding::orderBy('created_at', 'DESC');
+
         if(isset($request->bidding_uuid)){
 
             $bids->where('uuid',$request->bidding_uuid);
         }
+
         if(isset($request->profile_uuid)){
 
             $profile = Profile::where('uuid',$request->profile_uuid)->first();
             $bids->where('profile_id',$profile->id);
         }
+
         if(isset($request->auction_uuid)){
 
             $auction = Auction::where('uuid',$request->auction_uuid)->first();
@@ -71,12 +74,13 @@ class BiddingController extends Controller
         }
 
         $cloned_models = clone $bids;
+
         if(isset($request->offset) && isset($request->limit)){
             $bids->offset($request->offset)->limit($request->limit);
         }
+
         $bids = $bids->get();
         $total_bids = $cloned_models->count();
-
 
         return sendSuccess('Data',$bids);
     }
@@ -119,40 +123,7 @@ class BiddingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bidding  $bidding
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bidding $bidding)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bidding  $bidding
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bidding $bidding)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update/Create the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Bidding  $bidding
@@ -214,7 +185,6 @@ class BiddingController extends Controller
 
                 return sendError("Bid price Must be more than",$auction_product->product->start_bid);
             }
-
             else if( ($request->bid_price >= $min_bid_value && $request->bid_price <= $max_bid_value) || $last_max_bid == 0){
 
                 $bidding = [

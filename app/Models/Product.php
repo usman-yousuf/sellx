@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -39,6 +40,8 @@ class Product extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected $appends = ['available_quantity'];
 
     use SoftDeletes;
 
@@ -80,6 +83,10 @@ class Product extends Model
             $model->auction_products()->delete(); // auction_products
             $model->medias()->delete(); // medias
         });
+    }
+
+    public function getAvailableQuantityAttribute(){
+        return null;
     }
 
 }

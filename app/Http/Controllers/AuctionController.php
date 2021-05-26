@@ -556,7 +556,6 @@ class AuctionController extends Controller
 
         // $auction->get();
 
-
         return sendSuccess("Auction Live",$auction);
 
     }
@@ -596,13 +595,29 @@ class AuctionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update Auction Status the specified resource from storage.
      *
      * @param  \App\Models\Auction  $auction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Auction $auction)
+    public function updateAuctionStatus(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'auction_uuid' => 'required|exists:auctions,uuid',
+            'status' => 'required|in:pending,in-progress,pending,cancelled,aborted',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction = Auction::where('uuid',$request->auction_uuid)
+            ->update(
+                [
+                    'status' => $request->status
+                ]);
+
+        return sendSuccess('Updated',$auction);
     }
 }

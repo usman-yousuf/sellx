@@ -26,7 +26,7 @@ class Watchlist extends Model
         'deleted_at',
     ];
     protected $with = [
-        'user', 'auction'
+        'user','auction'
     ];
 
     public function auction()
