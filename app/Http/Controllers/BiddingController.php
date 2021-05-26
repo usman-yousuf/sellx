@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\Product;
 use App\Models\AuctionProduct;
 use App\Models\Bidding;
 use App\Models\Profile;
@@ -205,7 +206,7 @@ class BiddingController extends Controller
         //Work if is_fixed_price is not fixed,if bid and fixed both are given it will go for purchased
         if(!$request->is_fixed_price??''){
 
-            $last_max_bid = Bidding::max('bid_price');
+            $last_max_bid = Bidding::where('auction_id',$auction->id)->where('profile_id',$profile->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
             $min_bid_value = $last_max_bid+$auction_product->product->min_bid;
             $max_bid_value = $last_max_bid+$auction_product->product->max_bid;
 
@@ -234,18 +235,32 @@ class BiddingController extends Controller
         }
         else {
 
-            $bidding = [
-                'uuid' => Str::uuid(),
-                'auction_id' => $auction->id,
-                'auction_product_id' => $auction_product->id,
-                'profile_id' => $profile->id,
-                'is_fixed_price' => $request->is_fixed_price,
-                'single_unit_price' => $request->single_unit_price,
-                'quantity' => $request->quantity,
-                'total_price' => $request->quantity * $request->single_unit_price,
-                'status' => 'purchased',
-                'sold_date_time' => Carbon::now(),
-            ];
+	        $product = Product::where('id',$auction_product->product_id)->first();
+
+	        if($product->available_quantity >= $request->quantity ){
+
+	            $bidding = [
+	                'uuid' => Str::uuid(),
+	                'auction_id' => $auction->id,
+	                'auction_product_id' => $auction_product->id,
+	                'profile_id' => $profile->id,
+	                'is_fixed_price' => $request->is_fixed_price,
+	                'single_unit_price' => $request->single_unit_price,
+	                'quantity' => $request->quantity,
+	                'total_price' => $request->quantity * $request->single_unit_price,
+	                'status' => 'purchased',
+	                'sold_date_time' => Carbon::now(),
+	            ];
+
+	            $product_quantity = [
+	            	'available_quantity' => $product->available_quantity-$request->quantity,
+	            ];
+	            $product->update($product_quantity);
+	        }
+	        else{
+	        	
+	        	return sendError('Quantity Exceeded,Max Limit Is ',$product->available_quantity);
+	        }
         }
 
         $bid = Bidding::create($bidding);

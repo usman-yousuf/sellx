@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bidding;
-use App\Models\Sold;
-use App\Models\Profile;
 use App\Models\Auction;
 use App\Models\AuctionProduct;
+use App\Models\Bidding;
+use App\Models\Profile;
+use App\Models\Sold;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+Carbon
 
 class SoldController extends Controller
 {
