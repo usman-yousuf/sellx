@@ -17,7 +17,7 @@ class BuyerRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function get_complain(Request $request)
     {
         
 
@@ -69,7 +69,7 @@ class BuyerRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function update_complain(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'auction_product_uuid' => 'required|exists:auction_products,uuid',

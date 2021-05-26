@@ -123,13 +123,13 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('delete_dummy_auction', [AuctionController::class, 'deleteDummyAuction']);
 
     //bidding
-    Route::post('get_bidding', [BiddingController::class, 'index']);
-    Route::post('bidding', [BiddingController::class, 'store']);
+    Route::post('get_bidding', [BiddingController::class, 'get_bidding']);
+    Route::post('bidding', [BiddingController::class, 'bidding']);
     Route::post('user_bids', [BiddingController::class, 'user_bids']);
 
     //complain
-    Route::post('get_complain', [BuyerRequestController::class, 'index']);
-    Route::post('update_complain', [BuyerRequestController::class, 'store']);
+    Route::post('get_complain', [BuyerRequestController::class, 'get_complain']);
+    Route::post('update_complain', [BuyerRequestController::class, 'update_complain']);
 
     //sold
     Route::post('get_sold', [SoldController::class, 'get_sold']);

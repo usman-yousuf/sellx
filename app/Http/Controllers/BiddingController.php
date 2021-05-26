@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Profile;
 use App\Models\Auction;
 use App\Models\AuctionProduct;
 use App\Models\Bidding;
+use App\Models\Profile;
+use App\Models\Sold;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 // use GuzzleHttp\Psr7\str;
 
@@ -21,7 +22,7 @@ class BiddingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function get_bidding(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'exists:profiles,uuid',
@@ -77,7 +78,6 @@ class BiddingController extends Controller
 
 
         return sendSuccess('Data',$bids);
-
     }
 
     /**
@@ -103,7 +103,6 @@ class BiddingController extends Controller
         if(null == $profile){
             return sendError('User Not Found', []);
         }
-
 
         $bids  = Bidding::where('profile_id', $profile->id)->orderBy('created_at', 'DESC');
         $won = clone $bids;
@@ -158,7 +157,7 @@ class BiddingController extends Controller
      * @param  \App\Models\Bidding  $bidding
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Bidding $bidding)
+    public function bidding(Request $request, Bidding $bidding)
     {
 
         $validator = Validator::make($request->all(), [
