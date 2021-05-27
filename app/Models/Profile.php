@@ -176,7 +176,7 @@ class Profile extends Model
      */
     public static function addUpdateAuctioneer($request)
     {
-        $model = self::where('profile_type', 'auctioneer')->first();
+        $model = self::where('profile_type', 'auctioneer')->where('user_id', $request->user()->id)->first();
         if(null == $model){
             $model = new self();
             $model->profile_type = 'auctioneer';

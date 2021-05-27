@@ -78,6 +78,7 @@ class SoldController extends Controller
         }
 
         if(isset($request->shipping_uuid)){
+            
             $sold = [
                 'status' => $request->status,
             ];
@@ -101,6 +102,7 @@ class SoldController extends Controller
             'auction_product_id' => $bid->auction_product_id,
             'price' => $bid->total_price,
             'type' => $bid->status,
+            'discount' => $bid->discount,
             'status' => $request->status,
             'total_price' => $bid->total_price,
         ];
