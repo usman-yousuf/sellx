@@ -23,6 +23,7 @@ class SoldController extends Controller
     {
 
         $sold  = Sold::orderBy('created_at', 'DESC');
+        
         if(isset($request->bidding_uuid)){
 
             $bid = bidding::where('uuid',$request->bidding_uuid)->first();
@@ -45,12 +46,13 @@ class SoldController extends Controller
         }
 
         $cloned_models = clone $sold;
+
         if(isset($request->offset) && isset($request->limit)){
             $sold->offset($request->offset)->limit($request->limit);
         }
+
         $sold = $sold->get();
         $total_sold = $cloned_models->count();
-
 
         return sendSuccess('Data',$sold);
     }
@@ -76,6 +78,7 @@ class SoldController extends Controller
         }
 
         if(isset($request->shipping_uuid)){
+            
             $sold = [
                 'status' => $request->status,
             ];
@@ -99,6 +102,7 @@ class SoldController extends Controller
             'auction_product_id' => $bid->auction_product_id,
             'price' => $bid->total_price,
             'type' => $bid->status,
+            'discount' => $bid->discount,
             'status' => $request->status,
             'total_price' => $bid->total_price,
         ];
@@ -115,7 +119,6 @@ class SoldController extends Controller
         $sold = Sold::create($sold);
 
         return sendSuccess('Sold',$sold);
-
     }
 
     /**

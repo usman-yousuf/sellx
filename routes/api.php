@@ -112,6 +112,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('go_online', [AuctionController::class, 'toggleLiveAuction']);
     Route::post('back_to_list', [AuctionController::class, 'backToList']);
     Route::post('get_live_auction', [AuctionController::class, 'get_live_auction']);
+    Route::post('update_auction_status', [AuctionController::class, 'updateAuctionStatus']);
 
     // Watchlist
     Route::post('add_to_watchlist', [AuctionController::class, 'AddToWatchlist']);
