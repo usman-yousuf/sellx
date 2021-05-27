@@ -71,6 +71,11 @@ class Product extends Model
         return $this->hasMany(AuctionProduct::class, 'product_id', 'id');
     }
 
+    public function sold()
+    {
+        return $this->hasMany(Sold::class, 'product_id', 'id');
+    }
+
     /**
      * Boot Method of Modal
      */
@@ -86,7 +91,15 @@ class Product extends Model
     }
 
     public function getAvailableQuantityAttribute(){
-        return null;
-    }
 
+        $res = DB::select("
+        SELECT available_quantity - (SELECT IF( (SUM(quantity) > 0), SUM(quantity), 0) FROM `solds` where status IN('paid') AND product_id = ?) AS available_qnty
+            FROM products
+            WHERE id = ?
+        ", [$this->id, $this->id]);
+        // $available_qnty = null != $res;
+        $available_qnty = (null != $res)? $res[0]->available_qnty : 0;
+
+        return $available_qnty;
+    }
 }

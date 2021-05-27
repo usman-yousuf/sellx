@@ -17,6 +17,7 @@ class Reviews extends Model
         'uuid',
         'sender_profile_id',
         'receiver_profile_id',
+        'auction_product_id',
         'message',
         'rating'
     ];
@@ -38,6 +39,10 @@ class Reviews extends Model
 
     public function receiver(){
         return $this->belongsTo(Profile::class, 'receiver_profile_id', 'id');
+    }
+
+    public function auction_product(){
+        return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id');
     }
 
 }

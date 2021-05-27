@@ -20,6 +20,9 @@ class CreateReviewsTable extends Migration
             $table->integer('sender_profile_id')->nullable();
             $table->foreign('sender_profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->integer('auction_product_id')->nullable();
+            $table->foreign('auction_product_id')->references('id')->on('auction_products')->onUpdate('cascade')->onDelete('cascade');
+
             $table->integer('receiver_profile_id')->nullable();
             $table->foreign('receiver_profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 

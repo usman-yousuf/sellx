@@ -149,9 +149,7 @@ class BiddingController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $profile = Profile::where('uuid',$request->profile_uuid)->first();
-        $auction = Auction::where('uuid',$request->auction_uuid)->first();
-        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+        
 
         //For Update bid Sold This BLock
         if(isset($request->bidding_uuid)){
@@ -174,6 +172,13 @@ class BiddingController extends Controller
         }
         //End Update
 
+        $profile = Profile::where('uuid',$request->profile_uuid)->first();
+        $auction = Auction::where('uuid',$request->auction_uuid)->first();
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+        $product = Product::where('id',$auction_product->product_id)->first();
+        $available = clone $product;
+        $available = $available->getAvailableQuantityAttribute();
+
         //Work if is_fixed_price is not fixed,if bid and fixed both are given it will go for purchased
         if(!$request->is_fixed_price??''){
 
@@ -181,11 +186,14 @@ class BiddingController extends Controller
             $min_bid_value = $last_max_bid+$auction_product->product->min_bid;
             $max_bid_value = $last_max_bid+$auction_product->product->max_bid;
 
-            if($request->bid_price <= $auction_product->product->start_bid ){
+            if($available < 1){
+                return sendError('Quantity Over Reached',[]);
+            }
+            else if($request->bid_price <= $auction_product->product->start_bid ){
 
                 return sendError("Bid price Must be more than",$auction_product->product->start_bid);
             }
-            else if( ($request->bid_price >= $min_bid_value && $request->bid_price <= $max_bid_value) || $last_max_bid == 0){
+            else if( ($request->bid_price >= $min_bid_value && $request->bid_price <= $max_bid_value) || ($last_max_bid == 0 && $request->bid_price <= $max_bid_value)){
 
                 $bidding = [
                     'uuid' => Str::uuid(),
@@ -205,32 +213,25 @@ class BiddingController extends Controller
         }
         else {
 
-	        $product = Product::where('id',$auction_product->product_id)->first();
+            if($request->quantity <= $available){
 
-	        if($product->available_quantity >= $request->quantity ){
+    	            $bidding = [
+    	                'uuid' => Str::uuid(),
+    	                'auction_id' => $auction->id,
+    	                'auction_product_id' => $auction_product->id,
+    	                'profile_id' => $profile->id,
+    	                'is_fixed_price' => $request->is_fixed_price,
+    	                'single_unit_price' => $request->single_unit_price,
+    	                'quantity' => $request->quantity,
+    	                'total_price' => $request->quantity * $request->single_unit_price,
+    	                'status' => 'purchased',
+    	                'sold_date_time' => Carbon::now(),
+    	            ];
+            }
+            else{
 
-	            $bidding = [
-	                'uuid' => Str::uuid(),
-	                'auction_id' => $auction->id,
-	                'auction_product_id' => $auction_product->id,
-	                'profile_id' => $profile->id,
-	                'is_fixed_price' => $request->is_fixed_price,
-	                'single_unit_price' => $request->single_unit_price,
-	                'quantity' => $request->quantity,
-	                'total_price' => $request->quantity * $request->single_unit_price,
-	                'status' => 'purchased',
-	                'sold_date_time' => Carbon::now(),
-	            ];
-
-	            $product_quantity = [
-	            	'available_quantity' => $product->available_quantity-$request->quantity,
-	            ];
-	            $product->update($product_quantity);
-	        }
-	        else{
-	        	
-	        	return sendError('Quantity Exceeded,Max Limit Is ',$product->available_quantity);
-	        }
+                return sendError('Quantity Over Reached',[]);
+            }
         }
 
         $bid = Bidding::create($bidding);

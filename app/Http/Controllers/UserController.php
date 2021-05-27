@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\AuctionProduct;
+use App\Models\Followers;
 use App\Models\PasswordReset;
 use App\Models\Profile;
+use App\Models\Reviews;
 use App\Models\SignupVerification;
 use App\Models\User;
-use App\Models\Reviews;
-use App\Models\Followers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -340,6 +341,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             // 'sender_profile_uuid' => 'required|exists:profiles,uuid',
             'receiver_profile_uuid' => 'required|exists:profiles,uuid',
+            'auction_product_uuid' => 'required|exists:auction_products,uuid',
             'message' => 'required',
             'rating' => 'required'
         ]);
@@ -352,6 +354,7 @@ class UserController extends Controller
 
         $senderModel = Profile::where('uuid', $sender_profile_uuid)->first();
         $receiverModel = Profile::where('uuid', $request->receiver_profile_uuid)->first();
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
 
         if($senderModel == null || $receiverModel == null){
             return sendError('Invalid Information Provided', []);
@@ -364,6 +367,7 @@ class UserController extends Controller
         $model->uuid = \Str::uuid();
         $model->sender_profile_id =  $senderModel->id;
         $model->receiver_profile_id = $receiverModel->id;
+        $model->auction_product_id = $auction_product->id;
         $model->message = $request->message;
         $model->rating = $request->rating;
 

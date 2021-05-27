@@ -99,10 +99,11 @@ class SoldController extends Controller
             'bidding_id' => $bid->id,
             'profile_id' => $bid->profile_id,
             'auction_id' => $bid->auction_id,
+            'product_id' => $bid->auction_product->product_id,
             'auction_product_id' => $bid->auction_product_id,
+            'quantity' => $bid->quantity,
             'price' => $bid->total_price,
             'type' => $bid->status,
-            'discount' => $bid->discount,
             'status' => $request->status,
             'total_price' => $bid->total_price,
         ];

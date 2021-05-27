@@ -331,19 +331,27 @@ class AuctionController extends Controller
 
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
 
-                    foreach($productIdsToAdd as $id){
-                        $temp = new AuctionProduct();
-                        $temp->uuid = \Str::uuid();
-                        $temp->auction_id = $model->id;
-                        $temp->product_id = $id;
-                        $temp->sort_order = 1;
-                        $temp->created_at = date('Y-m-d H:i:s');
-                        $temp->save();
+                    // $product = Product::where('uuid',$request->product_uuids)->first();
+                    // $product = $product->id;
+                    // $product = $product->getAvailableQuantityAttribute();
 
-                        $status = Product::where('id', $id)->update([
-                            'is_added_in_auction' => (bool)true
-                        ]);
-                    }
+                    // if($product > 0){
+
+                        foreach($productIdsToAdd as $id){
+                            $temp = new AuctionProduct();
+                            $temp->uuid = \Str::uuid();
+                            $temp->auction_id = $model->id;
+                            $temp->product_id = $id;
+                            $temp->sort_order = 1;
+                            $temp->created_at = date('Y-m-d H:i:s');
+                            $temp->save();
+
+                            $status = Product::where('id', $id)->update([
+                                'is_added_in_auction' => (bool)true
+                            ]);
+                        }
+                    // }
+
                 }
                 DB::commit();
             }
@@ -604,7 +612,7 @@ class AuctionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'auction_uuid' => 'required|exists:auctions,uuid',
-            'status' => 'required|in:pending,in-progress,pending,cancelled,aborted',
+            'status' => 'required|in:completed,in-progress,pending,cancelled,aborted',
         ]);
 
         if($validator->fails()){
