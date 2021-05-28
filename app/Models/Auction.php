@@ -20,6 +20,8 @@ class Auction extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected $with = ['auctioneer'];
     protected $appends = [
         'allowed_to_post'
     ];

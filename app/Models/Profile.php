@@ -20,7 +20,13 @@ class Profile extends Model
 
     use SoftDeletes;
 
-    protected $appends = ['is_followed', 'followers_count', 'following_count', 'average_rating', 'total_ratings_count'];
+    protected $appends = [
+        'is_followed',
+        'followers_count',
+        'following_count',
+        'average_rating',
+        'total_ratings_count'
+    ];
 
     public function getTotalRatingsCountAttribute(){
         if(\Auth::check()){

@@ -533,9 +533,28 @@ class AuctionController extends Controller
      * @param  \App\Models\Auction  $auction
      * @return \Illuminate\Http\Response
      */
-    public function show(Auction $auction)
+    public function update_time(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'timer' => 'required|numeric',
+            'current_min' => 'required|numeric',
+            'current_sec' => 'required|numeric',
+            'auction_product_uuid' => 'required|exists:auction_products,uuid',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        if($request->timer == 30){
+            $add = $request->current_sec + $request->timer;
+        }
+        else{
+            $add = $request->current_min + $request->timer;
+        }
+            dd($add);
+
     }
 
     /**

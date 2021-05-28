@@ -46,16 +46,23 @@ class CommentController extends Controller
     public function update_comment(Request $request)
     {
         $validator = Validator::make($request->all() ,[
-            'profile_uuid' => 'required|exists:profiles,uuid',
-            'auction_uuid' => 'required|exists:auctions,uuid|required_with:max_bid_price',
-            'auction_product_uuid' =>'required|exists:auction_products,uuid',
+            'profile_uuid' => 'required_without_all:comment_uuid|exists:profiles,uuid',
+            'auction_uuid' => 'required_without_all:comment_uuid|exists:auctions,uuid',
+            'auction_product_uuid' =>'required_without_all:comment_uuid|exists:auction_products,uuid',
             'comment' => 'required|string',
+            'comment_uuid' => 'required_without_all:auction_product_uuid,auction_uuid,profile_uuid|exists:comments,uuid',
         ]);
 
         if ($validator->fails()) {
 
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
+        }
+
+        if(isset($request->comment_uuid)){
+
+            $comment = Comment::where('uuid',$request->comment_uuid)->update(['comment' => $request->comment]);
+            return sendSuccess('Updated comment',$comment);
         }
 
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
@@ -128,8 +135,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function delete_comment(Request $request)
     {
-        //
+        $deletedRows = Comment::where('uuid', $request->comment_uuid)->delete();
+
+        return sendSuccess('Comment deleted',[]);
     }
 }

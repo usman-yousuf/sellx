@@ -113,6 +113,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('back_to_list', [AuctionController::class, 'backToList']);
     Route::post('get_live_auction', [AuctionController::class, 'get_live_auction']);
     Route::post('update_auction_status', [AuctionController::class, 'updateAuctionStatus']);
+    Route::post('update_auction_status', [AuctionController::class, 'updateAuctionStatus']);
+    Route::post('update_time', [AuctionController::class, 'update_time']);
 
     // Watchlist
     Route::post('add_to_watchlist', [AuctionController::class, 'AddToWatchlist']);
@@ -139,8 +141,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     //comment
     Route::post('get_comment', [CommentController::class, 'get_comment']);
     Route::post('update_comment', [CommentController::class, 'update_comment']);
+    Route::post('delete_comment', [CommentController::class, 'delete_comment']);
 
-    //
+    //viewers
     Route::post('get_viewer', [ViewerController::class, 'get_viewer']);
     Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
 
