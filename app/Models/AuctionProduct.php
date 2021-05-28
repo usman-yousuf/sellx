@@ -29,6 +29,8 @@ class AuctionProduct extends Model
         'deleted_at',
     ];
 
+    protected $appends = ['is_reviwed'];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id')->with('medias');
@@ -58,4 +60,12 @@ class AuctionProduct extends Model
     { 
         return $this->hasMany(Complain::class, 'auction_product_id', 'id');
     }
+
+    //Instance methods
+
+    public function getIsReviwedAttribute(){
+
+        return Reviews::where('auction_product_id',$this->id)->where('sender_profile_id',Auth()->User()->id)->first()? 1:0;
+    }  
+
 }

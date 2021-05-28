@@ -331,13 +331,11 @@ class AuctionController extends Controller
 
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
 
-                    // $product = Product::where('uuid',$request->product_uuids)->first();
-                    // $product = $product->id;
-                    // $product = $product->getAvailableQuantityAttribute();
+                    foreach($productIdsToAdd as $id){
+                        $product = Product::where('id',$id)->first();
+                        $product = $product->getAvailableQuantityAttribute();
 
-                    // if($product > 0){
-
-                        foreach($productIdsToAdd as $id){
+                        if($product > 0){
                             $temp = new AuctionProduct();
                             $temp->uuid = \Str::uuid();
                             $temp->auction_id = $model->id;
@@ -350,7 +348,10 @@ class AuctionController extends Controller
                                 'is_added_in_auction' => (bool)true
                             ]);
                         }
-                    // }
+                        else{
+                            return sendError('Can not add product with 0 Quantity ',[]);
+                        }
+                    }
 
                 }
                 DB::commit();
