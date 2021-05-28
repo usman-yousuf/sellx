@@ -24,6 +24,7 @@ class AuctionController extends Controller
                 'online_url' => 'required_if:is_live,1',
                 'name' => 'required'
             ]);
+
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();
                 return sendError($validator->errors()->all()[0], $data);
@@ -99,6 +100,7 @@ class AuctionController extends Controller
             $validator = Validator::make($request->all(), [
                 'profile_uuid' => 'string|exists:profiles,uuid',
             ]);
+
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();
                 return sendError($validator->errors()->all()[0], $data);
