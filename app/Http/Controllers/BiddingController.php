@@ -183,14 +183,16 @@ class BiddingController extends Controller
         if(!$request->is_fixed_price??''){
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('profile_id',$profile->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
+            if($last_max_bid == 0){ $last_max_bid = $auction_product->product->start_bid; }
+            
             $min_bid_value = $last_max_bid+$auction_product->product->min_bid;
             $max_bid_value = $last_max_bid+$auction_product->product->max_bid;
 
             if($available < 1){
                 return sendError('Quantity Over Reached',[]);
             }
-            else if($request->bid_price <= $auction_product->product->start_bid ){
 
+            if($request->bid_price <= $auction_product->product->start_bid ){
                 return sendError("Bid price Must be more than",$auction_product->product->start_bid);
             }
             else if( ($request->bid_price >= $min_bid_value && $request->bid_price <= $max_bid_value) || ($last_max_bid == 0 && $request->bid_price <= $max_bid_value)){
