@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SoldController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\ViewerController;
+use App\Http\Controllers\BlockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -148,9 +149,14 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_viewer', [ViewerController::class, 'get_viewer']);
     Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
 
-    //viewers
+    //Story
     Route::post('get_story', [StoryController::class, 'get_story']);
     Route::post('update_story', [StoryController::class, 'update_story']);
     Route::post('delete_story', [StoryController::class, 'delete_story']);
+
+    //Block
+    Route::post('get_block', [BlockController::class, 'get_block']);
+    Route::post('update_block', [BlockController::class, 'update_block']);
+    Route::post('delete_block', [BlockController::class, 'delete_block']);
 
 });

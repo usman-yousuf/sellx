@@ -20,4 +20,9 @@ class Story extends Model
     {
         return $this->hasone(UploadMedia::class, 'ref_id', 'id')->where('type', 'story');
     }
+
+    public function blocks()
+    {
+        return $this->hasMany(Block::class, 'ref_id', 'id')->where('ref_type', 'story');
+    }
 }

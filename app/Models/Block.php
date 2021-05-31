@@ -11,4 +11,5 @@ class Block extends Model
 
     protected $table = 'blocks';
     Protected $guarded = [];
+
 }

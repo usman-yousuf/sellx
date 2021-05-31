@@ -148,6 +148,10 @@ class Profile extends Model
         return $this->hasMany(Comment::class, 'profile_id', 'id');
     }
 
+    public function blocks()
+    {
+        return $this->hasMany(Block::class, 'ref_id', 'id')->where('ref_type', 'user');
+    }
     /**
      * Do something based on events of this model
      *

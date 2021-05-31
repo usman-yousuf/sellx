@@ -57,6 +57,11 @@ class Product extends Model
         return $this->belongsTo(SubCategoriesLevel3::class, 'sub_cat_level_3_id', 'id');
     }
 
+    public function blocks()
+    {
+        return $this->hasMany(Block::class, 'ref_id', 'id')->where('ref_type', 'product');
+    }
+
     public function medias(){
         return $this->hasMany(UploadMedia::class, 'ref_id', 'id')->where('type', 'product');
     }
