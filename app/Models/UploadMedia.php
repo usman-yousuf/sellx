@@ -19,6 +19,8 @@ class UploadMedia extends Model
         'deleted_at',
     ];
 
+    protected $guarded = [];
+
     use SoftDeletes;
 
     /**

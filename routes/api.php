@@ -5,6 +5,7 @@ use App\Http\Controllers\BiddingController;
 use App\Http\Controllers\BuyerRequestController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SoldController;
+use App\Http\Controllers\StoryController;
 use App\Http\Controllers\ViewerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -148,7 +149,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
 
     //viewers
-    Route::post('get_viewer', [ViewerController::class, 'get_viewer']);
-    Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
+    Route::post('get_story', [StoryController::class, 'get_story']);
+    Route::post('update_story', [StoryController::class, 'update_story']);
+    Route::post('delete_story', [StoryController::class, 'delete_story']);
 
 });

@@ -111,7 +111,7 @@ class AuctionController extends Controller
                     ->with(['medias', 'auction_products','auctioneer']);
 
             // set logged in user profile if not given
-            if( isset($profile_uuid) && ('' != $request->profile_uuid)){
+            if( isset($request->profile_uuid) && ('' != $request->profile_uuid)){
                 // validate if profile is an auctioneer
                 $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
                 if(null == $auctioneer){
@@ -137,6 +137,7 @@ class AuctionController extends Controller
 
             $cloned_models = clone $models;
             
+                // return sendSuccess('Data',$models->get());
             if(isset($request->offset) && isset($request->limit) ){
                 $models->offset($request->offset)->limit($request->limit);
             }
