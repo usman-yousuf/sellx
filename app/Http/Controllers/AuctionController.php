@@ -550,12 +550,25 @@ class AuctionController extends Controller
         }
 
         if($request->timer == 30){
-            $add = $request->current_sec + $request->timer;
+            $request->current_sec = $request->current_sec + $request->timer;
+
+            if($request->current_sec >= 60){
+                $request->current_min++;
+                $request->current_sec-=60;   
+            }
         }
         else{
-            $add = $request->current_min + $request->timer;
+            $request->current_min = $request->current_min + $request->timer;
         }
-            dd($add);
+
+        $time = ($request->current_min*60)+$request->current_sec;
+        $time = (date('i:s',$time));
+
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->update(["last_extended_time" => $time]);
+
+        return sendSuccess("Timer Update",$time);
+        
+        dd($add);
 
     }
 

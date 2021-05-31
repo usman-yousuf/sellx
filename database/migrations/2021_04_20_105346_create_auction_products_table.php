@@ -32,8 +32,6 @@ class CreateAuctionProductsTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-
-
         });
     }
 
