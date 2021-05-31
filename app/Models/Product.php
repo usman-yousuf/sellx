@@ -98,7 +98,7 @@ class Product extends Model
             WHERE id = ?
         ", [$this->id, $this->id]);
         // $available_qnty = null != $res;
-        $available_qnty = (null != $res)? $res[0]->available_qnty : 0;
+        $available_qnty = (null != $res)? (int)$res[0]->available_qnty : 0;
 
         return $available_qnty;
     }

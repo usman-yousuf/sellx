@@ -147,4 +147,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_viewer', [ViewerController::class, 'get_viewer']);
     Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
 
+    //viewers
+    Route::post('get_viewer', [ViewerController::class, 'get_viewer']);
+    Route::post('update_viewer', [ViewerController::class, 'update_viewer']);
+
 });
