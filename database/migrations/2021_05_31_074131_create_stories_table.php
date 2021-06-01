@@ -22,6 +22,9 @@ class CreateStoriesTable extends Migration
 
             $table->text('caption')->nullable();
 
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

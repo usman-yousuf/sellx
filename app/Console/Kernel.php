@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +26,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         // $schedule->command('story:delete')->hourly();
+
+        // $schedule->call(function () {
+        //     // DD(Carbon::now());
+        //     dd(DB::table('stories')->where('end_time',Carbon::now())->first());
+        // })->everyMinute();
     }
 
     /**

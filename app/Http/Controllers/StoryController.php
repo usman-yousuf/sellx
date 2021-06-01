@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Models\Story;
 use App\Models\UploadMedia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class StoryController extends Controller
 			$story->where('profile_id',$profile->id);
 		}
 
-		$story = $story->get();
+		$story = $story->where('end_time','>=',carbon::now())->get();
 		return sendSuccess("stories",$story);
 	}
 
@@ -56,6 +57,8 @@ class StoryController extends Controller
         $story = [
         	'uuid' => Str::uuid(),
         	'profile_id' => $profile->id,
+            'start_time' => Carbon::now(),
+            'end_time' => Carbon::now()->addHours(24),
         ];
 
         if(isset($request->caption)){

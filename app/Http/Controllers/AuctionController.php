@@ -623,14 +623,25 @@ class AuctionController extends Controller
         }
 
         $auction_product = AuctionProduct::orderBy('created_at', 'DESC');
-        $auction_product_current_order = clone $auction_product;
 
+        $auction_product_current_order = clone $auction_product;
         $auction_product_current_order = $auction_product_current_order->where('uuid',$request->auction_product_uuid)->first();
+        
         $auction_product_last_order = $auction_product->first();
 
         $auction_product = [
             'sort_order' => $auction_product_current_order->sort_order + $auction_product_last_order->sort_order,
         ];
+
+        $product = Product::where('id',$auction_product_current_order->product_id)->first();
+        $product = $product->getAvailableQuantityAttribute();
+
+        if($product == 0){
+
+            $auction_product += [
+                'status' => 'completed',
+            ];
+        }
 
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->update($auction_product);
 
