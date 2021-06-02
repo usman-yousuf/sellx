@@ -19,7 +19,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('timer_send', function(data) {
-        io.emit('timer_recive', {
+        io.emit('timer_reciver', {
             data: data,
         });
     });
@@ -36,8 +36,20 @@ io.on('connection', function(socket) {
         });
     });
 
+    socket.on('chat_message_send', function(data) {
+        io.emit('chat_message_receive', {
+            data: data,
+        });
+    });
+
     socket.on('delete_chat_message_send', function(data) {
         io.emit('delete_chat_message_receive', {
+            data: data,
+        });
+    });
+
+    socket.on('bid_send', function(data) {
+        io.emit('bid_recived', {
             data: data,
         });
     });

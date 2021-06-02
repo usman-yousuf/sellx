@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
-use App\Models\Product;
 use App\Models\AuctionProduct;
+use App\Models\AuctionSetting;
 use App\Models\Bidding;
+use App\Models\Product;
 use App\Models\Profile;
 use App\Models\Sold;
 use Carbon\Carbon;
@@ -149,7 +150,10 @@ class BiddingController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        
+        if(isset($request->bid_price) && isset($request->is_fixed_price)){
+
+            return sendError('Cant Send Both fixed price and is fixed',[]);
+        }
 
         //For Update bid Sold This BLock
         if(isset($request->bidding_uuid)){
@@ -172,15 +176,17 @@ class BiddingController extends Controller
         }
         //End Update
 
+        // $setting = AuctionSetting::where('auction_id',$auction->id)->first(); //IF Auction is fixed for sale
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
         $product = Product::where('id',$auction_product->product_id)->first();
         $available = clone $product;
         $available = $available->getAvailableQuantityAttribute();
+        
 
         //Work if is_fixed_price is not fixed,if bid and fixed both are given it will go for purchased
-        if(!$request->is_fixed_price??''){
+        if(!isset($request->is_fixed_price)){
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('profile_id',$profile->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 
@@ -213,7 +219,9 @@ class BiddingController extends Controller
 
         }
         else {
-
+            if($auction_product->is_fixed_price == 0){
+                return sendError('Price Not Fixed Data Missmatch',[]);
+            };
             if($request->quantity <= $available){
 
     	            $bidding = [
@@ -222,9 +230,9 @@ class BiddingController extends Controller
     	                'auction_product_id' => $auction_product->id,
     	                'profile_id' => $profile->id,
     	                'is_fixed_price' => $request->is_fixed_price,
-    	                'single_unit_price' => $request->single_unit_price,
+    	                'single_unit_price' => $auction_product->fixed_price,
     	                'quantity' => $request->quantity,
-    	                'total_price' => $request->quantity * $request->single_unit_price,
+    	                'total_price' => $request->quantity * $auction_product->fixed_price,
     	                'status' => 'purchased',
     	                'sold_date_time' => Carbon::now(),
     	            ];
