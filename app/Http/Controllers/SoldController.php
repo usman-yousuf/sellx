@@ -94,6 +94,8 @@ class SoldController extends Controller
             return sendError('Bid already sold',[]);
         }
 
+        $total = $bid->total_price;
+
         $sold = [
             'uuid' => Str::uuid(),
             'bidding_id' => $bid->id,
@@ -105,17 +107,33 @@ class SoldController extends Controller
             'price' => $bid->total_price,
             'type' => $bid->status,
             'status' => $request->status,
-            'total_price' => $bid->total_price,
         ];
 
         if(isset($request->discount)){
 
-            $total = $bid->total_price - ($bid->total_price * ($request->discount/100));
+            $total = $total - ($bid->total_price * ($request->discount/100));
             $sold += [
                 'discount' => $request->discount, 
             ];
-            $sold['total_price'] = $total;
+        } 
+
+        if(isset($request->tax_fee)){
+
+            $total = $total + $request->tax_fee;
+            $sold += [
+                'tax_fee' => $request->tax_fee, 
+            ];
         }
+
+        if(isset($request->shipping_fee)){
+
+            $total = $total + $request->shipping_fee;
+            $sold += [
+                'shipping_fee' => $request->shipping_fee, 
+            ];
+        }
+
+        $sold['total_price'] = $total;
 
         $sold = Sold::create($sold);
 

@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\AuctionAccessRight;
+use App\Models\AuctionProduct;
+use App\Models\AuctionSetting;
+use App\Models\DummyAuction;
 use App\Models\Product;
 use App\Models\Profile;
 use App\Models\UploadMedia;
 use App\Models\Watchlist;
-use App\Models\DummyAuction;
 use Illuminate\Http\Request;
-use App\Models\AuctionProduct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -443,6 +445,7 @@ class AuctionController extends Controller
                 'auction_uuid' => 'required|string|exists:auctions,uuid',
                 'profile_uuid' => 'required|string|exists:profiles,uuid'
             ]);
+
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();
                 return sendError($validator->errors()->all()[0], $data);
@@ -504,9 +507,54 @@ class AuctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function update_access(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'auction_uuid' => 'required|string|exists:auctions,uuid',
+            'profile_uuid' => 'required|string|exists:profiles,uuid',
+            'access' => 'required|in:owner,auction_support,auctioneer',
+        ]);
+        
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid', $request->profile_uuid)->first();
+        $auction = Auction::where('uuid', $request->auction_uuid)->first();
+
+        $access = AuctionAccessRight::orderBy('created_at', 'DESC')->where('auction_id', $auction->id)->where('profile_id', $profile->id)->first();
+
+        // $owner = Auction::where('id', $auction->id)->where('auctioneer_id', $profile->id)->first();
+
+        // if($request->access == 'owner' &&  null == $owner){
+
+        //     return sendError('User Already Exists as',$access->access);
+        // }
+
+// 
+        if(null != $access){
+
+            return sendError('User Already Exists as',$access->access);
+        }
+
+        $access = [
+            'uuid' => \Str::uuid(),
+            'profile_id' => $profile->id,
+            'auction_id' => $auction->id,
+            'access' => $request->access,
+        ];
+
+
+        try{
+            $access = AuctionAccessRight::create($access);
+            return sendSuccess('Access granted', $access);
+        }
+        catch(\Exception $ex){
+            return sendError($ex->getMessage(), $ex->getTrace());
+        }
+
+        dd($access);
     }
 
     /**
@@ -514,7 +562,7 @@ class AuctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function delete_access()
     {
         //
     }
@@ -525,9 +573,44 @@ class AuctionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function update_auction_setting(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'auction_uuid' => 'required|string|exists:auctions,uuid',
+        ]);
+        
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction = Auction::where('uuid', $request->auction_uuid)->first();
+
+        if(AuctionSetting::where('auction_id',$auction->id)->first()){
+
+            return sendError("Already Exist Cant Change",[]);
+        }
+
+        $settings = [];
+        if(isset($request->is_comment)){
+            $settings = [
+                'uuid' => \Str::uuid(),
+                'auction_id' => $auction->id,
+                'is_comment' => (int)$request->is_comment,
+                'auction_type' => $request->auction_type?? 'ticker_price',
+            ];
+        }
+
+        if('' != $settings){
+            $settings = AuctionSetting::create($settings);
+            return sendSuccess('updated',$settings);
+        }
+        else{
+            return sendError('No Change',$settings);
+        }
+
+
+        dd();
     }
 
     /**

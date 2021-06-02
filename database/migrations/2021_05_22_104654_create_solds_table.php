@@ -35,6 +35,8 @@ class CreateSoldsTable extends Migration
             $table->integer('quantity')->default(1);
             $table->double('price')->default(0.0);
             $table->double('discount')->default(0.0);
+            $table->double('tax_fee')->default(0.0);
+            $table->double('shipping_fee')->default(0.0);
             $table->double('total_price')->default(0.0);
             $table->enum('type', ['bid_won', 'purchased'])->nullable();
             $table->enum('status', ['pending', 'paid','on_hold','reversed','shipped','completed'])->nullable();
