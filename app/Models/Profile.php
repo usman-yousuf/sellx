@@ -152,6 +152,11 @@ class Profile extends Model
     {
         return $this->hasMany(Block::class, 'ref_id', 'id')->where('ref_type', 'user');
     }
+
+    public function chat()
+    {
+        return $this->hasMany(Chat::class, 'member_id', 'id');
+    }
     /**
      * Do something based on events of this model
      *

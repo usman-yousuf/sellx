@@ -21,7 +21,7 @@ class Auction extends Model
         'deleted_at',
     ];
 
-    protected $with = ['auctioneer'];
+    protected $with = ['auctioneer','setting'];
     protected $appends = [
         'allowed_to_post'
     ];

@@ -162,4 +162,17 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_block', [BlockController::class, 'update_block']);
     Route::post('delete_block', [BlockController::class, 'delete_block']);
 
+    /**
+     * Chat Route
+     */
+    Route::post('create_chat', 'App\Http\Controllers\ChatsController@createChat');
+    Route::post('get_chat_messages', 'App\Http\Controllers\ChatsController@getChatMessages');
+//    Route::post('get_chat_media', 'App\Http\Controllers\ChatsController@getChatMedia');
+    Route::post('send_message', 'App\Http\Controllers\ChatsController@sendMessage');
+    Route::post('get_chats', 'App\Http\Controllers\ChatsController@getChats');
+    Route::post('delete_chat', 'App\Http\Controllers\ChatsController@deleteChat');
+    Route::post('delete_message', 'App\Http\Controllers\ChatsController@deleteMessage');
+    Route::post('chat_new_users', 'App\Http\Controllers\ChatsController@getNewUsers');
+    Route::post('get_existing_chat', 'App\Http\Controllers\ChatsController@getExistingChat');
+
 });
