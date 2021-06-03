@@ -586,31 +586,32 @@ class AuctionController extends Controller
 
         $auction = Auction::where('uuid', $request->auction_uuid)->first();
 
+
+        $settings = [
+            'uuid' => \Str::uuid(),
+            'auction_id' => $auction->id,
+            'auction_type' => $request->auction_type?? 'ticker_price',
+        ];
+    
+        if(isset($request->is_comment)){
+
+            $settings += [
+                'is_comment' => $request->is_comment,
+            ];
+        }        
+
         if(AuctionSetting::where('auction_id',$auction->id)->first()){
 
-            return sendError("Already Exist Cant Change",[]);
+            $settings = AuctionSetting::where('auction_id',$auction->id)->update($settings);
+            return sendSuccess('Updated',$settings);
         }
-
-        $settings = [];
-        if(isset($request->is_comment)){
-            $settings = [
-                'uuid' => \Str::uuid(),
-                'auction_id' => $auction->id,
-                'is_comment' => (int)$request->is_comment,
-                'auction_type' => $request->auction_type?? 'ticker_price',
-            ];
-        }
-
         if('' != $settings){
             $settings = AuctionSetting::create($settings);
-            return sendSuccess('updated',$settings);
+            return sendSuccess('Changed',$settings);
         }
         else{
             return sendError('No Change',$settings);
         }
-
-
-        dd();
     }
 
     /**
@@ -757,5 +758,30 @@ class AuctionController extends Controller
                 ]);
 
         return sendSuccess('Updated',$auction);
+    }
+
+    public function update_auction_product_fix_price(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'auction_product_uuid' => 'required|exists:auction_products,uuid',
+            'is_fixed_price' => 'required',
+            'fixed_price' => 'required|numeric',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auctionproduct = AuctionProduct::where('uuid',$request->auction_product_uuid)
+            ->update(
+                [
+                    'is_fixed_price' => $request->is_fixed_price,
+                    'fixed_price' => $request->fixed_price,
+                    
+                ]);
+
+        return sendSuccess('Updated',$auctionproduct);
+           
     }
 }

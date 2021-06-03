@@ -22,7 +22,8 @@ class CreateAuctionSettingsTable extends Migration
 
             $table->boolean('is_comment')->default(true);
             $table->boolean('is_view')->default(true);
-            $table->enum('auction_type', ['ticker_price','fixed_price','from_zero'])->nullable();
+
+            $table->enum('auction_type', ['not_preselected', 'ticker_price', 'fixed_price', 'from_zero'])->nullable();
 
             $table->timestamps();
         });

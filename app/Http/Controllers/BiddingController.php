@@ -139,7 +139,6 @@ class BiddingController extends Controller
             'profile_uuid' => 'string|exists:profiles,uuid|required_with:auction_product_uuid,auction_uuid,bid_price',
             'bid_price' => 'required_without_all:bidding_uuid,is_fixed_price',
             'is_fixed_price' => 'boolean|required_without_all:bid_price,bidding_uuid',
-            'single_unit_price' => 'required_with_all:is_fixed_price|numeric|min:1',
             'quantity' => 'required_with_all:is_fixed_price|numeric|min:1',
             'bidding_uuid' => 'required_without_all:auction_uuid,auction_product_uuid,profile_uuid,bid_price,is_fixed_price'
         ]);
@@ -172,11 +171,10 @@ class BiddingController extends Controller
                 return sendError('Data Missmatch',$bid);
             }
 
-                return sendSuccess("Sold",$bid);
+            return sendSuccess("Sold",$bid);
         }
         //End Update
 
-        // $setting = AuctionSetting::where('auction_id',$auction->id)->first(); //IF Auction is fixed for sale
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
@@ -185,12 +183,18 @@ class BiddingController extends Controller
         $available = $available->getAvailableQuantityAttribute();
         
 
-        //Work if is_fixed_price is not fixed,if bid and fixed both are given it will go for purchased
+        //Work if is_fixed_price is not fixed
         if(!isset($request->is_fixed_price)){
+
+            if($auction->setting->auction_type == 'fixed_price'){
+
+                return sendError('Fixed Price selected, Cant Bid',[]);
+            }
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('profile_id',$profile->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 
-            if($last_max_bid == 0){ 
+            if($last_max_bid == 0 && $auction->setting->auction_type != 'from_zero'){ 
+
             	$last_max_bid = $auction_product->product->start_bid; 
             }
 
@@ -219,9 +223,25 @@ class BiddingController extends Controller
 
         }
         else {
-            if($auction_product->is_fixed_price == 0){
-                return sendError('Price Not Fixed Data Missmatch',[]);
-            };
+
+            if($auction->setting->auction_type == 'ticker_price'){
+
+                return sendError('Ticker Price selected, Cant Fix Price',[]);
+            }
+
+            if($auction->setting->auction_type == 'fixed_price'){
+
+                $price = $auction_product->product->start_bid;
+            }
+            else if($auction_product->is_fixed_price == 1){
+
+                $price = $auction_product->fixed_price;
+            }
+            else{
+
+                return sendError('Price Not Fixed, Data Missmatch',[]);
+            }
+
             if($request->quantity <= $available){
 
     	            $bidding = [
@@ -230,9 +250,9 @@ class BiddingController extends Controller
     	                'auction_product_id' => $auction_product->id,
     	                'profile_id' => $profile->id,
     	                'is_fixed_price' => $request->is_fixed_price,
-    	                'single_unit_price' => $auction_product->fixed_price,
+    	                'single_unit_price' => $price,
     	                'quantity' => $request->quantity,
-    	                'total_price' => $request->quantity * $auction_product->fixed_price,
+    	                'total_price' => $request->quantity * $price,
     	                'status' => 'purchased',
     	                'sold_date_time' => Carbon::now(),
     	            ];

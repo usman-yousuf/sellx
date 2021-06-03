@@ -119,6 +119,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_time', [AuctionController::class, 'update_time']);
     Route::post('update_access', [AuctionController::class, 'update_access']);
     Route::post('update_auction_setting', [AuctionController::class, 'update_auction_setting']);
+    Route::post('update_auction_product_fix_price', [AuctionController::class, 'update_auction_product_fix_price']);
 
     // Watchlist
     Route::post('add_to_watchlist', [AuctionController::class, 'AddToWatchlist']);

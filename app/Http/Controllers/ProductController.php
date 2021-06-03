@@ -76,8 +76,8 @@ class ProductController extends Controller
             'max_bid' => 'required|gt:min_bid',
             'start_bid' => 'required|min:1',
             'target_price' => 'required|gt:start_bid',
-            // 'auction_type' => 'required',
-            // 'set_timer' => 'required',
+            'auction_type' => 'required',
+            'set_timer' => 'required',
 
             'category' => 'required|string',
             
