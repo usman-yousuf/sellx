@@ -68,6 +68,8 @@ class User extends Authenticatable
         return $this->hasMany(Complain::class, 'user_id', 'id');
     }
 
+
+
     /**
      * Updted User Chunks info
      *

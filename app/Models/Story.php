@@ -25,4 +25,9 @@ class Story extends Model
     {
         return $this->hasMany(Block::class, 'ref_id', 'id')->where('ref_type', 'story');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
+    }
 }

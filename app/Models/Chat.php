@@ -18,6 +18,6 @@ class Chat extends Model
     }
 
     public function lastMessage(){
-        return $this->hasOne(ChatMessage::class)->orderBy('created_at', 'desc')->where('is_msg_deleted', '0');
+        return $this->hasOne(ChatMessage::class)->orderBy('created_at', 'desc')->where('is_deleted', '0');
     }
 }

@@ -51,15 +51,17 @@ class ChatsController extends Controller
     }
 
 
-    public function createChat(Request $request){
+    public function createChat(Request $request)
+    {
         $validator = Validator::make($request->all(), [
-            'member_id' => 'required',
+            'member_id' => 'required|exists:profiles,id',
         ]);
         if($validator->fails()){
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $user_id = $request->user()->profile->id;
+        $user_id = $request->member_id??$request->user()->profile->id;
+
         $user = User::whereHas('profiles', function ($q) use($user_id){
             $q->where('id', $user_id);
         })->first();
@@ -94,6 +96,7 @@ class ChatsController extends Controller
             $member->chat_id = $chat->id;
             $member->member_id = $user_id;
             $member->save();
+            
             $data['chat'] = Chat::where('id', $chat->id)->with('members', function ($q) use($user_id){
                 $q->where('member_id', '!=', $user_id)->with('user');
             })->first();
@@ -110,13 +113,13 @@ class ChatsController extends Controller
 
     public function getExistingChat(Request $request){
         $validator = Validator::make($request->all(), [
-            'member_id' => 'required',
+            'profile_id' => 'required',
         ]);
         if($validator->fails()){
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
+        $user_id = ($request->user_id) ??  $request->user()->profile->id;
 
 
         $user = User::whereHas('profiles', function ($q) use($user_id){
@@ -127,7 +130,7 @@ class ChatsController extends Controller
         //     return sendError('You have reached your chats limit', null);
         // }
 
-        $mid = (int) $request->member_id;
+        $mid = (int) $request->profile_id;
         $memberIdAgains = ChatMember::where('member_id',$mid)->get();
         $mineAgains = ChatMember::where('member_id',$user_id)->get();
 
@@ -178,11 +181,12 @@ class ChatsController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
+        $user_id = $request->user_id??$request->user()->profile->id;
         $check = ChatMember::where('chat_id', $request->chat_id)->where('member_id', $user_id)->first();
         if(!$check){
             return sendError('Chat not found.', null);
         }
+
         ChatMember::where('chat_id', $request->chat_id)
             ->where('member_id', '=', $user_id)
             ->update(['unread_count' => 0]);
@@ -209,12 +213,12 @@ class ChatsController extends Controller
 
 
     public function getNewUsers(Request $request){
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
+        $user_id = $request->user_id ?? $request->user()->profile->id;
 
         $my_chats = Chat::with('lastMessage', 'members')->whereHas('members', function ($query) use($user_id) {
-            $query->where('member_id', $user_id)
-                ->where('is_deleted', false);
+            $query->where('member_id', $user_id)->where('is_deleted', false);
         })->get();
+        
         $members = [];
         foreach($my_chats as $c){
             foreach ($c->members as $m)
@@ -252,6 +256,7 @@ class ChatsController extends Controller
         $message = new ChatMessage;
         $message->chat_id = $request->chat_id;
         $message->sender_id = $user_id;
+
         if(isset($request->message))
             $message->message = $request->message;
         if(isset($request->media))
@@ -260,8 +265,6 @@ class ChatsController extends Controller
             $message->file_ratio = $request->ratio;
         if(isset($request->type))
             $message->file_type = $request->type;
-        if(isset($request->tag_msg_id))
-            $message->tag_msg_id = $request->tag_msg_id;
         if(isset($request->thumbnail))
             $message->thumbnail = $request->thumbnail;
 
@@ -301,18 +304,15 @@ class ChatsController extends Controller
 
 
     public function getChats(Request $request){
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
-
+        $user_id =  $request->user_id?? $request->user()->profile->id;
         $chats = Chat::with(['lastMessage', 'members' => function($query) use($user_id){
             $query->with('user')->where('member_id', '!=', $user_id);
         }])->whereHas('members', function ($query) use($user_id) {
             $query->where('member_id', $user_id)
                 ->where('is_deleted', false);
-        })->whereHas('members', function ($query) use($user_id) {
-            $query->where('member_id', '!=', $user_id)
-                ->whereRaw("member_id NOT IN (Select blocked_id from block_users where user_id = ".$user_id.")")
-                ->whereRaw("member_id NOT IN (Select user_id from block_users where blocked_id = ".$user_id.")");
         });
+
+// dd($chats);
         if($request->search){
             $search = $request->search;
             $chats->whereHas('members', function ($query) use($user_id, $search) {
@@ -350,14 +350,14 @@ class ChatsController extends Controller
         }
         $chats = Chat::with(['lastMessage', 'members' => function($query) use($user_id){
             $query->with('user')->where('member_id', '!=', $user_id);
-        }])->whereHas('members', function ($query) use($user_id) {
-            $query->where('member_id', $user_id)
-                ->where('is_deleted', false);
-        })->whereHas('members', function ($query) use($user_id) {
-            $query->where('member_id', '!=', $user_id)
-                ->whereRaw("member_id NOT IN (Select blocked_id from block_users where user_id = ".$user_id.")")
-                ->whereRaw("member_id NOT IN (Select user_id from block_users where blocked_id = ".$user_id.")");
-        });
+        // }])->whereHas('members', function ($query) use($user_id) {
+        //     $query->where('member_id', $user_id)
+        //         ->where('is_deleted', false);
+        // })->whereHas('members', function ($query) use($user_id) {
+        //     $query->where('member_id', '!=', $user_id)
+        //         ->whereRaw("member_id NOT IN (Select blocked_id from block_users where user_id = ".$user_id.")")
+        //         ->whereRaw("member_id NOT IN (Select user_id from block_users where blocked_id = ".$user_id.")");
+        }]);
 
         $chats->select('chats.*', DB::raw("(select unread_count from chat_members where chat_id = chats.id and member_id = ".$user_id." limit 1) as unread_count"));
         $clone_chats = clone $chats;
@@ -402,13 +402,13 @@ class ChatsController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
-        $user_id = ($request->user_id) ? $request->user_id : $request->user()->profile_id;
+        $user_id = $request->user_id ?? $request->user()->profile->id;
 
         $check = ChatMessage::where('sender_id', $user_id)->where('id', $request->message_id)->first();
 
         if($check){
             $check->update([
-                        'is_msg_deleted' => 1,
+                        'is_deleted' => 1,
                         'updated_at' => Carbon::now()
                 ]);
             return sendSuccess('Chat Message deleted successfully.', null);

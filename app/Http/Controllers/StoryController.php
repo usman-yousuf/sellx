@@ -21,6 +21,9 @@ class StoryController extends Controller
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
         }
+
+        $user['user'] = Profile::orderBy('created_at', 'DESC')->with('stories')->get();
+        return sendSuccess("Stories",$user);
 		
 		$story = Story::orderBy('created_at', 'DESC');
 
@@ -30,8 +33,9 @@ class StoryController extends Controller
 			$story->where('profile_id',$profile->id);
 		}
 
-		$story = $story->where('end_time','>=',carbon::now())->get();
+		$story = $story->where('end_time','>=',carbon::now())->with(['user'])->get();
 		return sendSuccess("stories",$story);
+        return sendSuccess("stories",$story);
 	}
 
    	public function update_story(Request $request){

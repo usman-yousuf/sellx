@@ -157,6 +157,11 @@ class Profile extends Model
     {
         return $this->hasMany(Chat::class, 'member_id', 'id');
     }
+
+    public function stories()
+    { 
+        return $this->hasMany(Story::class, 'profile_id', 'id');
+    }
     /**
      * Do something based on events of this model
      *
