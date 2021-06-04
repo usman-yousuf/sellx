@@ -22,20 +22,10 @@ class StoryController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $user['user'] = Profile::orderBy('created_at', 'DESC')->with('stories')->get();
+        $user = Profile::orderBy('created_at', 'DESC')->whereHas('stories')->with('stories')->get();
+
+        // dd();
         return sendSuccess("Stories",$user);
-		
-		$story = Story::orderBy('created_at', 'DESC');
-
-		if(isset($request->profile_uuid)){
-
-			$profile = Profile::where('uuid', $request->profile_uuid)->first();
-			$story->where('profile_id',$profile->id);
-		}
-
-		$story = $story->where('end_time','>=',carbon::now())->with(['user'])->get();
-		return sendSuccess("stories",$story);
-        return sendSuccess("stories",$story);
 	}
 
    	public function update_story(Request $request){
