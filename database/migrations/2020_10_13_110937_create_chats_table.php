@@ -15,6 +15,7 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->increments('id')->unsigned(false);
+            $table->string('uuid')->unique();
 
             $table->integer('admin_id');
             $table->foreign('admin_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
