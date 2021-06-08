@@ -100,6 +100,7 @@ class BiddingController extends Controller
         $profile = Profile::where('uuid', $request->profile_uuid)->first();
 
         if(null == $profile){
+
             return sendError('User Not Found', []);
         }
 
@@ -149,6 +150,12 @@ class BiddingController extends Controller
 
         //For Update bid Sold This BLock
         if(isset($request->bidding_uuid)){
+
+//             $bid = Bidding::where('uuid',$request->bidding_uuid)->first();
+//             $product = Product::where('id',(AuctionProduct::where('id',$bid->auction_product_id)->first()
+// )->product_id)->first();
+
+            // dd($bid->total_price)
 
             $biddings = [
                 'status' => 'bid_won',

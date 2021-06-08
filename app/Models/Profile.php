@@ -162,6 +162,11 @@ class Profile extends Model
     { 
         return $this->hasMany(Story::class, 'profile_id', 'id');
     }
+
+    public function auction()
+    { 
+        return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
+    }
     /**
      * Do something based on events of this model
      *

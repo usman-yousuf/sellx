@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -23,6 +23,11 @@ class SoldController extends Controller
     {
 
         $sold  = Sold::orderBy('created_at', 'DESC');
+
+        if(isset($request->status)){
+
+            $sold->where('status', $request->status);
+        }
         
         if(isset($request->bidding_uuid)){
 

@@ -397,8 +397,15 @@ class UserController extends Controller
 
         $cloned_auction_houses = clone $AuctionHouse;
 
-        $data['AuctionHouse'] = $AuctionHouse->with('user')->get();
+        $data['AuctionHouse'] = $AuctionHouse->with('auction' ,function($query) {
+                $query->where('scheduled_date_time','>=',Carbon::now());
+        });
+        $cloned_houese = clone $data['AuctionHouse'];
+        $counted = $cloned_houese->Count();
+        $data['AuctionHouse'] = $data['AuctionHouse']->get();
+        // dd($counted);
         $data['Total_AuctionHouse'] = $cloned_auction_houses->count();
+        // $data['Upcoming_auction'] = Auction::where('')
         
         if($data['Total_AuctionHouse'] > 0){
             return sendSuccess('Search found.', $data);
@@ -411,6 +418,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             // 'profile_uuid' => 'required|exists:profiles,uuid'
         ]);
+
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
             return sendError($validator->errors()->all()[0], $data);
@@ -420,7 +428,7 @@ class UserController extends Controller
 
         $model = Profile::where('uuid', $profile_uuid)->first();
 
-        $reviews = Reviews::where('receiver_profile_id', $model->id)->get();
+        $reviews = Reviews::where('sender_profile_id', $model->id)->get();
 
         if($reviews == null){
             return sendSuccess('No reviews found.', null);

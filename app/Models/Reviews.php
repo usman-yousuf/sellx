@@ -29,7 +29,7 @@ class Reviews extends Model
         'deleted_at',
     ];
 
-    protected $with = ['sender', 'receiver'];
+    protected $with = ['sender', 'receiver','auction_product'];
 
     use SoftDeletes;
 

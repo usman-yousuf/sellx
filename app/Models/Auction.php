@@ -21,9 +21,9 @@ class Auction extends Model
         'deleted_at',
     ];
 
-    protected $with = ['auctioneer','setting'];
+    protected $with = ['setting'];
     protected $appends = [
-        'allowed_to_post'
+        'allowed_to_post',
     ];
 
     public function getAllowedToPostAttribute(){
@@ -39,11 +39,9 @@ class Auction extends Model
             }
         }
         else{
+
             return 0;
-
         }
-
-
     }
 
 
