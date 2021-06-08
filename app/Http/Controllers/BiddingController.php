@@ -14,9 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-// use GuzzleHttp\Psr7\str;
-
-
 class BiddingController extends Controller
 {
     /**
@@ -68,10 +65,6 @@ class BiddingController extends Controller
 
                 $bids->where('auction_id',$request->auction_id)->get();
             }
-        }
-        else{
-
-            $result = Bidding::all();
         }
 
         $cloned_models = clone $bids;
