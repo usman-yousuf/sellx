@@ -336,6 +336,7 @@ class AuctionController extends Controller
 
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
 
+                        // dd($request->product_uuids);
                     foreach($productIdsToAdd as $id){
                         $product = Product::where('id',$id)->first();
                         $product = $product->getAvailableQuantityAttribute();

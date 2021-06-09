@@ -16,7 +16,6 @@ class AuctionProduct extends Model
 
     protected $with = [
         'product', 
-        'biddings',
         'viewers',
     ];
 
@@ -29,7 +28,7 @@ class AuctionProduct extends Model
         'deleted_at',
     ];
 
-    protected $appends = ['is_reviwed'];
+    protected $appends = ['is_reviwed','put_up_for_auction'];
 
     public function product()
     {
@@ -66,6 +65,11 @@ class AuctionProduct extends Model
     public function getIsReviwedAttribute(){
         // dd();
         return Reviews::where('auction_product_id',$this->id)->where('sender_profile_id',Auth()->User()->profile->id)->first()?1:0;
+    }
+
+    public function getPutUpForAuctionAttribute(){
+
+        return $this->sort_order>=AuctionProduct::where('auction_id',$this->auction->id)->max('sort_order')? 1 : 0;
     }  
 
 }

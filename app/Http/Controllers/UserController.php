@@ -396,16 +396,9 @@ class UserController extends Controller
         $AuctionHouse->where('auction_house_name', 'LIKE', "%{$request->keywords}%");
 
         $cloned_auction_houses = clone $AuctionHouse;
-
-        $data['AuctionHouse'] = $AuctionHouse->with('auction' ,function($query) {
-                $query->where('scheduled_date_time','>=',Carbon::now());
-        });
-        $cloned_houese = clone $data['AuctionHouse'];
-        $counted = $cloned_houese->Count();
+        $data['AuctionHouse'] = $AuctionHouse;
         $data['AuctionHouse'] = $data['AuctionHouse']->get();
-        // dd($counted);
         $data['Total_AuctionHouse'] = $cloned_auction_houses->count();
-        // $data['Upcoming_auction'] = Auction::where('')
         
         if($data['Total_AuctionHouse'] > 0){
             return sendSuccess('Search found.', $data);

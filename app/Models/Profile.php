@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+
 
 
 class Profile extends Model
@@ -27,6 +29,8 @@ class Profile extends Model
         'average_rating',
         'total_ratings_count'
     ];
+
+    protected $withCount = ['comingauctions'];
 
     public function getTotalRatingsCountAttribute(){
         if(\Auth::check()){
@@ -166,6 +170,11 @@ class Profile extends Model
     public function auction()
     { 
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
+    }
+
+    public function comingauctions()
+    { 
+        return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->where('scheduled_date_time','>=',Carbon::now())->with('auction');
     }
     /**
      * Do something based on events of this model

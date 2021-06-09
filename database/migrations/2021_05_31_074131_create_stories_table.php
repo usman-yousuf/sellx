@@ -21,6 +21,7 @@ class CreateStoriesTable extends Migration
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->text('caption')->nullable();
+            $table->boolean('is_live')->default(false);
 
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();

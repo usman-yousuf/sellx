@@ -12,11 +12,10 @@ class Bidding extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $with = ['auction','auction_product','user','sold'];
 
     public function auction_product()
     {
-        return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id')->without(['biddings']);
+        return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id');
     }
 
     public function auction()
