@@ -22,7 +22,7 @@ class StoryController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $user = Profile::orderBy('created_at', 'DESC')->whereHas('stories')->with('stories')->get();
+        $user = Profile::orderBy('created_at', 'DESC')->where('uuid',$request->profile_uuid)->whereHas('stories')->with('stories')->get();
 
         // dd();
         return sendSuccess("Stories",$user);
