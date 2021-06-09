@@ -13,18 +13,10 @@ use Illuminate\Support\Str;
 class StoryController extends Controller
 {
 	public function get_story(Request $request){
-	    $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'string|exists:profiles,uuid',
-        ]);
 
-        if ($validator->fails()) {
-            $data['validation_error'] = $validator->getMessageBag();
-            return sendError($validator->errors()->all()[0], $data);
-        }
 
-        $user = Profile::orderBy('created_at', 'DESC')->where('uuid',$request->profile_uuid)->whereHas('stories')->with('stories')->get();
+        $user = Profile::orderBy('created_at', 'DESC')->whereHas('stories')->with('stories')->get();
 
-        // dd();
         return sendSuccess("Stories",$user);
 	}
 
