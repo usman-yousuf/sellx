@@ -170,7 +170,7 @@ class UserController extends Controller
                 // // validate given phone number
                 $code = mt_rand(100000, 999999);
                 $twilio = new TwilioController;
-                    if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
+                if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
                     return sendError('Somthing went wrong while send Code over phone', NULL);
                 }
             }
@@ -292,9 +292,9 @@ class UserController extends Controller
             return sendSuccess('Feedback Sent Successfully.', null);
         } catch (Exception $e) {
 
-                $data['exception_error'] = $e->getMessage();
-                return sendError('There is some problem.', $data);
-            }
+            $data['exception_error'] = $e->getMessage();
+            return sendError('There is some problem.', $data);
+        }
     }
 
     /**

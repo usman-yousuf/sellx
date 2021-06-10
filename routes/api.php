@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BiddingController;
+use App\Http\Controllers\BlockController;
 use App\Http\Controllers\BuyerRequestController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\SoldController;
 use App\Http\Controllers\StoryController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\ViewerController;
-use App\Http\Controllers\BlockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,10 @@ Route::post('get_constants', 'App\Http\Controllers\NoAuthController@getConstants
 Route::post('get_categories', 'App\Http\Controllers\NoAuthController@getCategories');
 Route::post('get_currencies', 'App\Http\Controllers\NoAuthController@getCurrencies');
 Route::post('get_initial_data', 'App\Http\Controllers\NoAuthController@getInitialData');
+//subscribe
+Route::post('subscribe',[SubscribeController::class, 'subscribe'] );
+//contact Form
+Route::post('contact_form',[ContactFormController::class, 'contact_form'] );
 
 
 Route::group([ 'prefix' => 'auth'], function () {

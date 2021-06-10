@@ -95,8 +95,11 @@ class StoryController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $story = Story::where('uuid', $request->story_uuid)->delete();
+        $story = Story::where('uuid', $request->story_uuid)->first();
 
+        UploadMedia::where('type','story')->where('ref_id',$story->id)->delete();
+
+        $story->delete();
         return sendSuccess('Deleted',[]);
    	}
 }

@@ -336,9 +336,9 @@ class AuctionController extends Controller
 
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
 
-                        // dd($request->product_uuids);
                     foreach($productIdsToAdd as $id){
                         $product = Product::where('id',$id)->first();
+                        $auctionproduct = Auctionproduct::where('auction_id',$model->id)->max('sort_order');
                         $product = $product->getAvailableQuantityAttribute();
 
                         if($product > 0){
@@ -346,8 +346,8 @@ class AuctionController extends Controller
                             $temp->uuid = \Str::uuid();
                             $temp->auction_id = $model->id;
                             $temp->product_id = $id;
-                            $temp->sort_order = 1;
-                            $temp->created_at = date('Y-m-d H:i:s');
+                            $temp->sort_order = ++$auctionproduct;
+                            // $temp->created_at = date('Y-m-d H:i:s');
                             $temp->save();
 
                             $status = Product::where('id', $id)->update([
