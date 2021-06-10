@@ -20,7 +20,7 @@ class CreateConstantsTable extends Migration
             $table->string('name')->nullable();
             $table->string('value')->nullable();
             $table->enum('type', ['on_board', 'off_board', 'in_app', 'profile', 'settings', 'auctions', 'my_feed', 'dashboard', 'watch_list'])->nullable();
-            $table->string('image_path')->nullable();
+            $table->text('image_path')->nullable();
             $table->boolean('status')->default(true);
 
             $table->timestamps();

@@ -30,7 +30,7 @@ class CreateProductsTable extends Migration
             $table->foreign('sub_cat_level_3_id')->references('id')->on('sub_categories_level_3')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->integer('available_quantity');
 
             $table->string('brand')->nullable();

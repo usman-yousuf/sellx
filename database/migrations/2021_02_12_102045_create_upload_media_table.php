@@ -24,7 +24,7 @@ class CreateUploadMediaTable extends Migration
             $table->integer('ref_id')->nullable(); // model id if not profile
 
             $table->string('name')->nullable();
-            $table->string('path');
+            $table->text('path');
             $table->string('media_type')->nullable();
             $table->string('media_format')->nullable();
             $table->string('media_size')->nullable();

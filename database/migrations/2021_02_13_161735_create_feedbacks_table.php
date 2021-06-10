@@ -20,7 +20,7 @@ class CreateFeedbacksTable extends Migration
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('email');
-            $table->string('message');
+            $table->text('message');
 
             $table->timestamps();
             $table->softDeletes();

@@ -26,7 +26,7 @@ class CreateReviewsTable extends Migration
             $table->integer('receiver_profile_id')->nullable();
             $table->foreign('receiver_profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('message');
+            $table->text('message');
             $table->string('rating')->default('0');
 
             $table->timestamps();
