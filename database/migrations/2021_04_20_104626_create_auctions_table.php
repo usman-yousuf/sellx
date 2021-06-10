@@ -27,7 +27,7 @@ class CreateAuctionsTable extends Migration
             $table->dateTime('scheduled_date_time')->nullable();
 
             $table->boolean('is_live')->default(false);
-            $table->string('online_url')->nullable();
+            $table->text('online_url')->nullable();
 
 
             $table->softDeletes();
