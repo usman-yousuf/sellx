@@ -33,4 +33,9 @@ class UserManagementController extends Controller
 		}
 		
 	}
+
+	public function ajaxsubscribe(){
+
+		return view('ajax_request.ajax_request');
+	}
 }

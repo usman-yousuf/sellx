@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AuctioneerManagementController;
 use App\Http\Controllers\Admin\CategoriesManagementController;
-use App\Http\Controllers\Admin\LanguagesManagementController;
-use App\Http\Controllers\Admin\CurrenciesManagementController;
 use App\Http\Controllers\Admin\CitiesManagementController;
 use App\Http\Controllers\Admin\CountriesManagementController;
+use App\Http\Controllers\Admin\CurrenciesManagementController;
+use App\Http\Controllers\Admin\LanguagesManagementController;
+use App\Http\Controllers\Admin\UserManagementController;
+use Illuminate\Support\Facades\Route;
 
 
 
@@ -28,7 +28,7 @@ Route::get('/', function () {
 });
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
-
+Route::get('/ajax/sub', [UserManagementController::class, 'ajaxsubscribe']);
 
 Auth::routes();
 

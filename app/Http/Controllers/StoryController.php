@@ -82,7 +82,10 @@ class StoryController extends Controller
         ];
         $media = UploadMedia::create($media);
 
-        return sendSuccess('Uploaded media',$media);
+        $data['story'] = $story;
+        $data['media'] = $media;
+
+        return sendSuccess('Uploaded media',$data);
    	}
 
    	public function delete_story(Request $request){
