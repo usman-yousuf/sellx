@@ -1,0 +1,581 @@
+.for_overflow {
+  overflow: hidden;
+  margin-top: -48px;
+}
+.for_navbar_bg {
+  background-color: whitesmoke !important;
+}
+.for_navbar_bg span {
+  font-size: 24px;
+  color: #49aaef;
+  margin-left: 10px;
+}
+
+.for_nav_bar_logo {
+  width: 30px;
+  margin-left: 35px;
+  margin-top: -10px;
+}
+.for_aboutus_contact {
+  margin-right: 40px;
+  margin-top: 3px;
+}
+.for_aboutus_contact p {
+  font-size: 20px;
+  color: #49aaef;
+
+  margin-right: 30px;
+}
+.for_aboutus_contact span {
+  font-size: 20px;
+  margin-left: 30px;
+}
+.for_aboutus_contact a {
+  text-decoration: none;
+  color: #49aaef;
+}
+
+.for_col_six_bg {
+  background-image: url(assets/images/Right\ side.svg);
+  background-size: cover;
+  object-fit: cover;
+  height: 550px;
+}
+.for_secoond_col_bg {
+  background-color: #eef1f2;
+}
+.for_second_col {
+  padding: 30px;
+}
+.for_second_col p {
+  font-size: 21px;
+  margin-top: 30px;
+  color: #818b8f;
+}
+.for_second_col h2 {
+  font-size: 40px;
+}
+.for_bg_iphone img {
+  margin-top: 125px;
+  position: absolute;
+  margin-left: -140px;
+}
+
+.for_btn_download button {
+  width: 150px;
+  height: 68px;
+  border-radius: 25px;
+}
+/* .for_btn_download button:hover {
+    background-color: #49aaef !important;
+  } */
+.for_btn_download i {
+  font-size: 32px;
+  float: left;
+  margin-left: -20px;
+  margin-top: -10px;
+  color: #49aaef;
+}
+.for_btn_download span {
+  position: absolute;
+  margin-left: -64px;
+  margin-top: -10px;
+}
+
+.text_app_store {
+  margin-top: -10px;
+  position: absolute;
+  float: left;
+  margin-left: -65px;
+  margin-top: -10px;
+}
+.for_btn_download p {
+  margin-top: -14px;
+  font-size: 12px;
+  margin-left: 10px;
+  color: white;
+  color: #49aaef;
+}
+
+.for_btn_download span {
+  font-weight: bold;
+  font-size: 19px;
+  margin-left: -45px;
+  margin-top: -5px;
+  color: #49aaef;
+}
+.for_block_two_main {
+  padding-top: 150px;
+}
+.for_sellex_text h4 {
+  margin-top: 43px;
+}
+.for_sellex_text p {
+  font-size: 20px;
+  font-family: Nunito Sans;
+  margin-top: 20px;
+}
+
+.for_sellex_textt h4 {
+  margin-top: 43px;
+}
+.for_sellex_textt p {
+  font-size: 20px;
+  font-family: Nunito Sans;
+  margin-top: 20px;
+}
+.for_blocktw_childone_main {
+  margin-top: 70px;
+}
+.for_block_three_bg {
+  background-color: #49aaef;
+  padding: 30px;
+  margin-top: 60px;
+}
+.input-group-text {
+  height: 38px;
+  background-color: #49aaef;
+  color: white;
+}
+::-webkit-input-placeholder {
+  /* Edge */
+  color: white !important;
+  margin-left: 20px;
+}
+input {
+  background-color: #49aaef !important;
+}
+.for_common_input {
+  margin-top: 30px;
+}
+.for_common_input button {
+  width: 250px;
+  color: #49aaef;
+  height: 41px;
+}
+.for_block_three_bg h3 {
+  color: white;
+}
+.for_block_three_bg p {
+  color: white;
+}
+
+/* Footer Css Start */
+.for_footer_bg {
+  background-color: #1c1c1f;
+  margin-top: 80px;
+}
+.footer_first_col_main {
+  margin-top: 50px;
+}
+.footer_first_col_main a {
+  text-decoration: none;
+  color: white;
+}
+.footer_first_col_main span {
+  margin-left: 20px;
+}
+
+.for_after_footer::after {
+  content: "";
+  border-left: 1px solid #ffffff;
+  margin-left: 30px;
+  height: 50px;
+  position: absolute;
+  margin-top: 7px;
+}
+.footer_logo img {
+  margin-top: 11px;
+}
+.for_footer_bottom {
+  border-bottom: 1px solid #ffffff;
+}
+.end_footer {
+  padding-bottom: 20px;
+}
+.end_footer img {
+  margin-top: 25px;
+}
+.end_footer span {
+  color: white;
+  margin-top: 25px;
+}
+
+.fox-text br {
+  display: none;
+}
+
+.for_hr_sm {
+  display: none;
+}
+/* Footer Css End */
+
+/* AboutUS Css Start */
+.for_col_after {
+  line-height: 43px;
+}
+.for_col_after::after {
+  content: "";
+  border-left: 1px solid #818b8f;
+  margin-left: 260px;
+  height: 585px;
+  position: absolute;
+  margin-top: -359px;
+}
+.for_partners_bottom {
+  border-bottom: 1px solid #818b8f;
+}
+.for_col_after a {
+  text-decoration: none;
+}
+.for_partners_bottom {
+  width: 165px;
+}
+.for_col_after a:hover {
+  color: #1c1c1f;
+}
+.for_basic_deffination_text {
+  margin-top: 35px;
+}
+.for_basic_deffination_text h4 {
+  font-size: 18px;
+  font-family: Nunito Sans;
+  font-weight: bold;
+}
+.for_basic_deffination_text p {
+  font-family: Nunito Sans;
+  color: #818b8f;
+}
+/* AboutUS Css End */
+
+@media (min-width: 360px) and (max-width: 424px) {
+  .top_nav {
+    margin-left: -41px;
+    overflow: hidden;
+  }
+  .for_aboutus_contact {
+    margin-right: -24px;
+    margin-top: 8px;
+  }
+
+  .for_aboutus_contact p {
+    font-size: 14px;
+  }
+  .for_aboutus_contact span {
+    font-size: 14px;
+  }
+  .for_overflow {
+    overflow: hidden;
+  }
+  .for_second_col {
+    padding: 44px;
+  }
+  .for_second_col h2 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .for_second_col p {
+    font-size: 17px;
+    margin-top: 30px;
+    color: #818b8f;
+    /* text-align: center; */
+    text-align: center;
+  }
+  .for_btn_download button {
+    margin-left: 52px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  .for_btn_download p {
+    margin-top: -15px;
+    font-size: 12px;
+    color: #49aaef;
+  }
+  .for_btn_download span {
+    color: #49aaef;
+  }
+  .for_common_img_res img {
+    margin-left: 15px;
+  }
+  .for_sellex_text {
+    margin-left: 10px;
+  }
+  .for_sellex_textt {
+    margin-left: 10px;
+  }
+  .for_sellex_text h4 {
+    font-size: 25px;
+  }
+  .for_sellex_textt h4 {
+    font-size: 24px;
+  }
+  .for_sellex_textt p {
+    font-size: 21px;
+    font-family: Nunito Sans;
+    margin-top: 20px;
+  }
+  .for_sellex_text p {
+    font-size: 21px;
+    font-family: Nunito Sans;
+    margin-top: 20px;
+  }
+  .for_common_input button {
+    width: 318px;
+  }
+  /* Footer Responsive  */
+  .for_terms_and_conditions_p_res {
+    margin-left: 10px;
+  }
+  .for_sm_footer_text {
+    margin-top: -15px;
+  }
+
+  .fox-text {
+    color: red;
+  }
+  .fox-text br {
+    display: block;
+  }
+  .for_after_footer::after {
+    display: none;
+  }
+
+  .footer_first_col_main span {
+    margin-left: 0px;
+  }
+
+  .one {
+    border-bottom: 1px solid white;
+    line-height: 30px;
+  }
+  .footer_logo {
+    display: none;
+  }
+  .second {
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+
+  .for_end_text {
+    text-align: left;
+    float: left;
+  }
+  .end_footer span {
+    color: white;
+    margin-top: 38px;
+    float: left;
+    margin-left: -135px;
+  }
+  .end_footer img {
+    margin-top: 25px;
+    float: left;
+  }
+  .end_footer {
+    padding-bottom: 85px;
+  }
+  .for_footer_bg {
+    background-color: #1c1c1f;
+    height: 490px;
+  }
+  /* End Footer */
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+  .top_nav {
+    margin-left: -41px;
+    overflow: hidden;
+  }
+  .for_aboutus_contact {
+    margin-right: -24px;
+    margin-top: 8px;
+  }
+
+  .for_aboutus_contact p {
+    font-size: 14px;
+  }
+  .for_aboutus_contact span {
+    font-size: 14px;
+  }
+  .for_overflow {
+    overflow: hidden;
+  }
+  .for_second_col {
+    padding: 44px;
+  }
+  .for_second_col h2 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .for_second_col p {
+    font-size: 17px;
+    margin-top: 30px;
+    color: #818b8f;
+    /* text-align: center; */
+    text-align: center;
+  }
+  .for_btn_download button {
+    margin-left: 102px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  .for_btn_download p {
+    margin-top: -15px;
+    font-size: 12px;
+    color: #49aaef;
+  }
+  .for_btn_download span {
+    color: #49aaef;
+  }
+  .for_common_img_res img {
+    margin-left: 50px;
+  }
+  .for_sellex_text {
+    margin-left: 16px;
+  }
+  .for_sellex_textt {
+    margin-left: 16px;
+  }
+  .for_common_input button {
+    width: 366px;
+  }
+  /* Footer responsive */
+  .for_terms_and_conditions_p_res {
+    margin-left: 10px;
+  }
+  .for_sm_footer_text {
+    margin-top: -15px;
+  }
+
+  .fox-text {
+    color: red;
+  }
+  .fox-text br {
+    display: block;
+  }
+  .for_after_footer::after {
+    display: none;
+  }
+
+  .footer_first_col_main span {
+    margin-left: 0px;
+  }
+
+  .one {
+    border-bottom: 1px solid white;
+    line-height: 30px;
+  }
+  .footer_logo {
+    display: none;
+  }
+  .second {
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+
+  .for_end_text {
+    text-align: left;
+    float: left;
+  }
+  .end_footer span {
+    color: white;
+    margin-top: 38px;
+    float: left;
+    margin-left: -135px;
+  }
+  .end_footer img {
+    margin-top: 25px;
+    float: left;
+  }
+  .end_footer {
+    padding-bottom: 85px;
+  }
+  .for_footer_bg {
+    background-color: #1c1c1f;
+    height: 500px;
+  }
+  /* End Footer */
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .for_sellex_text h4 {
+    font-size: 24px;
+  }
+  .for_common_input button {
+    width: 147px;
+    color: #49aaef;
+    height: 41px;
+  }
+  .for_after_footer p {
+    font-size: 10px;
+  }
+  .footer_first_col_main p {
+    font-size: 10px;
+  }
+  .for_after_footer::after {
+    content: "";
+    border-left: 1px solid #ffffff;
+    margin-left: 21px;
+    height: 40px;
+    position: absolute;
+    margin-top: 3px;
+  }
+  .for_footer_bg {
+    background-color: #1c1c1f;
+    margin-top: 60px;
+  }
+  .footer_logo img {
+    /* display: none; */
+    margin-top: -2px;
+  }
+
+  /* About Us Css Start */
+  .for_col_after::after {
+    content: "";
+    border-left: 1px solid #818b8f;
+    margin-left: 205px;
+    height: 801px;
+    position: absolute;
+    margin-top: -359px;
+}
+}
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .for_sellex_text h4 {
+    font-size: 20px;
+  }
+
+  .for_sellex_textt h4 {
+    font-size: 20px;
+  }
+  .for_sellex_text {
+    margin-top: -20px;
+  }
+
+  .for_sellex_textt {
+    margin-top: -20px;
+  }
+  .for_sellex_text p {
+    font-size: 17px;
+    font-family: Nunito Sans;
+    margin-top: 20px;
+  }
+  .for_sellex_textt p {
+    font-size: 17px;
+    font-family: Nunito Sans;
+    margin-top: 20px;
+  }
+  .for_common_input button {
+    width: 206px;
+    color: #49aaef;
+    height: 41px;
+  }
+  .footer_first_col_main {
+    font-size: 14px !important;
+  }
+  .footer_logo img {
+    margin-top: 4px;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 2559px) {
+}

@@ -176,6 +176,9 @@ class BiddingController extends Controller
         $available = clone $product;
         $available = $available->getAvailableQuantityAttribute();
         
+        if(NULL == AuctionSetting::where('auction_id',$auction->id)->first()){
+            return sendError('Aution type not set',[]);
+        } 
 
         //Work if is_fixed_price is not fixed
         if(!isset($request->is_fixed_price)){

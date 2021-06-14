@@ -72,4 +72,17 @@ class AuctionProduct extends Model
         return $this->sort_order>=AuctionProduct::where('auction_id',$this->auction->id)->max('sort_order')? 1 : 0;
     }  
 
+    /**
+     * Boot Method of Modal
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // delete an Auction
+        static::deleting(function ($model) {
+            $model->product()->update(['is_added_in_auction' => (bool)false]);
+        });
+    }
+
 }

@@ -23,12 +23,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 
 });
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
-Route::get('/ajax/sub', [UserManagementController::class, 'ajaxsubscribe']);
+// Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);
+Route::get('/contactus', [App\Http\Controllers\HomeController::class, 'contactus'])->name('contact');
+Route::get('/aboutus', [App\Http\Controllers\HomeController::class, 'aboutus'])->name('about');
 
 Auth::routes();
 

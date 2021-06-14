@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Exceptions\Handler;
 use App\Models\ContactForm;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+// Response
 
 class ContactFormController extends Controller
 {
@@ -20,19 +22,19 @@ class ContactFormController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'e_mail' => 'required|email',
+            'email' => 'required|email',
             'type' => 'required|in:bidding,auctioneer,other',
         ]);
 
         if ($validator->fails()) {
 
-            $data['validation_error'] = $validator->getMessageBag();
-            return sendError($validator->errors()->all()[0], $data);
+            // $data['validation_error'] = $validator->getMessageBag();
+            return Response::json(['errors' => $validator->errors()]);
         }
 
-        if(ContactForm::where('email',$request->e_mail)->first()){
+        if(ContactForm::where('email',$request->email)->first()){
 
-            return sendError('already in from',[]);
+            return Response::json(['success' => $e->getMessage()]);
         }
 
         try{
@@ -40,7 +42,7 @@ class ContactFormController extends Controller
             $contact = [
                 'uuid' => str::uuid(),
                 'name' => $request->name,
-                'email' => $request->e_mail,
+                'email' => $request->email,
                 'type' => $request->type,
             ];
 
@@ -48,14 +50,14 @@ class ContactFormController extends Controller
 
             Mail::send('email_template.contactform', [
                 'name' => $request->name,
-                'email' => $request->e_mail,
+                'email' => $request->email,
                 'message_body' => 'Contact Info'
             ], function ($m) use ($contact) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
                 $m->to(config('mail.from.address'))->subject('ContactInformation');
             });
 
-            return sendSuccess('Saved',$contact);
+            return Response::json(['success' => '1']);
         }
         catch(Exception $ex){
 

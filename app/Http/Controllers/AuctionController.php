@@ -172,23 +172,31 @@ class AuctionController extends Controller
             }
 
             $model = Auction::where('uuid', $request->auction_uuid)->first();
+            
             if(null == $model){
-                return sendError('No Record Found', []);
-            }
-            $product = Product::where('uuid', $request->product_uuid)->first();
-            if (null == $product) {
                 return sendError('No Record Found', []);
             }
 
             try{
+
                 $model->delete();
-                Product::where('id', $product->id)->update(['is_added_in_auction' => (bool)false]);
                 return sendSuccess('Record Deleted Successfully', []);
             }
             catch(\Exception $ex)
             {
                 return sendError('Something went wrong while deleting Auction', []);
             }
+                // AuctionProduct::where('auction_id', $model->id)->delete();
+            
+            //             $model = Auction::where('uuid', $request->auction_uuid)->whereHas('auction_products')->with('auction_products')->first();
+            // $auctionproduct = AuctionProduct::where('auction_id', $model->id)->get();
+            // // $model = $model->whereHas('auction_products')->get();
+            // return sendSuccess('Data',$model->auction_products->get()->product);
+
+            // try{
+            //     $model->delete();
+            //     $model->auction_products->first()->product->update(['is_added_in_auction' => (bool)false]);
+            // }
         }
 
         /**

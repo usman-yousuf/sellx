@@ -88,9 +88,9 @@ class Profile extends Model
     use SoftDeletes;
 
     public function getIsFollowedAttribute(){
-        if(\Auth::check()){
-            if(null != \Auth::user()->active_profile_id){
-                $res = \DB::select("SELECT count(*) as is_followed FROM `followers` where profile_id = ".$this->id." and following_id = ".\Auth::user()->active_profile_id);
+        if($request->user()){
+            if(null != $request->user()->active_profile_id){
+                $res = \DB::select("SELECT count(*) as is_followed FROM `followers` where profile_id = ".$this->id." and following_id = ".$request->user()->active_profile_id);
                 if(null != $res){
                     return (int)$res[0]->is_followed;
                 }
