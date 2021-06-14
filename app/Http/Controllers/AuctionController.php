@@ -165,7 +165,6 @@ class AuctionController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'auction_uuid' => 'required|string|exists:auctions,uuid',
-                'product_uuid' => 'required|string|exists:products,uuid',
             ]);
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();

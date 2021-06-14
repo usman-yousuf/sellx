@@ -82,8 +82,7 @@ class StoryController extends Controller
         ];
         $media = UploadMedia::create($media);
 
-        $data['story'] = $story;
-        $data['media'] = $media;
+        $data = $story->where('id',$story->id)->with('media')->get();
 
         return sendSuccess('Uploaded media',$data);
    	}
