@@ -96,7 +96,7 @@ class SoldController extends Controller
 
         $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
 
-        if(NULL == $bid){
+        if(NULL != $bid->deleted_at){
 
             return sendError('Bid Does Not Exist',[]);
         }

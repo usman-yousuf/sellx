@@ -185,21 +185,22 @@ class BiddingController extends Controller
         $available = clone $product;
         $available = $available->getAvailableQuantityAttribute();
         
-        if(NULL == AuctionSetting::where('auction_id',$auction->id)->first()){
-            return sendError('Aution type not set',[]);
-        } 
+        if(NULL == $product->auction_type){
+            return sendError('Aution type not set of product',[]);
+
+        }
 
         //Work if is_fixed_price is not fixed
         if(!isset($request->is_fixed_price)){
 
-            if($auction->setting->auction_type == 'fixed_price'){
+            if($product->auction_type == 'fixed_price'){
 
                 return sendError('Fixed Price selected, Cant Bid',[]);
             }
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('profile_id',$profile->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 
-            if($last_max_bid == 0 && $auction->setting->auction_type != 'from_zero'){ 
+            if($last_max_bid == 0 && $product->auction_type != 'from_zero'){ 
 
             	$last_max_bid = $auction_product->product->start_bid; 
             }
@@ -230,12 +231,12 @@ class BiddingController extends Controller
         }
         else {
 
-            if($auction->setting->auction_type == 'ticker_price'){
+            if($product->auction_type == 'ticker_price'){
 
                 return sendError('Ticker Price selected, Cant Fix Price',[]);
             }
 
-            if($auction->setting->auction_type == 'fixed_price'){
+            if($product->auction_type == 'fixed_price'){
 
                 $price = $auction_product->product->start_bid;
             }
