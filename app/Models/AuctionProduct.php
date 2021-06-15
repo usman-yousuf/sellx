@@ -17,6 +17,7 @@ class AuctionProduct extends Model
     protected $with = [
         'product', 
         'viewers',
+        'biddings',
     ];
 
     protected $withCount = ['biddings','viewers'];
