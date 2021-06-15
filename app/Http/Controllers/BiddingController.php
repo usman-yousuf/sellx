@@ -134,7 +134,7 @@ class BiddingController extends Controller
             'bid_price' => 'required_without_all:bidding_uuid,is_fixed_price',
             'is_fixed_price' => 'boolean|required_without_all:bid_price,bidding_uuid',
             'quantity' => 'required_with_all:is_fixed_price|numeric|min:1',
-            'bidding_uuid' => 'required_without_all:auction_uuid,auction_product_uuid,profile_uuid,bid_price,is_fixed_price'
+            'bidding_uuid' => 'string|exists:biddings,uuid|required_without_all:auction_uuid,auction_product_uuid,profile_uuid,bid_price,is_fixed_price'
         ]);
 
         if ($validator->fails()) {
@@ -158,6 +158,7 @@ class BiddingController extends Controller
 
             $bid = Bidding::where('uuid', $request->bidding_uuid)
                 ->where('is_fixed_price',0)
+                ->where('deleted_at',NULL)
                 ->update($biddings);
 
             if(!$bid){
@@ -173,6 +174,14 @@ class BiddingController extends Controller
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
         $product = Product::where('id',$auction_product->product_id)->first();
+
+        //Null Check as exist check even if model is soft deleted
+        if(NULL == $profile || NULL == $auction || NULL == $product || NULL == $auction_product){
+
+            return sendError('Data Missmatch',[]);
+        }
+
+        //Get Product Avalible Quantity
         $available = clone $product;
         $available = $available->getAvailableQuantityAttribute();
         

@@ -83,12 +83,12 @@ class SoldController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
+        //Updating Sold Status
         if(isset($request->sold_uuid)){
             
             $sold = [
                 'status' => $request->status,
             ];
-
             $sold = Sold::where('uuid',$request->sold_uuid)->update($sold);
 
             return sendSuccess('Updated Status',$sold);
@@ -96,12 +96,17 @@ class SoldController extends Controller
 
         $bid = Bidding::where('uuid', $request->bidding_uuid)->first();
 
+        if(NULL == $bid){
+
+            return sendError('Bid Does Not Exist',[]);
+        }
+
         if(Sold::where('bidding_id', $bid->id)->first() ){
+
             return sendError('Bid already sold',[]);
         }
 
         $total = $bid->total_price;
-
         $sold = [
             'uuid' => Str::uuid(),
             'bidding_id' => $bid->id,

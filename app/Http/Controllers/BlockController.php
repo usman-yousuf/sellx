@@ -108,6 +108,10 @@ class BlockController extends Controller
 
         $profile = Profile::where('uuid', $request->profile_uuid)->first();
 
+        if(NULL == $profile){
+
+            return sendError('Data Missmatch',[]);
+        }
         if($request->ref_type == 'user'){
 
             $ref = Profile::where('uuid', $request->ref_uuid)->first();         
@@ -124,7 +128,6 @@ class BlockController extends Controller
 
             $ref = Product::where('uuid', $request->ref_uuid)->first();         
         }
-
         if($ref == ''){
 
             return sendError('invalid UUID',[]);

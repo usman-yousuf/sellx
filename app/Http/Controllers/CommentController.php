@@ -31,8 +31,13 @@ class CommentController extends Controller
         }
 
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
-        $comments = Comment::orderBy('created_at', 'DESC');
 
+        if(NULL == $auction){
+
+            return sendError('Auction Does Not Exist,Data Missmatch',[]);
+        }
+
+        $comments = Comment::orderBy('created_at', 'DESC');
         $comments = $comments->where('auction_id',$auction->id)->get();
 
         return sendSuccess('Comments',$comments);
@@ -68,6 +73,11 @@ class CommentController extends Controller
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+
+        if(NULL == $profile || NULL == $auction || NULL == $auction_product){
+
+            return sendError('Data Missmatch',[]);
+        }
 
         $comment = [
                 'uuid' => Str::uuid(),
