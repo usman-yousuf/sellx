@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_product', 'App\Http\Controllers\ProductController@updateProduct');
     Route::post('delete_product', 'App\Http\Controllers\ProductController@deleteProduct');
     Route::post('test_product', 'App\Http\Controllers\ProductController@test');
+    Route::post('update_product_auction_type', 'App\Http\Controllers\ProductController@update_product_auction_type');
 
 
     // Auctions

@@ -434,5 +434,23 @@ class ProductController extends Controller
     public function test(Request $request){
         return sendSuccess('success', $request->all() ?? "ABC");
     }
+    public function update_product_auction_type(Request $request){
+
+        $validator = Validator::make($request->all() ,[
+            'product_uuid' => 'required|exists:products,uuid',
+            'auction_type' => 'required|in:not_preselected,ticker_price,fixed_price,from_zero',
+
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+        
+        $product = Product::where('uuid',$request->product_uuid)->update(['auction_type' => $request->auction_type]);
+
+        return sendSuccess('Updated',$product);
+    }
 
 }

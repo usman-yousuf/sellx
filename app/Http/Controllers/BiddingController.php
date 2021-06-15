@@ -235,14 +235,16 @@ class BiddingController extends Controller
 
                 return sendError('Ticker Price selected, Cant Fix Price',[]);
             }
+            // if($product->auction_type == 'fixed_price'){
 
-            if($product->auction_type == 'fixed_price'){
-
-                $price = $auction_product->product->start_bid;
-            }
-            else if($auction_product->is_fixed_price == 1){
+            //     $price = $product->start_bid;
+            // }
+            if($auction_product->is_fixed_price == 1 || $product->auction_type == 'fixed_price' || $product->auction_type == 'not_preselected'){
 
                 $price = $auction_product->fixed_price;
+                if(NULL == $price){
+                    return sendError('Fix Price Not Set',[]);
+                }
             }
             else{
 
