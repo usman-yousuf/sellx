@@ -41,17 +41,17 @@ class HomeController extends Controller
         return view('about_us');
     }
 
-    public function privacyMobPage()
+    public function privacymobpage()
     {
         return view('pages_general.privacy');
     }
 
-    public function termsMobPage()
+    public function termsmobpage()
     {
         return view('pages_general.terms');
     }
 
-    public function partnerMobPage()
+    public function partnermobpage()
     {
         return view('pages_general.partner');
     }
