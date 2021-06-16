@@ -66,8 +66,8 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('time_end_bigging_send', function(data) {
-        io.emit('time_end_bigging_recived', {
+    socket.on('time_end_bidding_send', function(data) {
+        io.emit('time_end_bidding_recived', {
             data: data,
         });
     });
