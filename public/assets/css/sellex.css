@@ -62,9 +62,12 @@
 }
 
 .for_btn_download button {
-  width: 150px;
-  height: 68px;
-  border-radius: 25px;
+width: 150px;
+    height: 56px;
+    border-radius: 4px;
+}
+.email_demoo i{
+  height: 40px !important;
 }
 /* .for_btn_download button:hover {
     background-color: #49aaef !important;
@@ -133,7 +136,7 @@
   margin-top: 60px;
 }
 .input-group-text {
-  height: 38px;
+  height: 40px;
   background-color: #49aaef;
   color: white;
 }

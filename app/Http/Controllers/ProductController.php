@@ -381,6 +381,8 @@ class ProductController extends Controller
 
         	DB::commit();
         	$data['product'] = Product::where('id', $product->id)->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->first();
+            // dd(utf8_enc($odedata['product']['description']));
+            // dd($data['product']['description']);
         	return sendSuccess($message, $data);
         }
 

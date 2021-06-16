@@ -140,7 +140,7 @@
             <form class="for_common_input">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">
+                  <span class="input-group-text email_demoo">
                     <i class="fa fa-envelope-o" aria-hidden="true"></i>
                   </span>
                 </div>

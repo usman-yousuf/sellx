@@ -21,6 +21,18 @@ class SoldController extends Controller
      */
     public function get_sold(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'exists:profiles,uuid',        
+            'auction_uuid' => 'exists:auctions,uuid',        
+            'auction_product_uuid' => 'exists:auction_products,uuid',        
+            'bidding_uuid' => 'exists:biddings,uuid',        
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
 
         $sold  = Sold::orderBy('created_at', 'DESC');
 
@@ -43,11 +55,7 @@ class SoldController extends Controller
         if(isset($request->auction_uuid)){
 
             $auction = Auction::where('uuid',$request->auction_uuid)->first();
-            $sold->where('auction_id',$request->auction_id)->get();
-        }
-        else{
-
-            $result = sold::all();
+            $sold->where('auction_id',$request->auction_id);
         }
 
         $cloned_models = clone $sold;
@@ -100,7 +108,10 @@ class SoldController extends Controller
 
             return sendError('Bid Does Not Exist',[]);
         }
+        if(NULL == $bid->sold_date_time){
 
+            return sendError('Bidding Not confirmed',[]);
+        }
         if(Sold::where('bidding_id', $bid->id)->first() ){
 
             return sendError('Bid already sold',[]);
@@ -127,7 +138,6 @@ class SoldController extends Controller
                 'discount' => $request->discount, 
             ];
         } 
-
         if(isset($request->tax_fee)){
 
             $total = $total + $request->tax_fee;
@@ -135,7 +145,6 @@ class SoldController extends Controller
                 'tax_fee' => $request->tax_fee, 
             ];
         }
-
         if(isset($request->shipping_fee)){
 
             $total = $total + $request->shipping_fee;

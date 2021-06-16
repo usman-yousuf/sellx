@@ -54,6 +54,24 @@ io.on('connection', function(socket) {
         });
     });
 
+    socket.on('place_lot_for_bidding_send', function(data) {
+        io.emit('place_lot_for_bidding_recived', {
+            dat:a data,
+        });
+    });
+
+    socket.on('place_a_bid_send', function(data) {
+        io.emit('place_a_bid_recived', {
+            data: data,
+        });
+    });
+
+    socket.on('time_end_bigging_send', function(data) {
+        io.emit('time_end_bigging_recived', {
+            data: data,
+        });
+    });
+
 
     socket.on('disconnect', function() {
         if (sockets[socket.id] != undefined) {
