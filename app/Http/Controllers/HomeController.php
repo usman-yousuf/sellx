@@ -40,4 +40,24 @@ class HomeController extends Controller
     {
         return view('about_us');
     }
+
+    public function privacyMobPage()
+    {
+        return view('pages_general.privacy');
+    }
+
+    public function termsMobPage()
+    {
+        return view('pages_general.terms');
+    }
+
+    public function partnerMobPage()
+    {
+        return view('pages_general.partner');
+    }
+
+    public function refundmobpage()
+    {
+        return view('pages_general.refund');
+    }
 }

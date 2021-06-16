@@ -31,6 +31,11 @@ Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);
 Route::get('/contactus', [App\Http\Controllers\HomeController::class, 'contactus'])->name('contact');
 Route::get('/aboutus', [App\Http\Controllers\HomeController::class, 'aboutus'])->name('about');
+//Terms And Conditions
+Route::get('pages/privacy-mob', [App\Http\Controllers\HomeController::class,'privacymobpage'])->name('pages.mob.privacy.mob');
+Route::get('pages/terms-mob', [App\Http\Controllers\HomeController::class,'termsmobpage'])->name('pages.mob.terms.mob');
+Route::get('pages/partner-mob', [App\Http\Controllers\HomeController::class,'partnermobpage'])->name('pages.mob.partner.mob');
+Route::get('pages/refund-mob', [App\Http\Controllers\HomeController::class,'refundmobpage'])->name('pages.mob.refund.mob');
 
 Auth::routes();
 
