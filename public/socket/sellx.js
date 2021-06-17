@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
 
     socket.on('place_lot_for_bidding_send', function(data) {
         io.emit('place_lot_for_bidding_recived', {
-            dat:a data,
+            data: data,
         });
     });
 
