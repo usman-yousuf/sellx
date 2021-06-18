@@ -13,6 +13,7 @@ class Auction extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'auctions';
+    protected $guarded =[];
     public $timestamps = true;
 
     protected $dates = [

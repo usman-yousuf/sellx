@@ -21,7 +21,8 @@ class CommentController extends Controller
     public function get_comment(Request $request)
     {
         $validator = Validator::make($request->all() ,[
-            'auction_uuid' => 'required|exists:auctions,uuid',
+            // 'auction_uuid' => 'required|exists:auctions,uuid',
+            'auction_product_uuid' =>'required|exists:auction_products,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -30,15 +31,16 @@ class CommentController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('uuid',$request->auction_uuid)->first();
+        // $auction = Auction::where('uuid',$request->auction_uuid)->first();
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+        
+        if(NULL == $auction_product){
 
-        if(NULL == $auction){
-
-            return sendError('Auction Does Not Exist,Data Missmatch',[]);
+            return sendError('Auction product Does Not Exist,Data Missmatch',[]);
         }
 
         $comments = Comment::orderBy('created_at', 'DESC');
-        $comments = $comments->where('auction_id',$auction->id);
+        $comments = $comments->where('auction_product_id',$auction_product->id);
         $comment_clone = $comments;
         $data['comments'] = $comments->with('user')->get();
         $data['total_comments'] = $comment_clone->count();

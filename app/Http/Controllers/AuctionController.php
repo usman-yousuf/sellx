@@ -759,11 +759,24 @@ class AuctionController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('uuid',$request->auction_uuid)
-            ->update(
+        $auction = Auction::where('uuid',$request->auction_uuid)->first();
+
+        $auction->update(
                 [
                     'status' => $request->status
                 ]);
+
+        if($request->status == 'completed' || $request->status == 'aborted'){
+
+            foreach($auction->auction_products as $ap){
+                if($ap->product->getAvailableQuantityAttribute() > 0){
+                    $ap->product->update(['is_added_in_auction' => 0]);
+                }
+                if($request->status == 'aborted'){
+                    $ap->delete();
+                }
+            }
+        }
 
         return sendSuccess('Updated',$auction);
     }
