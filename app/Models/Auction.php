@@ -24,6 +24,7 @@ class Auction extends Model
     protected $with = ['setting'];
     protected $appends = [
         'allowed_to_post',
+        'allow_to_bid',
     ];
 
     public function getAllowedToPostAttribute(){
@@ -42,6 +43,16 @@ class Auction extends Model
 
             return 0;
         }
+    }
+
+    public function getAllowToBidAttribute(){
+
+        // &&    ($this->setting->auction_type == 'ticker_price')
+        if(isset($this->setting->auction_type) ){
+            return 1;
+        }
+        return 0;
+         
     }
 
 
