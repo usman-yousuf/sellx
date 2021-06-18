@@ -82,9 +82,6 @@ class AuctionProduct extends Model
         parent::boot();
 
         // delete an Auction
-        static::deleting(function ($model) {
-            $model->product()->update(['is_added_in_auction' => (bool)false]);
-        });
     }
 
 }

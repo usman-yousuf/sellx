@@ -107,8 +107,38 @@ class Auction extends Model
 
         // delete an Auction
         static::deleting(function ($model) {
-            $model->auction_products()->delete(); // auction_products
-            $model->medias()->delete(); // medias
+            try{
+                foreach($model->auction_products as $ap){
+                    if($ap->product->getAvailableQuantityAttribute() > 0){
+                        $ap->product()->update(['is_added_in_auction' => (Bool)false]);
+                    }
+                    else{
+                        $ap->product()->delete();
+                    }
+                }
+                $model->auction_products()->delete(); // auction_products
+                $model->medias()->delete(); // medias
+            }
+            catch(\Exception $ex){
+                return sendError($ex->getMessage(), $ex->getTrace());
+            }
         });
+
+//        static::updated(function ($model) {
+// dd('Updated');
+//         });
+
+//         static::updating(function ($model){
+//             dd('updating');
+//             dd($model->status);
+//             // foreach($model->auction_products as $ap){
+//             //     if($ap->product->getAvailableQuantityAttribute() > 0){
+//             //         // $ap->product()->update(['is_added_in_auction' => (Bool)false]);
+//             //     }
+//             //     else{
+//             //         // $ap->product()->delete();
+//             //     }
+//             // }
+//         });
     }
 }

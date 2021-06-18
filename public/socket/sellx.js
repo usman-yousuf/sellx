@@ -11,12 +11,18 @@ var sockets = {};
 var arr = [];
 io.on('connection', function(socket) {
 
+    socket.on('for_all_send', function(data) {
+        io.emit('for_all_recieve', {
+            data: data,
+        });
+    });
 
     socket.on('message_send', function(data) {
         io.emit('message_receive', {
             data: data,
         });
     });
+
 
     socket.on('timer_send', function(data) {
         io.emit('timer_reciver', {
