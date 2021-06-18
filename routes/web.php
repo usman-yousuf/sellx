@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::any('/', function () {
     return view('index');
 
 });
