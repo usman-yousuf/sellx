@@ -105,15 +105,15 @@ class Auction extends Model
     {
         parent::boot();
 
-        static::updating(function ($model){
-            d;
-            try{
-                dd('Updating');
-            }
-            catch(\Exception $ex){
-                return sendError($ex->getMessage(), $ex->getTrace());
-            }
-        });
+        // static::updating(function ($model){
+        //     d;
+        //     try{
+        //         dd('Updating');
+        //     }
+        //     catch(\Exception $ex){
+        //         return sendError($ex->getMessage(), $ex->getTrace());
+        //     }
+        // });
 
         // delete an Auction
         static::deleting(function ($model) {
