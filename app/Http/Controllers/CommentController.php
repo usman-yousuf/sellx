@@ -38,9 +38,13 @@ class CommentController extends Controller
         }
 
         $comments = Comment::orderBy('created_at', 'DESC');
-        $comments = $comments->where('auction_id',$auction->id)->get();
+        $comments = $comments->where('auction_id',$auction->id);
+        $comment_clone = $comments;
+        $data['comments'] = $comments->with('user')->get();
+        $data['total_comments'] = $comment_clone->count();
 
-        return sendSuccess('Comments',$comments);
+
+        return sendSuccess('Comments',$data);
     }
 
     /**
@@ -88,7 +92,7 @@ class CommentController extends Controller
         ];
 
         $comment = Comment::Create($comment);
-
+        $comment = $comment->where('id',$comment->id)->with('user')->get();
         return sendSuccess('Commented',$comment);
 
 

@@ -105,6 +105,16 @@ class Auction extends Model
     {
         parent::boot();
 
+        static::updating(function ($model){
+            d;
+            try{
+                dd('Updating');
+            }
+            catch(\Exception $ex){
+                return sendError($ex->getMessage(), $ex->getTrace());
+            }
+        });
+
         // delete an Auction
         static::deleting(function ($model) {
             try{
@@ -124,21 +134,6 @@ class Auction extends Model
             }
         });
 
-//        static::updated(function ($model) {
-// dd('Updated');
-//         });
-
-//         static::updating(function ($model){
-//             dd('updating');
-//             dd($model->status);
-//             // foreach($model->auction_products as $ap){
-//             //     if($ap->product->getAvailableQuantityAttribute() > 0){
-//             //         // $ap->product()->update(['is_added_in_auction' => (Bool)false]);
-//             //     }
-//             //     else{
-//             //         // $ap->product()->delete();
-//             //     }
-//             // }
-//         });
+        
     }
 }

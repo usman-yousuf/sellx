@@ -11,6 +11,8 @@ class Comment extends Model
 
     protected $guarded = [];
 
+    // protected $with = ["user"];
+
     public function auction_product()
     {
         return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id');
