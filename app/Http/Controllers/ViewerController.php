@@ -31,9 +31,11 @@ class ViewerController extends Controller
 
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
 
-        $viewer = Viewer::where('auction_id',$auction->id)->get();
+        $viewer = Viewer::where('auction_id',$auction->id)->where('left_at',NULL);
+        $data['Viewers'] = $viewer->get();
+        $data['total'] = $viewer->count();
 
-        return sendSuccess("Viewers",$viewer);
+        return sendSuccess("Viewers",$data);
 
     }
 
@@ -75,9 +77,9 @@ class ViewerController extends Controller
 
         $check = viewer::where('profile_id',$profile->id)->where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->first();
 
-        if($check != null){
+        if(($check != null) && ($check->left_at == null)){
 
-            return sendError("Viewer Already Exixt",[]);
+            return sendSuccess("Viewer Already Exixt",$check);
         }
 
         $viewer = [
