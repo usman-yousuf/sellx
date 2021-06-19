@@ -42,7 +42,7 @@ class CommentController extends Controller
         $comments = Comment::orderBy('created_at', 'DESC');
         $comments = $comments->where('auction_product_id',$auction_product->id);
         $comment_clone = $comments;
-        $data['comments'] = $comments->with('user')->get();
+        $data['comments'] = $comments->get();
         $data['total_comments'] = $comment_clone->count();
 
 
@@ -94,7 +94,6 @@ class CommentController extends Controller
         ];
 
         $comment = Comment::Create($comment);
-        $comment = $comment->where('id',$comment->id)->with('user')->get();
         return sendSuccess('Commented',$comment);
 
 

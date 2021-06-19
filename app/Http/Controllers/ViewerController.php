@@ -73,6 +73,13 @@ class ViewerController extends Controller
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
 
+        $check = viewer::where('profile_id',$profile->id)->where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->first();
+
+        if($check != null){
+
+            return sendError("Viewer Already Exixt",[]);
+        }
+
         $viewer = [
             'uuid' => Str::uuid(),
             'profile_id' => $profile->id,
