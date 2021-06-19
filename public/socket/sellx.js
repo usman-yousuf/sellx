@@ -13,7 +13,8 @@ io.on('connection', function(socket) {
 
     socket.on('for_all_send', function(data) {
         io.emit('for_all_recieve', {
-            data: data,
+            type: data.type,
+            additional_data: data.additional_data,
         });
     });
 

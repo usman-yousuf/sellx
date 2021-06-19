@@ -218,8 +218,8 @@ class BiddingController extends Controller
                     'profile_id' => $profile->id,
                     'auction_id' => $auction->id,
                     'auction_product_id' => $auction_product->id,
-                    'bid_price' => $request->bid_price,
-                    'total_price' => $request->bid_price,
+                    'bid_price' => (int)$request->bid_price,
+                    'total_price' => (int)$request->bid_price,
                 ];
             }
             else{
@@ -258,9 +258,9 @@ class BiddingController extends Controller
     	                'auction_id' => $auction->id,
     	                'auction_product_id' => $auction_product->id,
     	                'profile_id' => $profile->id,
-    	                'is_fixed_price' => $request->is_fixed_price,
-    	                'single_unit_price' => $price,
-    	                'quantity' => $request->quantity,
+    	                'is_fixed_price' => (int)$request->is_fixed_price,
+    	                'single_unit_price' => (int)$price,
+    	                'quantity' => (int)$request->quantity,
     	                'total_price' => $request->quantity * $price,
     	                'status' => 'purchased',
     	                'sold_date_time' => Carbon::now(),
