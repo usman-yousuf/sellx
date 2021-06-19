@@ -683,7 +683,7 @@ class AuctionController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('is_live',1)->get();
+        $auction = Auction::where('is_live',1)->where('online_url','!=',NULL)->get();
 
         // if(isset($request->auctioneer_uuid)){
         //     $auctioneer = Profile::where('uuid', $request->auctioneer_uuid);
