@@ -765,15 +765,26 @@ class AuctionController extends Controller
                 [
                     'status' => $request->status
                 ]);
-
+        //changing product status and deleting Auction Product
         if($request->status == 'completed' || $request->status == 'aborted'){
 
-            foreach($auction->auction_products as $ap){
-                if($ap->product->getAvailableQuantityAttribute() > 0){
-                    $ap->product->update(['is_added_in_auction' => 0]);
+            if(isset($auction->auction_products)){
+
+                try{
+                    foreach($auction->auction_products as $ap){
+
+                        if(isset($ap->product)){
+
+                            if($ap->product->getAvailableQuantityAttribute() > 0){
+
+                                $ap->product->update(['is_added_in_auction' => 0]);
+                            }
+                        }
+                        $ap->delete();
+                    }
                 }
-                if($request->status == 'aborted'){
-                    $ap->delete();
+                catch(\Exception $ex){
+                    return sendError($ex->getMessage(), $ex->getTrace());
                 }
             }
         }
