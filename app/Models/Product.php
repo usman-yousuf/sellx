@@ -73,7 +73,7 @@ class Product extends Model
 
     public function auction_products()
     {
-        return $this->hasMany(AuctionProduct::class, 'product_id', 'id');
+        return $this->hasMany(AuctionProduct::class, 'product_id', 'id')->without('product');
     }
 
     public function sold()

@@ -49,7 +49,7 @@ class ProductController extends Controller
             $products->offset($request->offset)->limit($request->limit);
         }
 
-        $models = $products->with('medias')->with('category')->with('subCategory')->with('subCategoryLevel3')->get();
+        $models = $products->with('medias')->with('auction_products')->with('category')->with('subCategory')->with('subCategoryLevel3')->get();
 
         $data['products'] = $models;
         $data['total'] = $clone_products->count();
