@@ -62,7 +62,7 @@ class BiddingController extends Controller
             }
             else{
 
-                $bids->where('auction_id',$request->auction_id);
+                $bids->where('auction_id',$auction->id);
             }
         }
 
