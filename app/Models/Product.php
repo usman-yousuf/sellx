@@ -13,7 +13,7 @@ class Product extends Model
 
     protected $table = 'products';
     public $timestamps = true;
-    protected $with = ['category'];
+    protected $with = ['profile','category'];
 
     protected $fillable = [
         'uuid',
