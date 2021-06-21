@@ -58,12 +58,11 @@ class BiddingController extends Controller
             if(isset($request->max_bid_price)){
 
                 $bids->where('auction_id',$auction->id)
-                    ->where('bid_price',$request->max_bid_price)
-                    ->get();
+                    ->where('bid_price',$request->max_bid_price);
             }
             else{
 
-                $bids->where('auction_id',$request->auction_id)->get();
+                $bids->where('auction_id',$request->auction_id);
             }
         }
 
