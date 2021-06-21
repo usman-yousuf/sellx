@@ -13,7 +13,7 @@ class Bidding extends Model
 
     protected $guarded = [];
 
-    protected $with = ['user'];
+    protected $with = ['user','sold'];
     
     public function auction_product()
     {
