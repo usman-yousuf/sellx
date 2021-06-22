@@ -55,7 +55,7 @@ class SoldController extends Controller
         if(isset($request->auction_uuid)){
 
             $auction = Auction::where('uuid',$request->auction_uuid)->first();
-            $sold->where('auction_id',$request->auction_id);
+            $sold->where('auction_id',$request->auction->id);
         }
 
         $cloned_models = clone $sold;
@@ -65,6 +65,7 @@ class SoldController extends Controller
         }
 
         $data['sold'] = $sold->with('product')->get();
+        dd($data['sold']);
         $data['total_sold'] = $cloned_models->count();
         $data['total_sold_pending'] = $cloned_models->where('status','pending')->count();
 
