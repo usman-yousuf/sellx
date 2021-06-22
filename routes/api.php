@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     //PRODUCTS
     Route::post('get_products', 'App\Http\Controllers\ProductController@getProducts');
+    Route::post('get_products_details', 'App\Http\Controllers\ProductController@get_products_details');
     Route::post('update_product', 'App\Http\Controllers\ProductController@updateProduct');
     Route::post('delete_product', 'App\Http\Controllers\ProductController@deleteProduct');
     Route::post('test_product', 'App\Http\Controllers\ProductController@test');

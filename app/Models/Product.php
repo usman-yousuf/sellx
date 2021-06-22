@@ -41,6 +41,7 @@ class Product extends Model
         'deleted_at',
     ];
 
+
     protected $appends = ['available_quantity'];
 
     use SoftDeletes;

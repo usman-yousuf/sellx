@@ -436,6 +436,7 @@ class ProductController extends Controller
     public function test(Request $request){
         return sendSuccess('success', $request->all() ?? "ABC");
     }
+
     public function update_product_auction_type(Request $request){
 
         $validator = Validator::make($request->all() ,[
@@ -455,4 +456,20 @@ class ProductController extends Controller
         return sendSuccess('Updated',$product);
     }
 
+    public function get_products_details(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'product_uuid' => 'required|exists:products,uuid',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $product = Product::where('uuid', $request->product_uuid)->with(['medias', 'auction_products'])->first();
+
+        return sendSuccess('Data',$product); 
+    }
 }
