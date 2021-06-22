@@ -72,7 +72,7 @@ class BiddingController extends Controller
             $bids->offset($request->offset)->limit($request->limit);
         }
 
-        $bids = $bids->get();
+        $bids = $bids->with(['auction'])->get();
         $total_bids = $cloned_models->count();
 
         return sendSuccess('Data',$bids);
