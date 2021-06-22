@@ -272,6 +272,7 @@ class BiddingController extends Controller
         }
 
         $bid = Bidding::create($bidding);
+        $bid = $bid->where('id',$bid->id)->with(['auction','user'])->first();
 
         return sendSuccess("Sucess",$bid);
     }
