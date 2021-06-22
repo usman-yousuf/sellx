@@ -64,7 +64,7 @@ class SoldController extends Controller
             $sold->offset($request->offset)->limit($request->limit);
         }
 
-        $data['sold'] = $sold->get();
+        $data['sold'] = $sold->with('product')->get();
         $data['total_sold'] = $cloned_models->count();
         $data['total_sold_pending'] = $cloned_models->where('status','pending')->count();
 
