@@ -115,6 +115,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // Auctions
     Route::post('get_auctions', [AuctionController::class, 'getAuctions']);
+    Route::post('get_auctions_details', [AuctionController::class, 'getAuctionsDetails']);
     Route::post('delete_auction', [AuctionController::class, 'deleteAuction']);
     Route::post('delete_auction_product', [AuctionController::class, 'deleteAuctionProduct']);
     Route::post('update_auction', [AuctionController::class, 'updateAuction']);
