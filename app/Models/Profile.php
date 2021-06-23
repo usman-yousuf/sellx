@@ -173,6 +173,11 @@ class Profile extends Model
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
     }
 
+    public function auctionwithsold()
+    { 
+        return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds');
+    }
+
     public function comingauctions()
     { 
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->where('scheduled_date_time','>=',Carbon::now())->with('auction');

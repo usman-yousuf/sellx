@@ -94,6 +94,11 @@ class Auction extends Model
         return $this->hasMany(Viewer::class, 'auction_id', 'id');
     }
 
+    public function solds()
+    { 
+        return $this->hasMany(Sold::class, 'auction_id', 'id');
+    }
+
     public function setting()
     { 
         return $this->hasone(AuctionSetting::class, 'auction_id', 'id');

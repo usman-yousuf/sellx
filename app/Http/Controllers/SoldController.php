@@ -41,20 +41,44 @@ class SoldController extends Controller
             $sold->where('status', $request->status);
         }
         
-        if(isset($request->bidding_uuid)){
-
-            $bid = bidding::where('uuid',$request->bidding_uuid)->first();
-            $sold->where('bidding_id',$bid->id);
-
-        }
         if(isset($request->profile_uuid)){
 
             $profile = Profile::where('uuid',$request->profile_uuid)->first();
-            $sold->where('profile_id',$profile->id);
+            if(null == $profile){
+                return sendError('profile Does Not Exist',[]);
+            }
+            $profile = $profile->auctionwithsold;
+
+            return sendSuccess('Data',$profile);
+            // $profile->whereHas('auction', function($query){
+            //     $query->wherehas('solds')->with('solds');
+            // })->get());
+            // dd($profile->auction);
+        }
+        if(isset($request->auction_product_uuid)){
+
+            $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+            if(null == $auction_product){
+                return sendError('Auction Product Does Not Exist',[]);
+            }
+            $sold->where('auction_product_id',$auction_product->id);
+
+        }
+        if(isset($request->bidding_uuid)){
+
+            $bid = bidding::where('uuid',$request->bidding_uuid)->first();
+            if(null == $bid){
+                return sendError('bid Does Not Exist',[]);
+            }
+            $sold->where('bidding_id',$bid->id);
+
         }
         if(isset($request->auction_uuid)){
 
             $auction = Auction::where('uuid',$request->auction_uuid)->first();
+            if(null == $auction){
+                return sendError('auction Does Not Exist',[]);
+            }
             $sold->where('auction_id',$auction->id);
         }
 
