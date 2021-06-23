@@ -27,7 +27,7 @@ class Profile extends Model
         'followers_count',
         'following_count',
         'average_rating',
-        'total_ratings_count'
+        'total_ratings_count',
     ];
 
     protected $withCount = ['comingauctions','totalsolds','pendingsolds'];
@@ -98,6 +98,10 @@ class Profile extends Model
             }
         }
         return 0;
+    }
+
+    function getTotalSoldsAttribute(){
+      return  \DB::select(" SELECT s.* FROM solds AS s INNER JOIN ( auctions AS Auct INNER JOIN profiles AS Auctioneer ON Auct.auctioneer_id = Auctioneer.id ) ON s.auction_id = Auct.id WHERE Auctioneer.id = ".$this->id." ");
     }
 
     // get profile user

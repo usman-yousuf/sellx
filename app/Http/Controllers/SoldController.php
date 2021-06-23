@@ -47,9 +47,11 @@ class SoldController extends Controller
             if(null == $profile){
                 return sendError('profile Does Not Exist',[]);
             }
-            $data['$auction'] = $profile->totalsolds;
+            $profile->solds = $profile->getTotalSoldsAttribute();
+            return sendSuccess('Data',$profile);
 
-            return sendSuccess('Data',$data);
+            // $data['$auction'] = $profile->totalsolds;
+
             // $profile->whereHas('auction', function($query){
             //     $query->wherehas('solds')->with('solds');
             // })->get());
