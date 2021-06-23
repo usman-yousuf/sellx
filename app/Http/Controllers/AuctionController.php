@@ -343,6 +343,16 @@ class AuctionController extends Controller
 
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
 
+                    $auction_settings = [
+                        'uuid' => \Str::uuid(),
+                        'auction_id' => $model->id,
+                        'is_comment' => 1,
+                        'is_view' => 1,
+                        'auction_type' => "not_preselected"
+                    ];
+
+                    $auction_settings = AuctionSetting::create($auction_settings);
+
                     foreach($productIdsToAdd as $id){
                         $product = Product::where('id',$id)->first();
                         $auctionproduct = Auctionproduct::where('auction_id',$model->id)->max('sort_order');
@@ -836,18 +846,42 @@ class AuctionController extends Controller
 
     // public function changeOrder(Request $request)
     // {
+    //     // dd($request->auction_product_uuid);
+    //     // print_array($request->auction_product_uuid);
+    //     DB::beginTransaction();
+    //     try{
+    //         foreach($request->auction_product_uuid as $key=>$apuuid){
 
-    //     $validator = Validator::make($request->all(), [
-    //         'auction_uuid' => 'required|exists:auctions,uuid',
-    //     ]);
+    //             $auction_product = AuctionProduct::where('uuid',$apuuid)->first();
 
-    //     if($validator->fails()){
-    //         $data['validation_error'] = $validator->getMessageBag();
-    //         return sendError($validator->errors()->all()[0], $data);
+    //             if(!$auction_product){
+
+    //                 return sendError('Invalid Auction_product uuid',[$key,$auction_product]);
+    //             }
+    //                 $auction_product->sort_order = $key+1;
+    //                 $auction_product->save();
+    //         }
+    //         return sendSuccess('Item Updated',$auction_product);
+    //         DB::commit();
     //     }
+    //     catch(\Exception $e){
+    //         DB::rollBack();
+    //         return sendError($e->getMessage(), $e->getTrace());
+    //     }
+    //     $auctionuuid =[];
 
-    //     $auction = Auction::where('uuid', $request->auction_uuid)->with(['medias', 'auction_products','auctioneer'])->first();
+    //     return sendSuccess("",$auctionuuid);
+    //     // $validator = Validator::make($request->all(), [
+    //     //     'auction_uuid' => 'required|exists:auctions,uuid',
+    //     // ]);
 
-    //     return sendSuccess('Data',$auction); 
+    //     // if($validator->fails()){
+    //     //     $data['validation_error'] = $validator->getMessageBag();
+    //     //     return sendError($validator->errors()->all()[0], $data);
+    //     // }
+
+    //     // $auction = Auction::where('uuid', $request->auction_uuid)->with(['medias', 'auction_products','auctioneer'])->first();
+
+    //     // return sendSuccess('Data',$auction); 
     // }
 }
