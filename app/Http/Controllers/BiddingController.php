@@ -197,7 +197,7 @@ class BiddingController extends Controller
                 return sendError('Fixed Price selected, Cant Bid',[]);
             }
 
-            $last_max_bid = Bidding::where('auction_id',$auction->id)->where('profile_id',$profile->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
+            $last_max_bid = Bidding::where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 
             if($last_max_bid == 0 && $product->auction_type != 'from_zero'){ 
 
