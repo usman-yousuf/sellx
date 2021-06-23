@@ -11,6 +11,8 @@ class Sold extends Model
 
     protected $guarded = [];
 
+    protected $with = ['product'];
+
     public function bidding()
     {
         return $this->belongsTo(Bidding::class, 'bidding_id', 'id');
