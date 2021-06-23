@@ -30,7 +30,7 @@ class Profile extends Model
         'total_ratings_count'
     ];
 
-    protected $withCount = ['comingauctions'];
+    protected $withCount = ['comingauctions','totalsolds','pendingsolds'];
 
     public function getTotalRatingsCountAttribute(){
         if(\Auth::check()){
@@ -173,9 +173,14 @@ class Profile extends Model
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
     }
 
-    public function auctionwithsold()
+    public function totalsolds()
     { 
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds');
+    }
+
+    public function pendingsolds()
+    { 
+        return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds')->where('status','pending');
     }
 
     public function comingauctions()

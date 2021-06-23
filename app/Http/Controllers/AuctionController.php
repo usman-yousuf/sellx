@@ -833,4 +833,21 @@ class AuctionController extends Controller
 
         return sendSuccess('Data',$auction); 
     }
+
+    // public function changeOrder(Request $request)
+    // {
+
+    //     $validator = Validator::make($request->all(), [
+    //         'auction_uuid' => 'required|exists:auctions,uuid',
+    //     ]);
+
+    //     if($validator->fails()){
+    //         $data['validation_error'] = $validator->getMessageBag();
+    //         return sendError($validator->errors()->all()[0], $data);
+    //     }
+
+    //     $auction = Auction::where('uuid', $request->auction_uuid)->with(['medias', 'auction_products','auctioneer'])->first();
+
+    //     return sendSuccess('Data',$auction); 
+    // }
 }
