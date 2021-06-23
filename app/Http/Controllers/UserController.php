@@ -421,7 +421,7 @@ class UserController extends Controller
 
         $model = Profile::where('uuid', $profile_uuid)->first();
 
-        $reviews = Reviews::where('sender_profile_id', $model->id)->get();
+        $reviews = Reviews::where('receiver_profile_id', $model->id)->get();
 
         if($reviews == null){
             return sendSuccess('No reviews found.', null);
