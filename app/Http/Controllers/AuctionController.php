@@ -110,7 +110,7 @@ class AuctionController extends Controller
 
             $models = Auction::
                     orderBy('created_at', 'DESC')
-                    ->with(['medias', 'auction_products','auctioneer']);
+                    ->with(['medias','auctioneer']);
 
             // set logged in user profile if not given
             if( isset($request->profile_uuid) && ('' != $request->profile_uuid)){
