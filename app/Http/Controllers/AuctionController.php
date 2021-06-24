@@ -844,44 +844,31 @@ class AuctionController extends Controller
         return sendSuccess('Data',$auction); 
     }
 
-    // public function changeOrder(Request $request)
-    // {
-    //     // dd($request->auction_product_uuid);
-    //     // print_array($request->auction_product_uuid);
-    //     DB::beginTransaction();
-    //     try{
-    //         foreach($request->auction_product_uuid as $key=>$apuuid){
+    public function changeOrder(Request $request)
+    {
+        DB::beginTransaction();
+        $data = array();
+        try{
+            foreach($request->auction_product_uuid as $key=>$apuuid){
 
-    //             $auction_product = AuctionProduct::where('uuid',$apuuid)->first();
+                $auction_product = AuctionProduct::where('uuid',$apuuid)->first();
 
-    //             if(!$auction_product){
+                if(!$auction_product)
+                    return sendError('Invalid Auction_product uuid',$apuuid);
 
-    //                 return sendError('Invalid Auction_product uuid',[$key,$auction_product]);
-    //             }
-    //                 $auction_product->sort_order = $key+1;
-    //                 $auction_product->save();
-    //         }
-    //         return sendSuccess('Item Updated',$auction_product);
-    //         DB::commit();
-    //     }
-    //     catch(\Exception $e){
-    //         DB::rollBack();
-    //         return sendError($e->getMessage(), $e->getTrace());
-    //     }
-    //     $auctionuuid =[];
+                $auction_product->sort_order = $key+1;
+                $auction_product->save();
 
-    //     return sendSuccess("",$auctionuuid);
-    //     // $validator = Validator::make($request->all(), [
-    //     //     'auction_uuid' => 'required|exists:auctions,uuid',
-    //     // ]);
+                $data[$key] = $auction_product;
+            }
 
-    //     // if($validator->fails()){
-    //     //     $data['validation_error'] = $validator->getMessageBag();
-    //     //     return sendError($validator->errors()->all()[0], $data);
-    //     // }
+            return sendSuccess('Items Updated',$data);
+            DB::commit();
+        }
+        catch(\Exception $e){
 
-    //     // $auction = Auction::where('uuid', $request->auction_uuid)->with(['medias', 'auction_products','auctioneer'])->first();
-
-    //     // return sendSuccess('Data',$auction); 
-    // }
+            DB::rollBack();
+            return sendError($e->getMessage(), $e->getTrace());
+        }
+    }
 }
