@@ -24,6 +24,7 @@ class CreateAuctionProductsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('sort_order')->default(1);
+            $table->integer('lot_no')->default(1);
 
             $table->integer('last_extended_time')->default(false)->nullable()->comment('Time extended in minutes');
             $table->dateTime('closure_time')->nullable()->comment('Closing time when the lot is done being in Auction');
