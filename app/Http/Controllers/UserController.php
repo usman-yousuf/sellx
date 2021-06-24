@@ -385,7 +385,7 @@ class UserController extends Controller
 
     public function getAuctionHouse(Request $request){
         $validator = Validator::make($request->all(), [
-            'keywords' => 'required|string'
+            'keywords' => 'string'
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -393,7 +393,9 @@ class UserController extends Controller
         }
 
         $AuctionHouse = Profile::where('auction_house_name', '<>', '')->where('profile_type', 'auctioneer');
-        $AuctionHouse->where('auction_house_name', 'LIKE', "%{$request->keywords}%");
+        if(isset($request->keywords))
+            $AuctionHouse->where('auction_house_name', 'LIKE', "%{$request->keywords}%");
+        
 
         $cloned_auction_houses = clone $AuctionHouse;
         $data['AuctionHouse'] = $AuctionHouse;

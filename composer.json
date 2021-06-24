@@ -16,7 +16,6 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
-        "lcobucci/jwt": "^3.3.3",
         "twilio/sdk": "^6.17"
     },
     "require-dev": {

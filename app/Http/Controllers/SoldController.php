@@ -23,6 +23,7 @@ class SoldController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_uuid' => 'exists:profiles,uuid',        
+            'buyer_uuid' => 'exists:profiles,uuid',        
             'auction_uuid' => 'exists:auctions,uuid',        
             'auction_product_uuid' => 'exists:auction_products,uuid',        
             'bidding_uuid' => 'exists:biddings,uuid',        
@@ -56,6 +57,15 @@ class SoldController extends Controller
             //     $query->wherehas('solds')->with('solds');
             // })->get());
             // dd($profile->auction);
+        }
+        if(isset($request->buyer_uuid)){
+
+            $profile = Profile::where('uuid',$request->buyer_uuid)->first();
+            if(null == $profile){
+                return sendError('profile Does Not Exist',[]);
+            }
+            $sold->where('profile_id',$profile->id);
+
         }
         if(isset($request->auction_product_uuid)){
 
