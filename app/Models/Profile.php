@@ -177,6 +177,11 @@ class Profile extends Model
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
     }
 
+    public function products()
+    { 
+        return $this->hasMany(Product::class, 'profile_id', 'id')->without('profile');
+    }
+
     public function totalsolds()
     { 
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds');

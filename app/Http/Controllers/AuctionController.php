@@ -102,8 +102,9 @@ class AuctionController extends Controller
         public function getAuctions(Request $request)
         {
             $validator = Validator::make($request->all(), [
-                'profile_uuid' => 'required_with:is_follow|string|exists:profiles,uuid',
+                'profile_uuid' => 'required_with:is_follow,is_product|string|exists:profiles,uuid',
                 'is_follow' => 'numeric',
+                'is_product' => 'numeric',
             ]);
 
             if ($validator->fails()) {
@@ -116,13 +117,29 @@ class AuctionController extends Controller
                     ->with(['medias','auctioneer']);
 
             // set logged in user profile if not given
-            if( isset($request->profile_uuid) && ('' != $request->profile_uuid) && (!isset($request->is_follow))){
+            if( isset($request->profile_uuid) && ('' != $request->profile_uuid) && (!isset($request->is_follow)) && (!isset($request->is_product))  ){
                 // validate if profile is an auctioneer
                 $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
                 if(null == $auctioneer){
                     return sendError('Invalid User Provided', []);
                 }
                 $models->where('auctioneer_id', $auctioneer->id);
+            }
+
+            if(isset($request->is_product) && ('' != $request->is_product)){
+
+                $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
+                if(!$auctioneer)
+                    return sendError('Invalid User Provided', []);
+                
+                $model = Followers::where('following_id', $auctioneer->id)->with('profile', function($query){
+                    $query->whereHas('products')->with('products')->without('profile');
+                })->orderBy('created_at', 'DESC')->get();
+
+                if(!$model)
+                    return sendError('No data found',[]);
+
+                return sendSuccess('data',$model);
             }
 
             if(isset($request->is_follow) && ('' != $request->is_follow)){
