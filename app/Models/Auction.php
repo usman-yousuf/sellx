@@ -28,7 +28,7 @@ class Auction extends Model
         'allow_to_bid',
     ];
 
-    protected $withCount = ['biddings','comments','viewers'];
+    protected $withCount = ['biddings','comments','viewers','auction_products'];
 
     public function getAllowedToPostAttribute(){
         $userLocalTime = get_locale_datetime(Carbon::now()->toDateTimeString(), \Request::ip());

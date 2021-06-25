@@ -65,13 +65,13 @@ class AuctionProduct extends Model
     //Instance methods
 
     public function getIsReviwedAttribute(){
-        // dd();
-        return Reviews::where('auction_product_id',$this->id)->where('sender_profile_id',Auth()->User()->profile->id)->first()?1:0;
+        if(isset($this->id))
+            return Reviews::where('auction_product_id',$this->id)->where('sender_profile_id',Auth()->User()->profile->id)->first()?1:0;
     }
 
     public function getPutUpForAuctionAttribute(){
 
-        return $this->sort_order>=AuctionProduct::where('auction_id',$this->auction->id)->max('sort_order')? 1 : 0;
+        return $this->sort_order >= AuctionProduct::where('auction_id',$this->auction->id)->max('sort_order')? 1 : 0;
     }  
 
     /**
