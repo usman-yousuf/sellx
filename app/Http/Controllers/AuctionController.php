@@ -159,7 +159,7 @@ class AuctionController extends Controller
                 $auction = [];
                 foreach ($model as $key =>$value) {
                     if(!isset($value->following->auction)){
-                        sendError('NoAuction',[]);
+                       return sendError('NoAuction',[]);
                     }
 
                     foreach($value->following->auction as $a){
