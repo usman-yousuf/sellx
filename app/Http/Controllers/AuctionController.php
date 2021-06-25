@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Profile;
 use App\Models\UploadMedia;
 use App\Models\Watchlist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -124,33 +125,39 @@ class AuctionController extends Controller
                 $models->where('auctioneer_id', $auctioneer->id);
             }
 
-            // if(isset($request->is_follow) && ('' != $request->is_follow)){
-            //     $data = [];
-            //     $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
-            //     if(!$auctioneer)
-            //         return sendError('Invalid User Provided', []);
+            if(isset($request->is_follow) && ('' != $request->is_follow)){
+                $data = [];
+                $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
+                if(!$auctioneer)
+                    return sendError('Invalid User Provided', []);
                 
-            //     $model = Followers::where('following_id', $auctioneer->id)->whereHas('following')->with('following',function($query){
-            //         $query->whereHas('auction')->with('auction');
-            //     })->get();
+                $model = Followers::where('following_id', $auctioneer->id)->whereHas('following')->with('following',function($query){
+                    $query->whereHas('auction')->with('auction');
+                })->get();
 
-            //     if(!$model)
-            //         return sendError('No data found',[]);
+                if(!$model)
+                    return sendError('No data found',[]);
 
-            //     $count=0;
-            //     $auction;
-            //     foreach ($model as $key =>$value) {
-            //         $auction[$key] = $value->following->auction;      
-            //         foreach($value->following->auction as $a){
+                $count=0;
+                $auction = [];
+                foreach ($model as $key =>$value) {
+                    foreach($value->following->auction as $a){
+                        if($a->scheduled_date_time >= Carbon::now()){
+                            $auction[] = $a;      
+                            $count++;
+                        }
+                    }
+                }
+                if(!$auction)
+                    return sendSuccess('no Auction Avalible',[]);
 
-            //             $count++;
-            //         }
-            //     }
-            //     $data['auction'] = $auction->sortby('created_at');
-            //     $data['total_auction'] = $count;
-            //     return sendSuccess('auction',$data);
-            // }
-// array_merge($candidate, ['purchase_order_number' => $purchaseOrderNumber]);
+                $sorted = collect($auction)->sortByDesc(function ($obj) {
+                             return $obj->created_at;
+                            });
+                $data['auction'] = $sorted;
+                $data['total_auction'] = $count;
+                return sendSuccess('auction',$data);
+            }
 
             if(isset($request->status) && ('' != $request->status)){
                 $models->whereIn('status', [$request->status]);
