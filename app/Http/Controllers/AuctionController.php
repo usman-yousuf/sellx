@@ -7,6 +7,7 @@ use App\Models\AuctionAccessRight;
 use App\Models\AuctionProduct;
 use App\Models\AuctionSetting;
 use App\Models\DummyAuction;
+use App\Models\Followers;
 use App\Models\Product;
 use App\Models\Profile;
 use App\Models\UploadMedia;
@@ -114,7 +115,7 @@ class AuctionController extends Controller
                     ->with(['medias','auctioneer']);
 
             // set logged in user profile if not given
-            if( isset($request->profile_uuid) && ('' != $request->profile_uuid)){
+            if( isset($request->profile_uuid) && ('' != $request->profile_uuid) && (!isset($request->is_follow))){
                 // validate if profile is an auctioneer
                 $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
                 if(null == $auctioneer){
@@ -123,10 +124,33 @@ class AuctionController extends Controller
                 $models->where('auctioneer_id', $auctioneer->id);
             }
 
-            // if(isset($request->is_follow) && ('' != $request->status)){
-            //     $models->with('following');  
-            // }
+            // if(isset($request->is_follow) && ('' != $request->is_follow)){
+            //     $data = [];
+            //     $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
+            //     if(!$auctioneer)
+            //         return sendError('Invalid User Provided', []);
+                
+            //     $model = Followers::where('following_id', $auctioneer->id)->whereHas('following')->with('following',function($query){
+            //         $query->whereHas('auction')->with('auction');
+            //     })->get();
 
+            //     if(!$model)
+            //         return sendError('No data found',[]);
+
+            //     $count=0;
+            //     $auction;
+            //     foreach ($model as $key =>$value) {
+            //         $auction[$key] = $value->following->auction;      
+            //         foreach($value->following->auction as $a){
+
+            //             $count++;
+            //         }
+            //     }
+            //     $data['auction'] = $auction->sortby('created_at');
+            //     $data['total_auction'] = $count;
+            //     return sendSuccess('auction',$data);
+            // }
+// array_merge($candidate, ['purchase_order_number' => $purchaseOrderNumber]);
 
             if(isset($request->status) && ('' != $request->status)){
                 $models->whereIn('status', [$request->status]);
@@ -702,7 +726,7 @@ class AuctionController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('is_live',1)->where('status','in-progress')->where('online_url','!=',NULL)->get();
+        $auction = Auction::where('is_live',1)->where('status','in-progress')->where('online_url','!=',NULL)->with('medias')->get();
         if($auction)
             return sendSuccess("Auction Live",$auction);
 
