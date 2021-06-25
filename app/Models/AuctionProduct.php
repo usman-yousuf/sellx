@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Bidding;
+use Illuminate\Http\Request;
 
 class AuctionProduct extends Model
 {
@@ -65,7 +66,8 @@ class AuctionProduct extends Model
     //Instance methods
 
     public function getIsReviwedAttribute(){
-        return \Request::User()->profile->id;
+        $request = new Request;
+        return $request->User()->profile->id;
         return Reviews::where('auction_product_id',$this->id)->where('sender_profile_id',\Request::User()->profile->id)->first()?1:0;
     }
 
