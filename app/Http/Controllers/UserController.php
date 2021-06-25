@@ -483,7 +483,7 @@ class UserController extends Controller
      */
     public function getUserFollowings(Request $request)
     {
-        $profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
+        $profile_uuid = $request->profile_uuid?? $request->user()->profile->uuid;
 
         $profile = Profile::where('uuid', $profile_uuid)->first();
 

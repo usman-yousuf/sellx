@@ -100,7 +100,8 @@ class AuctionController extends Controller
         public function getAuctions(Request $request)
         {
             $validator = Validator::make($request->all(), [
-                'profile_uuid' => 'string|exists:profiles,uuid',
+                'profile_uuid' => 'required_with:is_follow|string|exists:profiles,uuid',
+                'is_follow' => 'numeric',
             ]);
 
             if ($validator->fails()) {
@@ -122,11 +123,16 @@ class AuctionController extends Controller
                 $models->where('auctioneer_id', $auctioneer->id);
             }
 
+            // if(isset($request->is_follow) && ('' != $request->status)){
+            //     $models->with('following');  
+            // }
+
+
             if(isset($request->status) && ('' != $request->status)){
                 $models->whereIn('status', [$request->status]);
             }
             if(isset($request->is_live) && ('' != $request->is_live)){
-                $models->where('is_live', $request->is_live);
+                $models->where('is_live', $request->is_live)->where('status','in-progress')->where('online_url','!=',NULL);
             }
             if(isset($request->is_upcoming) && ('' != $request->is_upcoming)){
                 $utc_datetime = get_utc_datetime($request->is_upcoming, $request->ip());
@@ -696,16 +702,11 @@ class AuctionController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('is_live',1)->where('online_url','!=',NULL)->get();
+        $auction = Auction::where('is_live',1)->where('status','in-progress')->where('online_url','!=',NULL)->get();
+        if($auction)
+            return sendSuccess("Auction Live",$auction);
 
-        // if(isset($request->auctioneer_uuid)){
-        //     $auctioneer = Profile::where('uuid', $request->auctioneer_uuid);
-        //     $auction->where('auctioneer_id',$auctioneer->id);
-        // }
-
-        // $auction->get();
-
-        return sendSuccess("Auction Live",$auction);
+        return sendSuccess("no Live Auction",$auction);
 
     }
 
@@ -776,7 +777,8 @@ class AuctionController extends Controller
 
         $auction->update(
                 [
-                    'status' => $request->status
+                    'status' => $request->status,
+                    'is_live' => 0
                 ]);
         //changing product status and deleting Auction Product
         if($request->status == 'completed' || $request->status == 'aborted'){
