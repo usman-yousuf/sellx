@@ -158,8 +158,9 @@ class AuctionController extends Controller
                 $count=0;
                 $auction = [];
                 foreach ($model as $key =>$value) {
-                    if(!isset($value->following->auction))
+                    if(!isset($value->following->auction)){
                         sendError('NoAuction',[]);
+                    }
 
                     foreach($value->following->auction as $a){
                         if($a->scheduled_date_time >= Carbon::now()){
