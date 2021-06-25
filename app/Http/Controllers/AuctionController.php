@@ -128,7 +128,7 @@ class AuctionController extends Controller
 
             if(isset($request->is_product) && ('' != $request->is_product)){
 
-                $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
+                $auctioneer = Profile::where('uuid', $request->profile_uuid)->first();
                 if(!$auctioneer)
                     return sendError('Invalid User Provided', []);
                 
@@ -144,7 +144,7 @@ class AuctionController extends Controller
 
             if(isset($request->is_follow) && ('' != $request->is_follow)){
                 $data = [];
-                $auctioneer = Profile::where('uuid', $request->profile_uuid)->where('profile_type', 'auctioneer')->first();
+                $auctioneer = Profile::where('uuid', $request->profile_uuid)->first();
                 if(!$auctioneer)
                     return sendError('Invalid User Provided', []);
                 
