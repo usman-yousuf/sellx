@@ -1,4 +1,4 @@
-\<?php
+<?php
 
 namespace App\Models;
 
@@ -104,10 +104,7 @@ class Auction extends Model
         return $this->hasone(AuctionSetting::class, 'auction_id', 'id');
     }
 
-    // public function watchlist()
-    // {
-    //     return $this->hasMany(Watchlist::class, 'auction_id' , 'id');
-    // }
+
 
     /**
      * Boot Method of Modal
