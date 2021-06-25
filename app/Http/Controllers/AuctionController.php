@@ -172,10 +172,10 @@ class AuctionController extends Controller
                 if(!$auction)
                     return sendSuccess('no Auction Avalible',[]);
 
-                $sorted = collect($auction)->sortByDesc(function ($obj) {
-                             return $obj->created_at;
-                            });
-                $data['auction'] = $sorted;
+                // $sorted = collect($auction)->sortByDesc(function ($obj) {
+                //              return $obj->created_at;
+                //             });
+                $data['auction'] = $auction;
                 $data['total_auction'] = $count;
                 return sendSuccess('auction',$data);
             }
