@@ -30,7 +30,7 @@ class Profile extends Model
         'total_ratings_count',
     ];
 
-    protected $withCount = ['comingauctions','totalsolds','pendingsolds'];
+    protected $withCount = ['auction','comingauctions','totalsolds','pendingsolds'];
 
     public function getTotalRatingsCountAttribute(){
         if(\Auth::check()){
