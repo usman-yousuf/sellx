@@ -66,8 +66,7 @@ class AuctionProduct extends Model
     //Instance methods
 
     public function getIsReviwedAttribute(){
-        $request = new Request;
-        return $request->User()->profile->id;
+        
         return Reviews::where('auction_product_id',$this->id)->where('sender_profile_id',\Request::User()->profile->id)->first()?1:0;
     }
 
