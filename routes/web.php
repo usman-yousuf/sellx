@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::any('/', function () {
     return view('index');
 
-});
+})->name('home');
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);

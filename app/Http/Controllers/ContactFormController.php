@@ -28,13 +28,13 @@ class ContactFormController extends Controller
 
         if ($validator->fails()) {
 
-            // $data['validation_error'] = $validator->getMessageBag();
-            return Response::json(['errors' => $validator->errors()]);
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
         }
 
         if(ContactForm::where('email',$request->email)->first()){
 
-            return Response::json(['success' => $e->getMessage()]);
+            return sendSuccess('Sucessfully Sent',[]);
         }
 
         try{
@@ -57,7 +57,7 @@ class ContactFormController extends Controller
                 $m->to(config('mail.from.address'))->subject('ContactInformation');
             });
 
-            return Response::json(['success' => '1']);
+            return  sendSuccess('Sucessfully Saved');
         }
         catch(Exception $ex){
 

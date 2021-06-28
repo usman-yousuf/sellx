@@ -31,15 +31,18 @@
   <!-- Nav Bar Start -->
   <div class="top_nav">
     <div class="shadow p-3 mb-5 bg-body rounded for_navbar_bg">
+      <a href="{{route('home')}}" class="text-decoration-none">
+        
       <img
-      src="assets/images/Layer 1.svg"
+      src="{{asset('assets/images/Layer 1.svg')}}"
       class="img-fluid for_nav_bar_logo"
       />
       <span>Sellex</span>
+      </a>
       <div class="pull-right for_aboutus_contact">
         <p>
           <a href="{{ route('about')}}">About Us</a>
-          <span> <a href="{{ route('contact') }}"> Contact Us </a> </span>
+          <a href="{{ route('contact') }}"> Contact Us </a>
         </p>
       </div>
     </div>

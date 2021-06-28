@@ -28,7 +28,7 @@ class SubscribeController extends Controller
 
         if(Subscribe::where('email',$request->e_mail)->first()){
 
-            return sendError('Already subscribed',[]);
+            return sendSuccess('subscribed',[]);
         }
 
         $subscribe = [

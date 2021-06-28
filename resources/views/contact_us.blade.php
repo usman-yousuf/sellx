@@ -12,7 +12,7 @@
 <div class="for_overflow">
     <div class="container">
         <div class="row for_about_main_row">
-            <div class="col-lg-3 col-md-4 col-sm-12 for_col_afterr right_border order-lg-1 order-md-1 order-2">
+            <div class="col-lg-3 col-md-4 col-sm-12 for_col_after one order-lg-1 order-md-1 order-2">
                 <a href="#">Terms and Conditions</a>
                 <br>
                 <a href="#">Privacy & Data Policy</a>
@@ -25,18 +25,12 @@
                 <br>
                 <a href="#" class="">Partners Terms</a>
                 <hr class="for_partners_bottom">
-
-
                 <div>
                     
                     <a href="#" class="">Contact Us</a>
                     <br>
                     <a href="#" class="">About Us</a>
-
-
                 </div>
-
-
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
                  <h1>Contact Us</h1>
@@ -103,16 +97,16 @@
                       </div>
                       <hr>
                     </div>
-                    <div class="col-lg-6 col-md-12   ">
+                    <div class="col-lg-6 col-md-12  bg-primary border rounded-3">
                         <div class="for_first_col_main row_one_col_two_main ">
-                            <h3>Contact Form</h3>
+                            <h3 class="text-center text-white p-3">Contact Form</h3>
 
                             <div class="for_col_two_bg">
-                                <div class="pt-5 text-center">
-                                    <div class="btn-group for_button_group" role="group" aria-label="Basic outlined example">
-                                        <button type="button" class="btn type" name="type" value="bidder">Bidder</button>
-                                        <button type="button" class="btn type" name="type" value="auctioneer">Auctioneer</button>
-                                        <button type="button" class="btn type" name="type" value="other">Other</button>
+                                <div class="text-center">
+                                    <div class="btn-group for_button_group p-3" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-primary type text-white border" name="type" value="bidder">Bidder</button>
+                                        <button type="button" class="btn btn-primary type text-white border" name="type" value="auctioneer">Auctioneer</button>
+                                        <button type="button" class="btn btn-primary type text-white border" name="type" value="other">Other</button>
                                     </div>
 
                                     <div class="text-center">
@@ -163,7 +157,7 @@
                                             @enderror
 
                                         <div>
-                                          <button type="button" class="btn btn_send" onClick="myFunction()">Send</button>
+                                          <button type="button" class="btn btn_send btn-primary border px-5" onClick="myFunction()">Send</button>
                                         </div>
                                     </div>
                                 </div>
@@ -189,6 +183,7 @@
 
 </div>
 <!-- After NavBar AboutUs Block One  End -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
     
         function myFunction() {
@@ -203,28 +198,15 @@
                     email:$("input[name=email]").val(),
                     type:"bidding",//$("input[name=type]").val()
                 },
-
-                success: function(data) {
-                    if (data.errors) {
-                        if (data.errors.name) {
-                            $('#name-error').html(data.errors.name[0]);
-                        }
-                        if (data.errors.email) {
-                            $('#email-error').html(data.errors.email[0]);
-                        }
-                        if (data.errors.message) {
-                            $('#message-error').html(data.errors.message[0]);
-                        }
+                success:function(response){
+                    if(response) {
+                     swal(response.message);
                     }
-
-                    if (data.success) {
-                        $('#show_message').removeClass('notin');
-                        setInterval(function() {
-                            $('#show_message').addClass('notin');
-                        }, 3000);
-
-                    }
-                },
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                    swal(xhr.status);
+                    swal(thrownError);
+                  }
             });
         }
 
