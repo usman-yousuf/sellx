@@ -106,6 +106,6 @@ class Product extends Model
         // $available_qnty = null != $res;
         $available_qnty = (null != $res)? (int)$res[0]->available_qnty : 0;
 
-        return $available_qnty;
+        return $available_qnty??0;
     }
 }

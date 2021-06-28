@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Auction;
 use App\Models\AuctionProduct;
 use App\Models\Bidding;
+use App\Models\Product;
 use App\Models\Profile;
 use App\Models\Sold;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -189,11 +191,34 @@ class SoldController extends Controller
             ];
         }
 
-        $sold['total_price'] = $total;
+        DB::beginTransaction();
+        try{
 
-        $sold = Sold::create($sold);
+            $sold['total_price'] = $total;
+            $sold = Sold::create($sold);
 
-        return sendSuccess('Sold',$sold);
+            $available_quantity = $bid->auction_product->product->getAvailableQuantityAttribute();
+
+            if(0 == $available_quantity){
+
+                Product::where('id',$bid->auction_product->product_id)->update([
+                    'is_sell_out' => 1
+                ]);
+                AuctionProduct::where('id',$bid->auction_product_id)->update([
+                    'status' => 'completed',
+                    'closure_time' => Carbon::now()
+                ]);
+                DB::commit();
+                return sendSuccess('Product Sold,No Quantity Left',$sold);
+
+            }
+            DB::commit();
+            return sendSuccess('Sold',$sold);
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return sendError($e->getMessage(), []);
+        }
     }
 
     /**
