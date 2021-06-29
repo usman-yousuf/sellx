@@ -21,7 +21,10 @@ class AuctionProduct extends Model
         'comments',
     ];
 
-    protected $withCount = ['biddings','viewers','comments'];
+    protected $withCount = [
+        'biddings',
+        'viewers',
+        'comments'];
 
 
     protected $dates = [
@@ -30,7 +33,10 @@ class AuctionProduct extends Model
         'deleted_at',
     ];
 
-    protected $appends = ['is_reviwed','put_up_for_auction'];
+    protected $appends = [
+        'is_reviwed',
+        'put_up_for_auction'
+    ];
 
     public function product()
     {
@@ -71,7 +77,10 @@ class AuctionProduct extends Model
 
     public function getPutUpForAuctionAttribute(){
 
-        return $this->sort_order>=AuctionProduct::where('auction_id',$this->auction->id)->max('sort_order')? 1 : 0;
+        if(Auction::where('id',$this->auction->id)->where('is_live',1)->first())
+            return $this->sort_order>=AuctionProduct::where('auction_id',$this->auction->id)->where('status','!=','completed')->max('sort_order')? 1 : 0;
+
+        return 0;
     }  
 
     /**

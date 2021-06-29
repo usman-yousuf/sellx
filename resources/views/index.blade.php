@@ -98,7 +98,7 @@
     <br />
     <br />
     <!-- After NavBar Block Two End -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
   <script type="text/javascript">
 
     $(".btn-primary").click(function(event){
@@ -115,7 +115,11 @@
           },
           success:function(response){
             if(response) {
-             swal(response.message);
+             Swal.fire({
+              icon:'success',
+              text:'You are '+response.message,
+              footer:'Thanks for subscription',
+             })
             }
           },
           error: function (xhr, ajaxOptions, thrownError) {

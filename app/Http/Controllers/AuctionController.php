@@ -306,6 +306,8 @@ class AuctionController extends Controller
             $validator = Validator::make($request->all(), [
                 'auction_uuid' => 'string|exists:auctions,uuid',
                 'title' => 'required|min:3',
+                'bio' => 'required',
+                'description' => 'required',
                 'status' => 'in:pending,in-progress,pending,cancelled,aborted',
                 'is_scheduled' => 'required|in:0,1',
                 'scheduled_date_time' => 'required_if:is_scheduled,1',
@@ -896,9 +898,15 @@ class AuctionController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('uuid', $request->auction_uuid)->with(['medias', 'auction_products','auctioneer'])->first();
+        $auction = Auction::where('uuid', $request->auction_uuid)->with(['medias','auctioneer'])->with('auction_products', function ($query){
+            $query->where('status','!=','completed');
+        })->first();
+        $data['auction'] = $auction;
+        $data['completed'] = AuctionProduct::where('auction_id',$auction->id)->where('status','completed')->get();
+        $data['in_bid'] = AuctionProduct::where('auction_id',$auction->id)->where('status','!=','completed')->orderBy('sort_order','DESC')->first();
+        $data['next_for_sale'] = AuctionProduct::where('auction_id',$auction->id)->where('id','!=',$data['in_bid']->id)->where('status','!=','completed')->orderBy('sort_order','DESC')->get();
 
-        return sendSuccess('Data',$auction); 
+        return sendSuccess('Data',$data); 
     }
 
     public function changeOrder(Request $request)

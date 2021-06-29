@@ -230,6 +230,8 @@ class UserController extends Controller
             'dob' => 'required',
             'gender' => 'required|in:male,female',
             'profile_type' => 'required|in:buyer,auctionar',
+            'bio' => 'required',
+            'description' => 'required',
             // 'profile_image' => 'required',
         ]);
 

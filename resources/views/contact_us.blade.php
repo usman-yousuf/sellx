@@ -183,7 +183,7 @@
 
 </div>
 <!-- After NavBar AboutUs Block One  End -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     
         function myFunction() {
@@ -200,8 +200,10 @@
                 },
                 success:function(response){
                     if(response) {
-                     swal(response.message);
-                    }
+                     Swal.fire({
+                      icon:'success',
+                      text:response.message,
+                     })
                   },
                   error: function (xhr, ajaxOptions, thrownError) {
                     swal(xhr.status);
