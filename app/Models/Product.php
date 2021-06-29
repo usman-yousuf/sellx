@@ -130,6 +130,6 @@ class Product extends Model
 
         $request = app('request');
         $sold = Sold::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first();
-        return $sold->status;
+        return $sold->status??Null;
     }
 }
