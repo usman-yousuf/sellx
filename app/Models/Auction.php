@@ -130,9 +130,9 @@ class Auction extends Model
                     if($ap->product->getAvailableQuantityAttribute() > 0){
                         $ap->product()->update(['is_added_in_auction' => (Bool)false]);
                     }
-                    else{
-                        $ap->product()->delete();
-                    }
+                    // else{
+                    //     $ap->product()->delete();
+                    // }
                 }
                 $model->auction_products()->delete(); // auction_products
                 $model->medias()->delete(); // medias

@@ -420,6 +420,11 @@ class ProductController extends Controller
         }
 
         try{
+            if($model->whereHas('sold')->get()){
+                
+                return sendError('Product has sold',[]);
+            }
+            dd();
             UploadMedia::where('profile_id', $request->user()->profile->id)
                 ->where('type', 'product')
                 ->where('ref_id', $model->id)
