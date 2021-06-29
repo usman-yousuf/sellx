@@ -97,9 +97,9 @@
                       </div>
                       <hr>
                     </div>
-                    <div class="col-lg-6 col-md-12  bg-primary border rounded-3">
+                    <div class="col-lg-6 col-md-12">
                         <div class="for_first_col_main row_one_col_two_main ">
-                            <h3 class="text-center text-white p-3">Contact Form</h3>
+                            <h3 class="text-center text-white">Contact Form</h3>
 
                             <div class="for_col_two_bg">
                                 <div class="text-center">

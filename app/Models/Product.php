@@ -44,7 +44,9 @@ class Product extends Model
 
     protected $appends = [
         'available_quantity',
-        'is_added_in_watchlist'
+        'is_added_in_watchlist',
+        'is_won_by_me',
+        'my_product_status',
     ];
 
     use SoftDeletes;
@@ -116,5 +118,18 @@ class Product extends Model
 
         $request = app('request');
         return ProductWatchlist::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first()?1:0;
+    }
+
+    public function getIsWonByMeAttribute(){
+
+        $request = app('request');
+        return Sold::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first()?1:0;
+    }
+
+    public function getMyProductStatusAttribute(){
+
+        $request = app('request');
+        $sold = Sold::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first();
+        return $sold->status;
     }
 }

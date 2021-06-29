@@ -40,10 +40,10 @@
       <span>Sellex</span>
       </a>
       <div class="pull-right for_aboutus_contact">
-        <p>
-          <a href="{{ route('about')}}">About Us</a>
-          <a href="{{ route('contact') }}"> Contact Us </a>
-        </p>
+          <p>
+            <a href="{{route('about')}}">About Us</a>
+            <span> <a href="{{route('contact')}}"> Contact Us </a> </span>
+          </p>
       </div>
     </div>
   </div>
