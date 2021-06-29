@@ -37,7 +37,7 @@
       src="{{asset('assets/images/Layer 1.svg')}}"
       class="img-fluid for_nav_bar_logo"
       />
-      <span>Sellex</span>
+      <span>Sellx</span>
       </a>
       <div class="pull-right for_aboutus_contact">
           <p>

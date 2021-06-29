@@ -23,9 +23,9 @@
                 <hr class="for_partners_bottom">
                 <div>
                     
-                    <a href="#" class="">Contact Us</a>
+                    <a href="{{route('contact')}}" class="">Contact Us</a>
                     <br>
-                    <a href="#" class="">About Us</a>
+                    <a href="{{route('about')}}" class="">About Us</a>
                 </div>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
