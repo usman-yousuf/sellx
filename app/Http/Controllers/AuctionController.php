@@ -141,6 +141,8 @@ class AuctionController extends Controller
                 if(!$model)
                     return sendError('No data found',[]);
 
+                $product;
+
                 foreach ($model as $key => $value) {
                     if(isset($value->profile->products)){
                         foreach($value->profile->products as $a){
