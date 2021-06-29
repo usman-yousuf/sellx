@@ -204,6 +204,7 @@
                       icon:'success',
                       text:response.message,
                      })
+                    }
                   },
                   error: function (xhr, ajaxOptions, thrownError) {
                     swal(xhr.status);
