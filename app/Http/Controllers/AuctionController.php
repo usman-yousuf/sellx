@@ -917,8 +917,8 @@ class AuctionController extends Controller
         })->first();
         $data['auction'] = $auction;
         $data['completed'] = AuctionProduct::where('auction_id',$auction->id)->where('status','completed')->get();
-        $data['in_bid'] = AuctionProduct::where('auction_id',$auction->id)->where('status','!=','completed')->orderBy('sort_order','DESC')->first();
-        $data['next_for_sale'] = AuctionProduct::where('auction_id',$auction->id)->where('id','!=',$data['in_bid']->id)->where('status','!=','completed')->orderBy('sort_order','DESC')->get();
+        $data['in_bid'] = AuctionProduct::where('auction_id',$auction->id)->where('status','!=','completed')->orderBy('sort_order','ASC')->first();
+        $data['next_for_sale'] = AuctionProduct::where('auction_id',$auction->id)->where('id','!=',$data['in_bid']->id)->where('status','!=','completed')->orderBy('sort_order','ASC')->get();
 
         return sendSuccess('Data',$data); 
     }
