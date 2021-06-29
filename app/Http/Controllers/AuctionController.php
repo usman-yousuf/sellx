@@ -133,13 +133,26 @@ class AuctionController extends Controller
                     return sendError('Invalid User Provided', []);
                 
                 $model = Followers::where('following_id', $auctioneer->id)->with('profile', function($query){
-                    $query->whereHas('products')->with('products')->without('profile');
+                    $query->whereHas('products')->with('products', function($q){
+                        $q->with('profile');
+                    });
                 })->orderBy('created_at', 'DESC')->get();
-
+                
                 if(!$model)
                     return sendError('No data found',[]);
 
-                return sendSuccess('data',$model);
+                foreach ($model as $key => $value) {
+                    if(isset($value->profile->products)){
+                        foreach($value->profile->products as $a){
+                            $product[] = $a;      
+                            // $count++;
+                        }
+                    }
+                }
+
+                $data['Products'] = $product;
+
+                return sendSuccess('data',$data);
             }
 
             if(isset($request->is_follow) && ('' != $request->is_follow)){
@@ -158,14 +171,14 @@ class AuctionController extends Controller
                 $count=0;
                 $auction = [];
                 foreach ($model as $key =>$value) {
-                    if(!isset($value->following->auction)){
-                       return sendError('NoAuction',[]);
-                    }
 
-                    foreach($value->following->auction as $a){
-                        if($a->scheduled_date_time >= Carbon::now()){
-                            $auction[] = $a;      
-                            $count++;
+                    if(isset($value->following->auction)){
+
+                        foreach($value->following->auction as $a){
+                            if($a->scheduled_date_time >= Carbon::now()){
+                                $auction[] = $a;      
+                                $count++;
+                            }
                         }
                     }
                 }
