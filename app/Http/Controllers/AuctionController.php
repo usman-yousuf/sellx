@@ -322,8 +322,6 @@ class AuctionController extends Controller
             $validator = Validator::make($request->all(), [
                 'auction_uuid' => 'string|exists:auctions,uuid',
                 'title' => 'required|min:3',
-                'bio' => 'required',
-                'description' => 'required',
                 'status' => 'in:pending,in-progress,pending,cancelled,aborted',
                 'is_scheduled' => 'required|in:0,1',
                 'scheduled_date_time' => 'required_if:is_scheduled,1',
