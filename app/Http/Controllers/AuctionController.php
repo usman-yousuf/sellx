@@ -862,8 +862,14 @@ class AuctionController extends Controller
 
                                 $ap->product->update(['is_added_in_auction' => 0]);
                             }
+                            // else{
+                            //     $ap->product()->update([
+                            //         'available_quantity' => $ap->product->getAvailableQuantityAttribute(),
+                            //         'is_sell_out' => 1
+                            //     ]);
+                            // }
                         }
-                        $ap->delete();
+                        // $ap->delete();
                     }
                 }
                 catch(\Exception $ex){
