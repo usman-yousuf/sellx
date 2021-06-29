@@ -50,7 +50,7 @@
                             <div class="col-lg-7 col-md-7 for_child_row_col_two">
                                 <p>
                                     <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                    <span>hi@sellex.com</span>
+                                    <span>info@sellx.com</span>
                                 </p>
                             </div>
                         </div>

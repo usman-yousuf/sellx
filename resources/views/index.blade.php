@@ -79,7 +79,7 @@
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    object-fit: contain
+                                    style="object-fit: contain;"
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -88,7 +88,7 @@
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    object-fit: contain
+                                    style="object-fit: contain;"
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -96,7 +96,7 @@
                                     src="assets/images/Iphone.jpg"
                                     class="d-block w-100"
                                     alt="..."
-                                    object-fit: contain
+                                    style="object-fit: contain;"
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -105,7 +105,7 @@
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    object-fit: contain
+                                    style="object-fit: contain;"
                                     />
                                 </div>
                     </div>       </div>
@@ -122,7 +122,7 @@
           "
         >
           <div class="for_second_col">
-            <h2>Sellex is a live auction platform in your phone</h2>
+            <h2>Sellx is a live auction platform in your phone</h2>
 
             <p class="for_p_text_the_platform">
               The Platform that connects auction houses and bidders online and
