@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class ProductWatchlist extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
+    }
 }

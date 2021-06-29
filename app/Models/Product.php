@@ -42,7 +42,10 @@ class Product extends Model
     ];
 
 
-    protected $appends = ['available_quantity'];
+    protected $appends = [
+        'available_quantity',
+        'is_added_in_watchlist'
+    ];
 
     use SoftDeletes;
 
@@ -107,5 +110,11 @@ class Product extends Model
         $available_qnty = (null != $res)? (int)$res[0]->available_qnty : 0;
 
         return $available_qnty??0;
+    }
+
+    public function getIsAddedInWatchlistAttribute(){
+
+        $request = app('request');
+        return ProductWatchlist::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first()?1:0;
     }
 }
