@@ -67,6 +67,10 @@ class Product extends Model
     {
         return $this->hasMany(Block::class, 'ref_id', 'id')->where('ref_type', 'product');
     }
+    public function watchlist()
+    {
+        return $this->hasMany(ProductWatchlist::class, 'product_id', 'id');
+    }
 
     public function medias(){
         return $this->hasMany(UploadMedia::class, 'ref_id', 'id')->where('type', 'product');

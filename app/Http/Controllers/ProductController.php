@@ -502,7 +502,7 @@ class ProductController extends Controller
                 $models->offset($request->offset)->limit($request->limit);
             }
 
-            $data['watchlist'] = $models->get();
+            $data['watchlist'] = $models->with('products')->get();
             $data['total_watchlist_items'] = $cloned_models->count();
             
             return sendSuccess('Success', $data);

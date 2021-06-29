@@ -515,7 +515,7 @@ class AuctionController extends Controller
                 $data['validation_error'] = $validator->getMessageBag();
                 return sendError($validator->errors()->all()[0], $data);
             }
-
+            dd("adsadas");
             $profile = Profile::where('uuid', $request->profile_uuid)->first();
             if (null == $profile) {
                 return sendError('Profile not Found', []);
@@ -529,7 +529,7 @@ class AuctionController extends Controller
                 $models->offset($request->offset)->limit($request->limit);
             }
 
-            $data['watchlist'] = $models->with('product')->get();
+            $data['watchlists'] = $models->whereHas('products')->with('products')->get();
             $data['total_watchlist_items'] = $cloned_models->count();
             
             return sendSuccess('Success', $data);
