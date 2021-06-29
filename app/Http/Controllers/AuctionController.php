@@ -9,6 +9,7 @@ use App\Models\AuctionSetting;
 use App\Models\DummyAuction;
 use App\Models\Followers;
 use App\Models\Product;
+use App\Models\ProductWatchlist;
 use App\Models\Profile;
 use App\Models\UploadMedia;
 use App\Models\Watchlist;
@@ -520,7 +521,7 @@ class AuctionController extends Controller
                 return sendError('Profile not Found', []);
             }
 
-            $models = Watchlist::where('profile_id', $profile->id);
+            $models = ProductWatchlist::where('profile_id', $profile->id);
 
             $cloned_models = clone $models;
             
@@ -528,7 +529,7 @@ class AuctionController extends Controller
                 $models->offset($request->offset)->limit($request->limit);
             }
 
-            $data['watchlist'] = $models->get();
+            $data['watchlist'] = $models->with('product')->get();
             $data['total_watchlist_items'] = $cloned_models->count();
             
             return sendSuccess('Success', $data);
@@ -556,19 +557,19 @@ class AuctionController extends Controller
                 return sendError('Auction not Found', []);
             }
 
-            $check = Watchlist::where('profile_id', $profile->id)->where('auction_id', $auction->id)->first();
+            $check = ProductWatchlist::where('profile_id', $profile->id)->where('auction_id', $auction->id)->first();
             if($check != null){
                 return sendError('Auction already added in watchlist', null);
             }
 
-            $model = new Watchlist();
+            $model = new ProductWatchlist();
 
             $model->uuid = \Str::uuid();
             $model->profile_id = $profile->id;
             $model->auction_id = $auction->id;
 
             if($model->save()){
-                $data['watchlist'] = Watchlist::find($model->id);
+                $data['watchlist'] = ProductWatchlist::find($model->id);
                 return sendSuccess('Auction added to watchlist successfully', $data);
             }
         }
@@ -924,6 +925,10 @@ class AuctionController extends Controller
         $data['auction'] = $auction;
         $data['completed'] = AuctionProduct::where('auction_id',$auction->id)->where('status','completed')->get();
         $data['in_bid'] = AuctionProduct::where('auction_id',$auction->id)->where('status','!=','completed')->orderBy('sort_order','ASC')->first();
+        if(isset($data['in_bid']))
+            return sendSuccess('Data',$data); 
+
+
         $data['next_for_sale'] = AuctionProduct::where('auction_id',$auction->id)->where('id','!=',$data['in_bid']->id)->where('status','!=','completed')->orderBy('sort_order','ASC')->get();
 
         return sendSuccess('Data',$data); 

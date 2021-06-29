@@ -32,10 +32,10 @@ class ContactFormController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        if(ContactForm::where('email',$request->email)->first()){
+        // if(ContactForm::where('email',$request->email)->first()){
 
-            return sendSuccess('Sucessfully Sent',[]);
-        }
+        //     return sendSuccess('Sucessfully Sent',[]);
+        // }
 
         try{
 
@@ -47,14 +47,14 @@ class ContactFormController extends Controller
             ];
 
             $contact = ContactForm::create($contact);
-
+         
             Mail::send('email_template.contactform', [
                 'name' => $request->name,
                 'email' => $request->email,
                 'message_body' => 'Contact Info'
             ], function ($m) use ($contact) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to(config('mail.from.address'))->subject('ContactInformation');
+                $m->to(config('mail.from.address'))->subject('Contact Information');
             });
 
             return  sendSuccess('Sucessfully Saved');
