@@ -79,6 +79,7 @@
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
+                                    object-fit: contain
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -87,6 +88,7 @@
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
+                                    object-fit: contain
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -94,6 +96,7 @@
                                     src="assets/images/Iphone.jpg"
                                     class="d-block w-100"
                                     alt="..."
+                                    object-fit: contain
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -102,6 +105,7 @@
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
+                                    object-fit: contain
                                     />
                                 </div>
                     </div>       </div>
