@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use App\Models\User;
-use App\Models\Product;
-use App\Models\UploadMedia;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductWatchlist;
+use App\Models\Profile;
+use App\Models\UploadMedia;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -472,4 +473,96 @@ class ProductController extends Controller
 
         return sendSuccess('Data',$product); 
     }
+
+    public function getWatchlist(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'profile_uuid' => 'required|string|exists:profiles,uuid'
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $profile = Profile::where('uuid', $request->profile_uuid)->first();
+            if (null == $profile) {
+                return sendError('Profile not Found', []);
+            }
+
+            $models = ProductWatchlist::where('profile_id', $profile->id);
+
+            $cloned_models = clone $models;
+            
+            if(isset($request->offset) && isset($request->limit) ){
+                $models->offset($request->offset)->limit($request->limit);
+            }
+
+            $data['watchlist'] = $models->get();
+            $data['total_watchlist_items'] = $cloned_models->count();
+            
+            return sendSuccess('Success', $data);
+        }
+
+        public function AddToWatchlist(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'product_uuid' => 'required|string|exists:products,uuid',
+                'profile_uuid' => 'required|string|exists:profiles,uuid'
+            ]);
+
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $profile = Profile::where('uuid', $request->profile_uuid)->first();
+            if (null == $profile) {
+                return sendError('Profile not Found', []);
+            }
+
+            $product = Product::where('uuid', $request->product_uuid)->first();
+            if (null == $product) {
+                return sendError('product not Found', []);
+            }
+
+            $check = ProductWatchlist::where('profile_id', $profile->id)->where('product_id', $product->id)->first();
+            if($check != null){
+                return sendError('product already added in watchlist', null);
+            }
+
+            $model = new ProductWatchlist();
+
+            $model->uuid = \Str::uuid();
+            $model->profile_id = $profile->id;
+            $model->product_id = $product->id;
+
+            if($model->save()){
+                $data['watchlist'] = ProductWatchlist::find($model->id);
+                return sendSuccess('product added to watchlist successfully', $data);
+            }
+        }
+
+        public function RemoveFromWatchlist(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'watchlist_uuid' => 'required|string|exists:product_watchlists,uuid'
+            ]);
+            if ($validator->fails()) {
+                $data['validation_error'] = $validator->getMessageBag();
+                return sendError($validator->errors()->all()[0], $data);
+            }
+
+            $model = ProductWatchlist::where('uuid', $request->watchlist_uuid)->first();
+            
+            if (null == $model) {
+                return sendError('Watchlist item not Found', null);
+            }
+
+            if($model->delete()){
+                return sendSuccess('product removed from watchlist successfully.', null);
+            }
+
+            return sendError('Something went wrong, please try again.', null);
+        }
+
 }

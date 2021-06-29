@@ -6,6 +6,7 @@ use App\Http\Controllers\BlockController;
 use App\Http\Controllers\BuyerRequestController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SoldController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\SubscribeController;
@@ -132,9 +133,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_order', [AuctionController::class, 'changeOrder']);
 
     // Watchlist
-    Route::post('add_to_watchlist', [AuctionController::class, 'AddToWatchlist']);
-    Route::post('remove_from_watchlist', [AuctionController::class, 'RemoveFromWatchlist']);
-    Route::post('get_watchlist', [AuctionController::class, 'getWatchlist']);
+    Route::post('add_to_watchlist', [productController::class, 'AddToWatchlist']);
+    Route::post('remove_from_watchlist', [productController::class, 'RemoveFromWatchlist']);
+    Route::post('get_watchlist', [productController::class, 'getWatchlist']);
 
     Route::post('get_dummy_auctions', [AuctionController::class, 'getDummyAuctions']);
     Route::post('update_dummy_auctions', [AuctionController::class, 'updateDummyAuction']);
