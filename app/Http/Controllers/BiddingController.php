@@ -103,7 +103,13 @@ class BiddingController extends Controller
             return sendError('User Not Found', []);
         }
 
-        $bids  = Bidding::where('profile_id', $profile->id)->orderBy('created_at', 'DESC')->whereHas('auction_product')->with('auction_product');
+        $bids  = Bidding::orderBy('bid_price', 'DESC')
+            ->where('profile_id', $profile->id)
+            ->groupby('auction_product_id')
+            ->whereHas('auction_product')
+            ->with('auction_product');
+            
+
         $won = clone $bids;
         $won = $won->where('status', 'bid_won')->get();
         $bids = $bids->get();
