@@ -32,14 +32,14 @@ class ContactFormController extends Controller
 
         try{
 
-            $contact = [
-                'uuid' => str::uuid(),
-                'name' => $request->name,
-                'email' => $request->email,
-                'type' => $request->type,
-            ];
+            // $contact = [
+            //     'uuid' => str::uuid(),
+            //     'name' => $request->name,
+            //     'email' => $request->email,
+            //     'type' => $request->type,
+            // ];
 
-            $contact = ContactForm::create($contact);
+            // $contact = ContactForm::create($contact);
          
             Mail::send('email_template.contactform', [
                 'name' => $request->name,
