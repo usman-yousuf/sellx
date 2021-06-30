@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function getProducts(Request $request)
     {
-        $products = Product::orderBy('created_at', 'desc')->where('is_sell_out',0);
+        $products = Product::orderBy('created_at', 'desc')->where('is_sell_out',0)->where('is_added_in_auction',0);
 
         if(isset($request->profile_uuid) && ($request->profile_uuid != '') ){
             $profile = Profile::where('uuid', $request->profile_uuid)->first();

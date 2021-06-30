@@ -842,7 +842,7 @@ class AuctionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'auction_uuid' => 'required|exists:auctions,uuid',
-            'status' => 'required|in:completed,in-progress,pending,cancelled,aborted',
+            'status' => 'required|in:completed,pending,cancelled,aborted',
         ]);
 
         if($validator->fails()){
@@ -869,16 +869,11 @@ class AuctionController extends Controller
 
                             if($ap->product->getAvailableQuantityAttribute() > 0){
 
-                                $ap->product->update(['is_added_in_auction' => 0]);
+                                $ap->product->update([
+                                    'is_added_in_auction' => 0
+                                ]);
                             }
-                            // else{
-                            //     $ap->product()->update([
-                            //         'available_quantity' => $ap->product->getAvailableQuantityAttribute(),
-                            //         'is_sell_out' => 1
-                            //     ]);
-                            // }
                         }
-                        // $ap->delete();
                     }
                 }
                 catch(\Exception $ex){
