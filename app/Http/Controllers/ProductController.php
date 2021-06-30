@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function getProducts(Request $request)
     {
-        $products = Product::orderBy('created_at', 'desc');
+        $products = Product::orderBy('created_at', 'desc')->where('is_sell_out',0);
 
         if(isset($request->profile_uuid) && ($request->profile_uuid != '') ){
             $profile = Profile::where('uuid', $request->profile_uuid)->first();
@@ -502,7 +502,11 @@ class ProductController extends Controller
                 $models->offset($request->offset)->limit($request->limit);
             }
 
-            $data['watchlist'] = $models->with('products')->get();
+            $data['watchlist'] = $models->with('products', function($q) {
+                $q->with('auction_products', function($query){
+                    $query->with('auction');
+                });
+            })->get();
             $data['total_watchlist_items'] = $cloned_models->count();
             
             return sendSuccess('Success', $data);
