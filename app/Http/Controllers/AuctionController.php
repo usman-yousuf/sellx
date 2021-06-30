@@ -246,7 +246,7 @@ class AuctionController extends Controller
                 return sendError($validator->errors()->all()[0], $data);
             }
 
-            $model = Auction::where('uuid', $request->auction_uuid)->first();
+            $model = Auction::where('uuid', $request->auction_uuid)->where('status','pending')->first();
             
             if(null == $model){
                 return sendError('No Record Found', []);
@@ -387,7 +387,8 @@ class AuctionController extends Controller
 
                     // get requested Product Ids from produtcs table
                     $uuids = "('". implode("','", $request->product_uuids) . "')";
-                    $product_ids = DB::select("SELECT id FROM products WHERE uuid IN {$uuids}");
+                    $product_ids = DB::select("SELECT id FROM products WHERE uuid IN {$uuids} AND is_added_in_auction = 0 AND profile_id = {$request->user()->profile->id}");
+                    
                     if(empty($product_ids)){
                         DB::rollBack();
                         return sendError('No Products Found', []);
@@ -397,31 +398,33 @@ class AuctionController extends Controller
                         $requestedProductIds[] = $item->id;
                     }
 
-                    // get Existing Product Ids from db
-                    $product_ids = DB::select("SELECT id FROM products WHERE profile_id = {$request->user()->profile->id}");
-                    if (empty($product_ids)) {
-                        DB::rollBack();
-                        return sendError('No Products Found', []);
-                    }
-                    $productIds = [];
-                    foreach ($product_ids as $item) {
-                        $productIds[] = $item->id;
-                    }
+                    // // get Existing Product Ids from db
+                    // $product_ids = DB::select("SELECT id FROM products WHERE profile_id = {$request->user()->profile->id}");
+                    // if (empty($product_ids)) {
+                    //     DB::rollBack();
+                    //     return sendError('No Products Found', []);
+                    // }
 
-                    $product_ids = "('" . implode("','", $productIds) . "')";
-                    $auction_product_ids = DB::select("SELECT product_id FROM auction_products WHERE isNull(deleted_at) AND product_id IN {$product_ids}");
+                    // $productIds = [];
+                    // foreach ($product_ids as $item) {
+                    //     $productIds[] = $item->id;
+                    // }
 
-                    $existingProductIds = [];
-                    foreach ($auction_product_ids as $item) {
-                        $existingProductIds[] = $item->product_id;
-                    }
+                    // $product_ids = "('" . implode("','", $productIds) . "')";
+                    // $auction_product_ids = DB::select("SELECT product_id FROM auction_products WHERE isNull(deleted_at) AND product_id IN {$product_ids}");
 
-                    $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
+                    // $existingProductIds = [];
+                    // foreach ($auction_product_ids as $item) {
+                    //     $existingProductIds[] = $item->product_id;
+                    // }
 
-                    if(!$productIdsToAdd){
-                        DB::rollBack();
-                        return sendError('no product found',[]);
-                    }
+                    // $productIdsToAdd = array_diff($requestedProductIds, $productIds);
+                    // dd($productIdsToAdd);
+
+                    // if(!$productIdsToAdd){
+                    //     DB::rollBack();
+                    //     return sendError('no product found',[]);
+                    // }
 
                     $auction_settings = [
                         'uuid' => \Str::uuid(),
@@ -433,7 +436,7 @@ class AuctionController extends Controller
 
                     $auction_settings = AuctionSetting::create($auction_settings);
 
-                    foreach($productIdsToAdd as $id){
+                    foreach($requestedProductIds as $id){
                         $product = Product::where('id',$id)->first();
                         $auctionproduct = Auctionproduct::where('auction_id',$model->id);
                         $maxsort = $auctionproduct->max('sort_order');
