@@ -45,7 +45,7 @@ class ContactFormController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'message_body' => 'Contact Info'
-            ], function ($m) use ($contact) {
+            ], function ($m) use ($request) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
                 $m->to('info@sellx.ae')->subject('Contact Information');
             });
