@@ -37,6 +37,9 @@ Route::get('pages/terms-mob', [App\Http\Controllers\HomeController::class,'terms
 Route::get('pages/partner-mob', [App\Http\Controllers\HomeController::class,'partnermobpage'])->name('pages.mob.partner.mob');
 Route::get('pages/refund-mob', [App\Http\Controllers\HomeController::class,'refundmobpage'])->name('pages.mob.refund.mob');
 
+Route::post('contact_us', 'App\Http\Controllers\ContactFormController@contact_form')->name('contact-us');
+
+
 Auth::routes();
 
 

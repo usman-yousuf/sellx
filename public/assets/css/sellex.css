@@ -373,7 +373,7 @@ input {
 .for_input_fields {
   width: 80%;
   margin-left: 38px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .btn_send {
   background-color: white;
@@ -1346,4 +1346,22 @@ input {
     height: 615px;
     /* margin-left: 1272px; */
   }
+}
+
+.fg_primary-s{
+   
+  color: #49aaef;
+}
+.type:hover{
+  background-color: #49aaef !important;
+  color: white;
+}
+.bg_primary-s:hover{
+  background-color: #49aaef !important;
+  color: white;
+
+}
+.activelabel{
+  background-color: #49aaef !important;
+  color: white;
 }

@@ -20,7 +20,7 @@ class CreateContactFormsTable extends Migration
             $table->string('name')->nullable();
             $table->string('email')->unique()->nullable();
 
-            $table->enum('type', ['bidding','auctioneer','other'])->nullable();
+            $table->enum('type', ['bidder','auctioneer','other'])->nullable();
 
             $table->timestamps();
         });

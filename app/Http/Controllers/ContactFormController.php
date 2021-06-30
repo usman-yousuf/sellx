@@ -23,19 +23,12 @@ class ContactFormController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email',
-            'type' => 'required|in:bidding,auctioneer,other',
+            'type' => 'required|in:bidder,auctioneer,other',
         ]);
 
         if ($validator->fails()) {
-
-            $data['validation_error'] = $validator->getMessageBag();
-            return sendError($validator->errors()->all()[0], $data);
+            return Response::json(['errors' => $validator->errors()]);
         }
-
-        // if(ContactForm::where('email',$request->email)->first()){
-
-        //     return sendSuccess('Sucessfully Sent',[]);
-        // }
 
         try{
 
@@ -54,15 +47,14 @@ class ContactFormController extends Controller
                 'message_body' => 'Contact Info'
             ], function ($m) use ($contact) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to(config('mail.from.address'))->subject('Contact Information');
+                $m->to('info@sellx.ae')->subject('Contact Information');
             });
 
-            return  sendSuccess('Sucessfully Saved');
+            return Response::json(['success' => '1']);
         }
         catch(Exception $ex){
 
-            $data['exception_error'] = $e->getMessage();
-            return sendError('There is some problem.', $data);
+            return Response::json(['success' => $e->getMessage()]);
         }
 
     }
