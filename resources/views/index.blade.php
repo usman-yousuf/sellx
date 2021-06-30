@@ -75,7 +75,7 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <img 
-                                    src="assets/images/Iphone.jpg"
+                                    src="{{asset('assets/images/Iphone.jpg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="assets/images/Iphone.jpg"
+                                    src="{{asset('assets/images/Iphone.jpg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="assets/images/Iphone.jpg"
+                                    src="{{asset('assets/images/Iphone.jpg')}}"
                                     class="d-block w-100"
                                     alt="..."
                                     style="object-fit: contain;"
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="assets/images/Iphone.jpg"
+                                    src="{{asset('assets/images/Iphone.jpg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."

@@ -77,7 +77,7 @@ class AuctionProduct extends Model
 
     public function getPutUpForAuctionAttribute(){
 
-        if(Auction::where('id',$this->auction->id)->where('is_live',1)->first())
+        if((isset($this->auction->id)) && (Auction::where('id',$this->auction->id)->where('is_live',1)->first()))
             return $this->sort_order>=AuctionProduct::where('auction_id',$this->auction->id)->where('status','!=','completed')->max('sort_order')? 1 : 0;
 
         return 0;

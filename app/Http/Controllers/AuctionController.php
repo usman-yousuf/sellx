@@ -418,6 +418,11 @@ class AuctionController extends Controller
 
                     $productIdsToAdd = array_diff($requestedProductIds, $existingProductIds);
 
+                    if(!$productIdsToAdd){
+                        DB::rollBack();
+                        return sendError('no product found',[]);
+                    }
+
                     $auction_settings = [
                         'uuid' => \Str::uuid(),
                         'auction_id' => $model->id,
