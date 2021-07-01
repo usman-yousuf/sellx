@@ -49,7 +49,7 @@ class BuyerRequestController extends Controller
             $data->offset($request->offset)->limit($request->limit);
         }
 
-        $data = $data->get();
+        $data = $data->with('user')->get();
         $total_bids = $cloned_models->count();
 
         return sendSuccess('$data',$data);
