@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
-                <h1>User Agreement: General Terms and Conditions of the Sellex Service</h1>
+                <h1>User Agreement: General Terms and Conditions of the Sellx Service</h1>
 
                 <div class="for_basic_deffination_text">
                     <h4>Basic Deffination</h4>

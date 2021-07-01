@@ -167,9 +167,9 @@
             />
           </div>
           <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1">
-            <h4>Sellex is a live auction platform</h4>
+            <h4>Sellx is a live auction platform</h4>
             <p>
-              Sellex is a live auction platform that connects auction houses and
+              Sellx is a live auction platform that connects auction houses and
               bidders online is a more efficient way
             </p>
           </div>
@@ -311,7 +311,7 @@
               <div class="end_footer ">
                 <img src="assets/images/Frame 28.svg" class="img-fluid"/><span class="pull-right fox-text for_end_text">
                   <br />
-                  Sellex @ 2021 All rights reserved
+                  Sellx @ 2021 All rights reserved
                 </span>
               </div>
           </div>
