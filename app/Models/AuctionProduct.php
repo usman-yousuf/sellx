@@ -68,6 +68,11 @@ class AuctionProduct extends Model
         return $this->hasMany(Complain::class, 'auction_product_id', 'id');
     }
 
+    public function solds()
+    { 
+        return $this->hasMany(Sold::class, 'auction_product_id', 'id');
+    }
+
     //Instance methods
 
     public function getIsReviwedAttribute(){

@@ -25,7 +25,7 @@ class Bidding extends Model
     
     public function auction_product()
     {
-        return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id');
+        return $this->belongsTo(AuctionProduct::class, 'auction_product_id', 'id')->with('solds');
     }
 
     public function auction()
@@ -45,7 +45,8 @@ class Bidding extends Model
 
     public function getSoldPriceAttribute(){
 
-        $check = Sold::where('bidding_id',$this->id)->orderBy('created_at', 'DESC')->first();
+        $check = Sold::where('auction_product_id',$this->auction_product_id)
+            ->orderBy('created_at', 'DESC')->first();
 
         if($check)
             return $check->total_price;

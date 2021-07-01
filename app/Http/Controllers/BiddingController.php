@@ -106,7 +106,7 @@ class BiddingController extends Controller
         $bids  = Bidding::orderBy('bid_price', 'DESC')
             ->where('profile_id', $profile->id)
             ->groupby('auction_product_id')
-            ->whereHas('auction_product')
+            ->whereHas('auction_product.solds')
             ->with('auction_product');
             
 
