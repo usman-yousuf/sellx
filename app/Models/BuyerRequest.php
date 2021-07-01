@@ -14,7 +14,7 @@ class BuyerRequest extends Model
     protected $guarded = [];
 
 
-    public function user()
+    public function profile()
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
