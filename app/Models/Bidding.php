@@ -14,7 +14,14 @@ class Bidding extends Model
 
     protected $guarded = [];
 
-    protected $with = ['user','sold'];
+    protected $with = [
+        'user',
+        'sold'
+    ];
+
+    protected $appends = [
+        'sold_price',
+    ];
     
     public function auction_product()
     {
@@ -34,5 +41,11 @@ class Bidding extends Model
     public function sold()
     {
         return $this->hasOne(Sold::class, 'bidding_id', 'id');
+    }
+
+    public function getSoldPriceAttribute(){
+
+        // if($this->whereHas('sold'))
+        return 0;
     }
 }

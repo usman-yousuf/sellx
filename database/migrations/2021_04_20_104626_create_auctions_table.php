@@ -25,6 +25,7 @@ class CreateAuctionsTable extends Migration
 
             $table->boolean('is_scheduled')->default(false);
             $table->dateTime('scheduled_date_time')->nullable();
+            $table->dateTime('auction_ending_date')->nullable();
 
             $table->boolean('is_live')->default(false);
             $table->text('online_url')->nullable();
