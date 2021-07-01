@@ -448,6 +448,9 @@ class UserController extends Controller
         $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $profile_uuid)->first();
 
+        if($profile_uuid == $request->following_uuid)
+            sendError('Cant Follow Your own profile');
+
         $following_model = Profile::where('uuid', $request->following_uuid)->first();
 
         $check = Followers::where('following_id', $following_model->id)->where('profile_id', $model->id)->first();
