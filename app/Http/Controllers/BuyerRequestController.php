@@ -36,6 +36,9 @@ class BuyerRequestController extends Controller
         if(isset($request->user_uuid)){
 
             $profile = Profile::where('uuid',$request->user_uuid)->first();
+            if(null == $profile){
+                return sendError('User not found',[]);
+            }
             $data->where('profile_id', $profile->id);
         }
 
