@@ -45,7 +45,11 @@ class Bidding extends Model
 
     public function getSoldPriceAttribute(){
 
-        // if($this->whereHas('sold'))
+        $check = Sold::where('bidding_id',$this->id)->orderBy('created_at', 'DESC')->first();
+
+        if($check)
+            return $check->total_price;
+
         return 0;
     }
 }

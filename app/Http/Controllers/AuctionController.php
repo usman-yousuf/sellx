@@ -855,7 +855,8 @@ class AuctionController extends Controller
         $auction->update(
                 [
                     'status' => $request->status,
-                    'is_live' => 0
+                    'is_live' => 0,
+                    'auction_ending_date' => carbon::now(),
                 ]);
         //changing product status and deleting Auction Product
         if($request->status == 'completed' || $request->status == 'aborted'){
