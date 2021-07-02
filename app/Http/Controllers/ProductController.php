@@ -36,6 +36,8 @@ class ProductController extends Controller
             	$products->where('profile_id', $profile->id);
             }
         }
+        if(isset($request->keywords))
+            $products->where('title', 'LIKE', "%{$request->keywords}%");
 
         // $products = Product::where('profile_id', $request->profile_uuid)->orderBy('created_at', 'desc');
 
