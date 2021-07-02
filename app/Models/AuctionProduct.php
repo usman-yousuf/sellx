@@ -15,8 +15,7 @@ class AuctionProduct extends Model
     public $timestamps = true;
 
     protected $with = [
-        'product', 
-        'viewers',
+        'product',
         'biddings',
         'comments',
     ];
