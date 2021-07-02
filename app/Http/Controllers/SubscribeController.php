@@ -26,19 +26,22 @@ class SubscribeController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        if(Subscribe::where('email',$request->e_mail)->first()){
+        // if(Subscribe::where('email',$request->e_mail)->first()){
 
-            return sendSuccess('subscribed',[]);
-        }
+        //     return sendSuccess('subscribed',[]);
+        // }
 
-        $subscribe = [
-             'uuid' => Str::uuid(),
-            'email' => $request->e_mail,
-        ];
+        // $subscribe = [
+        //      'uuid' => Str::uuid(),
+        //     'email' => $request->e_mail,
+        // ];
 
-        $subscribe = Subscribe::create($subscribe);
+        // $subscribe = Subscribe::create($subscribe);
 
-        return sendSuccess('Subscribe',$subscribe);
+        // return sendSuccess('Subscribe',$subscribe);
+
+        return sendSuccess('Subscribe', null);
+
     }
 
     /**
