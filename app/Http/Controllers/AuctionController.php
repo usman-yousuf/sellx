@@ -939,7 +939,6 @@ class AuctionController extends Controller
             return sendSuccess('Data',$data);
 
         $data['next_for_sale'] = AuctionProduct::where('auction_id',$auction->id)
-            // ->where('id','!=',$data['in_bid']->id)
             ->where('status','!=','completed')
             ->orderBy('sort_order','ASC')
             ->get();
