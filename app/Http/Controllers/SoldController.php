@@ -46,11 +46,16 @@ class SoldController extends Controller
         
         if(isset($request->profile_uuid)){
 
-            $profile = Profile::where('uuid',$request->profile_uuid)->first();
+            $profile = Profile::where('uuid',$request->profile_uuid);
             if(null == $profile){
                 return sendError('profile Does Not Exist',[]);
             }
-            $profile->solds = $profile->getTotalSoldsAttribute();
+            // $profile->solds = $profile->getTotalSoldsAttribute();
+            $profile = $profile->with('products', function($q){
+                $q->whereHas('auction_products')->with('auction_products', function ($query){
+                    $query->whereHas('solds')->with('solds');
+                });
+            })->first();
             return sendSuccess('Data',$profile);
 
             // $data['$auction'] = $profile->totalsolds;

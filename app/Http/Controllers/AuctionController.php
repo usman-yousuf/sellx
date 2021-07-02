@@ -932,15 +932,12 @@ class AuctionController extends Controller
             ->get();
         $data['in_bid'] = AuctionProduct::where('auction_id',$auction->id)
             ->where('status','!=','completed')
+            ->where('lot_for_auction',1)
             ->orderBy('sort_order','ASC')
             ->first();
-            
-        if(!isset($data['in_bid']))
-            return sendSuccess('Data',$data);
-
         $data['next_for_sale'] = AuctionProduct::where('auction_id',$auction->id)
-            ->where('id','!=',$data['in_bid']->id)
             ->where('status','!=','completed')
+            ->where('lot_for_auction',0)
             ->orderBy('sort_order','ASC')
             ->get();
 
@@ -973,5 +970,35 @@ class AuctionController extends Controller
             DB::rollBack();
             return sendError($e->getMessage(), $e->getTrace());
         }
+    }
+
+    public function lotForAuction(Request $request){
+        $validator = Validator::make($request->all(), [
+            'auction_product_uuid' => 'required|exists:auction_products,uuid',
+            'auction_uuid' => 'required|exists:auctions,uuid',
+        ]);
+
+        if($validator->fails()){
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction = Auction::where('uuid', $request->auction_uuid)->first();
+        if(!$auction){
+            return sendError();   
+        };
+        $auction_product = AuctionProduct::where('auction_id', $auction->id)
+            ->update(['lot_for_auction' => 0]);
+
+        $auction_product = AuctionProduct::where('uuid', $request->auction_product_uuid)
+            ->update(['lot_for_auction' => 1]);
+
+        if(!$auction_product)
+            return sendError('Technical Error',[]);
+
+        return sendSuccess('Updated',$auction_product);
+
+
+
     }
 }

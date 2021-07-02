@@ -33,9 +33,12 @@ class BuyerRequestController extends Controller
             $data->where('status', $request->status);
         }
 
-        if(isset($request->user_uuid)){
+        if(isset($request->profile_uuid)){
 
-            $profile = Profile::where('uuid',$request->user_uuid)->first();
+            $profile = Profile::where('uuid',$request->profile_uuid)->first();
+            if(null == $profile){
+                return sendError('User not found',[]);
+            }
             $data->where('profile_id', $profile->id);
         }
 
@@ -46,7 +49,11 @@ class BuyerRequestController extends Controller
             $data->offset($request->offset)->limit($request->limit);
         }
 
-        $data = $data->get();
+        $data = $data->with('profile', function($query){
+            $query->with('user');
+        })->with('auction_product',function($q){
+            $q->without(['viewers','comments','biddings']);
+        })->get();
         $total_bids = $cloned_models->count();
 
         return sendSuccess('$data',$data);

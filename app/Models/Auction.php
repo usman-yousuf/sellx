@@ -22,7 +22,7 @@ class Auction extends Model
         'deleted_at',
     ];
 
-    protected $with = ['setting','medias'];
+    protected $with = ['setting','medias','viewers'];
     protected $appends = [
         'allowed_to_post',
         'allow_to_bid',
