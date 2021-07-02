@@ -51,11 +51,22 @@ class SoldController extends Controller
                 return sendError('profile Does Not Exist',[]);
             }
             // $profile->solds = $profile->getTotalSoldsAttribute();
-            $profile = $profile->with('products', function($q){
-                $q->whereHas('auction_products')->with('auction_products', function ($query){
-                    $query->whereHas('solds')->with('solds');
-                });
-            })->first();
+            // $profile = $profile->whereHas('products', function($query){
+            //     $query->where('is_sold_out',1);
+            // })->with('products', function($q)){
+            //         $q->whereHas('auction_products')
+            //             ->with('auction_products', function ($query){
+            //             $query->whereHas('solds')
+            //                 ->with('solds');
+            //     });
+            // })->first();
+            // dd("twat");
+            $profile = $profile->with(['products' => function ($query){
+                $query->where('is_sell_out',1)->whereHas('auction_products')
+                    ->with('auction_products');
+            }])->get();
+
+
             return sendSuccess('Data',$profile);
 
             // $data['$auction'] = $profile->totalsolds;
