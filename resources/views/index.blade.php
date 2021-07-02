@@ -1,48 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
-      crossorigin="anonymous"
-    />
+@extends('noauthapp')
 
-    <link rel="stylesheet" href="{{asset('assets/css/sellex.css')}}" />
-
-    <title>Index.html</title>
-    <style></style>
-  </head>
-  <body>
-    <!-- Nav Bar Start -->
-    <div class="top_nav">
-      <div class="shadow p-3 mb-5 bg-body rounded for_navbar_bg">
-        <a href="{{route('home')}}">
-          <img
-            src="assets/images/Layer 1.svg"
-            class="img-fluid for_nav_bar_logo"
-          />
-          <span>Sellx</span>
-        </a>
-
-        <div class="pull-right for_aboutus_contact">
-          <p>
-            <a href="{{route('about')}}">About Us</a>
-            <span> <a href="{{route('contact')}}"> Contact Us </a> </span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- Nav Bar End -->
+@section('content')
     <!-- After NavBar Block One Start -->
     <div class="for_overflow">
       <div class="row for_row_slider_responsive">
@@ -75,37 +33,37 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <img 
-                                    src="{{asset('assets/images/Iphone.jpg')}}"
+                                    src="{{asset('assets/images/Iphonee.jpg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    style="object-fit: contain;"
+                                    style="object-fit:contain;" 
                                     />
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="{{asset('assets/images/Iphone.jpg')}}"
+                                    src="{{asset('assets/images/Iphonee.jpg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    style="object-fit: contain;"
+                                    style="object-fit:contain;"
                                     />
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="{{asset('assets/images/Iphone.jpg')}}"
+                                    src="{{asset('assets/images/Iphonee.jpg')}}"
                                     class="d-block w-100"
                                     alt="..."
-                                    style="object-fit: contain;"
+                                    style="object-fit:contain;"
                                     />
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="{{asset('assets/images/Iphone.jpg')}}"
+                                    src="{{asset('assets/images/Iphonee.jpg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    style="object-fit: contain;"
+                                    style="object-fit:contain;"
                                     />
                                 </div>
                     </div>       </div>
@@ -122,7 +80,7 @@
           "
         >
           <div class="for_second_col">
-            <h2>Sellx is a live auction platform in your phone</h2>
+            <h2>Sellex is a live auction platform in your phone</h2>
 
             <p class="for_p_text_the_platform">
               The Platform that connects auction houses and bidders online and
@@ -161,21 +119,21 @@
             "
           >
             <img
-              src="assets/images/Illustration 1.svg"
+              src="{{asset('assets/images/Illustration1.svg')}}"
               class="img-fluid"
               alt=""
             />
           </div>
           <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1">
-            <h4>Sellx is a live auction platform</h4>
+            <h4>Sellex is a live auction platform</h4>
             <p>
-              Sellx is a live auction platform that connects auction houses and
+              Sellex is a live auction platform that connects auction houses and
               bidders online is a more efficient way
             </p>
           </div>
 
           <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res">
-            <img src="assets/images/Illustration 2.svg" class="img-fluid" />
+            <img src="{{asset('assets/images/Illustration2.svg')}}" class="img-fluid" />
           </div>
 
           <div class="col-lg-3 col-md-6 for_sellex_textt order-md-2">
@@ -193,7 +151,7 @@
             class="col-lg-3 col-md-6 order-md-1 order-lg-0 for_common_img_res"
           >
             <img
-              src="assets/images/Illustration 3.svg"
+              src="{{asset('assets/images/Illustration3.svg')}}"
               class="img-fluid"
               alt=""
             />
@@ -207,10 +165,10 @@
           </div>
 
           <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res">
-            <img src="assets/images/Illustration 5.svg" class="img-fluid" />
+            <img src="{{asset('assets/images/Illustration5.svg')}}" class="img-fluid" />
           </div>
 
-          <div class="col-lg-3 col-md-6 for_sellex_textt order-md-2">
+          <div class="col-lg-3 col-md-6 for_sellex_textt md_register_responsive order-md-2">
             <h4>Register an auction house</h4>
             <p>
               Register your auction house to start selling to your customers
@@ -234,15 +192,18 @@
             <form class="for_common_input">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                  <span class="input-group-text img_index_height">
+                    <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
+                    <img src="{{asset('assets/images/Mail1.svg')}}" class="img-fluid" />
+
                   </span>
                 </div>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control for_input_css"
                   placeholder="Your Email ..."
                   name="subscribe"
+                  id="subscribe-d"
                 />
               </div>
             </form>
@@ -261,99 +222,56 @@
     <br />
     <!-- After NavBar Block Three End -->
 
+    <script type="text/javascript">
 
-        <!-- Footer Start -->
-        <div class="for_overflow sm_res_footer">
-            <div class="for_footer_bg">
-              <div class="container for_footer_bottom ">
-                <div class="row for_footer_row_">
-                  <div class="col-lg-6 col-md-6 col-sm-12 footer_first_col_main one">
-                    <p class="fox-text for_terms_and_conditions_p_res">
-                      <a href="#"> Terms and Conditions <br /></a>
-                      <span class="fox-text">
-                        <a href="#">Refunds and Cancellations <br /> </a>
-                      </span>
-                      <span class="for_after_footer fox-text">
-                        <a href="#">Service Pricing <br /> </a>
-                      </span>
-                    </p>
-      
-                    <p class="fox-text for_terms_and_conditions_p_res for_sm_footer_text" >
-                      <a href="#"> Terms and Conditions <br /></a>
-                      <span class="fox-text">
-                        <a href="#">Refunds and Cancellations <br /> </a>
-                      </span class="fox-text">
-                      <span class="">
-                        <a href="#">Service Pricing <br /></a>
-                      </span>
-                    </p>
-                    
-                  </div>
-                  <div class="col-lg-6 col-md-6 footer_first_col_main second">
-                    <p>
-                      <a href="#"> Contact Us</a>
-                   
-                      <span class="pull-right footer_logo"
-                        ><img src="assets/images/Frame 27.svg" class="img-fluid"
-                      /></span>
-                    </p>
-                    <p>
-                      <a href="#"> About Us</a>
-                 
-                    </p>
-                  </div>
-                  <br />
-               
-                </div>
-            
-            </div>
-            <div class="container">
-              <div class="end_footer ">
-                <img src="assets/images/Frame 28.svg" class="img-fluid"/><span class="pull-right fox-text for_end_text">
-                  <br />
-                  Sellx @ 2021 All rights reserved
-                </span>
-              </div>
-          </div>
-          </div>
-          <!-- Footer End -->
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-      crossorigin="anonymous"
-    ></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-  <script type="text/javascript">
-
-    $(".btn-email").click(function(event){
+      $(".btn-email").click(function(event){
         event.preventDefault();
 
         let email = $("input[name=subscribe]").val();
 
         $.ajax({
-          url: `http://localhost/sellx/api/subscribe`,
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '{{route('subscribe')}}',
           type:"POST",
           data:{
             e_mail:email,
-            // _token: _token
           },
           success:function(response){
             if(response) {
-             Swal.fire({
-              icon:'success',
-              text:'You are '+response.message,
-              footer:'Thanks for subscription',
-             })
+              if(response.status == true){
+                Swal.fire({
+                  icon:'success',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                  allowEnterKey: false,
+                  text:'Subscribed Successfully.',
+                  footer:'Thanks for Subscribing.',
+                }).then((result) => {
+                  $('#subscribe-d').val('');
+                });
+              }else{
+                swal.fire({
+                  title: "Error!",
+                  icon: "error",
+                  confirmButtonColor: "#49AAEF",
+                  confirmButtonText: 'Ok!',
+                  footer:'The email feild is required.',
+                });
+              }
             }
           },
-          error: function (xhr, ajaxOptions, thrownError) {
-            swal(xhr.status);
-            swal(thrownError);
-          }
-         });
-    });
+          error: function(xhr) {
+            console.log(xhr);
+          },
+          complete: function() {
+            console.log('Completed');
+          },
+        });
+      });
   </script>
-  </body>
-</html>
+
+@endsection

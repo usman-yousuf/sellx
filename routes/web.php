@@ -38,6 +38,7 @@ Route::get('pages/partner-mob', [App\Http\Controllers\HomeController::class,'par
 Route::get('pages/refund-mob', [App\Http\Controllers\HomeController::class,'refundmobpage'])->name('pages.mob.refund.mob');
 
 Route::post('contact_us', 'App\Http\Controllers\ContactFormController@contact_form')->name('contact-us');
+Route::post('subscribe', 'App\Http\Controllers\SubscribeController@subscribe')->name('subscribe');
 
 
 Auth::routes();

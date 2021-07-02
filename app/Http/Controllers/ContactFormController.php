@@ -24,6 +24,7 @@ class ContactFormController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'type' => 'required|in:bidder,auctioneer,other',
+            'message' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -37,6 +38,7 @@ class ContactFormController extends Controller
             //     'name' => $request->name,
             //     'email' => $request->email,
             //     'type' => $request->type,
+            //     'message' => $request->message,
             // ];
 
             // $contact = ContactForm::create($contact);
@@ -44,7 +46,7 @@ class ContactFormController extends Controller
             Mail::send('email_template.contactform', [
                 'name' => $request->name,
                 'email' => $request->email,
-                'message_body' => 'Contact Info'
+                'message_body' => $request->message
             ], function ($m) use ($request) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
                 $m->to('info@sellx.ae')->subject('Contact Information');

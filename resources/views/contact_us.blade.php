@@ -1,10 +1,11 @@
-
 @extends('noauthapp')
 
 @section('content')
+
 <style type="text/css">
-     .notin {
-        display: none;
+     .activelabel {
+        background-color: white !important;
+        color: #6dbbf2 !important;
     }
 </style>
 
@@ -12,7 +13,7 @@
 <div class="for_overflow">
     <div class="container">
         <div class="row for_about_main_row">
-            <div class="col-lg-3 col-md-4 col-sm-12 for_col_after one order-lg-1 order-md-1 order-2">
+            <div class="col-lg-3 col-md-4 col-sm-12 for_col_afterr right_border order-lg-1 order-md-1 order-2">
                 <a href="#">Terms and Conditions</a>
                 <br>
                 <a href="#">Privacy & Data Policy</a>
@@ -25,12 +26,18 @@
                 <br>
                 <a href="#" class="">Partners Terms</a>
                 <hr class="for_partners_bottom">
+
+
                 <div>
                     
                     <a href="{{route('contact')}}" class="">Contact Us</a>
                     <br>
                     <a href="{{route('about')}}" class="">About Us</a>
+
+
                 </div>
+
+
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
                  <h1>Contact Us</h1>
@@ -49,8 +56,9 @@
 
                             <div class="col-lg-7 col-md-7 for_child_row_col_two">
                                 <p>
-                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                    <span>info@sellx.ae</span>
+                                    <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
+                                    <img src="{{asset('assets/images/Mail.svg')}}" />
+                                    <span>hi@sellex.com</span>
                                 </p>
                             </div>
                         </div>
@@ -62,8 +70,9 @@
 
                           <div class="col-lg-7 col-md-7 for_child_row_col_two">
                               <p>
-                                  <i class="fa fa-life-ring" aria-hidden="true"></i>
-                                  <span>support@sellx.ae</span>
+                                  <!-- <i class="fa fa-life-ring" aria-hidden="true"></i> -->
+                                  <img src="{{asset('assets/images/Support.svg')}}" />
+                                  <span>support@sellex.com</span>
                               </p>
                           </div>
                         </div>
@@ -76,7 +85,8 @@
 
                         <div class="col-lg-7 col-md-7 for_child_row_col_two">
                             <p>
-                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-phone" aria-hidden="true"></i> -->
+                                <img src="{{asset('assets/images/Phone.svg')}}" />
                                 <span>+971 545-5520-39</span>
                             </p>
                         </div>
@@ -90,190 +100,195 @@
 
                         <div class="col-lg-7 col-md-7 for_child_row_col_two for_location_special">
                             <p>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <span>3105 Churchil Tower, Business Bay, Dubai Unitetd arab emirates</span>
+                                <img src="{{asset('assets/images/Location.svg')}}" />
+                                <span>3105 Churchil Tower, <br>
+                                  <span class="for_dubai_text_common">
+                                    Business Bay, Dubai,
+                                  </span> <br>
+                                  <span class="for_dubai_text_common">
+                                  Unitetd arab emirates
+                                  </span>
+
+                                </span>
                             </p>
                         </div>
                       </div>
                       <hr>
                     </div>
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-12   ">
                         <div class="for_first_col_main row_one_col_two_main ">
-                            <form id="basic-form" name="basic-form" method="post" enctype="multipart/form-data">
-                                <h3 class="text-center text-white">Contact Form</h3>
+                          <form id="basic-form" method="post" enctype="multipart/form-data">
+                            <h3>Contact Form</h3>
+                            <div class="sm-res_buttons">
+                              
+                              <div class="for_col_two_bg">
+                                <div class="pt-3 text-center">
 
-                                <div class="for_col_two_bg">
+                                    <div class="btn-group for_button_group pt-3 sub_cards-d" role="group" aria-label="Basic outlined example">
+
+                                      <label class="btn border type shadow bg-white fg_primary-s sub_plans-d bidder_position_css" data-plan="bidder">
+                                          <input type="radio" class="form-check-input valid" value="bidder" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
+                                          <span class="for_bidder_span">
+                                            Bidder
+                                          </span>
+                                      </label>
+                                      <label class="btn type border shadow bg-white fg_primary-s auctioneer_position_css sub_plans-d" data-plan="auctioneer">
+                                          <input type="radio" class="form-check-input valid" value="auctioneer" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
+                                          <span class="auctioneer_span_css">
+                                            Auctioneer
+                                            </span>
+                                      </label>
+                                      <label class="btn type border shadow bg-white fg_primary-s sub_plans-d other_position_css" data-plan="other">
+                                          <input type="radio" class="form-check-input valid" value="other" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
+                                           <span class="other_span_css">
+                                            Other
+                                           </span>
+                                      </label>
+                                  </div>
+
                                     <div class="text-center">
-                                        <div id="show_message" class="alert alert-success notin">
-                                            <strong>Message Sent Successfully!</strong>
+
+                                        <div class="input-group mb-3 for_input_fields">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">
+                                              <img src="{{asset('assets/images/User.svg')}}" class="img-fluid" />
+
+                                              </span>
+                                            </div>
+                                            <input type="text" class="form-control for_input_css" placeholder="Your name" name="name">
                                         </div>
 
-                                        <div class="btn-group for_button_group pt-3 sub_cards-d" role="group" aria-label="Basic outlined example">
 
-                                            <label class="btn border type shadow bg-white fg_primary-s sub_plans-d" data-plan="bidder">
-                                                <input type="radio" class="form-check-input valid" value="bidder" name="type" style="display:none" id="rb_type-d" aria-invalid="false">Bidder
-                                            </label>
-                                            <label class="btn type border shadow bg-white fg_primary-s sub_plans-d" data-plan="auctioneer">
-                                                <input type="radio" class="form-check-input valid" value="auctioneer" name="type" style="display:none" id="rb_type-d" aria-invalid="false">Auctioneer
-                                            </label>
-                                            <label class="btn type border shadow bg-white fg_primary-s sub_plans-d" data-plan="other">
-                                                <input type="radio" class="form-check-input valid" value="other" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
-                                                Other
-                                            </label>
-                                        </div></br>
+                                        <div class="input-group mb-3 for_input_fields">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">
+                                                <img src="{{asset('assets/images/Mail1.svg')}}" class="img-fluid" />
 
-                                        <span style="color:red" class="text-danger" id="userType-error"></span>
-                                        @error('userType')
-                                            <div class="alert alert-danger">
-                                                <strong>{{ $message }}</strong>
+                                              </span>
                                             </div>
-                                        @enderror
+                                            <input type="text" class="form-control for_input_css" placeholder="Your email" name="email">
+                                        </div>
 
-                                        <div class="text-center">
-                                            <div class="input-group for_input_fields">
-                                                <div class="input-group-prepend">
-                                                  <span class="input-group-text">
-                                                  <i class="fa fa-user-o" aria-hidden="true"></i>
+                                        
 
-                                                  </span>
-                                                </div>
-                                                <input type="text" class="form-control" placeholder="Your name" name="name" id="name">
-                                            </div>
-                                                <span style="color:red" class="text-danger" id="name-error"></span>
-                                                @error('name')
-                                                    <div class="alert alert-danger">
-                                                        <strong>{{ $message }}</strong>
-                                                    </div>
-                                                @enderror
+                                        <div class="form-group for_comments_css pt-2">
+                                          <textarea class="form-control comment_css for_input_css" rows="2" id="message" name="message" placeholder="Enter Your Message" ></textarea>
+                                        </div>
 
-
-                                            <div class="input-group for_input_fields">
-                                                <div class="input-group-prepend">
-                                                  <span class="input-group-text">
-                                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
-
-                                                  </span>
-                                                </div>
-                                                <input type="text" class="form-control" placeholder="Your email" name="email" id="email">
-                                                <br>
-                                            </div>
-                                                <div style="color:red" class="text-danger" id="email-error"></div>
-                                                @error('email')
-                                                    <div class="alert alert-danger">
-                                                        <strong>{{ $message }}</strong>
-                                                    </div>
-                                                @enderror
-
-                                            <div class="mt-5 pt-5">
-                                              <button type="button" class="btn btn_send bg_primary-s border px-5" onClick="myFunction()">Send</button>
-                                            </div>
+                                        <div>
+                                          <button type="button" class="btn btn_send mt-3" onClick="myFunction()">Send</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                          </div>
+                          </form>
                         </div>
-                    </div>
-
-                                   
+                    </div>          
                 </div>   
-
-           
-               
-
             </div>
-
         </div>
-        
-
     </div>
 
-</div>
-<!-- After NavBar AboutUs Block One  End -->
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-    
-        // function myFunction() {
-        //     $.ajax({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         url: 'http://localhost/sellx/api/contact_form',
-        //         type: 'POST',
-        //         data: {
-        //             name:$("input[name=name]").val(),
-        //             email:$("input[name=email]").val(),
-        //             type:"bidding",//$("input[name=type]").val()
-        //         },
-        //         success:function(response){
-        //             if(response) {
-        //              Swal.fire({
-        //               icon:'success',
-        //               text:response.message,
-        //              })
-        //          }
-        //           },
-        //           error: function (xhr, ajaxOptions, thrownError) {
-        //             swal(xhr.status);
-        //             swal(thrownError);
-        //           }
-        //     });
-        // }
+  <script type="text/javascript">
 
-    </script>
+      $('.sub_cards-d').on('click', '.sub_plans-d', function(e) {
+          let elm = $(this);
+          let planName = $(this).attr('data-plan');
+          $('.sub_plans-d').removeClass('activelabel');
+          $(elm).addClass('activelabel');
+      });
+  
+      function myFunction() {
+          var registerForm = $("#basic-form");
+          var formData = registerForm.serialize();
 
-    <script type="text/javascript">
+          console.log(formData);
 
-        $('.sub_cards-d').on('click', '.sub_plans-d', function(e) {
-            let elm = $(this);
-            let planName = $(this).attr('data-plan');
-            $('.sub_plans-d').removeClass('activelabel');
-            $(elm).addClass('activelabel');
-        });
-    
-        function myFunction() {
-            var registerForm = $("#basic-form");
-            var formData = registerForm.serialize();
-
-            console.log(formData);
-
-            $('#userType-error').html("");
-            $('#name-error').html("");
-            $('#email-error').html("");
-            $('#message-error').html("");
+          // $('#userType-error').html("");
+          // $('#name-error').html("");
+          // $('#email-error').html("");
+          // $('#message-error').html("");
 
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '{{route('contact-us')}}',
-                type: 'POST',
-                data: formData,
+          $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: '{{route('contact-us')}}',
+              type: 'POST',
+              data: formData,
 
-                success: function(data) {
-                    if (data.errors) {
-                        if (data.errors.name){
-                            $('#name-error').html(data.errors.name[0]);
-                        }
-                        if (data.errors.email){
-                            $('#email-error').html(data.errors.email[0]);
-                        }
-                        if (data.errors.type) {
-                            $('#userType-error').html(data.errors.type[0]);
-                        }
-                    }
+              success: function(data) {
+                  if (data.errors) {
+                      if (data.errors.type) {
+                        swal.fire({
+                          title: "Error!",
+                          icon: "error",
+                          confirmButtonColor: "#49AAEF",
+                          confirmButtonText: 'Ok!',
+                          footer:data.errors.type,
+                        });
+                        // $('#userType-error').html(data.errors.type[0]);
+                      }
+                      if (data.errors.name){
+                        swal.fire({
+                          title: "Error!",
+                          icon: "error",
+                          confirmButtonColor: "#49AAEF",
+                          confirmButtonText: 'Ok!',
+                          footer:data.errors.name,
+                        });
+                        // $('#name-error').html(data.errors.name[0]);
+                      }
+                      if (data.errors.email){
+                        swal.fire({
+                          title: "Error!",
+                          icon: "error",
+                          confirmButtonColor: "#49AAEF",
+                          confirmButtonText: 'Ok!',
+                          footer:data.errors.email,
+                        });
+                        // $('#email-error').html(data.errors.email[0]);
+                      }
+                      if (data.errors.message) {
+                        swal.fire({
+                          title: "Error!",
+                          icon: "error",
+                          confirmButtonColor: "#49AAEF",
+                          confirmButtonText: 'Ok!',
+                          footer:data.errors.message,
+                        });
+                        // $('#userType-error').html(data.errors.message[0]);
+                      }
+                  }
 
-                    if (data.success) {
-                        $('#show_message').removeClass('notin');
-                        setInterval(function() {
-                            $('#show_message').addClass('notin');
-                        }, 3000);
+                  if (data.success) {
+                      // $('#show_message').removeClass('notin');
+                      // setInterval(function() {
+                      //     $('#show_message').addClass('notin');
+                      // }, 3000);
 
-                        document.getElementById("basic-form").reset();
-                    }
-                },
-            });
-        }
+                      Swal.fire({
+                        icon:'success',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        text:'Query Successfully Sent.',
+                        footer:'Thanks for Contacting Us.',
+                      }).then((result) => {
+                        // $('#basic-form').reset();
+                        document.getElementById("basic-form").reset()
+                      });
 
-    </script>
-  @endsection
+                      // document.getElementById("basic-form").reset();
+                  }
+              },
+          });
+      }
+
+  </script>
+
+@endsection

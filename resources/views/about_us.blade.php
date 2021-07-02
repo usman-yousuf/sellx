@@ -1,35 +1,38 @@
 @extends('noauthapp')
 
 @section('content')
-
-
-
-<!-- After NavBar AboutUs Block One  Start -->
+    <!-- After NavBar AboutUs Block One  Start -->
 <div class="for_overflow">
     <div class="container">
         <div class="row for_about_main_row">
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_after one order-lg-1 order-md-1 order-2">
-                <a href="#">Terms and Conditions</a>
+                <a href="{{route('about')}}">Terms and Conditions</a>
                 <br>
-                <a href="#">Privacy & Data Policy</a>
+                <a href="{{route('about')}}">Privacy & Data Policy</a>
                 <br>
-                <a href="#">Refund & Cancellations</a>
+                <a href="{{route('about')}}">Refund & Cancellations</a>
                 <br>
-                <a href="#">Service Delivery Policy</a>
+                <a href="{{route('about')}}">Service Delivery Policy</a>
                 <br>
-                <a href="#">Service Pricing</a>
+                <a href="{{route('about')}}">Service Pricing</a>
                 <br>
-                <a href="#" class="">Partners Terms</a>
+                <a href="{{route('about')}}" class="">Partners Terms</a>
                 <hr class="for_partners_bottom">
+
+
                 <div>
                     
                     <a href="{{route('contact')}}" class="">Contact Us</a>
                     <br>
                     <a href="{{route('about')}}" class="">About Us</a>
+
+
                 </div>
+
+
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
-                <h1>User Agreement: General Terms and Conditions of the Sellx Service</h1>
+                <h1>User Agreement: General Terms and Conditions of the Sellex Service</h1>
 
                 <div class="for_basic_deffination_text">
                     <h4>Basic Deffination</h4>
@@ -68,7 +71,4 @@
 </div>
 <!-- After NavBar AboutUs Block One  End -->
 
-
-
-
-  @endsection
+@endsection

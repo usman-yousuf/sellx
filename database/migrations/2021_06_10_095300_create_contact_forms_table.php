@@ -17,10 +17,11 @@ class CreateContactFormsTable extends Migration
             $table->increments('id')->unsigned(false);
             $table->uuid('uuid')->nullable();
 
-            $table->string('name')->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('name');
+            $table->string('email');
+            $table->text('message');
 
-            $table->enum('type', ['bidder','auctioneer','other'])->nullable();
+            $table->enum('type', ['bidder','auctioneer','other'])->default('other');
 
             $table->timestamps();
         });

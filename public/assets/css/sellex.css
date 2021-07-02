@@ -6,9 +6,15 @@
   background-color: whitesmoke !important;
 }
 .for_navbar_bg span {
-  font-size: 24px;
+  font-size: 26px;
   color: #49aaef;
-  margin-left: 10px;
+  margin-left: 5px;
+  font-weight: 400;
+}
+.for_nav_bar_logo {
+  width: 35px;
+  margin-left: 35px;
+  margin-top: -10px;
 }
 
 .for_nav_bar_logo {
@@ -44,6 +50,7 @@
 .for_secoond_col_bg {
   background-color: #eef1f2;
   height: 615px;
+  z-index: -1;
   /* margin-left: 632px; */
 }
 .for_slider_res {
@@ -68,11 +75,14 @@
   position: absolute;
   margin-left: -140px;
 }
-
+.img_index_height {
+  height: 38px !important;
+}
 .for_btn_download button {
   width: 150px;
   height: 56px;
-  border-radius: 4px;
+  border-radius: 14px;
+  border: 2px solid #49aaef;
 }
 /* .for_btn_download button:hover {
     background-color: #49aaef !important;
@@ -147,19 +157,22 @@ a {
   margin-top: 43px;
 }
 .for_sellex_text p {
-  font-size: 20px;
-  font-family: Nunito Sans;
+  font-size: 18px;
+  /* font-family: Nunito Sans; */
   margin-top: 20px;
+  color: #818b8f;
 }
 
-.for_sellex_textt h4 {
+.for_sellex_text h4 {
   margin-top: 43px;
+  font-size: 22px;
 }
 .for_sellex_textt p {
-  font-size: 20px;
-  font-family: Nunito Sans;
+  font-size: 18px;
   margin-top: 20px;
+  color: #818b8f;
 }
+
 .for_blocktw_childone_main {
   margin-top: 70px;
 }
@@ -172,14 +185,27 @@ a {
   height: 38px;
   background-color: #49aaef;
   color: white;
+  height: 70px;
 }
 ::-webkit-input-placeholder {
   /* Edge */
   color: white !important;
   margin-left: 20px;
 }
+.comment_css::-webkit-input-placeholder {
+  /* color: red !important; */
+  /* padding-left: 50px; */
+  padding-top: 10px;
+}
+.comment_css {
+  color: white !important;
+}
+.btn_send {
+  height: 70px;
+}
 input {
   background-color: #49aaef !important;
+  color: white !important;
 }
 .for_common_input {
   margin-top: 30px;
@@ -187,7 +213,10 @@ input {
 .for_common_input button {
   width: 250px;
   color: #49aaef;
-  height: 41px;
+  height: 38px;
+}
+.for_col_afterr a {
+  color: #49aaef;
 }
 .for_block_three_bg h3 {
   color: white;
@@ -316,15 +345,17 @@ input {
 .for_about_main_row {
   margin-top: 50px;
 }
+.for_col_after a {
+  color: #49aaef;
+}
 /* AboutUS Css End */
 /* Contact Us Css Start */
 .for_row_main {
   margin-top: 30px;
 }
 .for_first_col_main h3 {
-  font-family: Nunito Sans;
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 600;
 }
 .for_child_row_col_one p {
   color: #818b8f;
@@ -340,7 +371,8 @@ input {
 }
 .for_col_two_bg {
   background: #49aaef;
-  height: 390px;
+  /* height: 390px; */
+  height: auto;
   border-radius: 10px;
   margin-top: 14px;
 }
@@ -373,14 +405,20 @@ input {
 .for_input_fields {
   width: 80%;
   margin-left: 38px;
-  margin-top: 10px;
+  margin-top: 30px;
+  height: 70px !important;
 }
+.for_input_fields input {
+  height: 70px;
+}
+
 .btn_send {
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   color: #49aaef;
   width: 80%;
   margin-top: 15px;
+  margin-bottom: 30px;
 }
 /* .for_border_bottom {
   border-bottom: 1px solid red;
@@ -397,6 +435,73 @@ input {
 #demo {
   background-color: #49aaef;
 }
+.for_child_row_col_two p {
+  margin-top: 4px;
+}
+.for_child_row_col_two img {
+  margin-top: -4px;
+}
+.for_child_row_col_two span {
+  /* font-family: "Nunito Sans"; */
+  font-weight: 600;
+}
+.for_dubai_text_common {
+  margin-left: 28px;
+}
+.for_btn_download button:hover {
+  background-color: white;
+  border: 2px solid #49aaef;
+}
+.bidder_position_css {
+  width: 86px;
+}
+.for_bidder_span {
+  margin-top: -5px;
+  position: absolute;
+  margin-left: -22px;
+}
+.for_button_group {
+  width: 296px !important;
+  margin-left: -1px;
+  height: 54px;
+}
+.auctioneer_position_css {
+  width: 88px;
+  background-color: #6dbbf2 !important;
+  border: #6dbbf2;
+}
+.bg-white {
+  background-color: #6dbbf2 !important;
+  border: 1px solid #6dbbf2 !important;
+  color: white;
+}
+.auctioneer_span_css {
+  margin-top: -6px;
+  position: absolute;
+  margin-left: -47px;
+}
+.other_position_css {
+  width: 50px;
+}
+.other_span_css {
+  position: absolute;
+  margin-left: -21px;
+  margin-top: -5px;
+}
+.input-group-text {
+  background: #6dbbf2 !important;
+  border: 1px solid #6dbbf2;
+}
+.for_input_css {
+  background: #6dbbf2 !important;
+  border: 1px solid #6dbbf2;
+}
+.for_button_group label:hover {
+  background-color: white !important;
+}
+.for_border_bottom {
+  margin-top: 30px;
+}
 /* Contact Us Css End */
 .for_row_slider_responsive {
   height: 695px;
@@ -406,7 +511,7 @@ input {
   .top_nav {
     margin-left: -41px;
     overflow: hidden;
-    width: 463px !important;
+    width: 415px !important;
   }
   .for_aboutus_contact {
     margin-right: -24px;
@@ -439,7 +544,8 @@ input {
   .for_btn_download button {
     margin-left: 108px !important;
     margin-top: 20px;
-    border-radius: 5px;
+    border-radius: 14px;
+    border: 2px solid #49aaef;
   }
   .for_first_img_res {
     margin-top: 350px;
@@ -469,12 +575,12 @@ input {
   }
   .for_sellex_textt p {
     font-size: 21px;
-    font-family: Nunito Sans;
+    /* font-family: Nunito Sans; */
     margin-top: 20px;
   }
   .for_sellex_text p {
     font-size: 21px;
-    font-family: Nunito Sans;
+    /* font-family: Nunito Sans; */
     margin-top: 20px;
   }
   .for_common_input button {
@@ -579,7 +685,7 @@ input {
   }
   .for_col_two_bg {
     background: #49aaef;
-    height: 390px;
+    height: auto;
     border-radius: 0px;
     margin-top: 14px;
     width: 375px;
@@ -592,7 +698,8 @@ input {
     margin-left: 20px;
   } */
   .row_one_col_two_main h3 {
-    font-family: Nunito Sans;
+    /* font-family: Nunito Sans;
+     */
     font-size: 22px;
     font-weight: bold;
     margin-left: 20px;
@@ -702,7 +809,8 @@ input {
   .for_btn_download button {
     margin-left: 102px;
     margin-top: 20px;
-    border-radius: 5px;
+    border-radius: 14px;
+    border: 2px solid #49aaef;
   }
   .for_btn_download p {
     margin-top: -15px;
@@ -814,14 +922,14 @@ input {
 
   .for_col_two_bg {
     background: #49aaef;
-    height: 390px;
+    height: auto;
     border-radius: 0px;
     margin-top: 14px;
     margin-left: -64px;
     width: 122%;
   }
   .row_one_col_two_main h3 {
-    font-family: Nunito Sans;
+    /* font-family: Nunito Sans; */
     font-size: 22px;
     font-weight: bold;
     margin-left: -33px;
@@ -831,7 +939,8 @@ input {
     margin-left: -10px;
   }
   .for_button_group {
-    margin-left: -16px;
+    margin-left: -13px;
+    width: 344px !important;
   }
   .onee {
     width: 122px !important;
@@ -1004,7 +1113,8 @@ input {
     font-size: 12px;
   }
   .for_button_group {
-    margin-left: -20px;
+    margin-left: -16px;
+    width: 358px !important;
   }
   .onee {
     width: 130px !important;
@@ -1020,10 +1130,21 @@ input {
   }
   .for_col_two_bg {
     background: #49aaef;
-    height: 390px;
+    height: auto;
     border-radius: 10px;
     margin-top: 14px;
     margin-bottom: 30px;
+  }
+  .for_aboutus_contact p {
+    font-size: 20px;
+    color: #49aaef;
+    margin-right: -7px;
+  }
+  .for_child_row_col_two p {
+    margin-top: 2px;
+  }
+  .for_child_row_col_two img {
+    margin-top: 2px;
   }
   /* Contact US Css End */
   .for_block_two_main {
@@ -1060,7 +1181,8 @@ input {
   .for_btn_download button {
     width: 150px;
     height: 56px;
-    border-radius: 4px;
+    border-radius: 14px;
+    border: 2px solid #49aaef;
     margin-top: 20px;
   }
   .carousel-indicators {
@@ -1081,6 +1203,20 @@ input {
     margin-left: 10px !important;
     width: 55px !important;
   }
+  .for_sellex_textt {
+    margin-top: 44px;
+  }
+  .for_sellex_text h4 {
+    font-size: 25px;
+  }
+  .md_register_responsive h4 {
+    font-size: 29px !important;
+    margin-top: -9px !important;
+  }
+  .for_partners_bottom {
+    width: 165px;
+    margin-left: 0px;
+  }
 }
 @media (min-width: 1024px) and (max-width: 1200px) {
   .for_sellex_text h4 {
@@ -1088,7 +1224,8 @@ input {
   }
 
   .for_sellex_textt h4 {
-    font-size: 20px;
+    font-size: 19px;
+    margin-top: 33px;
   }
   .for_sellex_text {
     margin-top: -20px;
@@ -1099,12 +1236,12 @@ input {
   }
   .for_sellex_text p {
     font-size: 17px;
-    font-family: Nunito Sans;
+    /* font-family: Nunito Sans; */
     margin-top: 20px;
   }
   .for_sellex_textt p {
     font-size: 17px;
-    font-family: Nunito Sans;
+    /* font-family: Nunito Sans; */
     margin-top: 20px;
   }
   .for_common_input button {
@@ -1139,7 +1276,7 @@ input {
   }
   .for_col_two_bg {
     background: #49aaef;
-    height: 390px;
+    height: auto;
     border-radius: 10px;
     margin-top: 14px;
   }
@@ -1150,6 +1287,16 @@ input {
     height: 434px;
     position: absolute;
     margin-top: -359px;
+  }
+  .for_button_group {
+    width: 239px !important;
+    margin-left: -1px;
+    height: 54px;
+  }
+  .auctioneer_span_css {
+    margin-top: -6px;
+    position: absolute;
+    margin-left: -41px;
   }
   /* ContactUs Css End */
 
@@ -1174,7 +1321,8 @@ input {
   .for_btn_download button {
     width: 150px;
     height: 56px;
-    border-radius: 4px;
+    border-radius: 14px;
+    border: 2px solid #49aaef;
     margin-top: 30px;
   }
   .for_secoond_col_bg {
@@ -1184,6 +1332,19 @@ input {
   }
   .for_block_two_main {
     padding-top: 146px;
+  }
+  .for_comments_css textarea {
+    width: 80%;
+    margin-left: 32px;
+    background-color: #49aaef;
+    color: white;
+  }
+  .btn_send {
+    margin-left: 7px;
+  }
+  .for_partners_bottom {
+    width: 165px;
+    margin-left: 0px;
   }
 }
 
@@ -1215,7 +1376,7 @@ input {
   } */
   /* Contact us Start */
   .for_button_group {
-    width: 303px !important;
+    width: 296px !important;
     margin-left: -1px;
   }
   .for_input_fields {
@@ -1244,15 +1405,75 @@ input {
     margin-left: 122px;
   }
   .for_btn_download button {
-    width: 150px;
-    height: 56px;
-    border-radius: 4px;
+    width: 210px;
+    height: 71px;
+    border-radius: 14px;
+    border: 2px solid #49aaef;
     margin-top: 30px;
   }
   .for_secoond_col_bg {
     background-color: #eef1f2;
     height: 615px;
     /* margin-left: 597px; */
+  }
+  .for_block_two_main {
+    padding-top: 162px;
+  }
+
+  .for_btn_download i {
+    /* font-size: 32px; */
+    float: left;
+    margin-left: -24px;
+    margin-top: -12px;
+    color: #49aaef;
+    font-size: 35.41px;
+  }
+
+  .for_btn_download p {
+    margin-top: -21px;
+    font-size: 16px;
+    margin-left: 18px;
+    /* color: white; */
+    color: #49aaef;
+    font-weight: 600;
+    line-height: 29px;
+    /* font-family: Pass through; */
+  }
+  .for_btn_download span {
+    font-weight: bold;
+    font-size: 27px;
+    margin-left: -64px;
+    margin-top: -5px;
+    color: #49aaef;
+    font-family: "Nunito Sans";
+  }
+  .for_second_col h2 {
+    font-size: 48px;
+  }
+  .for_sellex_text h4 {
+    margin-top: 43px;
+    font-size: 22px;
+  }
+
+  .for_sellex_textt h4 {
+    margin-top: 43px;
+    font-size: 22px;
+  }
+  .for_sellex_text p {
+    font-size: 18px;
+
+    margin-top: 20px;
+    color: #818b8f;
+  }
+  .for_sellex_textt p {
+    font-size: 18px;
+
+    margin-top: 20px;
+    color: #818b8f;
+  }
+  .for_partners_bottom {
+    width: 165px;
+    margin-left: 0px;
   }
 }
 
@@ -1307,14 +1528,16 @@ input {
     margin-left: 143px;
   }
   .for_btn_download button {
-    width: 150px;
-    height: 56px;
-    border-radius: 4px;
+    width: 210px;
+    height: 71px;
+
     margin-top: 30px;
+    border-radius: 14px;
+    border: 2px solid #49aaef;
   }
   .for_button_group {
     width: 285px;
-    margin-left: 10px;
+    margin-left: 0px;
   }
   .for_secoond_col_bg {
     background-color: #eef1f2;
@@ -1328,6 +1551,15 @@ input {
   .for_block_two_main {
     padding-top: 160px;
   }
+  .for_nav_bar_logo {
+    width: 40px;
+    margin-left: 151px;
+    margin-top: -10px;
+  }
+  .for_aboutus_contact {
+    margin-right: 137px;
+    margin-top: 3px;
+  }
 }
 @media (min-width: 1030px) and (max-width: 1200px) {
   /* .for_secoond_col_bg {
@@ -1336,6 +1568,47 @@ input {
     margin-left: 595px;
   } */
 }
+@media screen and (min-width: 1210px) and (max-width: 1280px) {
+  .for_nav_bar_logo {
+    width: 38px;
+    margin-left: 35px;
+    margin-top: -10px;
+  }
+  .for_col_afterr a {
+    margin-left: -31px;
+  }
+  .for_partners_bottom {
+    width: 178px;
+    margin-left: -29px;
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1339px) {
+  .for_nav_bar_logo {
+    width: 35px;
+    margin-left: 35px;
+    margin-top: -10px;
+  }
+  .for_col_afterr a {
+    margin-left: -31px;
+  }
+  .one a {
+    margin-left: -25px;
+  }
+  .for_partners_bottom {
+    width: 192px;
+    margin-left: -25px;
+  }
+}
+@media screen and (min-width: 1340px) and (max-width: 1439px) {
+  .for_col_afterr a {
+    margin-left: -82px;
+  }
+  .for_partners_bottom {
+    width: 242px;
+    margin-left: -80px;
+  }
+}
+
 @media (min-width: 2559px) {
   .for_partners_bottom {
     width: 165px;
@@ -1346,22 +1619,11 @@ input {
     height: 615px;
     /* margin-left: 1272px; */
   }
-}
-
-.fg_primary-s{
-   
-  color: #49aaef;
-}
-.type:hover{
-  background-color: #49aaef !important;
-  color: white;
-}
-.bg_primary-s:hover{
-  background-color: #49aaef !important;
-  color: white;
-
-}
-.activelabel{
-  background-color: #49aaef !important;
-  color: white;
+  .carousel-item img {
+    width: 69% !important;
+    height: 600px;
+    margin-top: 100px;
+    margin-left: 115px;
+    object-fit: contain;
+  }
 }
