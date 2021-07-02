@@ -29,6 +29,7 @@ class CreateAuctionProductsTable extends Migration
             $table->integer('last_extended_time')->default(false)->nullable()->comment('Time extended in minutes');
             $table->dateTime('closure_time')->nullable()->comment('Closing time when the lot is done being in Auction');
 
+            $table->boolean('lot_for_auction')->default(false);
             $table->boolean('is_fixed_price')->default(false);
             $table->double('fixed_price')->default(0.0);
 
