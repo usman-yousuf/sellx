@@ -962,8 +962,8 @@ class AuctionController extends Controller
                 $data[$key] = $auction_product;
             }
 
-            return sendSuccess('Items Updated',$data);
             DB::commit();
+            return sendSuccess('Items Updated',$data);
         }
         catch(\Exception $e){
 
