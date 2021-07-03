@@ -64,7 +64,7 @@ class SoldController extends Controller
             $profile = $profile->with(['products' => function ($query){
                 $query->where('is_sell_out',1)->whereHas('auction_products')
                     ->with('auction_products');
-            }])->get();
+            }])->first();
 
 
             return sendSuccess('Data',$profile);
