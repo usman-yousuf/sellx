@@ -21,7 +21,7 @@ class Profile extends Model
     ];
 
     use SoftDeletes;
-
+    protected $with = ['defaultAddress'];
     protected $appends = [
         'is_followed',
         'followers_count',

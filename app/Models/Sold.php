@@ -11,7 +11,7 @@ class Sold extends Model
 
     protected $guarded = [];
 
-    protected $with = ['product'];
+    protected $with = ['profile','product'];
 
     public function bidding()
     {
@@ -21,5 +21,10 @@ class Sold extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 }
