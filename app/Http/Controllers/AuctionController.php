@@ -788,7 +788,11 @@ class AuctionController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $auction = Auction::where('is_live',1)->where('status','in-progress')->where('online_url','!=',NULL)->with('medias')->get();
+        $auction = Auction::orderBy('created_at', 'DESC')
+            ->where('is_live',1)
+            ->where('status','in-progress')
+            ->where('online_url','!=',NULL)
+            ->with('medias')->get();
         if($auction)
             return sendSuccess("Auction Live",$auction);
 
