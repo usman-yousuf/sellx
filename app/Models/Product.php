@@ -47,6 +47,7 @@ class Product extends Model
         'is_added_in_watchlist',
         'is_won_by_me',
         'my_product_status',
+        'auction_house_name',
     ];
 
     use SoftDeletes;
@@ -122,6 +123,19 @@ class Product extends Model
 
         $request = app('request');
         return ProductWatchlist::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first()?1:0;
+    }
+    public function getAuctionHouseNameAttribute(){
+
+
+        $auction_house_name = AuctionProduct::where('product_id',$this->id)->first();
+        if(NULL != $auction_house_name){
+            $auction_house_name = auction::where('id',$auction_house_name->auction_id)->first();
+            if(NULL != $auction_house_name){
+                $auction_house_name = $auction_house_name->title;
+                return $auction_house_name;
+            }
+        }
+        return NULL;
     }
 
     public function getIsWonByMeAttribute(){
