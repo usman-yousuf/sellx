@@ -149,8 +149,7 @@ class AuctionController extends Controller
                 foreach ($model as $key => $value) {
                     if(isset($value->profile->products)){
                         foreach($value->profile->products as $a){
-                            $product[] = $a;      
-                            // $count++;
+                            $product[] = $a;  
                         }
                     }
                 }
@@ -159,7 +158,6 @@ class AuctionController extends Controller
                     return sendError('No data Found',[]);
 
                 $data['Products'] = $product;
-                dd($model->count());
 
                 return sendSuccess('data',$data);
             }
