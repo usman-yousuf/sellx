@@ -132,7 +132,6 @@ class AuctionController extends Controller
                 $auctioneer = Profile::where('uuid', $request->profile_uuid)->first();
                 if(!$auctioneer)
                     return sendError('Invalid User Provided', []);
-                
                 $model = Followers::where('following_id', $auctioneer->id)->with('profile', function($query){
                     $query->whereHas('products')->with('products', function($q){
                         $q->with('profile');
@@ -145,6 +144,7 @@ class AuctionController extends Controller
                 $model = $model->get();
                 if(!$model)
                     return sendError('No data found',[]);
+
 
                 foreach ($model as $key => $value) {
                     if(isset($value->profile->products)){
@@ -159,6 +159,7 @@ class AuctionController extends Controller
                     return sendError('No data Found',[]);
 
                 $data['Products'] = $product;
+                dd($model->count());
 
                 return sendSuccess('data',$data);
             }
@@ -792,7 +793,12 @@ class AuctionController extends Controller
             ->where('is_live',1)
             ->where('status','in-progress')
             ->where('online_url','!=',NULL)
-            ->with('medias')->get();
+            ->with('medias');
+
+        if(isset($request->offset) && isset($request->limit) ){
+            $auction->offset($request->offset)->limit($request->limit);
+        }
+        $auction = $auction->get(); 
         if($auction)
             return sendSuccess("Auction Live",$auction);
 
