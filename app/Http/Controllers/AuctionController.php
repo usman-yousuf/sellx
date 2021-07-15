@@ -137,8 +137,12 @@ class AuctionController extends Controller
                     $query->whereHas('products')->with('products', function($q){
                         $q->with('profile');
                     });
-                })->orderBy('created_at', 'DESC')->get();
-                
+                })->orderBy('created_at', 'DESC');
+
+                if(isset($request->offset) && isset($request->limit) ){
+                    $model->offset($request->offset)->limit($request->limit);
+                }
+                $model = $model->get();
                 if(!$model)
                     return sendError('No data found',[]);
 
@@ -167,7 +171,12 @@ class AuctionController extends Controller
                 
                 $model = Followers::where('following_id', $auctioneer->id)->whereHas('following')->with('following',function($query){
                     $query->whereHas('auction')->with('auction');
-                })->get();
+                });
+
+                if(isset($request->offset) && isset($request->limit) ){
+                    $model->offset($request->offset)->limit($request->limit);
+                }
+                $model = $model->get();
 
                 if(!$model)
                     return sendError('No data found',[]);
@@ -997,8 +1006,5 @@ class AuctionController extends Controller
             return sendError('Technical Error',[]);
 
         return sendSuccess('Updated',$auction_product);
-
-
-
     }
 }
