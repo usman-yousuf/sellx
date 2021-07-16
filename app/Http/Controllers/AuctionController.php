@@ -136,28 +136,30 @@ class AuctionController extends Controller
                     $query->whereHas('products')->with('products', function($q){
                         $q->with('profile');
                     });
-                })->orderBy('created_at', 'DESC');
+                });
 
-                if(isset($request->offset) && isset($request->limit) ){
-                    $model->offset($request->offset)->limit($request->limit);
-                }
-                $model = $model->get();
-                if(!$model)
-                    return sendError('No data found',[]);
-
-
-                foreach ($model as $key => $value) {
-                    if(isset($value->profile->products)){
-                        foreach($value->profile->products as $a){
-                            $product[] = $a;  
-                        }
+                $model = $model->get()->pluck('profile.products')->sortByDesc('id');
+                
+                // return sendSuccess('data',$model);
+                
+                // New array to make it one
+                $new_model;
+                $i=0;
+                foreach ($model as $model_value){
+                    if($model_value != NULL){
+                        foreach($model_value as $value)
+                            $new_model[] = $value; 
                     }
+
+                    $i++;                   
                 }
+                // return sendSuccess('data',$new_model);
 
-                if(!isset($product))
-                    return sendError('No data Found',[]);
+                $collection = collect($new_model);
+                $sorted = $collection->sortByDesc('created_at')->toArray();
+                // dd(getType($sorted));
 
-                $data['Products'] = $product;
+                $data['Products'] = array_values($sorted);
 
                 return sendSuccess('data',$data);
             }
