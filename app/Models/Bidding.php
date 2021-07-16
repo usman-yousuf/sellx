@@ -87,7 +87,11 @@ class Bidding extends Model
 
     public function getMediaPathAttribute(){ 
 
-        return UploadMedia::where('type','product')->where('ref_id',$this->id)->where('path','<>',NULL)->latest()->first()??NULL;
+        $media_path =  UploadMedia::where('type','product')->where('ref_id',$this->id)->where('path','<>',NULL)->latest()->first();
+        if(NULL !== $media_path)
+            return $media_path;
+
+        return NULL;
     }
 
 

@@ -147,6 +147,10 @@ class BiddingController extends Controller
             ->without(['user','sold']);
             
         $won = clone $bids;
+        if(isset($request->offset) && isset($request->limit)){
+            $won->offset($request->offset)->limit($request->limit);
+            $bids->offset($request->offset)->limit($request->limit);
+        }
         $won = $won->where('status','<>',NULL)->get();
         $bids = $bids->get();
 
