@@ -144,6 +144,7 @@ class BiddingController extends Controller
 
         $bids  = Bidding::orderBy('bid_price', 'DESC')
             ->where('profile_id', $profile->id)
+            ->groupby('auction_product_id')
             ->without(['user','sold']);
             
         $won = clone $bids;
