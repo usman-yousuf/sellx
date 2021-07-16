@@ -140,22 +140,22 @@ class AuctionController extends Controller
 
                 $model = $model->get()->pluck('profile.products')->sortByDesc('id');
                 
-                // $new_model;
-                // $i=0;
-                // foreach ($model as $model_value){
-                //     if($model_value != NULL){
-                //         foreach($model_value as $value)
-                //             $new_model[] = $value; 
-                //     }
+                $new_model;
+                $i=0;
+                foreach ($model as $model_value){
+                    if($model_value != NULL){
+                        foreach($model_value as $value)
+                            $new_model[] = $value; 
+                    }
 
-                //     $i++;                   
-                // }
+                    $i++;                   
+                }
 
-                // $collection = collect($new_model);
-                // $sorted = $collection->sortByDesc('created_at')->toArray();
+                $collection = collect($new_model);
+                $sorted = $collection->sortByDesc('created_at')->toArray();
 
-                // $data['Products'] = array_values($sorted);
-                $data['Products'] = $model;
+                $data['Products'] = array_values($sorted);
+                
                 return sendSuccess('data',$data);
             }
 
