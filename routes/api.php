@@ -146,6 +146,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('get_bidding', [BiddingController::class, 'get_bidding']);
     Route::post('bidding', [BiddingController::class, 'bidding']);
     Route::post('user_bids', [BiddingController::class, 'user_bids']);
+    Route::post('auction_user_bids', [BiddingController::class, 'auction_user_bids']);
 
     //complain
     Route::post('get_complain', [BuyerRequestController::class, 'get_complain']);

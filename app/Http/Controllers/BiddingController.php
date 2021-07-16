@@ -122,6 +122,44 @@ class BiddingController extends Controller
         return sendSuccess("Data Found", $data);
     }
 
+    public function auction_user_bids(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'required|exists:profiles,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid', $request->profile_uuid)->first();
+
+        if(null == $profile){
+
+            return sendError('User Not Found', []);
+        }
+
+        $bids  = Bidding::orderBy('bid_price', 'DESC')
+            ->where('profile_id', $profile->id)
+            ->groupby('auction_product_id')
+            ->whereHas('auction_product.solds');
+            
+
+        $won = clone $bids;
+        $won = $won->where('status', 'bid_won')->get();
+        $bids = $bids->get();
+
+        $data = [
+            "all_bids" => $bids,
+            "won_bids" => $won,
+        ];
+
+        return sendSuccess("Data Found", $data);
+    }
+
     /**
      * Update/Create the specified resource in storage.
      *
