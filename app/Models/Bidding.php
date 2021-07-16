@@ -21,6 +21,9 @@ class Bidding extends Model
 
     protected $appends = [
         'sold_price',
+        'auction_house_name',
+        'product_name',
+        'media_path',
     ];
     
     public function auction_product()
@@ -53,4 +56,39 @@ class Bidding extends Model
 
         return 0;
     }
+
+    public function getAuctionHouseNameAttribute(){
+
+        // return $this->auction->auctioneer->auction_house_name;
+
+        $auction_house_name = Auction::where('id',$this->auction_id)->first();
+        if(NULL != $auction_house_name){
+            $auction_house_name = Profile::where('id',$auction_house_name->auctioneer_id)->first();
+            if(NULL != $auction_house_name){
+                $auction_house_name = $auction_house_name->auction_house_name; 
+                return $auction_house_name;
+            }
+        }
+        return NULL;
+    }
+
+    public function getProductNameAttribute(){
+
+        $product_name = AuctionProduct::where('id',$this->auction_product_id)->first();
+            if(NULL != $product_name){
+                $product_name = Product::where('id',$product_name->product_id)->first();
+                if(NULL != $product_name){
+                    $product_name = $product_name->title; 
+                    return $product_name;
+                }
+            }
+        return NULL;
+    }
+
+    public function getMediaPathAttribute(){ 
+
+        return UploadMedia::where('type','product')->where('ref_id',$this->id)->where('path','<>',NULL)->latest()->first()??NULL;
+    }
+
+
 }

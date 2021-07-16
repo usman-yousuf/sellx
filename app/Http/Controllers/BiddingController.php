@@ -111,7 +111,7 @@ class BiddingController extends Controller
             
 
         $won = clone $bids;
-        $won = $won->where('status', 'bid_won')->get();
+        $won = $won->where('status','<>',NULL)->get();
         $bids = $bids->get();
 
         $data = [
@@ -144,12 +144,10 @@ class BiddingController extends Controller
 
         $bids  = Bidding::orderBy('bid_price', 'DESC')
             ->where('profile_id', $profile->id)
-            ->groupby('auction_product_id')
-            ->whereHas('auction_product.solds');
+            ->without(['user','sold']);
             
-
         $won = clone $bids;
-        $won = $won->where('status', 'bid_won')->get();
+        $won = $won->where('status','<>',NULL)->get();
         $bids = $bids->get();
 
         $data = [
