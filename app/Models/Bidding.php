@@ -25,6 +25,7 @@ class Bidding extends Model
         'product_name',
         'media_path',
         'sold_status',
+        'product_uuid'
     ];
     
     public function auction_product()
@@ -96,17 +97,27 @@ class Bidding extends Model
 
     public function getMediaPathAttribute(){ 
 
+        $path = AuctionProduct::where('id',$this->auction_product_id)->first();
 
-    $path = AuctionProduct::where('id',$this->auction_product_id)->first();
         if(NULL != $path){
             $path = Product::where('id',$path->product_id)->first();
             if(NULL != $path){
                 $media_path =  UploadMedia::where('type','product')
                         ->where('ref_id',$path->id)->latest()->pluck('path');
                 return $media_path;
-                }
             }
         }
+    }
 
+    public function getProductUuidAttribute(){ 
 
+        $path = AuctionProduct::where('id',$this->auction_product_id)->first();
+        
+        if(NULL != $path){
+            $path = Product::where('id',$path->product_id)->first();
+            if(NULL != $path){
+                return $path->uuid;
+            }
+        }
+    }
 }
