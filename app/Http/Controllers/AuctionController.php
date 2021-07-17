@@ -133,9 +133,9 @@ class AuctionController extends Controller
                 if(!$auctioneer)
                     return sendError('Invalid User Provided', []);
                 
-
-                $dbResult = DB::select("SELECT profile_id FROM followers WHERE following_id = ?", [$auctioneer->id]);
-                $followingIds = array_column($dbResult, 'profile_id');
+                // $dbResult = DB::select("SELECT profile_id FROM followers WHERE following_id = ?", [$auctioneer->id]);
+                // $followingIds = array_column($dbResult, 'profile_id');
+                $followingIds = Followers::where('following_id', $auctioneer->id)->pluck('profile_id')->toArray();
 
                 $models = Product::orderBy('created_at','DESC')->whereIn('profile_id', $followingIds);
                 $cloned_models = clone $models;
