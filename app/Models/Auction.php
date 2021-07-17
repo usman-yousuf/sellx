@@ -21,11 +21,8 @@ class Auction extends Model
         'updated_at',
         'deleted_at',
     ];
-    protected $with = [
-        'setting',
-        'medias',
-        'viewers'
-    ];
+
+    protected $with = ['setting','medias','viewers'];
     protected $appends = [
         'allowed_to_post',
         'allow_to_bid',
@@ -60,8 +57,6 @@ class Auction extends Model
         return 0;
          
     }
-
-
 
 
     public function auction_products()
