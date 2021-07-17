@@ -46,35 +46,27 @@ class SoldController extends Controller
         
         if(isset($request->profile_uuid)){
 
-            $profile = Profile::where('uuid',$request->profile_uuid);
+            $profile = Profile::where('uuid',$request->profile_uuid)->first();
             if(null == $profile){
                 return sendError('profile Does Not Exist',[]);
             }
-            // $profile->solds = $profile->getTotalSoldsAttribute();
-            // $profile = $profile->whereHas('products', function($query){
-            //     $query->where('is_sold_out',1);
-            // })->with('products', function($q)){
-            //         $q->whereHas('auction_products')
-            //             ->with('auction_products', function ($query){
-            //             $query->whereHas('solds')
-            //                 ->with('solds');
-            //     });
-            // })->first();
-            // dd("twat");
-            $profile = $profile->with(['products' => function ($query){
-                $query->where('is_sell_out',1)->whereHas('auction_products')
-                    ->with('auction_products');
-            }])->first();
 
+            $product_ids = Product::where('profile_id',$profile->id)->pluck('id')->toArray();
+            $sold = Sold::whereIn('product_id',$product_ids);
 
-            return sendSuccess('Data',$profile);
+            $clone_sold = $sold;
+            $clone_sold_pending = $sold;
+            if(isset($request->offset) && isset($request->limit)){
+                $sold->offset($request->offset)->limit($request->limit);
+            }
 
-            // $data['$auction'] = $profile->totalsolds;
+            $sold = $sold->without(['profile','product'])->get();
 
-            // $profile->whereHas('auction', function($query){
-            //     $query->wherehas('solds')->with('solds');
-            // })->get());
-            // dd($profile->auction);
+            $data['sold'] = $sold;
+            $data['sold_count'] = $clone_sold->count();
+            $data['sold_count_pending'] = $clone_sold->where('status', 'pending')->count();
+
+            return sendSuccess('Sold',$data);
         }
         if(isset($request->buyer_uuid)){
 

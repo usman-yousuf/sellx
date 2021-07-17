@@ -24,8 +24,8 @@ class Bidding extends Model
         'auction_house_name',
         'product_name',
         'media_path',
+        'product_uuid',
         'sold_status',
-        'product_uuid'
     ];
     
     public function auction_product()
