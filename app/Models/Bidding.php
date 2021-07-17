@@ -24,6 +24,7 @@ class Bidding extends Model
         'auction_house_name',
         'product_name',
         'media_path',
+        'sold_status',
     ];
     
     public function auction_product()
@@ -55,6 +56,14 @@ class Bidding extends Model
             return $check->total_price;
 
         return 0;
+    }
+
+    public function getSoldStatusAttribute(){
+
+        return Sold::where('auction_product_id',$this->auction_product_id)
+            ->where('profile_id',$this->profile_id)
+            ->orderBy('created_at', 'DESC')
+            ->pluck('status')->first()??'Lot_lost';
     }
 
     public function getAuctionHouseNameAttribute(){
