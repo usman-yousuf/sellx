@@ -132,30 +132,18 @@ class AuctionController extends Controller
                 $auctioneer = Profile::where('uuid', $request->profile_uuid)->first();
                 if(!$auctioneer)
                     return sendError('Invalid User Provided', []);
-                $model = Followers::where('following_id', $auctioneer->id)->with('profile', function($query){
-                    $query->whereHas('products')->with('products', function($q){
-                        $q->with('profile');
-                    });
-                });
-
-                $model = $model->get()->pluck('profile.products')->sortByDesc('id');
                 
-                $new_model;
-                $i=0;
-                foreach ($model as $model_value){
-                    if($model_value != NULL){
-                        foreach($model_value as $value)
-                            $new_model[] = $value; 
-                    }
 
-                    $i++;                   
+                $dbResult = DB::select("SELECT profile_id FROM followers WHERE following_id = ?", [$auctioneer->id]);
+                $followingIds = array_column($dbResult, 'profile_id');
+
+                $models = Product::orderBy('created_at','DESC')->whereIn('profile_id', $followingIds);
+                $cloned_models = clone $models;
+                if(isset($request->offset) && isset($request->limit) ){
+                    $models->offset($request->offset)->limit($request->limit);
                 }
-
-                $collection = collect($new_model);
-                $sorted = $collection->sortByDesc('created_at')->toArray();
-
-                $data['Products'] = array_values($sorted);
-                
+                $data['Products'] = $models->get();
+                $data['total_models'] = $cloned_models->count();
                 return sendSuccess('data',$data);
             }
 

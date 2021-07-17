@@ -109,8 +109,12 @@ class BiddingController extends Controller
             ->whereHas('auction_product.solds')
             ->with('auction_product');
             
-
         $won = clone $bids;
+        // return    $bids->get();
+        if(isset($request->offset) && isset($request->limit)){
+            $won->offset($request->offset)->limit($request->limit);
+            $bids->offset($request->offset)->limit($request->limit);
+        }
         $won = $won->where('status','<>',NULL)->get();
         $bids = $bids->get();
 
