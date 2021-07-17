@@ -28,9 +28,15 @@ class Profile extends Model
         'following_count',
         'average_rating',
         'total_ratings_count',
+        'is_online',
     ];
 
     protected $withCount = ['auction','comingauctions','totalsolds','pendingsolds'];
+
+    public function getIsOnlineAttribute(){
+
+        return Auction::Where('auctioneer_id',$this->id)->where('is_live',1)->count()?1:0;
+    }
 
     public function getTotalRatingsCountAttribute(){
         if(\Auth::check()){
