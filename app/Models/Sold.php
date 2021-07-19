@@ -29,8 +29,8 @@ class Sold extends Model
 
         $product = Product::Where('id', $this->product_id)->first();
         if(NULL != $product){
-            $media_path = UploadMedia::where('ref_id', $product->id)->first();
-            return $media_path->path;
+            $media_path = UploadMedia::where('type','product')->where('ref_id', $product->id)->first();
+            return $media_path->path??Null;
         }
         return null;
 
