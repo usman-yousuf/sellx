@@ -51,7 +51,7 @@ class SoldController extends Controller
                 return sendError('profile Does Not Exist',[]);
             }
 
-            $product_ids = Product::where('profile_id',$profile->id)->pluck('id')->toArray();
+            $product_ids = Product::where('profile_id',$profile->id)->where('is_sell_out',1)->pluck('id')->toArray();
             $sold = Sold::whereIn('product_id',$product_ids);
 
             $clone_sold = $sold;
