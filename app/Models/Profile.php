@@ -364,8 +364,8 @@ class Profile extends Model
         $profile->country = $request->country;
         $profile->dob = $request->dob;
         $profile->profile_type = $request->profile_type;
-        $profile->bio = $request->bio;
-        $profile->description  = $request->description;
+        $profile->bio = $request->bio??'';
+        $profile->description  = $request->description??'';
         if(isset($request->profile_image) && ('' != $request->profile_image)){
             $profile->profile_image = $request->profile_image;
         }
