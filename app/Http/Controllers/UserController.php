@@ -447,6 +447,10 @@ class UserController extends Controller
 
         $profile_uuid = (isset($request->profile_uuid) && ($request->profile_uuid != ''))? $request->profile_uuid : $request->user()->profile->uuid;
         $model = Profile::where('uuid', $profile_uuid)->first();
+        $model_auction = Profile::where('uuid', $request->following_uuid)->first();
+        if(NULL != $model_auction)
+            if($model_auction->user_id == $model->user_id)
+                return sendError('Cant Follow Your own Auction House',[]);
 
         if($profile_uuid == $request->following_uuid)
            return sendError('Cant Follow Your own profile',[]);
