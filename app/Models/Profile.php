@@ -29,6 +29,7 @@ class Profile extends Model
         'average_rating',
         'total_ratings_count',
         'is_online',
+        'deposit',
     ];
 
     protected $withCount = ['auction','comingauctions','totalsolds','pendingsolds'];
@@ -62,6 +63,10 @@ class Profile extends Model
             }
         }
         return 0;
+
+    }
+    public function getDepositAttribute(){
+        return 2000;
 
     }
 
