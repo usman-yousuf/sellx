@@ -435,29 +435,32 @@ class AuctionController extends Controller
 
                     $auction_settings = AuctionSetting::create($auction_settings);
 
-                    foreach($requestedProductIds as $id){
-                        $product = Product::where('id',$id)->first();
-                        $auctionproduct = Auctionproduct::where('auction_id',$model->id);
-                        $maxsort = $auctionproduct->max('sort_order');
-                        $maxlot = $auctionproduct->max('lot_no');
-                        $product = $product->getAvailableQuantityAttribute();
+                    if(isset($requestedProductIds) && $requestedProductIds != null){
+                        
+                        foreach($requestedProductIds as $id){
+                            $product = Product::where('id',$id)->first();
+                            $auctionproduct = Auctionproduct::where('auction_id',$model->id);
+                            $maxsort = $auctionproduct->max('sort_order');
+                            $maxlot = $auctionproduct->max('lot_no');
+                            $product = $product->getAvailableQuantityAttribute();
 
-                        if($product > 0){
-                            $temp = new AuctionProduct();
-                            $temp->uuid = \Str::uuid();
-                            $temp->auction_id = $model->id;
-                            $temp->product_id = $id;
-                            $temp->sort_order = ++$maxsort;
-                            $temp->lot_no = ++$maxlot;
-                            // $temp->created_at = date('Y-m-d H:i:s');
-                            $temp->save();
+                            if($product > 0){
+                                $temp = new AuctionProduct();
+                                $temp->uuid = \Str::uuid();
+                                $temp->auction_id = $model->id;
+                                $temp->product_id = $id;
+                                $temp->sort_order = ++$maxsort;
+                                $temp->lot_no = ++$maxlot;
+                                // $temp->created_at = date('Y-m-d H:i:s');
+                                $temp->save();
 
-                            $status = Product::where('id', $id)->update([
-                                'is_added_in_auction' => (bool)true
-                            ]);
-                        }
-                        else{
-                            return sendError('Can not add product with 0 Quantity ',[]);
+                                $status = Product::where('id', $id)->update([
+                                    'is_added_in_auction' => (bool)true
+                                ]);
+                            }
+                            else{
+                                return sendError('Can not add product with 0 Quantity ',[]);
+                            }
                         }
                     }
 
