@@ -221,6 +221,8 @@ class BiddingController extends Controller
         //End Update
 
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
+        
+
         $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
         $product = Product::where('id',$auction_product->product_id)->first();
@@ -243,10 +245,17 @@ class BiddingController extends Controller
         //Work if is_fixed_price is not fixed
         if(!isset($request->is_fixed_price)){
 
+
+
             if($product->auction_type == 'fixed_price'){
 
                 return sendError('Fixed Price selected, Cant Bid',[]);
             }
+
+            if($request->bid_price > (int)$profile->max_bid_limit)
+                return sendError("Max bid limit exceeded",[]);
+            if($request->bid_price > $profile->deposit)
+                return sendError("Not enough deposit",[]);
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 
@@ -295,6 +304,8 @@ class BiddingController extends Controller
                 if(NULL == $price){
                     return sendError('Fix Price Not Set',[]);
                 }
+                if($request->$price < (int)$profile->max_bid_limit)
+                    return sendError("Not enough deposit to buy this product",[]);
             }
             else{
 

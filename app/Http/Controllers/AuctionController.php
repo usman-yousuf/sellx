@@ -383,13 +383,16 @@ class AuctionController extends Controller
                     $uuids = "('". implode("','", $request->product_uuids) . "')";
                     $product_ids = DB::select("SELECT id FROM products WHERE uuid IN {$uuids} AND is_added_in_auction = 0 AND profile_id = {$request->user()->profile->id}");
                     
-                    if(empty($product_ids)){
+                    if(empty($product_ids) && (!isset($request->auction_uuid))){
                         DB::rollBack();
                         return sendError('No Products Found', []);
                     }
-                    $requestedProductIds = [];
-                    foreach($product_ids as $item){
-                        $requestedProductIds[] = $item->id;
+                    if(!empty($product_ids)){
+
+                        $requestedProductIds = [];
+                        foreach($product_ids as $item){
+                            $requestedProductIds[] = $item->id;
+                        }
                     }
 
                     // // get Existing Product Ids from db

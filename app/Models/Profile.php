@@ -66,7 +66,7 @@ class Profile extends Model
 
     }
     public function getDepositAttribute(){
-        return 2000;
+        return 100000;
 
     }
 
