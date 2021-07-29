@@ -314,19 +314,21 @@ class AuctionController extends Controller
             // $auction = Auction::where('id', 9)->with(['auction_products', 'auctioneer', 'medias'])->first();
             // return sendSuccess('success', $auction);
             $validator = Validator::make($request->all(), [
-                'auction_uuid' => 'string|exists:auctions,uuid',
+                'auction_uuid' => 'required_without:product_uuids|string|exists:auctions,uuid',
                 'title' => 'required|min:3',
                 'status' => 'in:pending,in-progress,pending,cancelled,aborted',
                 'is_scheduled' => 'required|in:0,1',
                 'scheduled_date_time' => 'required_if:is_scheduled,1',
                 'is_live' => 'required|in:0,1',
                 'cover_image' => 'required',
-                'product_uuids.*' => 'exists:products,uuid',
+                'product_uuids.*' => 'required_without:auction_uuid|exists:products,uuid',
             ]);
             if ($validator->fails()) {
                 $data['validation_error'] = $validator->getMessageBag();
                 return sendError($validator->errors()->all()[0], $data);
             }
+
+            // dd('DumpMan');
 
             // profile uuid
             $profile_uuid = ($request->profile_uuid) ? $request->profile_uuid : $request->user()->profile->uuid;
