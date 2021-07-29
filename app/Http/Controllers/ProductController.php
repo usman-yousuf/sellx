@@ -26,15 +26,13 @@ class ProductController extends Controller
      */
     public function getProducts(Request $request)
     {
-        $products = Product::orderBy('created_at', 'desc');
-        // ->where('is_sell_out',0)->where('is_added_in_auction',0);
+        $products = Product::orderBy('created_at', 'desc')->where('is_sell_out',0)->where('is_added_in_auction',0);
 
         if(isset($request->profile_uuid) && ($request->profile_uuid != '') ){
             $profile = Profile::where('uuid', $request->profile_uuid)->first();
 
-            if($profile != null){
-            	$products->where('profile_id', $profile->id);
-            }
+                // dd($request->user()->active_profile_id);
+            	$products->where('profile_id', $profile->id??$request->user()->active_profile_id);
         }
         if(isset($request->keywords))
             $products->where('title', 'LIKE', "%{$request->keywords}%");
@@ -49,6 +47,7 @@ class ProductController extends Controller
         }
 
         $clone_products = clone $products;
+        $clone_products_sum = clone $products;
         if(isset($request->offset) && isset($request->limit)){
             $products->offset($request->offset)->limit($request->limit);
         }
@@ -57,6 +56,7 @@ class ProductController extends Controller
 
         $data['products'] = $models;
         $data['total'] = $clone_products->count();
+        $data['total value'] = $clone_products_sum->pluck('target_price')->sum();
 
         return sendSuccess('Success', $data);
     }

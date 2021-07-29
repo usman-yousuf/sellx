@@ -377,6 +377,7 @@ class AuctionController extends Controller
 
                 // add|update Auction lots
                 if(isset($request->product_uuids) && ('' != $request->product_uuids)){
+                    // dd($request->user()->profile->id);
 
                     // get requested Product Ids from produtcs table
                     $uuids = "('". implode("','", $request->product_uuids) . "')";
