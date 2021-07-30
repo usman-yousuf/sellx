@@ -96,7 +96,7 @@ class BlockController extends Controller
             'type' => 'required|in:block,report,both',
             'ref_type' => 'required|in:user,story,auction,product',
             'ref_uuid' => 'required',
-            'report_type' => 'required',
+            'report_type' => 'string',
             'description' => 'required_with:report_type',
         ]);
 
@@ -123,6 +123,7 @@ class BlockController extends Controller
         if($request->ref_type == 'auction'){
 
             $ref = Auction::where('uuid', $request->ref_uuid)->first();         
+            // dd($ref);
         }
         if($request->ref_type == 'product'){
 
@@ -139,8 +140,8 @@ class BlockController extends Controller
             'ref_type' => $request->ref_type,
             'ref_id' => $ref->id,
             'type' => $request->type,
-            'report_type' => $request->report_type,
-            'description' => $request->description,
+            'report_type' => $request->report_type??NULL,
+            'description' => $request->description??NULL,
         ];
 
         $block = Block::create($block);
