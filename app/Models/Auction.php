@@ -91,7 +91,7 @@ class Auction extends Model
 
     public function viewers()
     { 
-        return $this->hasMany(Viewer::class, 'auction_id', 'id');
+        return $this->hasMany(Viewer::class, 'auction_id', 'id')->where('left_at',NULL);
     }
 
     public function solds()
