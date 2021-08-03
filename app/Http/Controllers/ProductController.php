@@ -56,7 +56,7 @@ class ProductController extends Controller
 
         $data['products'] = $models;
         $data['total'] = $clone_products->count();
-        $data['total value'] = $clone_products_sum->pluck('target_price')->sum();
+        $data['total_value'] = $clone_products_sum->pluck('target_price')->sum();
 
         return sendSuccess('Success', $data);
     }
