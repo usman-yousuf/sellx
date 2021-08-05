@@ -825,6 +825,7 @@ class AuctionController extends Controller
 
         $auction_product = [
             'sort_order' => $auction_product_current_order->sort_order + $auction_product_last_order->sort_order,
+            'lot_for_auction' => 0,
         ];
 
         $product = Product::where('id',$auction_product_current_order->product_id)->first();
