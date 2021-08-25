@@ -45,8 +45,16 @@
 
         <div class="pull-right for_aboutus_contact">
           <p>
-            <a href="{{route('about')}}">About Us</a>
-            <span> <a href="{{route('contact')}}"> Contact Us </a> </span>
+            <span class="mx-4">
+              <a href="{{route('about')}}" class="mx-1"> {{ __('About us') }} </a>
+              <span>
+                <a href="{{route('contact')}}"> {{ __('Contact us') }} </a> 
+              </span>
+            </span>
+            <select class=" changeLang ">
+              <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
+              <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>Arabic</option>
+            </select>
           </p>
         </div>
       </div>
@@ -66,37 +74,28 @@
               <div class="container for_footer_bottom ">
                 <div class="row for_footer_row_">
                   <div class="col-lg-6 col-md-6 col-sm-12 footer_first_col_main one">
-                    <p class="fox-text for_terms_and_conditions_p_res">
-                      <a href="#"> Terms and Conditions <br /></a>
-                      <span class="fox-text">
-                        <a href="#">Refunds and Cancellations <br /> </a>
-                      </span>
-                      <span class="for_after_footer fox-text">
-                        <a href="#">Service Pricing <br /> </a>
-                      </span>
-                    </p>
       
                     <p class="fox-text for_terms_and_conditions_p_res for_sm_footer_text" >
-                      <a href="#"> Terms and Conditions <br /></a>
+                      <a href="#">{{ __('Terms and Conditions') }}<br /></a>
                       <span class="fox-text">
-                        <a href="#">Refunds and Cancellations <br /> </a>
+                        <a href="#">{{ __('Refunds and Cancellations') }} <br /> </a>
                       </span class="fox-text">
                       <span class="">
-                        <a href="#">Service Pricing <br /></a>
+                        <a href="#"> {{ __('Service Pricing') }}  <br /></a>
                       </span>
                     </p>
                     
                   </div>
                   <div class="col-lg-6 col-md-6 footer_first_col_main second">
                     <p>
-                      <a href="#"> Contact Us</a>
+                      <a href="#">{{ __('Contact us') }}</a>
                    
                       <span class="pull-right footer_logo"
                         ><img src="{{asset('assets/images/Frame27.svg')}}" class="img-fluid"
                       /></span>
                     </p>
                     <p>
-                      <a href="#"> About Us</a>
+                      <a href="#">{{ __('About us') }}</a>
                  
                     </p>
                   </div>
@@ -117,3 +116,13 @@
           <!-- Footer End --> 
   </body>
   </html>
+  <script type="text/javascript">
+  
+    var url = "{{ route('changeLang') }}";
+  
+    $(".changeLang").change(function(){
+        // console.log(url + "?lang="+ $(this).val());
+        window.location.href = url + "?lang="+ $(this).val();
+    });
+  
+</script>

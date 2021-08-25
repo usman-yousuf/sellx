@@ -23,14 +23,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('/', function () {
+
     return view('index');
 
 })->name('home');
+
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);
 Route::get('/contactus', [App\Http\Controllers\HomeController::class, 'contactus'])->name('contact');
 Route::get('/aboutus', [App\Http\Controllers\HomeController::class, 'aboutus'])->name('about');
+Route::get('lang/change', [App\Http\Controllers\HomeController::class, 'change'])->name('changeLang');
+
 //Terms And Conditions
 Route::get('pages/privacy-mob', [App\Http\Controllers\HomeController::class,'privacymobpage'])->name('pages.mob.privacy.mob');
 Route::get('pages/terms-mob', [App\Http\Controllers\HomeController::class,'termsmobpage'])->name('pages.mob.terms.mob');
