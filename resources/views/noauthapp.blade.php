@@ -46,15 +46,19 @@
         <div class="pull-right for_aboutus_contact">
           <p>
             <span class="mx-4">
-              <a href="{{route('about')}}" class="mx-1"> {{ __('About us') }} </a>
+              <span>
+                <a href="{{route('about')}}"> {{ __('About us') }} </a>
+              </span>
               <span>
                 <a href="{{route('contact')}}"> {{ __('Contact us') }} </a> 
               </span>
             </span>
-            <select class=" changeLang ">
-              <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
-              <option value="ar" {{ session()->get('locale') == 'ar' ? 'selected' : '' }}>Arabic</option>
-            </select>
+            <!-- <select class=" changeLang border"> -->
+              <span class="">
+                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'en' ? 'bg-primary text-white' : '' }}" id="en">En</span>
+                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'ar' ? 'bg-primary text-white' : '' }}" id="ar">Ar</span>
+              </span>
+            <!-- </select> -->
           </p>
         </div>
       </div>
@@ -120,9 +124,10 @@
   
     var url = "{{ route('changeLang') }}";
   
-    $(".changeLang").change(function(){
+    $(".changeLang").click(function(){
         // console.log(url + "?lang="+ $(this).val());
-        window.location.href = url + "?lang="+ $(this).val();
+        // console.log("$(this).val()", $(this).attr('id'));
+        window.location.href = url + "?lang="+ $(this).attr('id');
     });
   
 </script>

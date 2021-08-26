@@ -80,10 +80,10 @@
           "
         >
           <div class="for_second_col">
-            <h2> {{ __('Sellx is a live auction platform in your phone') }}</h2>
+            <h2> {{ __('Sellx is a live auction platform') }}</h2>
 
             <p class="for_p_text_the_platform">
-              {{ __('The Platform that connects auction houses and bidders online and allows you to take part in auctions in real-time') }}
+              {{ __('An online Platform that connects auction houses & bidders and bring them in one place') }}
             </p>
 
             <div class="for_btn_download">
@@ -124,9 +124,9 @@
             />
           </div>
           <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1">
-            <h4>{{ __('Sellex is a live auction platform') }}</h4>
+            <h4>{{ __('Sellx is a live auction platform') }}</h4>
             <p>
-              {{ __('Sellex is a live auction platform that connects auction houses and bidders online is a more efficient way') }}
+              {{ __('Sellx is an online live auction platform that connects auction houses & bidders in a more efficient, interactive and secure way') }}
             </p>
           </div>
 
@@ -135,9 +135,9 @@
           </div>
 
           <div class="col-lg-3 col-md-6 for_sellex_textt order-md-2">
-            <h4>{{ __('Take part in live auction platform') }}</h4>
+            <h4>{{ __('Be part of the competition') }}</h4>
             <p>
-              {{ __('Watch the auctions from the auction houses in real time, place bids and win lots, or just write your comments') }}
+              {{ __('Attend the live auctions to place bids & win lots, or enjoy watching the competion') }}
             </p>
           </div>
         </div>
@@ -154,9 +154,9 @@
             />
           </div>
           <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1">
-            <h4>{{ __('Discover lots from the auction houses') }}</h4>
+            <h4>{{ __('Discover & find your interesting lots') }}</h4>
             <p>
-              {{ __('Discover and buy lots in a wide variety of catagories, from watches and jewelry to cars and properties.') }}
+              {{ __('Discover & win your favorite lots of watches, jewelries to cars, properties and much more') }}
             </p>
           </div>
 
@@ -165,9 +165,9 @@
           </div>
 
           <div class="col-lg-3 col-md-6 for_sellex_textt md_register_responsive order-md-2">
-            <h4>{{ __('Register an auction house') }}</h4>
+            <h4>{{ __('All you need to become a professional auction house') }}</h4>
             <p>
-             {{ __('Register your auction house to start selling to your customers more efficiently, or find new customers on the platforms') }}
+             {{ __('Register your auction house today and use all the tools to sell more in an easy and reliable way') }}
             </p>
           </div>
         </div>
@@ -181,7 +181,7 @@
     <div for_overflow>
       <div class="container for_block_three_bg">
         <h3>{{ __('Stay updated!') }}</h3>
-        <p>{{ __('Send your email to keep abreast of all updates and news.') }}</p>
+        <p>{{ __('Subscribe to keep abreast of all updates and news.') }}</p>
         <div class="row">
           <div class="col-lg-9 col-md-9">
             <form class="for_common_input">
