@@ -6,11 +6,11 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title> {{ config('app.name', 'Sellx') }}</title>
+  <title>Sellx is a live auction platform</title>
   <!-- <link sizes="10x5" rel="shortcut icon" href="{{asset('assets/images/Logo.ico')}}" type="image/x-icon"> -->
   <link rel="icon" type="image/png" href="http://localhost/sellx/public/assets/images/favicon.png" sizes="16x16" />
-   <meta name="description" content="Sellx is a live auction platform">
-   <meta name="Keywords" content="Sellx is a live auction platform">
+   <!-- <meta name="description" content="Sellx is a live auction platform"> -->
+   <!-- <meta name="Keywords" content="Sellx is a live auction platform"> -->
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
