@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -34,11 +35,16 @@ class HomeController extends Controller
 
     public function contactus()
     {
+
+        App::setLocale(Session::get('locale'));
+
         return view('contact_us');
     }
 
     public function aboutus()
     {
+        App::setLocale(Session::get('locale'));
+        
         return view('about_us');
     }
 
@@ -66,6 +72,7 @@ class HomeController extends Controller
     {
         App::setLocale($request->lang);
         session()->put('locale', $request->lang);
+        
   
         return view('index');
     }

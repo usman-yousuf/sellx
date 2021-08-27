@@ -6,25 +6,25 @@
     <div class="container">
         <div class="row for_about_main_row">
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_after one order-lg-1 order-md-1 order-2">
-                <a href="{{route('about')}}">Terms and Conditions</a>
+                <a href="#">{{ __('Terms and Conditions') }}</a>
                 <br>
-                <a href="{{route('about')}}">Privacy & Data Policy</a>
+                <a href="#">Privacy & Data Policy</a>
                 <br>
-                <a href="{{route('about')}}">Refund & Cancellations</a>
+                <a href="#">{{ __('Refunds and Cancellations') }}</a>
                 <br>
-                <a href="{{route('about')}}">Service Delivery Policy</a>
+                <a href="#">Service Delivery Policy</a>
                 <br>
-                <a href="{{route('about')}}">Service Pricing</a>
+                <a href="#">{{ __('Service Pricing') }}</a>
                 <br>
-                <a href="{{route('about')}}" class="">Partners Terms</a>
+                <a href="#" class="">Partners Terms</a>
                 <hr class="for_partners_bottom">
 
 
                 <div>
                     
-                    <a href="{{route('contact')}}" class="">Contact Us</a>
+                    <a href="{{route('contact')}}" class="">{{ __('Contact us') }}</a>
                     <br>
-                    <a href="{{route('about')}}" class="">About Us</a>
+                    <a href="{{route('about')}}" class="">{{ __('About us') }}</a>
 
 
                 </div>

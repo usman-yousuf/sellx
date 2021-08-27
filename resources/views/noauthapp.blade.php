@@ -52,7 +52,9 @@
               <span>
                 <a href="{{route('contact')}}"> {{ __('Contact us') }} </a> 
               </span>
+              <span></span>
             </span>
+
             <!-- <select class=" changeLang border"> -->
               <!-- <span class="">
                 <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'en' ? 'bg-primary text-white' : '' }}" id="en">English</span>
@@ -61,9 +63,9 @@
               <!-- 
                -->
 
-              <span class=" for_button_group border" role="group" aria-label="Basic outlined example">
-                  <button type="button" class="btn onee mr-6px-s h_40px-s changeLang {{ Config::get('app.locale') == 'en' ? ' active-btn' : '' }}" id="en">English</button>
-                  <button type="button" class="btn twoo h_40px-s changeLang {{ Config::get('app.locale') == 'ar' ? 'active-btn' : '' }} " id="ar" >Arabic</button>
+              <span class=" for_button_group" role="group" aria-label="Basic outlined example">
+                  <button type="button" class="btn onee mr-6px-s h_40px-s changeLang {{ Session::get('locale') == 'en' ? ' active-btn' : '' }}" id="en">English</button>
+                  <button type="button" class="btn twoo h_40px-s changeLang {{ Session::get('locale') == 'ar' ? 'active-btn' : '' }} " id="ar" >Arabic</button>
               </span>
             <!-- </select> -->
           
