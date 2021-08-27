@@ -16,15 +16,15 @@
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_afterr right_border order-lg-1 order-md-1 order-2">
                 <a href="#">{{ __('Terms and Conditions') }}</a>
                 <br>
-                <a href="#">Privacy & Data Policy</a>
+                <a href="#">{{ __('Privacy & Data Policy')}}</a>
                 <br>
                 <a href="#">{{ __('Refunds and Cancellations') }}</a>
                 <br>
-                <a href="#">Service Delivery Policy</a>
+                <a href="#">{{ __('Service Delivery Policy')}}</a>
                 <br>
                 <a href="#">{{ __('Service Pricing') }}</a>
                 <br>
-                <a href="#" class="">Partners Terms</a>
+                <a href="#" class="">{{ __('Partners Terms')}}</a>
                 <hr class="for_partners_bottom">
 
 
@@ -101,7 +101,7 @@
                         <div class="col-lg-7 col-md-7 for_child_row_col_two for_location_special">
                             <p>
                                 <img src="{{asset('assets/images/Location.svg')}}" />
-                                <span>Hamdan Incubato<br>
+                                <span>Hamdan Incubator<br>
                                   <span class="for_dubai_text_common">
                                     Dubai, UAE,
                                   </span> <br>

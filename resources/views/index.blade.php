@@ -92,9 +92,9 @@
                   <i class="fa fa-apple" aria-hidden="true"></i>
 
                   <p>
-                    Download on the
+                    Coming Soon on 
                     <br />
-                    <span> App Store</span>
+                    <strong style="font-weight:bold;font-size: 150%">App Store</strong>
                   </p>
                 </span>
               </button>

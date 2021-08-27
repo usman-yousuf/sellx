@@ -8,17 +8,16 @@
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_after one order-lg-1 order-md-1 order-2">
                 <a href="#">{{ __('Terms and Conditions') }}</a>
                 <br>
-                <a href="#">Privacy & Data Policy</a>
+                <a href="#">{{ __('Privacy & Data Policy')}}</a>
                 <br>
                 <a href="#">{{ __('Refunds and Cancellations') }}</a>
                 <br>
-                <a href="#">Service Delivery Policy</a>
+                <a href="#">{{ __('Service Delivery Policy')}}</a>
                 <br>
                 <a href="#">{{ __('Service Pricing') }}</a>
                 <br>
-                <a href="#" class="">Partners Terms</a>
+                <a href="#" class="">{{ __('Partners Terms')}}</a>
                 <hr class="for_partners_bottom">
-
 
                 <div>
                     
@@ -32,7 +31,7 @@
 
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
-                <h1>User Agreement: General Terms and Conditions of the Sellex Service</h1>
+                <h1>User Agreement: General Terms and Conditions of the Sellx Service</h1>
 
                 <div class="for_basic_deffination_text">
                     <h4>Basic Deffination</h4>

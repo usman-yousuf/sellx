@@ -123,7 +123,7 @@
               <div class="end_footer ">
                 <img src="{{asset('assets/images/Frame28.svg')}}" class="img-fluid"/><span class="pull-right fox-text for_end_text">
                   <br />
-                  Sellex @ 2021 All rights reserved
+                  Sellx @ 2021 All rights reserved
                 </span>
               </div>
           </div>
