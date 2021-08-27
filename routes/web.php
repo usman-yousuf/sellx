@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('/', function () {
-
+	App::setLocale(Session::get('locale'));
     return view('index');
 
 })->name('home');
