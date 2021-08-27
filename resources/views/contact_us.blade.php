@@ -95,7 +95,7 @@
                       <hr>
                       <div class="row for_border_bottom">
                         <div class="col-lg-5 col-md-5 for_child_row_col_one">
-                            <p>Mailining address:</p>
+                            <p>Mailing address:</p>
                         </div>
 
                         <div class="col-lg-7 col-md-7 for_child_row_col_two for_location_special">
