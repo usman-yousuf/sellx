@@ -44,7 +44,7 @@ class HomeController extends Controller
     public function aboutus()
     {
         App::setLocale(Session::get('locale'));
-        
+
         return view('about_us');
     }
 
@@ -74,6 +74,6 @@ class HomeController extends Controller
         session()->put('locale', $request->lang);
         
   
-        return view('index');
+        return redirect()->back();
     }
 }

@@ -62,7 +62,9 @@
               </span> -->
               <!-- 
                -->
-
+               @php
+                Session::get('locale') == NULL ? session()->put('locale','en') : '';
+               @endphp
               <span class=" for_button_group" role="group" aria-label="Basic outlined example">
                   <button type="button" class="btn onee mr-6px-s h_40px-s changeLang {{ Session::get('locale') == 'en' ? ' active-btn' : '' }}" id="en">English</button>
                   <button type="button" class="btn twoo h_40px-s changeLang {{ Session::get('locale') == 'ar' ? 'active-btn' : '' }} " id="ar" >Arabic</button>
