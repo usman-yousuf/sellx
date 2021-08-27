@@ -1627,3 +1627,16 @@ input {
     object-fit: contain;
   }
 }
+
+/*----extra necessary------*/
+
+.h_40px-s{
+  height: 40px;
+}
+.mr-6px-s{
+  margin-right: -10px;
+}
+.active-btn{
+  background-color: #ffffff !important;
+  color: #49aaef !important;
+}

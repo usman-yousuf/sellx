@@ -44,7 +44,7 @@
         </a>
 
         <div class="pull-right for_aboutus_contact">
-          <p>
+        
             <span class="mx-4">
               <span>
                 <a href="{{route('about')}}"> {{ __('About us') }} </a>
@@ -54,12 +54,19 @@
               </span>
             </span>
             <!-- <select class=" changeLang border"> -->
-              <span class="">
-                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'en' ? 'bg-primary text-white' : '' }}" id="en">En</span>
-                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'ar' ? 'bg-primary text-white' : '' }}" id="ar">Ar</span>
+              <!-- <span class="">
+                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'en' ? 'bg-primary text-white' : '' }}" id="en">English</span>
+                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'ar' ? 'bg-primary text-white' : '' }}" id="ar">Arabic</span>
+              </span> -->
+              <!-- 
+               -->
+
+              <span class=" for_button_group border" role="group" aria-label="Basic outlined example">
+                  <button type="button" class="btn onee mr-6px-s h_40px-s changeLang {{ Config::get('app.locale') == 'en' ? ' active-btn' : '' }}" id="en">English</button>
+                  <button type="button" class="btn twoo h_40px-s changeLang {{ Config::get('app.locale') == 'ar' ? 'active-btn' : '' }} " id="ar" >Arabic</button>
               </span>
             <!-- </select> -->
-          </p>
+          
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@
                                 <p>
                                     <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
                                     <img src="{{asset('assets/images/Mail.svg')}}" />
-                                    <span>hi@sellex.com</span>
+                                    <span>info@sellx.ae</span>
                                 </p>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                               <p>
                                   <!-- <i class="fa fa-life-ring" aria-hidden="true"></i> -->
                                   <img src="{{asset('assets/images/Support.svg')}}" />
-                                  <span>support@sellex.com</span>
+                                  <span>help@sellx.ae</span>
                               </p>
                           </div>
                         </div>
@@ -87,7 +87,7 @@
                             <p>
                                 <!-- <i class="fa fa-phone" aria-hidden="true"></i> -->
                                 <img src="{{asset('assets/images/Phone.svg')}}" />
-                                <span>+971 545-5520-39</span>
+                                <span>+971 50 4777055</span>
                             </p>
                         </div>
                       </div>
@@ -101,12 +101,11 @@
                         <div class="col-lg-7 col-md-7 for_child_row_col_two for_location_special">
                             <p>
                                 <img src="{{asset('assets/images/Location.svg')}}" />
-                                <span>3105 Churchil Tower, <br>
+                                <span>Hamdan Incubato<br>
                                   <span class="for_dubai_text_common">
-                                    Business Bay, Dubai,
+                                    Dubai, UAE,
                                   </span> <br>
                                   <span class="for_dubai_text_common">
-                                  Unitetd arab emirates
                                   </span>
 
                                 </span>
