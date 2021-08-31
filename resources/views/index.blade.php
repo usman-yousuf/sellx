@@ -180,7 +180,7 @@
     <!-- After NavBar Block Three Start -->
     <div for_overflow>
       <div class="container for_block_three_bg">
-        <h3>{{ __('Stay updated!') }}</h3>
+        <h3>{{ __('Stay updated') }}</h3>
         <p>{{ __('Subscribe to keep abreast of all updates and news') }}</p>
         <div class="row">
           <div class="col-lg-9 col-md-9">
