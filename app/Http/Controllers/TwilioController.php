@@ -23,13 +23,20 @@ class TwilioController extends Controller
     public function sendMessage($number, $code){
 
     	try {
-    		$apiResponse = $this->client->messages->create(
-		  		$number, // Text this number
-		  		[
-		    		'from' => (int)'+17147092151', // From a valid Twilio number (babar.kodextech@gmail.com)
-		    		'body' => $code
-		  		]
-			);
+   //  		$apiResponse = $this->client->messages->create(
+		 //  		$number, // Text this number
+		 //  		[
+		 //    		'from' => (int)'+17147092151', // From a valid Twilio number (babar.kodextech@gmail.com)
+		 //    		'body' => $code
+		 //  		]
+			// );   
+              $apiResponse = $this->client->messages->create(
+                 $number, // Text this number
+                 [
+                 'from' => (int)'+19567071448', // From a valid Twilio number (aleem.kodextech@gmail.com)
+                 'body' => $code
+                 ]
+            );
 			return $apiResponse;
 
     	} catch (Exception $e) {

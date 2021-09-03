@@ -123,23 +123,18 @@ class AuthController extends Controller
                 }
             }
             else{
+                    
                 if($foundUser->phone_verified_at == null){
-                    $response = $this->resendVerificationToken($request);
-                    // dd($response);
-                    if(!$response){
+
+                    // getData() function is used to retrieve data from json response sent back from a controller/service
+                    $response = $this->resendVerificationToken($request)->getData();
+                    if(!$response->status){
                         return sendError('Something went wrong while sending verification token', []);
                     }
-                    $data = $response;
+                    $data = $response->data;
                     return sendError('New Verification Code sent', $data);
                 }
 
-                $response = $this->resendVerificationToken($request);
-                // dd($response);
-                if(!$response){
-                    return sendError('Something went wrong while Sending Verification token', []);
-                }
-                $data = $response;
-                return sendError('New Verification Code sent', $data);
             }
 
             // login user to application
@@ -341,9 +336,9 @@ class AuthController extends Controller
             //     return false;
             //     // return sendError('Somthing went wrong while send Code over phone', NULL);
             // }
-            // $verificationModel->type = 'phone';
-            // $verificationModel->phone = (strpos($request->phone_number, '+') > -1)? $request->phone_number : $request->phone_code . $request->phone_number;
-            // $verificationModel->email = null;
+            $verificationModel->type = 'phone';
+            $verificationModel->phone = (strpos($request->phone_number, '+') > -1)? $request->phone_number : $request->phone_code . $request->phone_number;
+            $verificationModel->email = null;
         } else {
             $email_address = (null != $user->email)? $user->email : $request->email;
             Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
