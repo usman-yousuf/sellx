@@ -230,10 +230,10 @@ class AuthController extends Controller
 
         // validate phone number
         if (isset($request->phone_number) && isset($request->phone_code)) {
-            $twilio = new TwilioController;
-            if (!$twilio->validNumber($request->phone_code . $request->phone_number, $request->phone_code)) {
-                return sendError('Phone is invalid', null);
-            }
+            // $twilio = new TwilioController;
+            // if (!$twilio->validNumber($request->phone_code . $request->phone_number, $request->phone_code)) {
+            //     return sendError('Phone is invalid', null);
+            // }
         }
 
         $code = mt_rand(100000, 999999);
@@ -336,14 +336,14 @@ class AuthController extends Controller
     {
         $verificationModel = new SignupVerification();
         if (isset($request->phone_number) && isset($request->phone_code)) {
-            $twilio = new TwilioController;
-            if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
-                return false;
-                // return sendError('Somthing went wrong while send Code over phone', NULL);
-            }
-            $verificationModel->type = 'phone';
-            $verificationModel->phone = (strpos($request->phone_number, '+') > -1)? $request->phone_number : $request->phone_code . $request->phone_number;
-            $verificationModel->email = null;
+            // $twilio = new TwilioController;
+            // if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
+            //     return false;
+            //     // return sendError('Somthing went wrong while send Code over phone', NULL);
+            // }
+            // $verificationModel->type = 'phone';
+            // $verificationModel->phone = (strpos($request->phone_number, '+') > -1)? $request->phone_number : $request->phone_code . $request->phone_number;
+            // $verificationModel->email = null;
         } else {
             $email_address = (null != $user->email)? $user->email : $request->email;
             Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
@@ -628,10 +628,10 @@ class AuthController extends Controller
             });
         }
         else{
-            $twilio = new TwilioController;
-            if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
-                return sendError('Somthing went wrong while send Code over phone', NULL);
-            }
+            // $twilio = new TwilioController;
+            // if (!$twilio->sendMessage($request->phone_code . $request->phone_number, 'Enter this code to verify your Sellx account ' . $code)) {
+            //     return sendError('Somthing went wrong while send Code over phone', NULL);
+            // }
         }
 
 
