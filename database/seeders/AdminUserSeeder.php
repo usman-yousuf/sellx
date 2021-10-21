@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class AdminUserSeeder extends Seeder
 {
@@ -13,26 +16,80 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        $user = New User();
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \DB::statement('truncate table users');
+        \DB::statement('truncate table profiles');
 
-        $user->name = 'Super Admin';
-        $user->email = 'superadmin@sellx';
-        $user->email_verified_at = \Carbon\Carbon::now();
-        $user->phone_verified_at = \Carbon\Carbon::now();
-        $user->password = bcrypt('superadmin');
-        $user->is_social = 0;
+        // Super Admin
+        User::create([
+            'uuid'              => \Str::uuid(),
+            'email'             => 'superadmin@sellx.com',
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'phone_verified_at' => date('Y-m-d H:i:s'),
+            'active_profile_id' => '1',
+            'is_social'         => '0',
+            'social_type'       => null,
+            'social_email'      => null,
+            'phone_code'        => null,
+            'phone_number'      => null,
+            'password'          => bcrypt('admin123'),
+            'created_at'        => date('Y-m-d H:i:s'),
+            'remember_token'    => '0',
+        ]);
+ 
+        Profile::create([
+            'uuid'               => \Str::uuid(),
+            'first_name'         => 'Sellx',
+            'last_name'          => 'Administration',
+            'auction_house_name' => 'Administration',
+            'username'           => 'superadmin',
+            'gender'             => 'male',
+            'user_id'            => '1',
+            'profile_type'       => 'auctioneer',
+            'dob'                => null,
+            'created_at'         => date('Y-m-d H:i:s'),
+        ]);
 
-        $user->save();
+        // Admin
+        User::create([
+            'uuid'              => \Str::uuid(),
+            'email'             => 'admin@sellx.com',
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'phone_verified_at' => date('Y-m-d H:i:s'),
+            'active_profile_id' => '2',
+            'is_social'         => '0',
+            'social_type'       => null,
+            'social_email'      => null,
+            'phone_code'        => null,
+            'phone_number'      => null,
+            'password'          => bcrypt('admin123'),
+            'created_at'        => date('Y-m-d H:i:s'),
+            'remember_token'    => '0',
+        ]);
 
-        $user = New User();
+        Profile::create([
+            'uuid'               => \Str::uuid(),
+            'first_name'         => 'Sellx',
+            'last_name'          => 'Administration',
+            'auction_house_name' => 'Administration',
+            'username'           => 'admin',
+            'gender'             => 'male',
+            'user_id'            => '2',
+            'profile_type'       => 'auctioneer',
+            'dob'                => null,
+            'created_at'         => date('Y-m-d H:i:s'),
+        ]);
 
-        $user->name = 'Super Admin';
-        $user->email = 'admin@sellx';
-        $user->email_verified_at = \Carbon\Carbon::now();
-        $user->phone_verified_at = \Carbon\Carbon::now();
-        $user->password = bcrypt('admin');
-        $user->is_social = 0;
+        $faker = Faker::create();
+        foreach (range(1,10) as $index) {
+            \DB::table('users')->insert([
+                'name' => $faker->name,
+                'uuid' => \Str::uuid(),
+                'email' => $faker->email,
+                'password' => bcrypt('secret'),
+            ]);
+        }
 
-        $user->save();          
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');       
     }
 }

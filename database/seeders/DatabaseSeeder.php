@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
             CountriesSeeder::class,
             CurrenciesSeeder::class,
             LanguagesSeeder::class,
-
             SubCategorySeeder::class,
             SubCategoryLevelThreeSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }
