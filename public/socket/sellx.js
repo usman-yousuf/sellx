@@ -31,6 +31,12 @@ io.on('connection', function(socket) {
         });
     });
 
+    socket.on('new_product_added_send', function(data) {
+        io.emit('new_product_added_recived', {
+            data: data,
+        });
+    });
+
     socket.on('online', function(data) {
         io.emit('offline', {
             data: data,

@@ -358,14 +358,32 @@ class Profile extends Model
         $profile->is_online = (isset($request->is_online) && ($request->is_online != ''))? $request->is_online : true;
         $profile->is_approved = ($request->profile_type == 'buyer');
 
-        $profile->first_name = $request->first_name;
-        $profile->last_name = $request->last_name;
-        $profile->username = $request->username;
-        $profile->country = $request->country;
-        $profile->dob = $request->dob;
-        $profile->profile_type = $request->profile_type;
-        $profile->bio = $request->bio??$profile->bio??'';
-        $profile->description  = $request->description??$profile->description??'';
+        if(isset($request->first_name) &&  $request->first_name != ''){
+
+            // dd('DumpMan');
+            $profile->first_name   = $request->first_name;
+        }
+        if(isset($request->last_name) &&  $request->last_name != ''){
+            $profile->last_name    = $request->last_name;
+        }
+        if(isset($request->username) &&  $request->username != ''){
+            $profile->username     = $request->username;
+        }
+        if(isset($request->country) &&  $request->country != ''){
+            $profile->country      = $request->country;
+        }
+        if(isset($request->dob) &&  $request->dob != ''){
+            $profile->dob          = $request->dob;
+        }
+        if(isset($request->profile_type) &&  $request->profile_type != ''){
+            $profile->profile_type = $request->profile_type;
+        }
+        if(isset($request->bio) &&  $request->bio != ''){
+            $profile->bio          = $request->bio;
+        }
+        if(isset($request->description) &&  $request->description != ''){
+            $profile->description  = $request->description;
+        }
         if(isset($request->profile_image) && ('' != $request->profile_image)){
             $profile->profile_image = $request->profile_image;
         }

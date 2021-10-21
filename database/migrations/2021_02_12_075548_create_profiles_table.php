@@ -27,6 +27,7 @@ class CreateProfilesTable extends Migration
             $table->string('username')->unique()->nullable();
             $table->text('profile_image')->nullable();
             $table->longText('bio')->nullable();
+            $table->longText('description')->nullable();
 
             $table->date('dob')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();

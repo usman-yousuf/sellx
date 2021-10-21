@@ -222,17 +222,17 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_uuid' => 'required',
-            'first_name' => 'required|min:3',
-            'last_name' => 'string',
-            'username' => 'required',
-            'country' => 'required',
-            'dob' => 'required',
-            'gender' => 'required|in:male,female',
-            'profile_type' => 'required|in:buyer,auctionar',
-            'bio' => 'string',
-            'description' => 'string',
-            // 'profile_image' => 'required',
+            'user_uuid'    => 'required',
+            'first_name'   => 'string|min:3',
+            'last_name'    => 'string',
+            'username'     => 'string',
+            'country'      => 'string',
+            'dob'          => 'date',
+            'gender'       => 'in:male,female',
+            'profile_type' => 'in:buyer,auctionar',
+            'bio'          => 'string',
+            'description'  => 'string',
+            'profile_image' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -246,11 +246,13 @@ class UserController extends Controller
         if(null == $user){
             return sendError('Invalid or Expired Information Provided', []);
         }
-
-        $foundModel = Profile::where('username', $request->username)->first();
-        if(null != $foundModel){
-            if($foundModel->id != $user->active_profile_id){ // email belongs to some another user
-                return sendError('Username Already Exists', NULL);
+        if(isset($request->username)){
+            
+            $foundModel = Profile::where('username', $request->username)->where('id','!=',$user->profile->id)->first();
+            if(null != $foundModel){
+                if($foundModel->id != $user->active_profile_id){ // email belongs to some another user
+                    return sendError('Username Already Exists', NULL);
+                }
             }
         }
 

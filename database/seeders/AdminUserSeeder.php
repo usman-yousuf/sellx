@@ -81,15 +81,38 @@ class AdminUserSeeder extends Seeder
         ]);
 
         $faker = Faker::create();
-        foreach (range(1,10) as $index) {
+        foreach (range(3,10) as $index) {
             \DB::table('users')->insert([
                 'name' => $faker->name,
                 'uuid' => \Str::uuid(),
                 'email' => $faker->email,
                 'password' => bcrypt('secret'),
+                'email_verified_at' => date('Y-m-d H:i:s'),
+                'phone_verified_at' => date('Y-m-d H:i:s'),
+                'active_profile_id' => $index,
+                'is_social'         => '0',
+                'social_type'       => null,
+                'social_email'      => null,
+                'phone_code'        => null,
+                'phone_number'      => null,
+                'created_at'        => date('Y-m-d H:i:s'),
+                'remember_token'    => '0',
+                'id' => $index
+            ]);            
+            \DB::table('profiles')->insert([
+                'uuid' => \Str::uuid(),
+                'first_name'         => $faker->firstName,
+                'last_name'          => $faker->lastName,
+                'auction_house_name' => $faker->name,
+                'username'           => $faker->userName,
+                'gender'             => 'male',
+                'user_id'            => $index,
+                'profile_type'       => 'auctioneer',
+                'dob'                => null,
+                'created_at'         => date('Y-m-d H:i:s'),
+                'id' => $index
             ]);
         }
-
         \DB::statement('SET FOREIGN_KEY_CHECKS=1;');       
     }
 }
