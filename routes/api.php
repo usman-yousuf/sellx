@@ -188,4 +188,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('chat_new_users', 'App\Http\Controllers\ChatsController@getNewUsers');
     Route::post('get_existing_chat', 'App\Http\Controllers\ChatsController@getExistingChat');
 
+    // get all users
+    Route::post('get_all_users', 'App\Http\Controllers\UserController@getAllusers');
+
 });

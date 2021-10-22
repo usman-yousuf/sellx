@@ -247,7 +247,7 @@ class UserController extends Controller
             return sendError('Invalid or Expired Information Provided', []);
         }
         if(isset($request->username)){
-            
+
             $foundModel = Profile::where('username', $request->username)->where('id','!=',$user->profile->id)->first();
             if(null != $foundModel){
                 if($foundModel->id != $user->active_profile_id){ // email belongs to some another user
@@ -399,13 +399,13 @@ class UserController extends Controller
         $AuctionHouse = Profile::where('auction_house_name', '<>', '')->where('profile_type', 'auctioneer');
         if(isset($request->keywords))
             $AuctionHouse->where('auction_house_name', 'LIKE', "%{$request->keywords}%");
-        
+
 
         $cloned_auction_houses = clone $AuctionHouse;
         $data['AuctionHouse'] = $AuctionHouse;
         $data['AuctionHouse'] = $data['AuctionHouse']->get();
         $data['Total_AuctionHouse'] = $cloned_auction_houses->count();
-        
+
         if($data['Total_AuctionHouse'] > 0){
             return sendSuccess('Search found.', $data);
         }
@@ -534,6 +534,19 @@ class UserController extends Controller
         $data['total'] = $cloned_models->count();
 
         return sendSuccess('Success', $data);
+    }
+
+    /**
+     * Get All Users
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function getAllUsers(Request $request)
+    {
+        $users = User::latest()->with('profiles')->get();
+
+        return sendSuccess('Success', $users);
     }
 
 }
