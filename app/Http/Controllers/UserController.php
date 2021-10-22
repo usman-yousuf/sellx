@@ -229,7 +229,7 @@ class UserController extends Controller
             'country'      => 'string',
             'dob'          => 'date',
             'gender'       => 'in:male,female',
-            'profile_type' => 'in:buyer,auctionar',
+            'profile_type' => 'in:buyer,auctioneer',
             'bio'          => 'string',
             'description'  => 'string',
             'profile_image' => 'string',
