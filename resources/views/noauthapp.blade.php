@@ -31,14 +31,55 @@
   <!-- JS Scripts -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script> --}}
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
+
 </head>
 <body>
+
+    {{-- test nav bar --}}
+
+    <nav class="navbar navbar-expand-lg navbar-light for_navbar_bg shadow">
+        <a href="{{route('home')}}">
+                <img
+                    src="{{asset('assets/images/Layer1.svg')}}"
+                    class="img-fluid for_nav_bar_logo"
+                />
+                <span>Sellx</span>
+                </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon fs_15px-s"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item text-right mt-2 active mx-lg-4">
+                        <a href="{{route('about')}}"> {{ __('About us') }} </a>
+                </li>
+                <li class="nav-item text-right mt-2 mx-lg-4">
+                        <a href="{{route('contact')}}"> {{ __('Contact us') }} </a>
+                </li>
+                <li class="nav-item text-right mx-lg-4">
+                    @php
+                        Session::get('locale') == NULL ? session()->put('locale','en') : '';
+                    @endphp
+                    <span class=" for_button_group" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn onee mr-6px-s h_40px-s changeLang {{ Session::get('locale') == 'en' ? ' active-btn' : '' }}" id="en">English</button>
+                        <button type="button" class="btn twoo h_40px-s changeLang {{ Session::get('locale') == 'ar' ? 'active-btn' : '' }} " id="ar" >Arabic</button>
+                    </span>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    {{-- test nav bar --}}
+
+
+
   <!-- Nav Bar Start -->
-    <div class="top_nav">
-      <div class="shadow p-3 mb-5 bg-body rounded for_navbar_bg">
+    {{-- <div class="top_nav">
+      <div class="shadow p-3 bg-body rounded for_navbar_bg">
         <a href="{{route('home')}}">
           <img
             src="{{asset('assets/images/Layer1.svg')}}"
@@ -47,39 +88,43 @@
           <span>Sellx</span>
         </a>
 
-        <div class="pull-right for_aboutus_contact">
-        
-            <span class="mx-4">
-              <span>
-                <a href="{{route('about')}}"> {{ __('About us') }} </a>
-              </span>
-              <span>
-                <a href="{{route('contact')}}"> {{ __('Contact us') }} </a> 
-              </span>
-              <span></span>
-            </span>
+        <div class="pull-right mr-lg-5">
+
+
+
+               <div>
+                    <span class="mx-4">
+                    <span>
+                        <a href="{{route('about')}}"> {{ __('About us') }} </a>
+                    </span>
+                    <span>
+                        <a href="{{route('contact')}}"> {{ __('Contact us') }} </a>
+                    </span>
+                </span> --}}
 
             <!-- <select class=" changeLang border"> -->
               <!-- <span class="">
-                <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'en' ? 'bg-primary text-white' : '' }}" id="en">English</span>
+                {<span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'en' ? 'bg-primary text-white' : '' }}" id="en">English</span>
                 <span class="m-0 p-0 btn changeLang {{ Config::get('app.locale') == 'ar' ? 'bg-primary text-white' : '' }}" id="ar">Arabic</span>
               </span> -->
-              <!-- 
+              <!--
                -->
-               @php
+               {{-- @php
                 Session::get('locale') == NULL ? session()->put('locale','en') : '';
                @endphp
               <span class=" for_button_group" role="group" aria-label="Basic outlined example">
                   <button type="button" class="btn onee mr-6px-s h_40px-s changeLang {{ Session::get('locale') == 'en' ? ' active-btn' : '' }}" id="en">English</button>
                   <button type="button" class="btn twoo h_40px-s changeLang {{ Session::get('locale') == 'ar' ? 'active-btn' : '' }} " id="ar" >Arabic</button>
-              </span>
+              </span> --}}
             <!-- </select> -->
-          
+               {{-- </div> --}}
+
+{{--
         </div>
       </div>
-    </div>
+    </div> --}}
     <!-- Nav Bar End -->
-  
+
 
 
 
@@ -93,7 +138,7 @@
               <div class="container for_footer_bottom ">
                 <div class="row for_footer_row_">
                   <div class="col-lg-6 col-md-6 col-sm-12 footer_first_col_main one">
-      
+
                     <p class="fox-text for_terms_and_conditions_p_res for_sm_footer_text" >
                       <a href="#">{{ __('Terms and Conditions') }}<br /></a>
                       <span class="fox-text">
@@ -103,25 +148,25 @@
                         <a href="#"> {{ __('Service Pricing') }}  <br /></a>
                       </span>
                     </p>
-                    
+
                   </div>
                   <div class="col-lg-6 col-md-6 footer_first_col_main second">
                     <p>
                       <a href="#">{{ __('Contact us') }}</a>
-                   
+
                       <span class="pull-right footer_logo"
                         ><img src="{{asset('assets/images/Frame27.svg')}}" class="img-fluid"
                       /></span>
                     </p>
                     <p>
                       <a href="#">{{ __('About us') }}</a>
-                 
+
                     </p>
                   </div>
                   <br />
-               
+
                 </div>
-            
+
             </div>
             <div class="container">
               <div class="end_footer ">
@@ -132,17 +177,17 @@
               </div>
           </div>
           </div>
-          <!-- Footer End --> 
+          <!-- Footer End -->
   </body>
   </html>
   <script type="text/javascript">
-  
+
     var url = "{{ route('changeLang') }}";
-  
+
     $(".changeLang").click(function(){
         // console.log(url + "?lang="+ $(this).val());
         // console.log("$(this).val()", $(this).attr('id'));
         window.location.href = url + "?lang="+ $(this).attr('id');
     });
-  
+
 </script>
