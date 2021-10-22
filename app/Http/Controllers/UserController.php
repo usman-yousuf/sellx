@@ -233,6 +233,7 @@ class UserController extends Controller
             'bio'          => 'string',
             'description'  => 'string',
             'profile_image' => 'string',
+            'auction_house_logo' => 'string',
         ]);
 
         if ($validator->fails()) {

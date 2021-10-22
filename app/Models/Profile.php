@@ -154,17 +154,17 @@ class Profile extends Model
     }
 
     public function biddings()
-    { 
+    {
         return $this->hasMany(Bidding::class, 'profile_id', 'id');
     }
 
     public function viewers()
-    { 
+    {
         return $this->hasMany(Viewer::class, 'profile_id', 'id');
     }
 
     public function comments()
-    { 
+    {
         return $this->hasMany(Comment::class, 'profile_id', 'id');
     }
 
@@ -179,32 +179,32 @@ class Profile extends Model
     }
 
     public function stories()
-    { 
+    {
         return $this->hasMany(Story::class, 'profile_id', 'id');
     }
 
     public function auction()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
     }
 
     public function products()
-    { 
+    {
         return $this->hasMany(Product::class, 'profile_id', 'id')->without('profile');
     }
 
     public function totalsolds()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds');
     }
 
     public function pendingsolds()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds')->where('status','pending');
     }
 
     public function comingauctions()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->where('scheduled_date_time','>=',Carbon::now())->with('auction');
     }
     /**
@@ -386,6 +386,9 @@ class Profile extends Model
         }
         if(isset($request->profile_image) && ('' != $request->profile_image)){
             $profile->profile_image = $request->profile_image;
+        }
+        if (isset($request->auction_house_logo) && ('' != $request->auction_house_logo)) {
+            $profile->auction_house_logo = $request->auction_house_logo;
         }
         try{
             $profile->save();

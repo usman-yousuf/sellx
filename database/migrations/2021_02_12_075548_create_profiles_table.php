@@ -26,6 +26,7 @@ class CreateProfilesTable extends Migration
 
             $table->string('username')->unique()->nullable();
             $table->text('profile_image')->nullable();
+            $table->text('auction_house_logo')->nullable();
             $table->longText('bio')->nullable();
             $table->longText('description')->nullable();
 
