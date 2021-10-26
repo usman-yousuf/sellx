@@ -32,48 +32,66 @@ class AuctioneerManagementController extends Controller
 	}
 
     // auction view
-     public function auctionView(Request $request, $uuid = null){
+    public function auctionView(Request $request, $uuid = null){
 
 		$auction = Auction::get();
 		return view('admin.auctions.index',compact('auction',$auction));
 	}
 
     // auction products detail view
-     public function auctionProductsDetail(){
+    public function auctionProductsDetail(){
 
 		return view('admin.auctions.auction_products_detail');
 	}
 
     // All auctions products view
-     public function allAuctionsProducts(){
+    public function allAuctionsProducts(){
 
 		return view('admin.auctions.products_of_auctions');
 	}
 
     // All auctions deposits view
-     public function depositView(){
+    public function depositView(){
 
 		return view('admin.deposit.index');
 	}
 
 
     // All auctions edit deposits view
-     public function editDeposit(){
+    public function editDeposit(){
 
 		return view('admin.deposit.edit_deposit');
 	}
 
      // All auctions transactions view
-     public function transactionsView(){
+    public function transactionsView(){
 
 		return view('admin.transactions.index');
 	}
 
 
     // All auctions edit view
-     public function editAuction(){
+    public function editAuction(){
 
 		return view('admin.auctions.edit_auction');
+	}
+
+     // All auctions house account view
+    public function auctionHouseAccountsView(){
+
+		return view('admin.accounts.auction_house_accounts.index');
+	}
+
+    // All auctions house account view
+    public function auctionHouseAccountsDetail(){
+
+		return view('admin.accounts.auction_house_accounts.account_detail_view');
+	}
+
+    // All auctions house account view
+    public function AccountsSummaryReport(){
+
+		return view('admin.accounts.accounts_summary_reports.index');
 	}
 
 

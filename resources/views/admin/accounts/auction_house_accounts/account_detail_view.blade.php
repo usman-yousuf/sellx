@@ -28,7 +28,7 @@
             <div class="content">
 
                 <!-- Page length options -->
-                                   <div class="card">
+                    <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title">
                                 <a data-toggle="collapse" class="text-default" href="#collapsible-controls-group1"><b>Edit Deposit</b></a>
@@ -48,7 +48,7 @@
                             <div class="card">
 
                                 <div class="row">
-                                    <div class="col-12">
+                                    {{-- <div class="col-12">
                                         <div class="card-body">
                                             <div class="container">
                                                 <div class="row">
@@ -101,8 +101,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    {{-- <div class="col-6">
+                                    </div> --}}
+                                    <div class="col-12">
                                         <div class="card-body">
                                             <div class="container">
                                                 <div class="row">
@@ -110,48 +110,32 @@
                                                         <table class="table table-striped">
                                                             <tbody>
                                                                 <tr>
-                                                                    <th>Email</th>
-                                                                    <td>{{$user->user->email}}</td>
+                                                                    <th>Auction House Name</th>
+                                                                    <td>houseclo</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Phone code</th>
-                                                                    <td>{{$user->user->phone_code}}</td>
+                                                                    <th>Total Auctions Completed</th>
+                                                                    <td>5</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Phone Number</th>
-                                                                    <td>{{$user->user->phone_number}}</td>
+                                                                    <th>Total Amount</th>
+                                                                    <td>$ <span>300</span>/-</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Social Login</th>
-                                                                    @if($user->user->is_social == 1)
-                                                                        <td><span class="badge badge-success">Yes</span></td>
-                                                                    @elseif($user->user->is_social == 0)
-                                                                        <td><span class="badge badge-danger">No</span></td>
-                                                                    @endif
+                                                                    <th>Collected Amount</th>
+                                                                    <td>$ <span>250</span>/-</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Social Platform</th>
-                                                                    @if($user->user->social_type != null)
-                                                                        <td>{{$user->user->social_type}}</td>
-                                                                    @elseif($user->user->social_type == null)
-                                                                        <td>Empty</td>
-                                                                    @endif
+                                                                    <th>Service Fee</th>
+                                                                    <td>$ <span>30</span>/-</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Social Email</th>
-                                                                    @if($user->user->social_email != null)
-                                                                        <td>{{$user->user->social_email}}</td>
-                                                                    @elseif($user->user->social_email == null)
-                                                                        <td>Empty</td>
-                                                                    @endif
+                                                                    <th>Transferred Amount</th>
+                                                                    <td>$ <span>250</span>/-</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Social ID</th>
-                                                                    @if($user->user->social_id != null)
-                                                                        <td>{{$user->user->social_id}}</td>
-                                                                    @elseif($user->user->social_id == null)
-                                                                        <td>Empty</td>
-                                                                    @endif
+                                                                    <th>Pending Amount</th>
+                                                                    <td>$ <span>50</span>/-</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -159,7 +143,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

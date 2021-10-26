@@ -485,7 +485,7 @@
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.countries') }}" class="nav-link">
+                                    <a href="{{ route('admin.accounts.auction.house.accounts') }}" class="nav-link">
                                         <i class="icon-office"></i>
                                         <span>
                                             Auction House Accounts
@@ -505,7 +505,7 @@
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.currencies') }}" class="nav-link">
+                                    <a href="{{ route('admin.accounts.summary') }}" class="nav-link">
                                         <i class="fa fa-clipboard-list"></i>
                                         <span>
                                             Acounts Summary Reports

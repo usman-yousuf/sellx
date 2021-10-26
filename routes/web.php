@@ -81,6 +81,12 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/deposit/edit/{uuid?}', [AuctioneerManagementController::class, 'editDeposit'])->name('deposit.edit.deposit');
 	    Route::get('/admin/transactions/view/{uuid?}', [AuctioneerManagementController::class, 'transactionsView'])->name('transaction');
 
+        // ACCOUNTS ROUTES
+	    Route::get('/admin/accounts/view/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseAccountsView'])->name('accounts.auction.house.accounts');
+	    Route::get('/admin/accounts/detail/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseAccountsDetail'])->name('accounts.auction.house.accounts.detail');
+	    Route::get('/admin/accounts/summary/{uuid?}', [AuctioneerManagementController::class, 'AccountsSummaryReport'])->name('accounts.summary');
+
+
 	    //CATEGORY MANAGEMENT ROUTES
 	    Route::get('/admin/categories', [CategoriesManagementController::class, 'index'])->name('categories');
 	    Route::get('/admin/categories/view/{uuid}', [CategoriesManagementController::class, 'view'])->name('categories.view');
