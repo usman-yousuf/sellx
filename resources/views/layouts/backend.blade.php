@@ -35,7 +35,7 @@
 	<script src="{{asset('admin/global_assets/js/demo_pages/dashboard.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/streamgraph.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/sparklines.js')}}"></script>
-	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/lines.js')}}"></script>	
+	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/lines.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/areas.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/donuts.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_charts/pages/dashboard/light/bars.js')}}"></script>
@@ -50,7 +50,7 @@
 	<script src="{{asset('admin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
 	<script src="{{asset('admin/global_assets/js/demo_pages/form_select2.js')}}"></script>
-	
+
 	<!-- /theme JS files -->
 
 </head>
@@ -112,7 +112,7 @@
 									<div class="mr-3">
 										<a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon"><i class="icon-git-commit"></i></a>
 									</div>
-									
+
 									<div class="media-body">
 										Add full font overrides for popovers and tooltips
 										<div class="text-muted font-size-sm">36 minutes ago</div>
@@ -123,7 +123,7 @@
 									<div class="mr-3">
 										<a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon"><i class="icon-git-branch"></i></a>
 									</div>
-									
+
 									<div class="media-body">
 										<a href="#">Chris Arney</a> created a new <span class="font-weight-semibold">Design</span> branch
 										<div class="text-muted font-size-sm">2 hours ago</div>
@@ -134,7 +134,7 @@
 									<div class="mr-3">
 										<a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon"><i class="icon-git-merge"></i></a>
 									</div>
-									
+
 									<div class="media-body">
 										<a href="#">Eugene Kopyov</a> merged <span class="font-weight-semibold">Master</span> and <span class="font-weight-semibold">Dev</span> branches
 										<div class="text-muted font-size-sm">Dec 18, 18:36</div>
@@ -145,7 +145,7 @@
 									<div class="mr-3">
 										<a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-git-pull-request"></i></a>
 									</div>
-									
+
 									<div class="media-body">
 										Have Carousel ignore keyboard events
 										<div class="text-muted font-size-sm">Dec 12, 05:46</div>
@@ -173,7 +173,7 @@
 						<i class="icon-people"></i>
 						<span class="d-md-none ml-2">Users</span>
 					</a>
-					
+
 					<div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-300">
 						<div class="dropdown-content-header">
 							<span class="font-weight-semibold">Users online</span>
@@ -252,7 +252,7 @@
 						<span class="d-md-none ml-2">Messages</span>
 						<span class="badge badge-pill bg-warning-400 ml-auto ml-md-0">2</span>
 					</a>
-					
+
 					<div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350">
 						<div class="dropdown-content-header">
 							<span class="font-weight-semibold">Messages</span>
@@ -338,7 +338,7 @@
 												<span class="text-muted float-right font-size-sm">Mon</span>
 											</a>
 										</div>
-										
+
 										<span class="text-muted">Other travelling salesmen live a life of luxury...</span>
 									</div>
 								</li>
@@ -445,55 +445,184 @@
 								</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="{{ route('admin.countries') }}" class="nav-link">
-								<i class="icon-office"></i>
-								<span>
-									Country Management
-								</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('admin.cities') }}" class="nav-link">
-								<i class="icon-city"></i>
-								<span>
-									City Management
-								</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('admin.currencies') }}" class="nav-link">
-								<i class="icon-cash2"></i>
-								<span>
-									Currency Management
-								</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('admin.languages') }}" class="nav-link">
-								<i class="fas fa-language mr-3 fa-1x"></i>
-								<span>
-									Language Management
-								</span>
-							</a>
-						</li>
+
 						<li class="nav-item nav-item-submenu">
                             <a href="#" class="nav-link"><i class="icon-users4"></i> <span>User Management</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="{{ route('admin.users') }}"  method="GET" class="nav-link">Buyers</a></li>
+                                <li class="nav-item"><a href="{{ route('admin.users') }}"  method="GET" class="nav-link">Users</a></li>
                             </ul>
                         </li>
+
                         <li class="nav-item nav-item-submenu">
-                            <a href="#" class="nav-link"><i class="icon-home8"></i> <span>Auction House</span></a>
+                            <a href="#" class="nav-link"><i class="fa fa-home"></i> <span>Auction House</span></a>
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="{{ route('admin.auctioneer') }}"  method="GET" class="nav-link">Auctioneers</a></li>
+                                <li class="nav-item"><a href="{{ route('admin.auctioneer') }}"  method="GET" class="nav-link"> <i class="fa fa-user"></i> <span>Auctioneers</span> </a></li>
+                            </ul>
+                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item"><a href="{{ route('admin.auctioneer') }}"  method="GET" class="nav-link"> <i class="fa fa-home"></i> <span>Auction House</span> </a></li>
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="{{ route('admin.auctioneer.view_approval_request') }}"  method="GET" class="nav-link">Approval Requests</a></li>
+                                <li class="nav-item"><a href="{{ route('admin.auctioneer.view_approval_request') }}"  method="GET" class="nav-link"> <i class="fa fa-thumbs-up"></i> <span>Approval Requests</span> </a></li>
                             </ul>
                         </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="fab fa-acquisitions-incorporated"></i><span>Auction</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item"><a href="{{ route('admin.auctions') }}"  method="GET" class="nav-link"><i class="fab fa-acquisitions-incorporated"></i> <span>Auctions</span> </a></li>
+                            </ul>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item"><a href="{{ route('admin.auctions.products') }}"  method="GET" class="nav-link"> <i class="fa fa-shopping-basket"></i> <span>Products in Auctions</span> </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="fa fa-university"></i></i></i> <span>Accounts</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.countries') }}" class="nav-link">
+                                        <i class="icon-office"></i>
+                                        <span>
+                                            Auction House Accounts
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                        <i class="fa fa-money-check-alt"></i>
+                                        <span>
+                                            Transferred Amounts
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.currencies') }}" class="nav-link">
+                                        <i class="fa fa-clipboard-list"></i>
+                                        <span>
+                                            Acounts Summary Reports
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="icon-cash"></i> <span>Deposit & Transaction</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.deposit') }}" class="nav-link">
+                                        <i class="icon-cash2"></i>
+                                        <span>
+                                            Deposits
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.transaction') }}" class="nav-link">
+                                        <i class="fa fa-file-invoice-dollar"></i>
+                                        <span>
+                                            Transactions
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="fa fa-hand-holding-usd"></i> <span>Refund & Cancelation</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.countries') }}" class="nav-link">
+                                        <i class="fa fa-exchange-alt"></i>
+                                        <span>
+                                            Refund
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                        <i class="fas fa-undo"></i>
+                                        <span>
+                                            Return
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                        <i class="fa fa-window-close"></i>
+                                        <span>
+                                            Cancel
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item nav-item-submenu">
+                            <a href="#" class="nav-link"><i class="fa fa-cog"></i> <span>Settings</span></a>
+
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.countries') }}" class="nav-link">
+                                        <i class="icon-office"></i>
+                                        <span>
+                                            Country Management
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                        <i class="icon-city"></i>
+                                        <span>
+                                            City Management
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.currencies') }}" class="nav-link">
+                                        <i class="icon-cash2"></i>
+                                        <span>
+                                            Currency Management
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.languages') }}" class="nav-link">
+                                        <i class="fas fa-language mr-3 fa-1x"></i>
+                                        <span>
+                                            Language Management
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
 
 					</ul>
 				</div>
@@ -501,7 +630,7 @@
 
 			</div>
 			<!-- /sidebar content -->
-			
+
 		</div>
 		<!-- /main sidebar -->
 

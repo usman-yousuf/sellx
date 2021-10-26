@@ -14,9 +14,8 @@
                 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                     <div class="d-flex">
                         <div class="breadcrumb">
-                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Approval Request Management</a>
-                            <span class="breadcrumb-item">All Approval Requests</span>
-                            <span class="breadcrumb-item active">Auction House Approval Requests</span>
+                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Users Management</a>
+                            <span class="breadcrumb-item">All Users</span>
                         </div>
 
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -29,13 +28,13 @@
             <div class="content">
 
                 <div class="card-body">
-                    <form action="{{ route('admin.auctioneer.update_approval_request', ['uuid' => $user->uuid]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.auctioneer.update_approval_request', ['uuid' => $users->uuid]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
-                                <h6><label>Request Status</label></h6>
+                                <h6><label>User's Status</label></h6>
                                 <select data-placeholder="Select a State..." class="form-control form-control-lg select" name="is_approved" data-container-css-class="select-lg" data-fouc>
-                                        <option value="1" name="is_approved"  {{ $user->is_approved == '1' ? 'selected' : '' }} data-fouc>Approved</option>
-                                        <option value="0" name="is_approved" {{ $user->is_approved == '0' ? 'selected' : '' }} data-fouc>Unapproved</option>
+                                        <option value="1" name="is_approved"  {{ $users->is_approved == '1' ? 'selected' : '' }} data-fouc>Approved</option>
+                                        <option value="0" name="is_approved" {{ $users->is_approved == '0' ? 'selected' : '' }} data-fouc>Unapproved</option>
                                 </select>
                             </div>
 

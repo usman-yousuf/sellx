@@ -30,7 +30,7 @@
                 <!-- Page length options -->
                 <div class="card">
                     <div class="card-header header-elements-inline">
-                        <h5 class="card-title">All Buyers Profile Listing</h5>
+                        <h5 class="card-title">All Users Profile Listing</h5>
                         <div class="header-elements">
                             <div class="list-icons">
                                 <a class="list-icons-item" data-action="collapse"></a>
@@ -78,7 +78,11 @@
 
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
-                                                    <!-- <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a> -->
+
+                                                    {{-- an addition of user update in case of status and use the route of "approval request form" after some alteration --}}
+                                                    <a href="{{route('admin.users.update.form', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
+
+                                                    {{-- <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a> --}}
                                                     <a href="{{route('admin.users.delete', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                 </div>
                                             </div>

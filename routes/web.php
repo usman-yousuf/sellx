@@ -50,22 +50,36 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::name('admin.')->group(function() {
-		
+
 		Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 		//USERS MANAGEMENT ROUTES
 	    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('users');
 	    Route::get('/admin/users/view/{uuid}', [UserManagementController::class, 'view'])->name('users.view');
+	    Route::get('/admin/users/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateUsersForm'])->name('users.update.form');
 	    Route::get('/admin/users/delete/{uuid?}', [UserManagementController::class, 'delete'])->name('users.delete');
 
 	    //AUCTIONEER MANAGEMENT ROUTES
 	    Route::get('/admin/auctioneer', [AuctioneerManagementController::class, 'index'])->name('auctioneer');
 	    Route::get('/admin/auctioneer/view/{uuid}', [AuctioneerManagementController::class, 'view'])->name('auctioneer.view');
+	    Route::get('/admin/auctioneer/details/{uuid}', [AuctioneerManagementController::class, 'viewDetails'])->name('auctioneer.details');
+	    Route::get('/admin/auctioneer/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');
 	    Route::get('/admin/auctioneer/delete/{uuid?}', [AuctioneerManagementController::class, 'delete'])->name('auctioneer.delete');
 	    Route::get('/admin/auctioneer/approvalrequest', [AuctioneerManagementController::class, 'approvalRequests'])->name('auctioneer.view_approval_request');
 	    Route::get('/admin/auctioneer/approvalrequest/form/{uuid?}', [AuctioneerManagementController::class, 'approvalRequestForm'])->name('auctioneer.view_approval_request.form');
 	    Route::get('/admin/auctioneer/approvalrequest/delete/{uuid?}', [AuctioneerManagementController::class, 'deleteApprovalRequests'])->name('auctioneer.delete_approval_request');
 	    Route::post('/admin/auctioneer/approvalrequest/update/{uuid?}', [AuctioneerManagementController::class, 'updateApprovalRequests'])->name('auctioneer.update_approval_request');
+
+        //AUCTIONS MANAGEMENT ROUTES
+	    Route::get('/admin/auction/view/{uuid?}', [AuctioneerManagementController::class, 'auctionView'])->name('auctions');
+	    Route::get('/admin/auction/edit/{uuid?}', [AuctioneerManagementController::class, 'editAuction'])->name('auctions.edit.auctions');
+	    Route::get('/admin/auction/products/view/{uuid?}', [AuctioneerManagementController::class, 'auctionProductsDetail'])->name('auctions.products.detail');
+	    Route::get('/admin/auction/all/products/view/{uuid?}', [AuctioneerManagementController::class, 'allAuctionsProducts'])->name('auctions.products');
+
+        // DEPOSIT AND TRANSACTIONS ROUTES
+	    Route::get('/admin/deposit/view/{uuid?}', [AuctioneerManagementController::class, 'depositView'])->name('deposit');
+	    Route::get('/admin/deposit/edit/{uuid?}', [AuctioneerManagementController::class, 'editDeposit'])->name('deposit.edit.deposit');
+	    Route::get('/admin/transactions/view/{uuid?}', [AuctioneerManagementController::class, 'transactionsView'])->name('transaction');
 
 	    //CATEGORY MANAGEMENT ROUTES
 	    Route::get('/admin/categories', [CategoriesManagementController::class, 'index'])->name('categories');

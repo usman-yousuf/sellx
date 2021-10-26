@@ -76,7 +76,8 @@
 
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a href="{{route('admin.auctioneer.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
-                                                    <!-- <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a> -->
+                                                    <a href="{{route('admin.auctioneer.details', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> User Details</a>
+                                                    <a href="{{route('admin.auctioneer.update.status', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
                                                     <a href="{{route('admin.auctioneer.delete', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                 </div>
                                             </div>
