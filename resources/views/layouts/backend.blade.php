@@ -461,7 +461,7 @@
                                 <li class="nav-item"><a href="{{ route('admin.auctioneer') }}"  method="GET" class="nav-link"> <i class="fa fa-user"></i> <span>Auctioneers</span> </a></li>
                             </ul>
                              <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                                <li class="nav-item"><a href="{{ route('admin.auctioneer') }}"  method="GET" class="nav-link"> <i class="fa fa-home"></i> <span>Auction House</span> </a></li>
+                                <li class="nav-item"><a href="{{ route('admin.auction.houses') }}"  method="GET" class="nav-link"> <i class="fa fa-home"></i> <span>Auction House</span> </a></li>
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item"><a href="{{ route('admin.auctioneer.view_approval_request') }}"  method="GET" class="nav-link"> <i class="fa fa-thumbs-up"></i> <span>Approval Requests</span> </a></li>
@@ -495,7 +495,7 @@
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                    <a href="{{ route('admin.accounts.transfer.amount') }}" class="nav-link">
                                         <i class="fa fa-money-check-alt"></i>
                                         <span>
                                             Transferred Amounts
@@ -546,7 +546,7 @@
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.countries') }}" class="nav-link">
+                                    <a href="{{ route('admin.refund') }}" class="nav-link">
                                         <i class="fa fa-exchange-alt"></i>
                                         <span>
                                             Refund
@@ -556,7 +556,7 @@
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                    <a href="{{ route('admin.return') }}" class="nav-link">
                                         <i class="fas fa-undo"></i>
                                         <span>
                                             Return
@@ -566,10 +566,10 @@
                             </ul>
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.cities') }}" class="nav-link">
+                                    <a href="{{ route('admin.cancelation') }}" class="nav-link">
                                         <i class="fa fa-window-close"></i>
                                         <span>
-                                            Cancel
+                                            Cancelation
                                         </span>
                                     </a>
                                 </li>

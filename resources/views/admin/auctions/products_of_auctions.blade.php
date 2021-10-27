@@ -54,7 +54,7 @@
                                 <th>Won List</th>
                                 <th>Product Status</th>
                                 <th>Payment Status</th>
-                                <th class="text-center">Actions</th>
+                                {{-- <th class="text-center">Actions</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +66,7 @@
                                 <td><span>2021-06-14</span><span>11:12:13</span></td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -79,7 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                              <tr>
                                 <td>12</td>
@@ -89,7 +89,7 @@
                                 <td><span>2021-06-14</span><span>11:12:13</span></td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -102,7 +102,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                              <tr>
                                 <td>12</td>
@@ -112,7 +112,7 @@
                                 <td><span>2021-06-14</span><span>11:12:13</span></td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -125,7 +125,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                              <tr>
                                 <td>12</td>
@@ -135,7 +135,7 @@
                                 <td><span>2021-06-14</span><span>11:12:13</span></td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -148,7 +148,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                              <tr>
                                 <td>12</td>
@@ -158,7 +158,7 @@
                                 <td><span>2021-06-14</span><span>11:12:13</span></td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -171,7 +171,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
 
                         </tbody>

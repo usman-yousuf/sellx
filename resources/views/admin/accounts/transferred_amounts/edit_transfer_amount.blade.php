@@ -6,7 +6,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Deposits Management</h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Transfer Amounts Management</h4>
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                     </div>
                 </div>
@@ -14,9 +14,9 @@
                 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                     <div class="d-flex">
                         <div class="breadcrumb">
-                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Deposits Management</a>
-                            <span class="breadcrumb-item active">Deposits</span>
-                            <span class="breadcrumb-item active">Update Deposits</span>
+                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Transfer Amounts Management</a>
+                            <span class="breadcrumb-item active">Transfer Amounts</span>
+                            <span class="breadcrumb-item active">Add or Update Transfer Amounts</span>
                         </div>
 
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -39,42 +39,27 @@
                                      <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="name">User Name</label>
-                                                <input type="text" placeholder="Iso" id="txt_name-d" name="name" value="Fixess" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="amount">Deposit Amount</label>
-                                                <input type="text" placeholder="category" id="txt_amount-d" name="amount" value="amount" class="form-control">
+                                                <label for="name">Auction House Name</label>
+                                                <input type="text" placeholder="Iso" id="txt_name-d" name="auction_name" value="houslie" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="date">Deposit Date</label>
-                                                <input type="text" placeholder="date" id="date-d" name="date" value="date" class="form-control">
+                                                <label for="Transfer_amount">Transfer Amount</label>
+                                                <input type="text" placeholder="Name" id="txt_house_name-d" name="Transfer_amount" value="300" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="status">Deposit Status</label>
-                                                <select type="text" placeholder="Numcode" id="txt_status-d" name="status" value="status" class="form-control">
-                                                    <option value="1">completed</option>
-                                                    <option value="2">pending</option>
-                                                </select>
+                                                <label for="date">Auction Date</label>
+                                                <input type="text" placeholder="date" id="date-d" name="iso3" value="date" class="form-control">
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </fieldset>
                             </div>
                         </div>

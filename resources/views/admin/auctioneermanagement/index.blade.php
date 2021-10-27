@@ -6,7 +6,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Auction House Management</h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - User Management</h4>
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                     </div>
                 </div>
@@ -14,8 +14,8 @@
                 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                     <div class="d-flex">
                         <div class="breadcrumb">
-                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Auction House Management</a>
-                            <span class="breadcrumb-item active">All Auction Houses</span>
+                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> User Management</a>
+                            <span class="breadcrumb-item active">All Users</span>
                         </div>
 
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -30,7 +30,7 @@
                 <!-- Page length options -->
                 <div class="card">
                     <div class="card-header header-elements-inline">
-                        <h5 class="card-title">All Auction Houses Listing</h5>
+                        <h5 class="card-title">All Users Profile Listing</h5>
                         <div class="header-elements">
                             <div class="list-icons">
                                 <a class="list-icons-item" data-action="collapse"></a>
@@ -41,16 +41,17 @@
                     </div>
 
                     <div class="card-body">
-                        You can <code>Search</code>, <code>View</code> & <code>Delete</code> the specific Auction House from here.
+                        You can <code>Search</code>, <code>View</code> & <code>Delete</code> the specific User from here.
                     </div>
 
                     <table class="table datatable-show-all">
                         <thead>
                             <tr>
                                 <th>ID#</th>
-                                <th>Auction House Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>Profile Type</th>
-                                <th>Last Updated At</th>
+                                <th>DOB</th>
                                 <th>Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -59,9 +60,10 @@
                             @forelse($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
-                                    <td>{{$user->auction_house_name}}</td>
+                                    <td>{{$user->first_name}}</td>
+                                    <td>{{$user->last_name}}</td>
                                     <td><a href="#">{{$user->profile_type}}</a></td>
-                                    <td>{{$user->updated_at}}</td>
+                                    <td>{{$user->dob}}</td>
                                     @if($user->is_approved == 1)
                                         <td><span class="badge badge-success">Approved</span></td>
                                     @elseif($user->is_approved == 0)
@@ -75,8 +77,8 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="{{route('admin.auctioneer.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
-                                                    <a href="{{route('admin.auctioneer.details', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> User Details</a>
+                                                    {{-- <a href="{{route('admin.auctioneer.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a> --}}
+                                                    <a href="{{route('admin.auctioneer.details', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> Auctioneer Details</a>
                                                     <a href="{{route('admin.auctioneer.update.status', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
                                                     <a href="{{route('admin.auctioneer.delete', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                 </div>
@@ -85,7 +87,7 @@
                                     </td>
                                 </tr>
                             @empty
-                                <div class="text-center"><h6><b>No Record Found.</h6></b><div>
+                                <div class="text-center"><h6><b>No Record Found.</b></h6></div>
                             @endforelse
                         </tbody>
                     </table>

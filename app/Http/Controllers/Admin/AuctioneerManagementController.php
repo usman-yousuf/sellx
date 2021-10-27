@@ -30,12 +30,21 @@ class AuctioneerManagementController extends Controller
 		$user = Profile::where('uuid', $uuid)->with('user')->with('addresses')->with('LocalisationSetting')->with('notificationpermissions')->first();
 		return view('admin.auctioneermanagement.auctioneer_details',compact('user',$user));
 	}
-
+    // auction house index
+    public function auctionHouseIndex() {
+		$users = Profile::where('profile_type', 'auctioneer')->where('is_approved', 1)->get();
+		return view('admin.auctioneermanagement.auction_house_index',compact('users',$users));
+	}
     // auction view
     public function auctionView(Request $request, $uuid = null){
 
 		$auction = Auction::get();
 		return view('admin.auctions.index',compact('auction',$auction));
+	}
+    // All auction house profile view
+    public function auctionHouseProfile(){
+
+		return view('admin.auctioneermanagement.auction_house_profile');
 	}
 
     // auction products detail view
@@ -92,6 +101,70 @@ class AuctioneerManagementController extends Controller
     public function AccountsSummaryReport(){
 
 		return view('admin.accounts.accounts_summary_reports.index');
+	}
+    // All transfer amount view
+    public function transferAmountView(){
+
+		return view('admin.accounts.transferred_amounts.index');
+	}
+    // All transfer amount add & edit
+    public function transferAmountEdit(){
+
+		return view('admin.accounts.transferred_amounts.edit_transfer_amount');
+	}
+
+    // All returns View
+    public function returnView(){
+
+		return view('admin.refund_cancelation.return.index');
+	}
+
+    // All returns Edit
+    public function returnEdit(){
+
+		return view('admin.refund_cancelation.return.edit_return');
+	}
+
+    // All returns Edit
+    public function returnDetail(){
+
+		return view('admin.refund_cancelation.return.view_return_details');
+	}
+
+    // All refund View
+    public function refundView(){
+
+		return view('admin.refund_cancelation.refund.index');
+	}
+
+    // All refund Edit
+    public function refundEdit(){
+
+		return view('admin.refund_cancelation.refund.edit_refund');
+	}
+
+    // All refund detail
+    public function refundDetail(){
+
+		return view('admin.refund_cancelation.refund.view_refund_details');
+	}
+
+    // All cancelation View
+    public function cancelationView(){
+
+		return view('admin.refund_cancelation.cancelation.index');
+	}
+
+    // All cancelation Edit
+    public function cancelationEdit(){
+
+		return view('admin.refund_cancelation.cancelation.edit_cancelation');
+	}
+
+    // All cancelation detail
+    public function cancelationDetail(){
+
+		return view('admin.refund_cancelation.cancelation.view_cancelation_details');
 	}
 
 

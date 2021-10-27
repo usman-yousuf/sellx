@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    //AUCTIONEER MANAGEMENT ROUTES
 	    Route::get('/admin/auctioneer', [AuctioneerManagementController::class, 'index'])->name('auctioneer');
+	    Route::get('/admin/auction/houses', [AuctioneerManagementController::class, 'auctionHouseIndex'])->name('auction.houses');
+	    Route::get('/admin/auction/house/profile', [AuctioneerManagementController::class, 'auctionHouseProfile'])->name('auction.house.profile');
 	    Route::get('/admin/auctioneer/view/{uuid}', [AuctioneerManagementController::class, 'view'])->name('auctioneer.view');
 	    Route::get('/admin/auctioneer/details/{uuid}', [AuctioneerManagementController::class, 'viewDetails'])->name('auctioneer.details');
 	    Route::get('/admin/auctioneer/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');
@@ -85,6 +87,21 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/accounts/view/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseAccountsView'])->name('accounts.auction.house.accounts');
 	    Route::get('/admin/accounts/detail/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseAccountsDetail'])->name('accounts.auction.house.accounts.detail');
 	    Route::get('/admin/accounts/summary/{uuid?}', [AuctioneerManagementController::class, 'AccountsSummaryReport'])->name('accounts.summary');
+	    Route::get('/admin/accounts/transferr/amount/view/{uuid?}', [AuctioneerManagementController::class, 'transferAmountView'])->name('accounts.transfer.amount');
+	    Route::get('/admin/accounts/transferr/amount/edit/{uuid?}', [AuctioneerManagementController::class, 'transferAmountEdit'])->name('accounts.transfer.amount.edit');
+
+        // RETURN, REFUND AND CANCELATION ROUTES
+	    Route::get('/admin/return/view/{uuid?}', [AuctioneerManagementController::class, 'returnView'])->name('return');
+	    Route::get('/admin/return/detail/view/{uuid?}', [AuctioneerManagementController::class, 'returnDetail'])->name('return.detail');
+	    Route::get('/admin/return/edit/{uuid?}', [AuctioneerManagementController::class, 'returnEdit'])->name('return.edit');
+
+        Route::get('/admin/refund/view/{uuid?}', [AuctioneerManagementController::class, 'refundView'])->name('refund');
+	    Route::get('/admin/refund/detail/view/{uuid?}', [AuctioneerManagementController::class, 'refundDetail'])->name('refund.detail');
+	    Route::get('/admin/refund/edit/{uuid?}', [AuctioneerManagementController::class, 'refundEdit'])->name('refund.edit');
+
+        Route::get('/admin/cancelation/view/{uuid?}', [AuctioneerManagementController::class, 'cancelationView'])->name('cancelation');
+	    Route::get('/admin/cancelation/detail/view/{uuid?}', [AuctioneerManagementController::class, 'cancelationDetail'])->name('cancelation.detail');
+	    Route::get('/admin/cancelation/edit/{uuid?}', [AuctioneerManagementController::class, 'cancelationEdit'])->name('cancelation.edit');
 
 
 	    //CATEGORY MANAGEMENT ROUTES

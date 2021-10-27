@@ -29,7 +29,7 @@
             <div class="content">
 
                 <div class="card-body">
-                    
+
                     <form id="create_category" action="{{ route('admin.countries.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
