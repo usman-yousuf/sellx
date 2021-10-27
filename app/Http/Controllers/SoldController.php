@@ -24,11 +24,11 @@ class SoldController extends Controller
     public function get_sold(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'exists:profiles,uuid',        
-            'buyer_uuid' => 'exists:profiles,uuid',        
-            'auction_uuid' => 'exists:auctions,uuid',        
-            'auction_product_uuid' => 'exists:auction_products,uuid',        
-            'bidding_uuid' => 'exists:biddings,uuid',        
+            'profile_uuid'         => 'exists:profiles,uuid',
+            'buyer_uuid'           => 'exists:profiles,uuid',
+            'auction_uuid'         => 'exists:auctions,uuid',
+            'auction_product_uuid' => 'exists:auction_products,uuid',
+            'bidding_uuid'         => 'exists:biddings,uuid',
         ]);
 
         if ($validator->fails()) {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\AuctionProduct;
+use App\Models\Bank;
+use App\Models\Card;
 use App\Models\Followers;
 use App\Models\PasswordReset;
 use App\Models\Profile;
@@ -550,4 +552,53 @@ class UserController extends Controller
         return sendSuccess('Success', $users);
     }
 
+    public function updateCard(Request $request){
+
+        $card = new Card;
+
+        $card->profile_id = Auth::User()->profile->id;
+
+        if(isset($request->card_holder_name))
+            $card->card_holder_name = $request->card_holder_name;
+
+        if(isset($request->card_no))
+            $card->card_no = $request->card_no;
+
+        if(isset($request->exp_month))
+            $card->exp_month = $request->exp_month;
+
+        if(isset($request->exp_year))
+            $card->exp_year = $request->exp_year;
+
+        if(isset($request->cvc))
+            $card->cvc = $request->cvc;
+
+        $card->is_default = true;
+
+        $card->save();
+    }
+
+    public function updateBank(Request $request){
+        
+        $bank = new Bank;
+
+        $bank->profile_id = Auth::User()->profile->id;
+
+        if(isset($request->account_title))
+            $bank->title = $request->account_title;
+
+        if(isset($request->bank_name))
+            $bank->bank_name = $request->bank_name;
+
+        if(isset($request->account_no))
+            $bank->iban = $request->account_no;
+
+        if(isset($request->swift_code))
+            $bank->swift_code = $request->swift_code;
+
+        if(isset($request->branch_code))
+            $bank->branch_code = $request->branch_code;
+
+        $bank->save();
+    }
 }

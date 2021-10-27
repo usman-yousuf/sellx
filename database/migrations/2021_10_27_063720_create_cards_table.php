@@ -14,8 +14,21 @@ class CreateCardsTable extends Migration
     public function up()
     {
         Schema::create('cards', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id')->unsigned(false);
+            $table->string('uuid')->unique()->nullable();
+
+            $table->integer('profile_id')->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->string('card_holder_name')->nullable();
+            $table->string('card_no')->nullable();
+            $table->string('exp_month')->nullable();
+            $table->string('exp_year')->nullable();
+            $table->string('cvc')->nullable();
+            $table->boolean('is_default')->default(true);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
