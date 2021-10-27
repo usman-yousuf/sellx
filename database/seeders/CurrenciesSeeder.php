@@ -19,6 +19,7 @@ class CurrenciesSeeder extends Seeder
         $currencies = array(
         	['code' =>'AFN' , 'name' => 'Afghani', 'symbol' => '؋' ],
             ['code' =>'ALL' , 'name' => 'Lek', 'symbol' => 'Lek' ],
+            ['code' =>'AED' , 'name' => 'United Arab Emirates dirham', 'symbol' => 'د.إ' ],
             ['code' =>'ANG' , 'name' => 'Netherlands Antillian Guilder', 'symbol' => 'ƒ' ],
             ['code' =>'ARS' , 'name' => 'Argentine Peso', 'symbol' => '$' ],
             ['code' =>'AUD' , 'name' => 'Australian Dollar', 'symbol' => '$' ],

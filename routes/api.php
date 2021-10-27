@@ -36,6 +36,7 @@ Route::post('get_constants', 'App\Http\Controllers\NoAuthController@getConstants
 Route::post('get_categories', 'App\Http\Controllers\NoAuthController@getCategories');
 Route::post('get_currencies', 'App\Http\Controllers\NoAuthController@getCurrencies');
 Route::post('get_initial_data', 'App\Http\Controllers\NoAuthController@getInitialData');
+Route::get('get_share_link/{nature}/{data}', 'App\Http\Controllers\NoAuthController@shareLink');
 //subscribe
 Route::post('subscribe',[SubscribeController::class, 'subscribe'] );
 //contact Form

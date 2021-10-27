@@ -14,24 +14,25 @@ class StoryController extends Controller
 {
 	public function get_story(Request $request){
 
-
-        $user = Profile::orderBy('created_at', 'DESC')->whereHas('stories')->with('stories')->get();
+        $user = Profile::orderBy('created_at', 'DESC')->whereHas('stories', function($q) {
+            $q->where('end_time','>=',Carbon::now());
+        })->with('stories')->get();
 
         return sendSuccess("Stories",$user);
 	}
 
    	public function update_story(Request $request){
    		$validator = Validator::make($request->all(), [
-            'profile_uuid' => 'exists:profiles,uuid|required_without:story_uuid',
-            'name' => 'string|required_without:is_live',
-            'path' => 'string|required_without:story_uuid',
-            'media_type' => 'string|required_without:is_live',
-            'media_format' => 'string|required_without:is_live',
-            'media_size' => 'string|required_without:is_live',
-            'media_ratio' => 'string|required_without:is_live',
+            'profile_uuid'    => 'exists:profiles,uuid|required_without:story_uuid',
+            'name'            => 'string|required_without:is_live',
+            'path'            => 'string|required_without:story_uuid',
+            'media_type'      => 'string|required_without:is_live',
+            'media_format'    => 'string|required_without:is_live',
+            'media_size'      => 'string|required_without:is_live',
+            'media_ratio'     => 'string|required_without:is_live',
             'media_thumbnail' => 'string|required_without:is_live',
-            'is_live' => 'boolean',
-            'story_uuid' => 'string|exists:stories,uuid',
+            'is_live'         => 'boolean',
+            'story_uuid'      => 'string|exists:stories,uuid',
         ]);
 
         if ($validator->fails()) {
