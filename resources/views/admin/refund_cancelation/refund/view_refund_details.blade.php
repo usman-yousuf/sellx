@@ -6,7 +6,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Return</h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Refund</h4>
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                     </div>
                 </div>
@@ -14,8 +14,8 @@
                 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                     <div class="d-flex">
                         <div class="breadcrumb">
-                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Return Management</a>
-                            <span class="breadcrumb-item active">Return</span>
+                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Refund Management</a>
+                            <span class="breadcrumb-item active">Refund</span>
                         </div>
 
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -31,7 +31,7 @@
                     <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title">
-                                <a data-toggle="collapse" class="text-default" href="#collapsible-controls-group1"><b>Return</b></a>
+                                <a data-toggle="collapse" class="text-default" href="#collapsible-controls-group1"><b>Refund</b></a>
                             </h6>
 
                             <div class="header-elements">
@@ -64,26 +64,21 @@
                                                                     <td>Danial</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Return Request Date</th>
+                                                                    <th>Refund Request Date</th>
                                                                     <td>2021-11-07</td>
                                                                 </tr>
-                                                               <tr>
-                                                                    <th>Auction House Name</th>
+                                                                <tr>
+                                                                    <th>Refund Amount</th>
+                                                                    <td>300</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th>Account Holder</th>
                                                                     <td>houseclo</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Amount Paid</th>
-                                                                    <td>$ <span>250</span>/-</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Product Name</th>
-                                                                    <td>Car</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Return Reason</th>
-                                                                    <td>
-                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nunc dui, vehicula venenatis ultrices quis, sodales eget ex. Pellentesque et ante id velit rutrum tincidunt. Pellentesque facilisis sed enim sit amet bibendum. Morbi sed tellus elementum, malesuada augue et, ornare nisl</p>
-                                                                    </td>
+                                                                    <th>Account Number</th>
+                                                                    <td>23324324348344435</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Status</th>

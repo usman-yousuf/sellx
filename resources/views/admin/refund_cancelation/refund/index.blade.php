@@ -6,7 +6,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-md-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Returns</h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Admin Dashboard</span> - Refund</h4>
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
                     </div>
                 </div>
@@ -14,8 +14,8 @@
                 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                     <div class="d-flex">
                         <div class="breadcrumb">
-                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Returns Management</a>
-                            <span class="breadcrumb-item active">All Returns</span>
+                            <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Refund Management</a>
+                            <span class="breadcrumb-item active">All Refund</span>
                         </div>
 
                         <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -30,7 +30,7 @@
                 <!-- Page length options -->
                 <div class="card">
                     <div class="card-header header-elements-inline">
-                        <h5 class="card-title">All Returns</h5>
+                        <h5 class="card-title">All Refund</h5>
                         <div class="header-elements">
                             <div class="list-icons">
                                 <a class="list-icons-item" data-action="collapse"></a>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="card-body">
-                        You can <code>Search</code>, <code>View</code> & <code>Delete</code> the specific Returns from here.
+                        You can <code>Search</code>, <code>View</code> & <code>Delete</code> the specific Refund from here.
                     </div>
 
                     <table class="table datatable-show-all">

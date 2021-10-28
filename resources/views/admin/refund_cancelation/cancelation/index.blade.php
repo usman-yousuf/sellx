@@ -62,7 +62,7 @@
                                 <td>Shahaan</td>
                                 <td><span>2021-06-14</span><span>11:12:13</span></td>
                                 <td>Bike</td>
-                                <td>$ <span>300</span></td>
+                                <td>300</td>
                                 <td><span class="badge badge-success">Approved</span></td>
                                 <td class="text-center">
                                     <div class="list-icons">

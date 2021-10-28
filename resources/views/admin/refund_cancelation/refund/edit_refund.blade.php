@@ -48,7 +48,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="date">Return Request Date</label>
+                                                <label for="date">Refund Request Date</label>
                                                 <input type="text" placeholder="date" id="date-d" name="iso3" value="date" class="form-control">
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                                         </select>
                                     </div>
                                     <div class="row">
-                                        <h5>Account Details</h5>
+                                        <h5 class="ml-2">Account Details</h5>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="name">Account Holder</label>

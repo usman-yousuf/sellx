@@ -48,6 +48,7 @@
                         <thead>
                             <tr>
                                 <th>ID#</th>
+                                <th>Product</th>
                                 <th>Product Name</th>
                                 <th>Category</th>
                                 <th>Auction House</th>
@@ -60,6 +61,9 @@
                         <tbody>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -83,6 +87,9 @@
                             </tr>
                              <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -106,6 +113,9 @@
                             </tr>
                              <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -129,6 +139,9 @@
                             </tr>
                              <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -152,6 +165,9 @@
                             </tr>
                              <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>

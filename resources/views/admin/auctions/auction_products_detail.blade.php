@@ -48,6 +48,7 @@
                         <thead>
                             <tr>
                                 <th>ID#</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Auction House</th>
@@ -60,6 +61,9 @@
                         <tbody>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -69,6 +73,9 @@
                             </tr>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/bike.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Bike</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -78,6 +85,9 @@
                             </tr>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/LCD.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>LCD</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -87,6 +97,9 @@
                             </tr>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/watch.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Watch</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -96,6 +109,9 @@
                             </tr>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car1.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -105,6 +121,9 @@
                             </tr>
                             <tr>
                                 <td>12</td>
+                                 <td>
+                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                </td>
                                 <td>Car</td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>

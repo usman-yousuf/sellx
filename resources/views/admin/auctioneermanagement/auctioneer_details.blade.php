@@ -92,25 +92,6 @@
                                                                     @endif
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Attachments</th>
-                                                                    <td>
-                                                                        <div class="row">
-                                                                            <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
-                                                                            </div>
-                                                                            <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
-                                                                            </div>
-                                                                            <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
-                                                                            </div>
-                                                                            <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
                                                                     <th>Category</th>
                                                                     <td>
                                                                         <div class="row">
