@@ -18,24 +18,54 @@ class UserManagementController extends Controller
 	}
 
 	public function view(Request $request, $uuid){
-		
+
 		$user = Profile::where('uuid', $uuid)->with('user')->with('addresses')->with('LocalisationSetting')->with('notificationpermissions')->first();
 		return view('admin.usermanagement.view',compact('user',$user));
 	}
 
 	public function delete(Request $request, $uuid){
-		
+
 		$profile = Profile::where('uuid', $uuid)->first();
 		$user = User::where('id', $profile->user_id)->first();
-		
+
 		if($user->delete() && $profile->delete()){
 			return redirect()->route('admin.users');
 		}
-		
+
 	}
 
 	public function ajaxsubscribe(){
 
 		return view('index');
 	}
+
+
+    // admin users
+    public function indexAdmin() {
+		$users = Profile::where('profile_type', 'buyer')->get();
+		return view('admin.adminusermanagement.index',compact('users',$users));
+	}
+
+    public function viewAdmin(){
+
+		return view('admin.adminusermanagement.view');
+	}
+
+    public function addUpdateAdminUsersForm(){
+
+		return view('admin.adminusermanagement.addupdate');
+	}
+
+    // public function deleteAdmin(Request $request, $uuid){
+
+	// 	$profile = Profile::where('uuid', $uuid)->first();
+	// 	$user = User::where('id', $profile->user_id)->first();
+
+	// 	if($user->delete() && $profile->delete()){
+	// 		return redirect()->route('admin.users');
+	// 	}
+
+	// }
+
+
 }

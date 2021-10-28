@@ -59,6 +59,12 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/users/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateUsersForm'])->name('users.update.form');
 	    Route::get('/admin/users/delete/{uuid?}', [UserManagementController::class, 'delete'])->name('users.delete');
 
+        //ADMIN USERS ROUTE
+        Route::get('/admin/adminusers', [UserManagementController::class, 'indexAdmin'])->name('adminusers');
+	    Route::get('/admin/adminusers/view/{uuid?}', [UserManagementController::class, 'viewAdmin'])->name('adminusers.view');
+	    Route::get('/admin/adminusers/update/form/{uuid?}', [UserManagementController::class, 'addUpdateAdminUsersForm'])->name('adminusers.add.update.form');
+	    Route::get('/admin/adminusers/delete/{uuid?}', [UserManagementController::class, 'deleteAdmin'])->name('adminusers.delete');
+
 	    //AUCTIONEER MANAGEMENT ROUTES
 	    Route::get('/admin/auctioneer', [AuctioneerManagementController::class, 'index'])->name('auctioneer');
 	    Route::get('/admin/auction/houses', [AuctioneerManagementController::class, 'auctionHouseIndex'])->name('auction.houses');
