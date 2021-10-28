@@ -221,7 +221,9 @@ class SoldController extends Controller
 
             }
             DB::commit();
+            $profile = Profile::where('id',Auth::User()->profile->id)->first();
             $profile->deposit -=  $total;
+            $profile->save();
             return sendSuccess('Sold',$sold);
         }
         catch(\Exception $e){
