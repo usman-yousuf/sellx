@@ -554,7 +554,11 @@ class UserController extends Controller
 
     public function updateCard(Request $request){
 
-        $card = new Card;
+        $card = Card::where('profile_id',Auth::User()->profile->id)->first();
+        if(null == $card){
+            $card = new Bank();
+            $card->uuid = \Str::uuid();
+        }
 
         $card->profile_id = Auth::User()->profile->id;
 
@@ -576,11 +580,17 @@ class UserController extends Controller
         $card->is_default = true;
 
         $card->save();
+
+        return sendSuccess('Card Added',$card);
     }
 
     public function updateBank(Request $request){
         
-        $bank = new Bank;
+        $bank = Bank::where('profile_id',Auth::User()->profile->id)->first();
+        if(null == $bank){
+            $bank = new Bank();
+            $bank->uuid = \Str::uuid();
+        }
 
         $bank->profile_id = Auth::User()->profile->id;
 
@@ -600,5 +610,29 @@ class UserController extends Controller
             $bank->branch_code = $request->branch_code;
 
         $bank->save();
+
+        return sendSuccess('Bank Added',$bank);
+    }
+
+    public function addDeposit(Request $request){
+        $validator = Validator::make($request->all(), [
+            'deposit_cash' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $card = Card::where('profile_id',Auth::User()->profile->id)->first();
+        if(Null ==  $card)
+            return sendError('No Card Found',[]);
+
+        $profile = Profile::where('id',Auth::User()->profile->id)->first();
+
+        $profile->deposit += $request->deposit_cash;
+        $profile->save();
+
+        return sendSuccess('Cash Added',$profile);
     }
 }

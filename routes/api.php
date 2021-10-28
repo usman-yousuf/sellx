@@ -72,6 +72,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('become_auctioneer', 'App\Http\Controllers\UserController@becomeAuctioneer');
     Route::post('switch_profile', 'App\Http\Controllers\UserController@switchProfile');
     Route::post('get_auction_house', 'App\Http\Controllers\UserController@getAuctionHouse');
+    Route::post('add_bank_details', 'App\Http\Controllers\UserController@updateBank');
+    Route::post('add_card_details', 'App\Http\Controllers\UserController@updateCard');
+    Route::post('add_deposit', 'App\Http\Controllers\UserController@addDeposit');
 
 
     // ADDRESS
