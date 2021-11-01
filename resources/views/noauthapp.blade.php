@@ -140,31 +140,31 @@
                   <div class="col-lg-6 col-md-6 col-sm-12 footer_first_col_main one">
 
                     <p class="fox-text for_terms_and_conditions_p_res for_sm_footer_text" >
-                      {{-- <a href="#">{{ __('Terms and Conditions') }}<br /></a> --}}
-                      <a href="#">{{ __('Comming Soon') }}<br /></a>
+                      <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}<br /></a>
+                      {{-- <a href="#">{{ __('Comming Soon') }}<br /></a> --}}
                       <span class="fox-text">
-                        {{-- <a href="#">{{ __('Refunds and Cancellations') }} <br /> </a> --}}
-                        <a href="#">{{ __('Comming Soon') }} <br /> </a>
+                        <a href="{{ route('termsandcondition') }}">{{ __('Refunds and Cancellations') }} <br /> </a>
+                        {{-- <a href="#">{{ __('Comming Soon') }} <br /> </a> --}}
                       </span class="fox-text">
                       <span class="">
-                        {{-- <a href="#"> {{ __('Service Pricing') }}  <br /></a> --}}
-                        <a href="#"> {{ __('Comming Soon') }}  <br /></a>
+                        <a href="{{ route('termsandcondition') }}"> {{ __('Service Pricing') }}  <br /></a>
+                        {{-- <a href="#"> {{ __('Comming Soon') }}  <br /></a> --}}
                       </span>
                     </p>
 
                   </div>
                   <div class="col-lg-6 col-md-6 footer_first_col_main second">
                     <p>
-                      {{-- <a href="#">{{ __('Contact us') }}</a> --}}
-                      <a href="#">{{ __('Comming Soon') }}</a>
+                      <a href="{{route('contact')}}">{{ __('Contact us') }}</a>
+                      {{-- <a href="#">{{ __('Comming Soon') }}</a> --}}
 
                       <span class="pull-right footer_logo"
                         ><img src="{{asset('assets/images/Frame27.svg')}}" class="img-fluid"
                       /></span>
                     </p>
                     <p>
-                      {{-- <a href="#">{{ __('About us') }}</a> --}}
-                      <a href="#">{{ __('Comming Soon') }}</a>
+                      <a href="{{route('about')}}">{{ __('About us') }}</a>
+                      {{-- <a href="#">{{ __('Comming Soon') }}</a> --}}
 
                     </p>
                   </div>

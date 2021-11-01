@@ -28,6 +28,10 @@ Route::any('/', function () {
 
 })->name('home');
 
+Route::any('/termsandcondition', function () {
+    return view('termsandcondition');
+})->name('termsandcondition');
+
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);
