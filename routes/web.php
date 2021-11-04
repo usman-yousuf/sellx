@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\AuctioneerManagementController;
-use App\Http\Controllers\Admin\CategoriesManagementController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\CitiesManagementController;
 use App\Http\Controllers\Admin\CountriesManagementController;
-use App\Http\Controllers\Admin\CurrenciesManagementController;
 use App\Http\Controllers\Admin\LanguagesManagementController;
-use App\Http\Controllers\Admin\UserManagementController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuctioneerManagementController;
+use App\Http\Controllers\Admin\CategoriesManagementController;
+use App\Http\Controllers\Admin\CurrenciesManagementController;
 
 
 
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('stripe', StripePaymentController::class, 'stripe_view');
+Route::post('stripe', StripePaymentController::class, 'stripePost')->name('stripe.post');
 
 Route::any('/', function () {
 	App::setLocale(Session::get('locale'));

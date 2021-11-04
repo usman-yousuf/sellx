@@ -28,6 +28,20 @@ class UserController extends Controller
      * @param Request $request
      * @return void
      */
+
+    private $stripe;
+    private $transfer_obj;
+
+    function __construct(){
+        $this->stripe = new \Stripe\StripeClient(
+            config('app.stripe_secret_key')
+        );
+
+        \Stripe\Stripe::setApiKey(config('app.stripe_secret_key'));
+
+        $this->transfer = new \Stripe\Transfer();
+    }
+
     public function switchProfile(Request $request)
     {
         $user = $request->user();
@@ -553,35 +567,168 @@ class UserController extends Controller
     }
 
     public function updateCard(Request $request){
+        
 
-        $card = Card::where('profile_id',Auth::User()->profile->id)->first();
-        if(null == $card){
-            $card = new Bank();
-            $card->uuid = \Str::uuid();
+        {
+
+        
+
+            // \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            // $stripe_card = $this->stripe->paymentMethods->create([
+            //         'type' => 'card',
+            //         'card' => [
+            //             'number' => $request->card_no,
+            //             'exp_month' => $request->exp_month,
+            //             'exp_year' => $request->exp_year,
+            //             'cvc' => $request->cvc,
+            //         ],
+            //     ]);
+
+            
+            // // $data['PaymentIntent'] = \Stripe\PaymentIntent::create([
+            // //     'amount' => 1099,
+            // //     'currency' => 'usd',
+            // //     'payment_method_types' => ['card'],
+            // // ]);
+
+            //     // return $stripe_card->id;
+
+            // $data['charge']  = \Stripe\Charge::create ([
+            //         "amount" => 100,
+            //         "currency" => "usd",
+            //         "source" => $stripe_card->id,
+            //         "description" => "Test payment from itsolutionstuff.com." 
+            // ]);
+              
+            // return $data;
+
+            // $stripe = new \Stripe\StripeClient(
+            //     env('STRIPE_SECRET')
+            //   );
+            //   $data['account'] = $stripe->accounts->create([
+            //     'country' => 'US',
+            //     'type' => 'express',
+            //   ]);
+
+            //   $data['account_links'] = \Stripe\AccountLink::create([
+            //     'account'     => $data['account']->id,
+            //     'refresh_url' => 'https://example.com/reauth',
+            //     'return_url'  => 'https://example.com/return',
+            //     'type'        => 'account_onboarding',
+            //   ]);
+
+            //   $data['payment_intent'] = \Stripe\PaymentIntent::create([
+            //     'payment_method_types' => ['card'],
+            //     'amount' => 1000,
+            //     'currency' => 'eur',
+            //     'application_fee_amount' => 123,
+            //   ], ['stripe_account' => $data['account']->id]);
+
+            //   return $data;
+
+            // \Stripe\Stripe::setApiKey('sk_test_51HycB2C7XjW69rGhuL6bXwL5flAeCpJ0JTaINUmAtg0rkaz2YvWK7neYeLZXr3QGujYCokGVhckGs5rCcb8OboEj00AXGxqdpm');
+
+
+            // \Stripe\Stripe::setApiKey('sk_test_51HycB2C7XjW69rGhuL6bXwL5flAeCpJ0JTaINUmAtg0rkaz2YvWK7neYeLZXr3QGujYCokGVhckGs5rCcb8OboEj00AXGxqdpm');
+
+            // $account = \Stripe\Account::create([
+            //     'type' => 'standard',
+            // ]);
+            // return $account;
+            // Create a PaymentIntent:
+            // $data['paymentIntent'] = \Stripe\PaymentIntent::create([
+            //     'amount' => 100,
+            //     'currency' => 'usd',
+            //     'payment_method_types' => ['card'],
+            //     'transfer_group' => '{ORDER10}',
+            // ]);
+
+            // $data['account'] = \Stripe\Account::create([
+            //     'type' => 'custom',
+            //     'country' => 'US',
+            // ]);
+
+            // $data['account_links'] = \Stripe\AccountLink::create([
+            //     'account' => 'acct_1032D82eZvKYlo2C',
+            //     'refresh_url' => 'https://example.com/reauth',
+            //     'return_url' => 'https://example.com/return',
+            //     'type' => 'account_onboarding',
+            //   ]);
+
+            // return $data;
+            // // Create a Transfer to a connected account (later):
+            // $data['transfer'] = \Stripe\Transfer::create([
+            //     'amount'         => 7000,
+            //     'currency'       => 'eur',
+            //     'destination'    => '{{CONNECTED_STRIPE_ACCOUNT_ID}}',
+            //     'transfer_group' => '{ORDER10}',
+            // ]);
+            
+            
+            // // Create a second Transfer to another connected account (later):
+            // $data['transfer'] = \Stripe\Transfer::create([
+            // 'amount' => 2000,
+            // 'currency' => 'eur',
+            // 'destination' => '{{OTHER_CONNECTED_STRIPE_ACCOUNT_ID}}',
+            // 'transfer_group' => '{ORDER10}',
+            // ]);
+
+
+            // return $data;
+
+
+
+
+            // $card = Card::where('profile_id',Auth::User()->profile->id)->first();
+
+            // // if(null == $card){
+            //     $card = new Card();
+            //     $card->uuid = \Str::uuid();
+            //     $card->profile_id = $request->User()->profile->id;
+
+            //     try {
+                    // $stripe_card = $this->stripe->paymentMethods->create([
+                    //     'type' => 'card',
+                    //     'card' => [
+                    //         'number' => $request->card_no,
+                    //         'exp_month' => $request->exp_month,
+                    //         'exp_year' => $request->exp_year,
+                    //         'cvc' => $request->cvc,
+                    //     ],
+                    // ]);
+        
+            //     }catch (\Exception $e){
+            //         Log::info($e->getMessage());
+            //         return sendError($e->getMessage(), null);
+            //     }
+
+            //     if(isset($stripe_card->id));
+            //         $card->card_stripe_id = $stripe_card->id; 
+            // // }
+
+            // if(isset($request->card_holder_name))
+            //     $card->card_holder_name = $request->card_holder_name;
+
+            // if(isset($request->card_no))
+            //     $card->card_no = $request->card_no;
+
+            // if(isset($request->exp_month))
+            //     $card->exp_month = $request->exp_month;
+
+            // if(isset($request->exp_year))
+            //     $card->exp_year = $request->exp_year;
+
+            // if(isset($request->cvc))
+            //     $card->cvc = $request->cvc;
+
+            // $card->is_default = true;
+
+            // $card->save();
+
+
+            // return sendSuccess('Card Added',$card);
         }
-
-        $card->profile_id = Auth::User()->profile->id;
-
-        if(isset($request->card_holder_name))
-            $card->card_holder_name = $request->card_holder_name;
-
-        if(isset($request->card_no))
-            $card->card_no = $request->card_no;
-
-        if(isset($request->exp_month))
-            $card->exp_month = $request->exp_month;
-
-        if(isset($request->exp_year))
-            $card->exp_year = $request->exp_year;
-
-        if(isset($request->cvc))
-            $card->cvc = $request->cvc;
-
-        $card->is_default = true;
-
-        $card->save();
-
-        return sendSuccess('Card Added',$card);
     }
 
     public function updateBank(Request $request){

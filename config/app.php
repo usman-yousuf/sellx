@@ -52,6 +52,10 @@ return [
     |
     */
 
+    'stripe_public_key' => env('STRIPE_KEY', 'pk_test_51HycB2C7XjW69rGh5C9QX15s4Fxhb5HEyiC25pHcXbicTFGrHnPLUF6GZERk0KKAXPDvemoZKKFb3lUII7YNmyV400cfDPsJ7j'),
+    'stripe_secret_key' => env('STRIPE_SECRET', 'sk_test_51HycB2C7XjW69rGhuL6bXwL5flAeCpJ0JTaINUmAtg0rkaz2YvWK7neYeLZXr3QGujYCokGVhckGs5rCcb8OboEj00AXGxqdpm'),
+    'stripe_client_id' => env('STRIPE_CLIENT_ID', ''),
+
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),

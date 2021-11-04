@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // \App\Models\User::setStripeKey(config('app.stripe_secret_key'));
+        // \App\Models\User::setStripeKey(yy::get('services.stripe.secret'));
     }
 
     /**

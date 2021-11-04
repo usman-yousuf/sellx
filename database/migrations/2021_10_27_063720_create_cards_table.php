@@ -21,6 +21,7 @@ class CreateCardsTable extends Migration
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('card_holder_name')->nullable();
+            $table->string('card_stripe_id')->nullable();
             $table->string('card_no')->nullable();
             $table->string('exp_month')->nullable();
             $table->string('exp_year')->nullable();

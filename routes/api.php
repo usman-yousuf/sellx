@@ -42,6 +42,13 @@ Route::post('subscribe',[SubscribeController::class, 'subscribe'] );
 //contact Form
 Route::post('contact_form',[ContactFormController::class, 'contact_form'] );
 
+Route::post('create_cutomer_card', 'App\Http\Controllers\StripeController@createCutomerCard');
+Route::post('remove_customer_card', 'App\Http\Controllers\UsersController@removeCard');
+Route::post('stripe_connect', 'App\Http\Controllers\UsersController@updateStripeConnect');
+Route::post('vesicash_connect', 'App\Http\Controllers\UsersController@updateVesicashConnect');
+Route::post('get_user_cards', 'App\Http\Controllers\UsersController@getUserCards');
+Route::post('stripeRedirectUri', 'App\Http\Controllers\StripeController@stripeRedirectUri');
+
 
 Route::group([ 'prefix' => 'auth'], function () {
 
@@ -184,7 +191,7 @@ Route::group(['middleware' => 'auth:api'], function() {
      */
     Route::post('create_chat', 'App\Http\Controllers\ChatsController@createChat');
     Route::post('get_chat_messages', 'App\Http\Controllers\ChatsController@getChatMessages');
-//    Route::post('get_chat_media', 'App\Http\Controllers\ChatsController@getChatMedia');
+    // Route::post('get_chat_media', 'App\Http\Controllers\ChatsController@getChatMedia');
     Route::post('send_message', 'App\Http\Controllers\ChatsController@sendMessage');
     Route::post('get_chats', 'App\Http\Controllers\ChatsController@getChats');
     Route::post('delete_chat', 'App\Http\Controllers\ChatsController@deleteChat');
@@ -194,5 +201,15 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // get all users
     Route::post('get_all_users', 'App\Http\Controllers\UserController@getAllusers');
+
+    // Paystack Routes
+    Route::group(['prefix' => 'paystack'], function () {
+        Route::post('charge', 'App\Http\Controllers\PaystackController@charge');
+        Route::post('submit-otp', 'App\Http\Controllers\PaystackController@submitOTP');
+        Route::post('list-of-banks', 'App\Http\Controllers\PaystackController@listOfBanks');
+        Route::post('verify-account-number', 'App\Http\Controllers\PaystackController@verifyAccNumber');
+        Route::post('create-transfer-recipient', 'App\Http\Controllers\PaystackController@transferRecipient');
+        Route::post('create-transfer', 'App\Http\Controllers\PaystackController@transfer');
+    });
 
 });
