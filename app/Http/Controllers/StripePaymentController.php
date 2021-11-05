@@ -2,40 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
-use Session;
 use Stripe;
 
 
 class StripePaymentController extends Controller
 {
-        /**
-     * success response method.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function stripe_view()
-    {
-        return view('stripe');
-    }
-  
+
     /**
-     * success response method.
+     * Charge a bank account via Stripe
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return void
      */
-    public function stripePost(Request $request)
+    public function stripeCharge(Request $request)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        Stripe\Charge::create ([
-                "amount" => 100 * 100,
-                "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Test payment from itsolutionstuff.com." 
-        ]);
-  
-        Session::flash('success', 'Payment successful!');
-          
-        return back();
+
+        $currency = (isset($request->currency) && ('' != $request->currency)) ? $request->currency : 'usd';
+
+        try{
+            $token = Stripe\Token::create([
+                'card' => [
+                    'number' => $request->card_number,
+                    'exp_month' => $request->expiry_month,
+                    'exp_year' => $request->expiry_year,
+                    'cvc' => $request->cvc,
+                ],
+            ]);
+
+            $charge = Stripe\Charge::create([
+                "amount" => 100 * $request->charges,
+                "currency" => $currency,
+                "source" => $token->id,
+                "description" => $request->payment_message ?? 'sending Payment'
+            ]);
+            return sendSuccess('Payment Charged Successfully', $charge);
+        }
+        catch(Exception $ex){
+            return sendError($ex->getMessage(), $ex->getTrace());
+        }
     }
 }

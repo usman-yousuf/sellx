@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('stripe-charge', 'App\Http\Controllers\StripePaymentController@stripeCharge');
+
 Route::post('send_message', 'App\Http\Controllers\TwilioController@sendMessage');
 Route::post('valid_number', 'App\Http\Controllers\TwilioController@validNumber');
 Route::get('no-auth', 'App\Http\Controllers\AuthController@noAuth')->name('noAuth');

@@ -22,8 +22,6 @@ use App\Http\Controllers\Admin\CurrenciesManagementController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('stripe', StripePaymentController::class, 'stripe_view');
-Route::post('stripe', StripePaymentController::class, 'stripePost')->name('stripe.post');
 
 Route::any('/', function () {
 	App::setLocale(Session::get('locale'));
@@ -57,7 +55,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::name('admin.')->group(function() {
-		
+
 		Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 		//USERS MANAGEMENT ROUTES
