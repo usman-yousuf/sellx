@@ -16,6 +16,9 @@ class User extends Authenticatable
 
     use SoftDeletes,Billable;
 
+
+    public $appends = ['has_approved_auctioneer_profile'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -59,13 +62,29 @@ class User extends Authenticatable
         return $this->hasOne('\App\Models\Profile', 'id', 'active_profile_id');
     }
 
+    public function auctioneerProfiles()
+    {
+        return $this->hasMany('\App\Models\Profile', 'user_id', 'id')->where('profile_type', 'auctioneer')->orderBy('created_at', 'DESC');
+    }
+
+    public function approvedAuctioneerProfiles()
+    {
+        return $this->hasMany('\App\Models\Profile', 'user_id', 'id')->where('profile_type', 'auctioneer')->where('is_approved', (int)true)->orderBy('created_at', 'DESC');
+    }
+
+    public function getHasApprovedAuctioneerProfileAttribute($value)
+    {
+        $approvedProfiles = $this->approvedAuctioneerProfiles();
+        return $approvedProfiles->count();
+    }
+
     public function biddings()
-    { 
+    {
         return $this->hasMany(Bidding::class, 'user_id', 'id');
     }
 
     public function complains()
-    { 
+    {
         return $this->hasMany(Complain::class, 'user_id', 'id');
     }
 
