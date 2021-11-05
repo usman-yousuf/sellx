@@ -32,12 +32,12 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img 
+                                    <img
                                     src="{{asset('assets/images/1.svg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
-                                    style="object-fit:contain;" 
+                                    style="object-fit:contain;"
                                     />
                                 </div>
                                 <div class="carousel-item">
@@ -69,7 +69,7 @@
                     </div>       </div>
 
           </div>
-         
+
         </div>
 
         <div
@@ -92,7 +92,7 @@
                   <i class="fa fa-apple" aria-hidden="true"></i>
 
                   <p>
-                    Coming Soon on 
+                    Coming Soon on
                     <br />
                     <strong style="font-weight:bold;font-size: 150%">App Store</strong>
                   </p>

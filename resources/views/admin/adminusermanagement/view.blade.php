@@ -61,14 +61,14 @@
                                         <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
-                                                    {{-- <img class="img-fluid rounded-circle" src="{{$user->profile_image}}" width="170" height="170" alt=""> --}}
+                                                    <img class="img-fluid rounded-circle" src="{{asset('admin/global_assets/images/user.png')}}" width="170" height="170" alt="">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <div class="card-body">
                                             <div class="container">
                                                 <div class="row">
@@ -77,48 +77,25 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th>First Name</th>
-                                                                    {{-- <td>{{$user->first_name}}</td> --}}
+                                                                    <td>User Name</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Last Name</th>
-                                                                    {{-- <td>{{$user->last_name}}</td> --}}
+                                                                    <td>Admin User</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Username</th>
-                                                                    {{-- <td>{{$user->username}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Bio</th>
-                                                                    {{-- <td>{{$user->bio}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Date of birth</th>
-                                                                    {{-- <td>{{$user->dob}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Gender</th>
-                                                                    {{-- <td>{{$user->gender}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Profile Type</th>
-                                                                    {{-- <td>{{$user->profile_type}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Status</th>
-                                                                    {{-- @if($user->is_approved == 1) --}}
-                                                                        <td><span class="badge badge-success">Approved</span></td>
-                                                                    {{-- @elseif($user->is_approved == 0) --}}
-                                                                        <td><span class="badge badge-danger">Unapproved</span></td>
-                                                                    {{-- @endif --}}
+                                                                    <th>Email</th>
+                                                                    <td>admin@admin.com</td>
                                                                 </tr>
 
                                                                 <tr>
-                                                                    <th>Gender</th>
-                                                                    {{-- <td>{{$user->gender}}</td> --}}
+                                                                    <th>Date of birth</th>
+                                                                    <td>2021-12-07</td>
                                                                 </tr>
+
                                                                 <tr>
-                                                                    <th>Country</th>
-                                                                    {{-- <td>{{$user->country}}</td> --}}
+                                                                    <th>Role Type</th>
+                                                                    <td>Admin</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -127,64 +104,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="card-body">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <table class="table table-striped">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>Email</th>
-                                                                    {{-- <td>{{$user->user->email}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Phone code</th>
-                                                                    {{-- <td>{{$user->user->phone_code}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Phone Number</th>
-                                                                    {{-- <td>{{$user->user->phone_number}}</td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Social Login</th>
-                                                                    {{-- @if($user->user->is_social == 1) --}}
-                                                                        <td><span class="badge badge-success">Yes</span></td>
-                                                                    {{-- @elseif($user->user->is_social == 0) --}}
-                                                                        <td><span class="badge badge-danger">No</span></td>
-                                                                    {{-- @endif --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Social Platform</th>
-                                                                    {{-- @if($user->user->social_type != null) --}}
-                                                                        {{-- <td>{{$user->user->social_type}}</td> --}}
-                                                                    {{-- @elseif($user->user->social_type == null) --}}
-                                                                        <td>Empty</td>
-                                                                    {{-- @endif --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Social Email</th>
-                                                                    {{-- @if($user->user->social_email != null) --}}
-                                                                        {{-- <td>{{$user->user->social_email}}</td> --}}
-                                                                    {{-- @elseif($user->user->social_email == null) --}}
-                                                                        <td>Empty</td>
-                                                                    {{-- @endif --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Social ID</th>
-                                                                    {{-- @if($user->user->social_id != null) --}}
-                                                                        {{-- <td>{{$user->user->social_id}}</td> --}}
-                                                                    {{-- @elseif($user->user->social_id == null) --}}
-                                                                        <td>Empty</td>
-                                                                    {{-- @endif --}}
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -291,121 +211,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header header-elements-inline">
-                            <h6 class="card-title">
-                                <a class="collapsed text-default" data-toggle="collapse" href="#collapsible-controls-group3"><b>Localisation Settings</b></a>
-                            </h6>
 
-                            <div class="header-elements">
-                                <div class="list-icons">
-                                    <a class="list-icons-item" data-action="reload"></a>
-                                    <a class="list-icons-item" data-action="move"></a>
-                                    <a class="list-icons-item" data-action="fullscreen"></a>
-                                    <a class="list-icons-item" data-action="remove"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="collapsible-controls-group3" class="collapse">
-                            <div class="col-12">
-                                <div class="card-body">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table class="table table-striped">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Currency</th>
-                                                            <td>
-                                                                {{-- {{$user->LocalisationSetting->currency->code ?? 'not set'}} --}}
-                                                                <br />
-                                                                {{-- {{$user->LocalisationSetting->currency->name ?? 'not set'}} --}}
-                                                                <br />
-                                                                {{-- {{$user->LocalisationSetting->currency->symbol ?? 'not set'}} --}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Country</th>
-                                                            {{-- <td>{{$user->LocalisationSetting->country->nicename ?? 'not set'}}</td> --}}
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Language</th>
-                                                            {{-- <td>{{$user->LocalisationSetting->language->name ?? 'not set'}}</td> --}}
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header header-elements-inline">
-                            <h6 class="card-title">
-                                <a class="collapsed text-default" data-toggle="collapse" href="#collapsible-controls-group4"><b>Notification Permission Settings</b></a>
-                            </h6>
-
-                            <div class="header-elements">
-                                <div class="list-icons">
-                                    <a class="list-icons-item" data-action="reload"></a>
-                                    <a class="list-icons-item" data-action="move"></a>
-                                    <a class="list-icons-item" data-action="fullscreen"></a>
-                                    <a class="list-icons-item" data-action="remove"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="collapsible-controls-group4" class="collapse">
-                            <div class="col-12">
-                                <div class="card-body">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table class="table table-striped">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Emails Enable</th>
-                                                            <td>
-                                                                {{-- @if($user->notificationpermissions->is_email_enable == 1) --}}
-                                                                    <span class="badge badge-success">Yes</span>
-                                                                {{-- @elseif($user->notificationpermissions->is_email_enable == 0) --}}
-                                                                    <span class="badge badge-danger">No</span>
-                                                                {{-- @endif --}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Push Notifications Enable</th>
-                                                            <td>
-                                                                {{-- @if($user->notificationpermissions->is_push_enable == 1) --}}
-                                                                    <span class="badge badge-success">Yes</span>
-                                                                {{-- @elseif($user->notificationpermissions->is_push_enable == 0) --}}
-                                                                    <span class="badge badge-danger">No</span>
-                                                                {{-- @endif --}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>SMS Enable</th>
-                                                            <td>
-                                                                {{-- @if($user->notificationpermissions->is_sms_enable == 1) --}}
-                                                                    <span class="badge badge-success">Yes</span>
-                                                                {{-- @elseif($user->notificationpermissions->is_sms_enable == 0) --}}
-                                                                    <span class="badge badge-danger">No</span>
-                                                                {{-- @endif --}}
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- /collapsible with controls -->
 

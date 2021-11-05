@@ -48,7 +48,7 @@
                         <thead>
                             <tr>
                                 <th>ID#</th>
-                                <th>Image</th>
+                                {{-- <th>Image</th> --}}
                                 <th>Name</th>
                                 <th>Profile Type</th>
                                 <th>DOB</th>
@@ -60,10 +60,10 @@
                             @forelse($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
-                                     <td>
+
+                                    <td>
                                         <img src="{{ asset('admin/global_assets/images/user.png') }}" width="36" height="36" alt="">
-                                    </td>
-                                    <td>{{$user->first_name}}</td>
+                                        <span class="ml-1">{{$user->first_name}}</span></td>
                                     <td><a href="#">{{$user->profile_type}}</a></td>
                                     <td>{{$user->dob}}</td>
                                     @if($user->is_approved == 1)

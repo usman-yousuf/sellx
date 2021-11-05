@@ -49,7 +49,7 @@
                             <tr>
                                 <th>ID#</th>
                                 <th>Image</th>
-                                <th>Name</th>
+                                <th>Product Name</th>
                                 <th>Category</th>
                                 <th>Auction House</th>
                                 <th>Auction DateTime</th>

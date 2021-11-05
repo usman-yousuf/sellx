@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //AUCTIONS MANAGEMENT ROUTES
 	    Route::get('/admin/auction/view/{uuid?}', [AuctioneerManagementController::class, 'auctionView'])->name('auctions');
+	    Route::get('/admin/auction/won/list/{uuid?}', [AuctioneerManagementController::class, 'wonList'])->name('auctions.wonlist');
 	    Route::get('/admin/auction/edit/{uuid?}', [AuctioneerManagementController::class, 'editAuction'])->name('auctions.edit.auctions');
 	    Route::get('/admin/auction/products/view/{uuid?}', [AuctioneerManagementController::class, 'auctionProductsDetail'])->name('auctions.products.detail');
 	    Route::get('/admin/auction/all/products/view/{uuid?}', [AuctioneerManagementController::class, 'allAuctionsProducts'])->name('auctions.products');

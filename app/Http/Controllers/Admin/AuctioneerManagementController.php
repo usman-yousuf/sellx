@@ -65,6 +65,12 @@ class AuctioneerManagementController extends Controller
 		return view('admin.deposit.index');
 	}
 
+    // All Won lists
+    public function wonList(){
+
+		return view('admin.auctions.wonlist');
+	}
+
 
     // All auctions edit deposits view
     public function editDeposit(){

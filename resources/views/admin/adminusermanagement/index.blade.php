@@ -51,8 +51,10 @@
                         <thead>
                             <tr>
                                 <th>ID#</th>
-                                <th>Image</th>
-                                <th>Name</th>
+                                {{-- <th>Image</th> --}}
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>UserName</th>
                                 <th>Role Type</th>
                                 <th>Email</th>
                                 <th class="text-center">Actions</th>
@@ -62,10 +64,13 @@
                             {{-- @forelse($users as $user) --}}
                                 <tr>
                                     <td>3</td>
+
                                     <td>
                                         <img src="{{ asset('admin/global_assets/images/user.png') }}" width="36" height="36" alt="">
+                                        <span class="ml-1">heshiam</span>
                                     </td>
-                                    <td>heshiam</td>
+                                    <td>wisers</td>
+                                    <td>wisers_hub</td>
                                     <td><a href="#">admin</a></td>
                                     {{-- @if($user->is_approved == 1)
                                         <td><span class="badge badge-success">Approved</span></td>
