@@ -320,15 +320,16 @@ input {
 
 .end_footer {
     padding-bottom: 20px;
+    margin-top: 25px;
 }
 
 .end_footer img {
-    margin-top: 25px;
+    /* margin-top: 25px; */
 }
 
 .end_footer span {
     color: white;
-    margin-top: 25px;
+    /* margin-top: 25px; */
 }
 
 .fox-text br {
