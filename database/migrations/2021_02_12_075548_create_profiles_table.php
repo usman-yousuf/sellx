@@ -39,7 +39,8 @@ class CreateProfilesTable extends Migration
             $table->enum('profile_type', ['buyer', 'auctioneer'])->default('buyer');
             $table->boolean('is_approved')->default(false);
 
-            $table->boolean('deposit')->default(false);
+            $table->decimal('deposit')->nullable();
+            $table->decimal('max_bid_limit')->default(15000);
             
             $table->timestamps();
             $table->softDeletes();

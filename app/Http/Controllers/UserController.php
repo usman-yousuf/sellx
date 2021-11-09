@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use App\Models\AuctionProduct;
 use App\Models\Bank;
 use App\Models\Card;
-use App\Models\Followers;
-use App\Models\PasswordReset;
+use App\Models\User;
+use App\Models\Address;
 use App\Models\Profile;
 use App\Models\Reviews;
-use App\Models\SignupVerification;
-use App\Models\User;
+use App\Models\Followers;
 use Illuminate\Http\Request;
+use App\Models\PasswordReset;
+use App\Models\AuctionProduct;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
+use App\Models\SignupVerification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\StripePaymentController;
 
 class UserController extends Controller
 {
+
     /**
      * Swicth Active Profile
      *
@@ -32,7 +34,7 @@ class UserController extends Controller
     private $stripe;
     private $transfer_obj;
 
-    function __construct(){
+    function __construct(StripePaymentController $StripePaymentController){
         $this->stripe = new \Stripe\StripeClient(
             config('app.stripe_secret_key')
         );
@@ -40,6 +42,8 @@ class UserController extends Controller
         \Stripe\Stripe::setApiKey(config('app.stripe_secret_key'));
 
         $this->transfer = new \Stripe\Transfer();
+
+        $this->StripePaymentController = $StripePaymentController;
     }
 
     public function switchProfile(Request $request)
@@ -763,7 +767,8 @@ class UserController extends Controller
 
     public function addDeposit(Request $request){
         $validator = Validator::make($request->all(), [
-            'deposit_cash' => 'required',
+            'deposit_cash' => 'required|numeric|min:0',
+            'profile_uuid' => 'exists:profiles,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -771,15 +776,27 @@ class UserController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $card = Card::where('profile_id',Auth::User()->profile->id)->first();
-        if(Null ==  $card)
-            return sendError('No Card Found',[]);
+        $profile = Profile::where('id',$request->profile_uuid)->first() ?? Auth::User()->profile;
 
-        $profile = Profile::where('id',Auth::User()->profile->id)->first();
+        $request->merge([
+            'charges' => $request->deposit_cash,
+        ]);
+        
+        $charge  = $this->StripePaymentController->stripeCharge($request)->getData();
+        if(!$charge->status){
+            return sendError('internal server Error',$charge->data);
+        }
 
+        
         $profile->deposit += $request->deposit_cash;
+        if($profile->deposit > 15000)
+            $profile->max_bid_limit = $profile->deposit*(2/100);
+        else 
+            $profile->max_bid_limit = 15000;
+
+
         $profile->save();
 
-        return sendSuccess('Cash Added',$profile);
+        return sendSuccess('Deposit Added',$profile);
     }
 }

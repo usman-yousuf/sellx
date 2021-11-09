@@ -36,11 +36,11 @@ class StripeController extends Controller
             $stripe_card = $this->stripe->paymentMethods->create([
                 'type' => 'card',
                 'card' => [
-                    'number' => $request->number,
+                    'number'    => $request->number,
                     'exp_month' => $request->exp_month,
-                    'exp_year' => $request->exp_year,
-                    'cvc' => $request->cvc,
-                ],
+                    'exp_year'  => $request->exp_year,
+                    'cvc'       => $request->cvc,
+                ]
             ]);
 
         }catch (\Exception $e){
@@ -53,8 +53,8 @@ class StripeController extends Controller
         $request->merge([ 'card_stripe_id' => $stripe_card->id ]);
         $validator = Validator::make($request->all(), [
             'card_holder_name' => 'required',
-            'card_stripe_id' => 'required',
-            'is_default' => 'required',
+            'card_stripe_id'   => 'required',
+            'is_default'       => 'required',
         ]);
 
         if($validator->fails()){

@@ -24,10 +24,10 @@ class BiddingController extends Controller
     public function get_bidding(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'exists:profiles,uuid',
-            'auction_uuid' => 'exists:auctions,uuid|required_with:max_bid_price',
-            'auction_product_uuid' =>'exists:auction_products,uuid',
-            'bidding_uuid' => 'exists:biddings,uuid',
+            'profile_uuid'         => 'exists:profiles,uuid',
+            'auction_uuid'         => 'exists:auctions,uuid|required_with:max_bid_price',
+            'auction_product_uuid' => 'exists:auction_products,uuid',
+            'bidding_uuid'         => 'exists:biddings,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -178,13 +178,13 @@ class BiddingController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'auction_uuid' => 'string|exists:auctions,uuid|required_with:auction_product_uuid,profile_uuid,bid_price',
+            'auction_uuid'         => 'string|exists:auctions,uuid|required_with:auction_product_uuid,profile_uuid,bid_price',
             'auction_product_uuid' => 'string|exists:auction_products,uuid|required_with:auction_uuid,profile_uuid,bid_price',
-            'profile_uuid' => 'string|exists:profiles,uuid|required_with:auction_product_uuid,auction_uuid,bid_price',
-            'bid_price' => 'required_without_all:bidding_uuid,is_fixed_price',
-            'is_fixed_price' => 'boolean|required_without_all:bid_price,bidding_uuid',
-            'quantity' => 'required_with_all:is_fixed_price|numeric|min:1',
-            'bidding_uuid' => 'string|exists:biddings,uuid|required_without_all:auction_uuid,auction_product_uuid,profile_uuid,bid_price,is_fixed_price'
+            'profile_uuid'         => 'string|exists:profiles,uuid|required_with:auction_product_uuid,auction_uuid,bid_price',
+            'bid_price'            => 'required_without_all:bidding_uuid,is_fixed_price',
+            'is_fixed_price'       => 'boolean|required_without_all:bid_price,bidding_uuid',
+            'quantity'             => 'required_with_all:is_fixed_price|numeric|min:1',
+            'bidding_uuid'         => 'string|exists:biddings,uuid|required_without_all:auction_uuid,auction_product_uuid,profile_uuid,bid_price,is_fixed_price'
         ]);
 
         if ($validator->fails()) {

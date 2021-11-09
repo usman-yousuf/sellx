@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Stripe;
 use Exception;
 use Illuminate\Http\Request;
-use Stripe;
+use Illuminate\Support\Facades\Validator;
 
 
 class StripePaymentController extends Controller
@@ -19,6 +20,23 @@ class StripePaymentController extends Controller
      */
     public function stripeCharge(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'currency'        => 'required|in:aed',
+            'card_number'     => 'required',
+            'expiry_month'    => 'required',
+            'expiry_year'     => 'required',
+            'cvc'             => 'required',
+            'charges'         => 'required',
+            'payment_message' => 'string'
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+
+
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $currency = (isset($request->currency) && ('' != $request->currency)) ? $request->currency : 'usd';

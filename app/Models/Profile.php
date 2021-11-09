@@ -13,15 +13,19 @@ use Illuminate\Notifications\Notifiable;
 class Profile extends Model
 {
     use HasFactory, Notifiable;
+    use SoftDeletes;
+    
     protected $table = 'profiles';
-
 
     protected $fillable = [
         'max_bid_limit',
     ];
 
-    use SoftDeletes;
-    protected $with = ['defaultAddress'];
+
+    protected $with = [
+        'defaultAddress'
+    ];
+
     protected $appends = [
         'is_followed',
         'followers_count',
@@ -31,7 +35,12 @@ class Profile extends Model
         'is_online',
     ];
 
-    protected $withCount = ['auction','comingauctions','totalsolds','pendingsolds'];
+    protected $withCount = [
+        'auction',
+        'comingauctions',
+        'totalsolds',
+        'pendingsolds'
+    ];
 
     public function getIsOnlineAttribute(){
 
