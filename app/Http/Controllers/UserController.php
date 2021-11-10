@@ -766,6 +766,7 @@ class UserController extends Controller
     }
 
     public function addDeposit(Request $request){
+        
         $validator = Validator::make($request->all(), [
             'deposit_cash' => 'required|numeric|min:0',
             'profile_uuid' => 'exists:profiles,uuid',

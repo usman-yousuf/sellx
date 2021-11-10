@@ -32,7 +32,7 @@ class Auction extends Model
     protected $withCount = ['biddings','comments','viewers','auction_products'];
 
     public function getAllowedToPostAttribute(){
-        $userLocalTime = get_locale_datetime(Carbon::now()->toDateTimeString(), Request::ip());
+        $userLocalTime = get_locale_datetime(Carbon::now()->toDateTimeString(), \Request::ip());
         $auctionLocalTime = $this->scheduled_date_time;
 
         if($this->is_scheduled == 1){
