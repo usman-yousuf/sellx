@@ -27,19 +27,15 @@
               {{-- <a href="{{route('about')}}" class="">{{ __('Comming Soon') }}</a> --}}
           </div>
       </div>
-      <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
-        Welcome to <b> Sellx </b> (“Company”, “we”, “our”, “us”)!
-        These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at <b> sellx.ae </b> (together or individually “Service”) operated by <b> Sellx </b>.
-        Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages.
-        Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them.
-        If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at info@sellx.ae so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.
-        <br>
-        <h4>
-          Communications
-        </h4>
-        By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at info@sellx.ae.
+        <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
+            Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material (“Content”). You are responsible for Content that you post on or through Service, including its legality, reliability, and appropriateness.
+            By posting Content on or through Service, You represent and warrant that: (i) Content is yours (you own it) and/or you have the right to use it and the right to grant us the rights and license as provided in these Terms, and (ii) that the posting of your Content on or through Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person or entity. We reserve the right to terminate the account of anyone found to be infringing on a copyright.
+            You retain any and all of your rights to any Content you submit, post or display on or through Service and you are responsible for protecting those rights. We take no responsibility and assume no liability for Content you or any third party posts on or through Service. However, by posting Content using Service you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through Service. You agree that
+            this license includes the right for us to make your Content available to other users of Service, who may also use your Content subject to these Terms.
+            Sellx has the right but not the obligation to monitor and edit all Content provided by users.
+            In addition, Content found on or through this Service are the property of Sellx or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.
 
-</div>
+        </div>
   </div>
 </div>
 @endsection
