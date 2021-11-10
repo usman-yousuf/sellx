@@ -13,15 +13,19 @@ use Illuminate\Notifications\Notifiable;
 class Profile extends Model
 {
     use HasFactory, Notifiable;
+    use SoftDeletes;
+    
     protected $table = 'profiles';
-
 
     protected $fillable = [
         'max_bid_limit',
     ];
 
-    use SoftDeletes;
-    protected $with = ['defaultAddress'];
+
+    protected $with = [
+        'defaultAddress'
+    ];
+
     protected $appends = [
         'is_followed',
         'followers_count',
@@ -29,10 +33,14 @@ class Profile extends Model
         'average_rating',
         'total_ratings_count',
         'is_online',
-        'deposit',
     ];
 
-    protected $withCount = ['auction','comingauctions','totalsolds','pendingsolds'];
+    protected $withCount = [
+        'auction',
+        'comingauctions',
+        'totalsolds',
+        'pendingsolds'
+    ];
 
     public function getIsOnlineAttribute(){
 
@@ -63,10 +71,6 @@ class Profile extends Model
             }
         }
         return 0;
-
-    }
-    public function getDepositAttribute(){
-        return 100000;
 
     }
 
@@ -154,17 +158,17 @@ class Profile extends Model
     }
 
     public function biddings()
-    { 
+    {
         return $this->hasMany(Bidding::class, 'profile_id', 'id');
     }
 
     public function viewers()
-    { 
+    {
         return $this->hasMany(Viewer::class, 'profile_id', 'id');
     }
 
     public function comments()
-    { 
+    {
         return $this->hasMany(Comment::class, 'profile_id', 'id');
     }
 
@@ -179,32 +183,32 @@ class Profile extends Model
     }
 
     public function stories()
-    { 
+    {
         return $this->hasMany(Story::class, 'profile_id', 'id');
     }
 
     public function auction()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id');
     }
 
     public function products()
-    { 
+    {
         return $this->hasMany(Product::class, 'profile_id', 'id')->without('profile');
     }
 
     public function totalsolds()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds');
     }
 
     public function pendingsolds()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->whereHas('solds')->with('solds')->where('status','pending');
     }
 
     public function comingauctions()
-    { 
+    {
         return $this->hasMany(Auction::class, 'auctioneer_id', 'id')->where('scheduled_date_time','>=',Carbon::now())->with('auction');
     }
     /**
@@ -386,6 +390,9 @@ class Profile extends Model
         }
         if(isset($request->profile_image) && ('' != $request->profile_image)){
             $profile->profile_image = $request->profile_image;
+        }
+        if (isset($request->auction_house_logo) && ('' != $request->auction_house_logo)) {
+            $profile->auction_house_logo = $request->auction_house_logo;
         }
         try{
             $profile->save();

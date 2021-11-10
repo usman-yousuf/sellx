@@ -26,6 +26,7 @@ class CreateProfilesTable extends Migration
 
             $table->string('username')->unique()->nullable();
             $table->text('profile_image')->nullable();
+            $table->text('auction_house_logo')->nullable();
             $table->longText('bio')->nullable();
             $table->longText('description')->nullable();
 
@@ -38,6 +39,9 @@ class CreateProfilesTable extends Migration
             $table->enum('profile_type', ['buyer', 'auctioneer'])->default('buyer');
             $table->boolean('is_approved')->default(false);
 
+            $table->decimal('deposit')->nullable();
+            $table->decimal('max_bid_limit')->default(15000);
+            
             $table->timestamps();
             $table->softDeletes();
         });

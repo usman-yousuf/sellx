@@ -4,9 +4,10 @@ namespace App\Models;
 
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Auction extends Model
 {
@@ -22,7 +23,7 @@ class Auction extends Model
         'deleted_at',
     ];
 
-    protected $with = ['setting','medias','viewers'];
+    protected $with = ['setting','medias','viewers','blocks'];
     protected $appends = [
         'allowed_to_post',
         'allow_to_bid',

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\AuctioneerManagementController;
-use App\Http\Controllers\Admin\CategoriesManagementController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\CitiesManagementController;
 use App\Http\Controllers\Admin\CountriesManagementController;
-use App\Http\Controllers\Admin\CurrenciesManagementController;
 use App\Http\Controllers\Admin\LanguagesManagementController;
-use App\Http\Controllers\Admin\UserManagementController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuctioneerManagementController;
+use App\Http\Controllers\Admin\CategoriesManagementController;
+use App\Http\Controllers\Admin\CurrenciesManagementController;
 
 
 
@@ -27,6 +28,10 @@ Route::any('/', function () {
     return view('index');
 
 })->name('home');
+
+Route::any('/termsandcondition', function () {
+    return view('termsandcondition');
+})->name('termsandcondition');
 
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');

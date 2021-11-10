@@ -6,26 +6,38 @@
     <div class="container">
         <div class="row for_about_main_row">
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_after one order-lg-1 order-md-1 order-2">
-                <a href="#">{{ __('Terms and Conditions') }}</a>
+                <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}</a>
                 <br>
-                <a href="#">{{ __('Privacy & Data Policy')}}</a>
+                <a href="{{ route('termsandcondition') }}">{{ __('Privacy & Data Policy')}}</a>
                 <br>
-                <a href="#">{{ __('Refunds and Cancellations') }}</a>
+                <a href="{{ route('termsandcondition') }}">{{ __('Refunds and Cancellations') }}</a>
                 <br>
-                <a href="#">{{ __('Service Delivery Policy')}}</a>
+                <a href="{{ route('termsandcondition') }}">{{ __('Service Delivery Policy')}}</a>
                 <br>
-                <a href="#">{{ __('Service Pricing') }}</a>
+                <a href="{{ route('termsandcondition') }}">{{ __('Service Pricing') }}</a>
+                {{-- <a href="#" class="">{{ __('Partners Terms')}}</a>
+                {{-- <a href="#">{{ __('Comming Soon') }}</a>
                 <br>
-                <a href="#" class="">{{ __('Partners Terms')}}</a>
+                <a href="#">{{ __('Comming Soon')}}</a>
+                <br>
+                <a href="#">{{ __('Comming Soon') }}</a>
+                <br>
+                <a href="#">{{ __('Comming Soon')}}</a>
+                <br>
+                <a href="#">{{ __('Comming Soon') }}</a>
+                <br>
+                <a href="#">{{ __('Comming Soon') }}</a> --}}
+                <br>
                 <hr class="for_partners_bottom">
 
                 <div>
-                    
                     <a href="{{route('contact')}}" class="">{{ __('Contact us') }}</a>
                     <br>
                     <a href="{{route('about')}}" class="">{{ __('About us') }}</a>
-
-
+                    
+                    {{-- <a href="{{route('contact')}}" class="">{{ __('Comming Soon') }}</a> --}}
+                    <br>
+                    {{-- <a href="{{route('about')}}" class="">{{ __('Comming Soon') }}</a> --}}
                 </div>
 
 

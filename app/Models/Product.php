@@ -48,6 +48,7 @@ class Product extends Model
         'is_won_by_me',
         'my_product_status',
         'auction_house_name',
+        'is_delivered'
     ];
 
     use SoftDeletes;
@@ -149,5 +150,8 @@ class Product extends Model
         $request = app('request');
         $sold = Sold::where('product_id',$this->id)->where('profile_id',$request->user()->active_profile_id)->first();
         return $sold->status??Null;
+    }
+    public function getIsDeliveredAttribute(){
+        return 0; 
     }
 }

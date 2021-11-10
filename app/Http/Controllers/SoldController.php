@@ -24,11 +24,11 @@ class SoldController extends Controller
     public function get_sold(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'exists:profiles,uuid',        
-            'buyer_uuid' => 'exists:profiles,uuid',        
-            'auction_uuid' => 'exists:auctions,uuid',        
-            'auction_product_uuid' => 'exists:auction_products,uuid',        
-            'bidding_uuid' => 'exists:biddings,uuid',        
+            'profile_uuid'         => 'exists:profiles,uuid',
+            'buyer_uuid'           => 'exists:profiles,uuid',
+            'auction_uuid'         => 'exists:auctions,uuid',
+            'auction_product_uuid' => 'exists:auction_products,uuid',
+            'bidding_uuid'         => 'exists:biddings,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -165,16 +165,16 @@ class SoldController extends Controller
 
         $total = $bid->total_price;
         $sold = [
-            'uuid' => Str::uuid(),
-            'bidding_id' => $bid->id,
-            'profile_id' => $bid->profile_id,
-            'auction_id' => $bid->auction_id,
-            'product_id' => $bid->auction_product->product_id,
+            'uuid'               => Str::uuid(),
+            'bidding_id'         => $bid->id,
+            'profile_id'         => $bid->profile_id,
+            'auction_id'         => $bid->auction_id,
+            'product_id'         => $bid->auction_product->product_id,
             'auction_product_id' => $bid->auction_product_id,
-            'quantity' => $bid->quantity,
-            'price' => $bid->total_price,
-            'type' => $bid->status,
-            'status' => $request->status,
+            'quantity'           => $bid->quantity,
+            'price'              => $bid->total_price,
+            'type'               => $bid->status,
+            'status'             => $request->status,
         ];
 
         if(isset($request->discount)){
@@ -221,6 +221,9 @@ class SoldController extends Controller
 
             }
             DB::commit();
+            $profile = Profile::where('id',Auth::User()->profile->id)->first();
+            $profile->deposit -=  $total;
+            $profile->save();
             return sendSuccess('Sold',$sold);
         }
         catch(\Exception $e){

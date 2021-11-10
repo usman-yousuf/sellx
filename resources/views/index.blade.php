@@ -190,7 +190,7 @@
                   <span class="input-group-text img_index_height">
                     <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
                     <img src="{{asset('assets/images/Mail1.svg')}}" class="img-fluid" />
-
+                    
                   </span>
                 </div>
                 <input

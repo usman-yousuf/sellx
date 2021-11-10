@@ -105,4 +105,8 @@ class NoAuthController extends Controller
 		}
 		return sendError('No Record Found !', null);
 	}
+
+	public function shareLink(Request $request,$nature,$data){
+		return sendSuccess('Shared Link',[$nature,$data]);
+	}
 }
