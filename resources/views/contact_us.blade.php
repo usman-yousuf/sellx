@@ -16,13 +16,13 @@
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_afterr right_border order-lg-1 order-md-1 order-2">
                 <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}</a>
                 <br>
-                <a href="{{ route('termsandcondition') }}">{{ __('Privacy & Data Policy')}}</a>
+                <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
                 <br>
-                <a href="{{ route('termsandcondition') }}">{{ __('Refunds and Cancellations') }}</a>
+                <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
                 <br>
-                <a href="{{ route('termsandcondition') }}">{{ __('Service Delivery Policy')}}</a>
+                <a href="{{ route('servicedeliverypolicy') }}">{{ __('Service Delivery Policy')}}</a>
                 <br>
-                <a href="{{ route('termsandcondition') }}">{{ __('Service Pricing') }}</a>
+                <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
                 <br>
                 <a href="{{ route('termsandcondition') }}" class="">{{ __('Partners Terms')}}</a>
                 {{-- <a href="#">{{ __('Comming Soon') }}</a>
@@ -41,11 +41,11 @@
 
 
                 <div>
-                    
+
 {{--                     <a href="{{route('contact')}}" class="">{{ __('Contact us') }}</a>
                     <br>
                     <a href="{{route('about')}}" class="">{{ __('About us') }}</a> --}}
-                    
+
                     <a href="{{route('contact')}}" class="">{{ __('Comming Soon') }}</a>
                     <br>
                     <a href="{{route('about')}}" class="">{{ __('Comming Soon') }}</a>
@@ -135,7 +135,7 @@
                           <form id="basic-form" method="post" enctype="multipart/form-data">
                             <h3>Contact Form</h3>
                             <div class="sm-res_buttons">
-                              
+
                               <div class="for_col_two_bg">
                                 <div class="pt-3 text-center">
 
@@ -184,7 +184,7 @@
                                             <input type="text" class="form-control for_input_css" placeholder="Your email" name="email">
                                         </div>
 
-                                        
+
 
                                         <div class="form-group for_comments_css pt-2">
                                           <textarea class="form-control comment_css for_input_css" rows="2" id="message" name="message" placeholder="Enter Your Message" ></textarea>
@@ -199,8 +199,8 @@
                           </div>
                           </form>
                         </div>
-                    </div>          
-                </div>   
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -213,7 +213,7 @@
           $('.sub_plans-d').removeClass('activelabel');
           $(elm).addClass('activelabel');
       });
-  
+
       function myFunction() {
           var registerForm = $("#basic-form");
           var formData = registerForm.serialize();

@@ -33,6 +33,24 @@ Route::any('/termsandcondition', function () {
     return view('termsandcondition');
 })->name('termsandcondition');
 
+// further View Routes of contact us pages
+
+Route::any('/privacypolicy', function () {
+    return view('privacypolicy');
+})->name('privacypolicy');
+
+Route::any('/refundandcancelation', function () {
+    return view('refundandcancelation');
+})->name('refundandcancelation');
+
+Route::any('/servicedeliverypolicy', function () {
+    return view('servicedeliverypolicy');
+})->name('servicedeliverypolicy');
+
+Route::any('/servicepricing', function () {
+    return view('servicepricing');
+})->name('servicepricing');
+
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);
