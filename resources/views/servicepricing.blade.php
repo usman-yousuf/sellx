@@ -5,15 +5,17 @@
   <div class="container">
       <div class="row for_about_main_row">
           <div class="col-lg-3 col-md-4 col-sm-12 for_col_afterr right_border order-lg-1 order-md-1 order-2">
-          <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}</a>
-          <br>
-          <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
-          <br>
-          <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
-          <br>
-          <a href="{{ route('servicedeliverypolicy') }}">{{ __('Service Delivery Policy')}}</a>
-          <br>
-          <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
+            <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}</a>
+            <br>
+            <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
+            <br>
+            <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
+            <br>
+            <a href="{{ route('servicedeliverypolicy') }}">{{ __('Service Delivery Policy')}}</a>
+            <br>
+            <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
+            <br>
+            <a href="{{ route('partnersterms') }}" class="">{{ __('Partners Terms')}}</a>
           <br>
           <hr class="for_partners_bottom">
 
