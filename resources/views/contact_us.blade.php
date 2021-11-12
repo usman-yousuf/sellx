@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row for_about_main_row">
             <div class="col-lg-3 col-md-4 col-sm-12 for_col_afterr right_border order-lg-1 order-md-1 order-2">
-                {{-- <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}</a> --}}
+                <a href="{{ route('termsandcondition') }}">{{ __('Terms and Conditions') }}</a>
                 <br>
                 <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
                 <br>
@@ -42,13 +42,14 @@
 
                 <div>
 
-{{--                     <a href="{{route('contact')}}" class="">{{ __('Contact us') }}</a>
-                    <br>
-                    <a href="{{route('about')}}" class="">{{ __('About us') }}</a> --}}
+                  <a href="{{route('contact')}}" class="">{{ __('Contact us') }}</a>
+                  <br>
+                  
+                  <a href="{{route('about')}}" class="">{{ __('About us') }}</a>
 
-                    <a href="{{route('contact')}}" class="">{{ __('Comming Soon') }}</a>
+                    {{-- <a href="{{route('contact')}}" class="">{{ __('Comming Soon') }}</a>
                     <br>
-                    <a href="{{route('about')}}" class="">{{ __('Comming Soon') }}</a>
+                    <a href="{{route('about')}}" class="">{{ __('Comming Soon') }}</a> --}}
 
 
                 </div>

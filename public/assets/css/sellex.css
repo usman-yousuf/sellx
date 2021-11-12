@@ -880,7 +880,37 @@ input {
         margin-left: 49px;
         margin-bottom: 42px;
     }
+
+
+
+
 }
+
+
+@media (max-width: 359px) {
+
+
+.for_secoond_col_bg{
+    height:auto!important;
+} 
+
+.for_row_slider_responsive{
+    height: auto!important;
+}
+
+.for_block_two_main {
+    padding-top: 50;
+}
+
+.carousel-item img{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+}
+
+
 
 @media (min-width: 425px) and (max-width: 767px) {
     .top_nav {
