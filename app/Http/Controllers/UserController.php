@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Address;
 use App\Models\Profile;
 use App\Models\Reviews;
+use App\Models\Defaulter;
 use App\Models\Followers;
 use Illuminate\Http\Request;
 use App\Models\PasswordReset;
@@ -779,6 +780,8 @@ class UserController extends Controller
 
         $profile = Profile::where('id',$request->profile_uuid)->first() ?? Auth::User()->profile;
 
+        
+        
         $request->merge([
             'charges' => $request->deposit_cash,
         ]);
@@ -787,11 +790,12 @@ class UserController extends Controller
         if(!$charge->status){
             return sendError('internal server Error',$charge->data);
         }
-
+        
+        $defaulter = Defaulter::where('profile_id',$profile->id)->first();
         
         $profile->deposit += $request->deposit_cash;
         if($profile->deposit > 15000)
-            $profile->max_bid_limit = $profile->deposit*(2/100);
+            $profile->max_bid_limit = $profile->deposit*(($defaulter->penalty_percentage ?? 2)/100);
         else 
             $profile->max_bid_limit = 15000;
 
