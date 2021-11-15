@@ -254,7 +254,7 @@ input {
 }
 
 .for_common_input button {
-    width: 250px;
+    width: 100%;
     color: #49aaef;
     height: 38px;
 }
