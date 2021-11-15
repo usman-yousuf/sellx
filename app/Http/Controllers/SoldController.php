@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Sold;
 use App\Models\Auction;
-use App\Models\AuctionProduct;
 use App\Models\Bidding;
 use App\Models\Product;
 use App\Models\Profile;
-use App\Models\Sold;
-use Carbon\Carbon;
+use App\Models\Defaulter;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\AuctionProduct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class SoldController extends Controller
 {
@@ -38,6 +39,26 @@ class SoldController extends Controller
         }
 
         $sold  = Sold::orderBy('created_at', 'DESC');
+
+        $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','>=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
+
+        foreach($defaulter_ids as $defaulter_profile_id) {
+
+            $defaulter = Defaulter::where('profile_id', $defaulter_profile_id)->first();
+
+            if(NULL == $defaulter){
+                $defaulter                     = new Defaulter();
+                $defaulter->profile_id         = $defaulter_profile_id;
+                $defaulter->penalty_percentage = 2;
+            }
+            else{
+                $defaulter->penalty_percentage = (int) $defaulter->penalty_percentage * 2;
+            }
+            
+
+            $defaulter->save();
+        }
+
 
         if(isset($request->status)){
 
@@ -221,7 +242,7 @@ class SoldController extends Controller
 
             }
             DB::commit();
-            $profile = Profile::where('id',Auth::User()->profile->id)->first();
+            $profile = Profile::where('id',$request->User()->profile->id)->first();
             $profile->deposit -=  $total;
             $profile->save();
             return sendSuccess('Sold',$sold);
