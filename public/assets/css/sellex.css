@@ -715,7 +715,7 @@ input {
         margin-top: 20px;
     }
     .for_common_input button {
-        width: 363px;
+        width: 330px;
     }
     .sm_res_footer {
         width: 425px;
@@ -849,25 +849,25 @@ input {
         /* display: block; */
         position: absolute;
         /* margin-left: 14px; */
-        width: 440px;
+        width: 100%;
     }
     .for_slider_res {
         background: black;
         height: 440px;
         position: absolute;
         margin-top: 440px;
-        width: 440px;
+        width: 100%;
     }
     .for_block_two_main {
         padding-top: 20px;
-        /* margin-top: 425px; */
-        margin-left: 20px;
+        /* margin-top: 425px;
+        margin-left: 20px; */
     }
     .for_block_three_bg {
         background-color: #49aaef;
         padding: 30px;
         margin-top: 60px;
-        width: 425px;
+        width: 100%;
     }
     .for_bg_slider_css {
         /* background-color: #212529 !important;
