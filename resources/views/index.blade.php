@@ -3,7 +3,8 @@
 @section('content')
     <!-- After NavBar Block One Start -->
     <div class="for_overflow">
-      <div class="row for_row_slider_responsive">
+      <div class="container-fluid">
+          <div class="row for_row_slider_responsive">
         <div class="col-lg-6 col-md-6 order-2 order-sm-1 order-lg-1 order-md-1 for_slider_res">
           <div class="for_bg_slider_css">
                     <div
@@ -102,6 +103,7 @@
           </div>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- After NavBar Block One End -->
@@ -115,6 +117,7 @@
               col-lg-3 col-md-6
               order-md-1 order-lg-0
               for_common_img_res for_first_img_res
+              text-center
             "
           >
             <img
@@ -123,18 +126,18 @@
               alt=""
             />
           </div>
-          <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1">
+          <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1 text-center text-md-left">
             <h4>{{ __('Sellx is a live auction platform') }}</h4>
             <p>
               {{ __('Sellx is an online live auction platform that connects auction houses & bidders in a more efficient, interactive and secure way') }}
             </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res">
+          <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res text-center">
             <img src="{{asset('assets/images/Illustration2.svg')}}" class="img-fluid" />
           </div>
 
-          <div class="col-lg-3 col-md-6 for_sellex_textt order-md-2">
+          <div class="col-lg-3 col-md-6 for_sellex_textt order-md-2 text-center text-md-left">
             <h4>{{ __('Be part of the competition') }}</h4>
             <p>
               {{ __('Attend the live auctions to place bids & win lots, or enjoy watching the competion') }}
@@ -145,7 +148,7 @@
         <!-- Block Two Child One Start -->
         <div class="row for_blocktw_childone_main">
           <div
-            class="col-lg-3 col-md-6 order-md-1 order-lg-0 for_common_img_res"
+            class="col-lg-3 col-md-6 order-md-1 order-lg-0 for_common_img_res text-center"
           >
             <img
               src="{{asset('assets/images/Illustration3.svg')}}"
@@ -153,18 +156,18 @@
               alt=""
             />
           </div>
-          <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1">
+          <div class="col-lg-3 col-md-6 for_sellex_text order-md-2 order-lg-1 text-center text-md-left">
             <h4>{{ __('Discover & find your interesting lots') }}</h4>
             <p>
               {{ __('Discover & win your favorite lots of watches, jewelries to cars, properties and much more') }}
             </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res">
+          <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res text-center">
             <img src="{{asset('assets/images/Illustration5.svg')}}" class="img-fluid" />
           </div>
 
-          <div class="col-lg-3 col-md-6 for_sellex_textt md_register_responsive order-md-2">
+          <div class="col-lg-3 col-md-6 for_sellex_textt md_register_responsive order-md-2 text-center text-md-left">
             <h4>{{ __('All you need to become a professional auction house') }}</h4>
             <p>
              {{ __('Register your auction house today and use all the tools to sell more in an easy and reliable way') }}
@@ -179,7 +182,7 @@
 
     <!-- After NavBar Block Three Start -->
     <div for_overflow>
-      <div class="container for_block_three_bg">
+      <div class="container for_block_three_bg" style="width= 104%;">
         <h3>{{ __('Stay updated') }}</h3>
         <p>{{ __('Subscribe to keep abreast of all updates and news') }}</p>
         <div class="row">
@@ -190,7 +193,7 @@
                   <span class="input-group-text img_index_height">
                     <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
                     <img src="{{asset('assets/images/Mail1.svg')}}" class="img-fluid" />
-                    
+
                   </span>
                 </div>
                 <input
