@@ -329,7 +329,7 @@ input {
 
 .end_footer span {
     color: white;
-    /* margin-top: 25px; */
+    margin-right: 80px;
 }
 
 .fox-text br {
@@ -626,6 +626,19 @@ input {
     height: 695px;
 }
 
+
+/*
+/* @media (min-width:424px) and (max-width:770px) {
+    .end_footer span {
+        color: white;
+        margin-top: 38px;
+        float: left;
+        /* margin-left: -135px; */
+
+
+/* }
+}  */
+
 @media (min-width: 360px) and (max-width: 424px) {
     .top_nav {
         margin-left: -41px;
@@ -744,9 +757,9 @@ input {
     }
     .end_footer span {
         color: white;
-        margin-top: 38px;
+        /* margin-top: 38px; */
         float: left;
-        margin-left: -135px;
+        /* margin-left: -135px; */
     }
     .end_footer img {
         margin-top: 25px;
@@ -977,9 +990,9 @@ input {
     }
     .end_footer span {
         color: white;
-        margin-top: 38px;
+        margin-top: -3px;
         float: left;
-        margin-left: -135px;
+        /* margin-left: -135px; */
     }
     .end_footer img {
         margin-top: 25px;
@@ -1121,6 +1134,12 @@ input {
     }
     .for_block_two_main {
         margin-top: -235px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 359px) {
+    .for_row_slider_responsive {
+        height: auto;
     }
 }
 
