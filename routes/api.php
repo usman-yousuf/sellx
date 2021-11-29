@@ -168,6 +168,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     //sold
     Route::post('get_sold', [SoldController::class, 'get_sold']);
     Route::post('update_sold', [SoldController::class, 'update_sold']);
+    Route::post('update_payment_options', [SoldController::class, 'update_payment_options']);
+    Route::post('update_delivery_options', [SoldController::class, 'update_delivery_options']);
+    Route::post('get_delivery_options', [SoldController::class, 'get_delivery_options']);
+    Route::post('get_payment_options', [SoldController::class, 'get_payment_options']);
 
     //comment
     Route::post('get_comment', [CommentController::class, 'get_comment']);

@@ -11,9 +11,12 @@ use App\Models\Profile;
 use App\Models\Defaulter;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\PaymentOption;
 use App\Models\AuctionProduct;
+use App\Models\DeliveryOption;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Twilio\Rest\Api\V2010\Account\Call\PaymentOptions;
 
 class SoldController extends Controller
 {
@@ -253,48 +256,61 @@ class SoldController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Sold $sold)
-    {
-        //
+    public function update_payment_options(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|required',        
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+
+        $payment_options = new PaymentOption();
+        $payment_options->uuid = Str::uuid();
+        $payment_options->name = $request->name;
+        $payment_options->desc = $request->desc;
+
+        $payment_options->save();
+
+        return sendSuccess('Payment Options Added', $payment_options);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sold $sold)
-    {
-        //
+    public function update_delivery_options(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|required',        
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+
+        $payment_options = new DeliveryOption();
+        $payment_options->uuid = Str::uuid();
+        $payment_options->name = $request->name ?? '';
+        $payment_options->desc = $request->desc ?? '';
+
+        $payment_options->save();
+
+        return sendSuccess('Payment Options Added', $payment_options);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Sold $sold)
-    {
-        //
+    public function get_delivery_options(){
+
+        return sendSuccess('Delivery Options',DeliveryOption::get());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Sold $sold)
-    {
-        //
+    public function get_payment_options(Request $request){
+
+        if(isset($request->pickup) && $request->pickup == 1)
+            return sendSuccess('Payment Options',PaymentOption::where('desc',NULL)->get());
+            
+        return sendSuccess('Payment Options',PaymentOption::where('desc','!=',NULL)->get());
+
     }
 }

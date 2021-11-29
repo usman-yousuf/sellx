@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Block;
 use App\Models\Viewer;
-use App\Models\Profile;
 use App\Models\Auction;
-use App\Models\AuctionProduct;
-use Illuminate\Http\Request;
+use App\Models\Profile;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\AuctionProduct;
 use Illuminate\Support\Facades\Validator;
 
 class ViewerController extends Controller
@@ -47,11 +48,11 @@ class ViewerController extends Controller
     public function update_viewer(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'profile_uuid' => 'required_with:auction_uuid,auction_product_uuid|required_without:viewer_uuid,left_at|exists:profiles,uuid',
-            'auction_uuid' => 'required_with:profile_uuid,auction_product_uuid|required_without:viewer_uuid,left_at|exists:auctions,uuid',
-            'auction_product_uuid' =>'required_with:auction_uuid,profile_uuid|required_without:viewer_uuid,left_at|exists:auction_products,uuid',
-            'viewer_uuid' =>'required_with:left_at|required_without:auction_uuid,auction_product_uuid,profile_uuid|exists:viewers,uuid',
-            'left_at' =>'required_with:viewer_uuid|required_without:auction_uuid,auction_product_uuid,profile_uuid',
+            'profile_uuid'         => 'required_with:auction_uuid,auction_product_uuid|required_without:viewer_uuid,left_at|exists:profiles,uuid',
+            'auction_uuid'         => 'required_with:profile_uuid,auction_product_uuid|required_without:viewer_uuid,left_at|exists:auctions,uuid',
+            'auction_product_uuid' => 'required_with:auction_uuid,profile_uuid|required_without:viewer_uuid,left_at|exists:auction_products,uuid',
+            'viewer_uuid'          => 'required_with:left_at|required_without:auction_uuid,auction_product_uuid,profile_uuid|exists:viewers,uuid',
+            'left_at'              => 'required_with:viewer_uuid|required_without:auction_uuid,auction_product_uuid,profile_uuid',
         ]);
 
         if ($validator->fails()) {
@@ -72,9 +73,12 @@ class ViewerController extends Controller
         }
 
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
-        $auction = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
-
+        $auction = Auction::where('uuid',$request->auction_uuid)->first();
+        $block =  Block::where('profile_id', $profile->id)->where('ref_type','auction')->where('ref_id',$auction->id)->first();
+        if(null != $block)
+            return sendError('you are block',[]);
+        
         $check = viewer::where('profile_id',$profile->id)->where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->first();
 
         if(($check != null) && ($check->left_at == null)){
