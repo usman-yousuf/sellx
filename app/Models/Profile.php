@@ -41,6 +41,10 @@ class Profile extends Model
         'pendingsolds'
     ];
 
+    protected $casts = [
+        'deposit' => 'double',
+    ];
+
     public function getIsOnlineAttribute(){
 
         return Auction::Where('auctioneer_id',$this->id)->where('is_live',1)->count()?1:0;
