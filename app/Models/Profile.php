@@ -21,7 +21,6 @@ class Profile extends Model
         'max_bid_limit',
     ];
 
-
     protected $with = [
         'defaultAddress'
     ];

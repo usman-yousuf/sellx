@@ -55,10 +55,10 @@ class SoldController extends Controller
                 $defaulter->penalty_percentage = (int) $defaulter->penalty_percentage * 2;
             }
             
-
             $defaulter->save();
         }
 
+        // add to send back product
 
         if(isset($request->status)){
 
