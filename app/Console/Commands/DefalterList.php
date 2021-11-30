@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Sold;
 use App\Models\Profile;
 use App\Models\Defaulter;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 
 class DefalterList extends Command
@@ -56,6 +57,7 @@ class DefalterList extends Command
 
             if(NULL == $defaulter){
                 $defaulter                     = new Defaulter();
+                $defaulter->uuid               = Str::uuid();
                 $defaulter->profile_id         = $defaulter_profile_id;
                 $defaulter->penalty_percentage = 4;
             }
