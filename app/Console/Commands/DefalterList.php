@@ -42,7 +42,7 @@ class DefalterList extends Command
      */
     public function handle()
     {
-        $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(env("sub_days")))->pluck('profile_id')->toArray();
+        $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
 
         Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->delete();
 
