@@ -235,7 +235,7 @@ class BiddingController extends Controller
 
         }
 
-        //Work if is_fixed_price is not fixed
+        //Work if price is not fixed
         if(!isset($request->is_fixed_price)){
 
             if($product->auction_type == 'fixed_price')
@@ -292,7 +292,7 @@ class BiddingController extends Controller
                 if(NULL == $price){
                     return sendError('Fix Price Not Set',[]);
                 }
-                if($request->$price < (int)$profile->max_bid_limit)
+                if($price > (int)$profile->max_bid_limit)
                     return sendError("Not enough deposit to buy this product",[]);
             }
             else{
@@ -333,8 +333,10 @@ class BiddingController extends Controller
      * @param  \App\Models\Bidding  $bidding
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bidding $bidding)
-    {
-        //
+    public function get_fix_price(Request $request){
+        
+        $data = Bidding::where('is_fixed_price',1)->get();
+
+        return sendSuccess('Fix price list',$data);
     }
 }

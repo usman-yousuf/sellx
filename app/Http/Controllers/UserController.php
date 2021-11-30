@@ -778,7 +778,7 @@ class UserController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $profile = Profile::where('id',$request->profile_uuid)->first() ?? Auth::User()->profile;
+        $profile = Profile::where('uuid',$request->profile_uuid)->first() ?? Auth::User()->profile;
 
         
         
@@ -803,5 +803,25 @@ class UserController extends Controller
         $profile->save();
 
         return sendSuccess('Deposit Added',$profile);
+    }
+
+    public function isDefault(Request $request){
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'exists:profiles,uuid|required',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid',$request->profile_uuid)->first();
+
+        $defaulter = Defaulter::where('profile_id',$profile->id)->first();
+
+        if(null == $defaulter)
+            return sendSuccess('not defaulter',[]);
+
+        return sendSuccess('Defaulter',$defaulter);
     }
 }

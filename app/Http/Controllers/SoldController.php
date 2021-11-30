@@ -12,6 +12,7 @@ use App\Models\Defaulter;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PaymentOption;
+use App\Models\ShippingPrice;
 use App\Models\AuctionProduct;
 use App\Models\DeliveryOption;
 use Illuminate\Support\Facades\DB;
@@ -43,8 +44,8 @@ class SoldController extends Controller
 
         $sold  = Sold::orderBy('created_at', 'DESC');
 
-        $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','>=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
-
+        $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
+        // return Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
         foreach($defaulter_ids as $defaulter_profile_id) {
 
             $defaulter = Defaulter::where('profile_id', $defaulter_profile_id)->first();
@@ -256,6 +257,28 @@ class SoldController extends Controller
         }
     }
 
+    public function shipping_fee(Request $request){
+
+        $data       = new ShippingPrice();
+        $data->uuid = Str::uuid();
+        $data->name = $request->name ?? '';
+        $data->fee  = $request->fee ?? '';
+        $data->save();
+        
+        return sendSuccess('Fee Save',$data);
+    }
+
+    public function get_shipping_fee(Request $request){
+
+
+        if($request->local == 0)
+            $data = ShippingPrice::where('name','local')->get();
+        else            
+            $data = ShippingPrice::where('name','!=','local')->get();
+
+        return sendSuccess('Shipping Fee',$data);
+    }
+
     public function update_payment_options(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'string|required',        
@@ -302,15 +325,20 @@ class SoldController extends Controller
 
     public function get_delivery_options(){
 
-        return sendSuccess('Delivery Options',DeliveryOption::get());
+        $data = DeliveryOption::get();
+
+        return sendSuccess('Delivery Options',$data);
     }
 
     public function get_payment_options(Request $request){
 
         if(isset($request->pickup) && $request->pickup == 1)
-            return sendSuccess('Payment Options',PaymentOption::where('desc',NULL)->get());
-            
-        return sendSuccess('Payment Options',PaymentOption::where('desc','!=',NULL)->get());
+            $data = PaymentOption::where('desc',NULL)->get();
+        else
+            $data = PaymentOption::where('desc','!=',NULL)->get();
+
+        return sendSuccess('Payment Options',$data);
 
     }
+
 }

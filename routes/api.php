@@ -84,7 +84,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('add_bank_details', 'App\Http\Controllers\UserController@updateBank');
     Route::post('add_card_details', 'App\Http\Controllers\UserController@updateCard');
     Route::post('add_deposit', 'App\Http\Controllers\UserController@addDeposit');
+    Route::post('is_default', 'App\Http\Controllers\UserController@isDefault');
 
+    //Delivery
+    Route::post('delivery', 'App\Http\Controllers\DeliveryController@delivery');
 
     // ADDRESS
     Route::post('get_profile_addresses', 'App\Http\Controllers\AddressController@getProfileAddresses');
@@ -160,6 +163,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('bidding', [BiddingController::class, 'bidding']);
     Route::post('user_bids', [BiddingController::class, 'user_bids']);
     Route::post('auction_user_bids', [BiddingController::class, 'auction_user_bids']);
+    Route::post('get_fix_price', [BiddingController::class, 'get_fix_price']);
 
     //complain
     Route::post('get_complain', [BuyerRequestController::class, 'get_complain']);
@@ -172,6 +176,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('update_delivery_options', [SoldController::class, 'update_delivery_options']);
     Route::post('get_delivery_options', [SoldController::class, 'get_delivery_options']);
     Route::post('get_payment_options', [SoldController::class, 'get_payment_options']);
+    Route::post('shipping_fee', [SoldController::class, 'shipping_fee']);
+    Route::post('get_shipping_fee', [SoldController::class, 'get_shipping_fee']);
 
     //comment
     Route::post('get_comment', [CommentController::class, 'get_comment']);
