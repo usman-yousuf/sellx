@@ -34,8 +34,8 @@ class DeliveryController extends Controller
             'payment_type_uuid'  => 'required|exists:payment_options,uuid',
             'delivery_type_uuid' => 'required|exists:delivery_options,uuid',
             'string_charge_id'   => 'string',
-            'status'             => 'in:delivered,pickeup,pending,shipped',
-            'address_uuid'            => 'string|exists:uuid,address',
+            'status'             => 'in:delivered,pickeup,pending,shipped,completed',
+            'address_uuid'       => 'string|exists:uuid,address',
     
         ]);
     
@@ -76,9 +76,19 @@ class DeliveryController extends Controller
             $delivery->string_charge_id   = $request->string_charge_id;
             $delivery->address_id         = $address->id ?? NULL;
 
+            if(NULL != $delivery->string_charge_id)
+                Sold::where('id',$sold->id)->update([
+                    'status' => 'paid',
+                ]);
+
         }
         else {
             $delivery->status             = $request->status ?? 'pending';
+
+            if($delivery->status == 'delivered' || $delivery->status == 'pickeup')
+                Sold::where('id',$sold->id)->update([
+                    'status' => 'completed',
+                ]);
         }
     
         $delivery->save();
