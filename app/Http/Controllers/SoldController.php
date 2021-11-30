@@ -44,23 +44,28 @@ class SoldController extends Controller
 
         $sold  = Sold::orderBy('created_at', 'DESC');
 
-        $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
-        // return Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
-        foreach($defaulter_ids as $defaulter_profile_id) {
+        // $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
+        // // return Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
+        // foreach($defaulter_ids as $defaulter_profile_id) {
 
-            $defaulter = Defaulter::where('profile_id', $defaulter_profile_id)->first();
+        //     $defaulter = Defaulter::where('profile_id', $defaulter_profile_id)->first();
 
-            if(NULL == $defaulter){
-                $defaulter                     = new Defaulter();
-                $defaulter->profile_id         = $defaulter_profile_id;
-                $defaulter->penalty_percentage = 2;
-            }
-            else{
-                $defaulter->penalty_percentage = (int) $defaulter->penalty_percentage * 2;
-            }
+        //     Profile::where('id',$defaulter_profile_id)->update([
+        //         'deposit' => 0,
+        //         'max_bid_limit' => 0,
+        //     ]);
+
+        //     if(NULL == $defaulter){
+        //         $defaulter                     = new Defaulter();
+        //         $defaulter->profile_id         = $defaulter_profile_id;
+        //         $defaulter->penalty_percentage = 4;
+        //     }
+        //     else{
+        //         $defaulter->penalty_percentage = (int) $defaulter->penalty_percentage * 2;
+        //     }
             
-            $defaulter->save();
-        }
+        //     $defaulter->save();
+        // }
 
         // add to send back product
 

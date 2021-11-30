@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\DefalterList::class,
     ];
 
     /**
@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
+        $schedule->command('defalter:list')->dailyAt('00:05');
          // $schedule->command('story:delete')->hourly();
 
         // $schedule->call(function () {

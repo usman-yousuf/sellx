@@ -32,6 +32,7 @@ class Profile extends Model
         'average_rating',
         'total_ratings_count',
         'is_online',
+        'is_defaulter'
     ];
 
     protected $withCount = [
@@ -120,6 +121,10 @@ class Profile extends Model
 
     function getTotalSoldsAttribute(){
       return  \DB::select(" SELECT s.* FROM solds AS s INNER JOIN ( auctions AS Auct INNER JOIN profiles AS Auctioneer ON Auct.auctioneer_id = Auctioneer.id ) ON s.auction_id = Auct.id WHERE Auctioneer.id = ".$this->id." ");
+    }
+
+    function getIsdefaulterAttribute(){
+        return Defaulter::where('profile_id',$this->id)->first() == NULL ? 0 : 1;
     }
 
     // get profile user
