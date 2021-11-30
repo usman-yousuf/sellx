@@ -334,8 +334,29 @@ class BiddingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function get_fix_price(Request $request){
-        
-        $data = Bidding::where('is_fixed_price',1)->get();
+        $validator = Validator::make($request->all(), [
+            'auction_uuid'         => 'string|exists:auctions,uuid',
+            'auction_product_uuid' => 'string|exists:auction_products,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction         = Auction::where('uuid',$request->auction_uuid)->first();
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+
+        $data = Bidding::where('is_fixed_price',1);
+
+        if(NULL != $auction)
+            $data = $data->where('auction_id',$auction->id);
+
+        if(NULL != $auction_product)
+            $data = $data->where('auction_product_id',$auction_product->id);
+
+        $data = $data->get();
 
         return sendSuccess('Fix price list',$data);
     }
