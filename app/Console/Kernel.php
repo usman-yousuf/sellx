@@ -27,7 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        $schedule->command('defalter:list')->dailyAt('00:05');
+        // $schedule->command('defalter:list')->dailyAt('00:05');
+        $schedule->command('defalter:list')->everyTwoMinutes();
          // $schedule->command('story:delete')->hourly();
 
         // $schedule->call(function () {
