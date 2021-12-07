@@ -71,11 +71,11 @@ class AddressController extends Controller
             return sendError('Invalid or Expired information provided', []);
         }
 
-        if (isset($request->phone_number) && isset($request->phone_code)) {
-            if(!isPhoneValid($request->phone_code, $request->phone_number)){
-                return sendError('Invalid Phone Number Provided', []);
-            }
-        }
+        // if (isset($request->phone_number) && isset($request->phone_code)) {
+        //     if(!isPhoneValid($request->phone_code, $request->phone_number)){
+        //         return sendError('Invalid Phone Number Provided', []);
+        //     }
+        // }
 
         $address = Address::addUpdateAddress($request, $profile->id);
         if(!$address['status']){
