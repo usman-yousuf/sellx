@@ -41,7 +41,7 @@ class CreateProfilesTable extends Migration
 
             $table->decimal('deposit')->nullable();
             // $table->decimal('max_bid_limit')->default(15000);
-            $table->string('max_bid_limit')->default('1000')->nullable();
+            $table->string('max_bid_limit')->default('15000')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

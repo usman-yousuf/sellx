@@ -77,7 +77,8 @@ if( !function_exists('listNotficationTypes') ){
             , 'bought_product' => 'bought_product' // when user buy the product a notification should send to auction House that this user has bought this product.
             , 'completed_payment' => 'completed_payment' // Notification for payment completed
             , 'shipped_product' => 'shipped_product' // Notification for if product is shipped.
-            , 'approved_product' => 'approved_product' // If auction House is approved from the Admin a notification should be get to auctioneer so auctioneer profile must be updated.
+            , 'request_aution_house_approval' => 'request_aution_house_approval' // If auction House is approved from the Admin a notification should be get to auctioneer so auctioneer profile must be updated.
+            , 'approved_aution_house' => 'approved_aution_house' // If auction House is approved from the Admin a notification should be get to auctioneer so auctioneer profile must be updated.
 
             , 'message_receive' =>'message_receive'
             , 'post_like' => 'post_like'
