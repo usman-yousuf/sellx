@@ -137,23 +137,8 @@ class AuctioneerManagementController extends Controller
 		return view('admin.refund_cancelation.return.view_return_details');
 	}
 
-    // All refund View
-    public function refundView(){
-
-		return view('admin.refund_cancelation.refund.index');
-	}
-
-    // All refund Edit
-    public function refundEdit(){
-
-		return view('admin.refund_cancelation.refund.edit_refund');
-	}
-
-    // All refund detail
-    public function refundDetail(){
-
-		return view('admin.refund_cancelation.refund.view_refund_details');
-	}
+    
+    
 
     // All cancelation View
     public function cancelationView(){

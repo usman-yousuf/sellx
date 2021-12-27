@@ -61,24 +61,32 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <th>User Name</th>
-                                                                    <td>Danial</td>
+                                                                    <td>{{$profile->username ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Refund Request Date</th>
-                                                                    <td>2021-11-07</td>
+                                                                    <td>{{$refund_data->created_at ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Refund Amount</th>
-                                                                    <td>300</td>
+                                                                    <td>{{$refund_data->refund_amount ?? ''}}</td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <th>Account Holder</th>
-                                                                    <td>houseclo</td>
+                                                                    <td>{{$refund_data->name ?? 'No Name'}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Account Number</th>
-                                                                    <td>23324324348344435</td>
+                                                                    <th>Iban Number</th>
+                                                                    <td>{{$refund_data->iban ?? ''}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Branch Address</th>
+                                                                    <td>{{$refund_data->branch_address ?? ''}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Branch Code</th>
+                                                                    <td>{{$refund_data->branch_code ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Status</th>

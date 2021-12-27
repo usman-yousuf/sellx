@@ -50,27 +50,28 @@
                         <thead>
                             <tr>
                                 <th>ID#</th>
-                                {{-- <th>Image</th> --}}
+                                <!-- {{-- <th>Image</th> --}} -->
                                 <th>Product Name</th>
                                 <th>Category</th>
                                 <th>Auction House</th>
+                                <th>Auction Name</th>
                                 <th>Product Status</th>
                                 <th>Payment Status</th>
-                                {{-- <th class="text-center">Actions</th> --}}
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>12</td>
-
                                 <td>
                                     <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
+                                <td>My House Auction</td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                {{-- <td class="text-center">
+                                <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -83,19 +84,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td> --}}
+                                </td> 
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>12</td>
-
                                 <td>
                                     <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
+                                <td>My House Auction</td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                {{-- <td class="text-center">
+                                <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -108,19 +109,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td> --}}
+                                </td> 
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>12</td>
-
                                 <td>
                                     <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
+                                <td>My House Auction</td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                {{-- <td class="text-center">
+                                <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -133,19 +134,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td> --}}
+                                </td> 
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>12</td>
-
                                 <td>
                                     <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
+                                <td>My House Auction</td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                {{-- <td class="text-center">
+                                <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -158,19 +159,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td> --}}
+                                </td> 
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>12</td>
-
                                 <td>
                                     <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
+                                <td>My House Auction</td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td><span class="badge badge-danger">Pending</span></td>
-                                {{-- <td class="text-center">
+                                <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
@@ -183,8 +184,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td> --}}
+                                </td> 
                             </tr>
+                            
 
                         </tbody>
                     </table>

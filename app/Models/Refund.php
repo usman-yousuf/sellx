@@ -28,4 +28,9 @@ class Refund extends Model
     ];
 
     use SoftDeletes;
+
+    public function refundProfile()
+    {
+        return $this->belongsTo('App\Models\Profile', 'profile_id', 'id');
+    }
 }

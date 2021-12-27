@@ -42,6 +42,13 @@ class Profile extends Model
         'pendingsolds'
     ];
 
+    // for refund profile
+
+    // public function refund()
+    // {
+    //     return $this->hasOne('App\Models\Refund', 'profile_id', 'id');
+    // }
+
     public function getIsOnlineAttribute(){
 
         return Auction::Where('auctioneer_id',$this->id)->where('is_live',1)->count()?1:0;
@@ -100,7 +107,7 @@ class Profile extends Model
         return 0;
     }
 
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public function getIsFollowedAttribute(){
         $request = app('request');

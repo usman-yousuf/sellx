@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LanguagesManagementController;
 use App\Http\Controllers\Admin\AuctioneerManagementController;
 use App\Http\Controllers\Admin\CategoriesManagementController;
 use App\Http\Controllers\Admin\CurrenciesManagementController;
+use App\Http\Controllers\RefundController;
 
 
 
@@ -125,9 +126,11 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/return/detail/view/{uuid?}', [AuctioneerManagementController::class, 'returnDetail'])->name('return.detail');
 	    Route::get('/admin/return/edit/{uuid?}', [AuctioneerManagementController::class, 'returnEdit'])->name('return.edit');
 
-        Route::get('/admin/refund/view/{uuid?}', [AuctioneerManagementController::class, 'refundView'])->name('refund');
-	    Route::get('/admin/refund/detail/view/{uuid?}', [AuctioneerManagementController::class, 'refundDetail'])->name('refund.detail');
-	    Route::get('/admin/refund/edit/{uuid?}', [AuctioneerManagementController::class, 'refundEdit'])->name('refund.edit');
+        Route::get('/admin/refund/view/{uuid?}', [RefundController::class, 'getAdminRefundHistory'])->name('refund.list');
+	    Route::get('/admin/refund/detail/view/{uuid?}', [RefundController::class, 'refundDetail'])->name('refund.detail');
+	    Route::get('/admin/refund/edit/{uuid?}', [RefundController::class, 'refundEdit'])->name('refund.edit');
+	    Route::post('/admin/refund/update/{uuid?}', [RefundController::class, 'refundUpdate'])->name('refund.update');
+	    Route::get('/admin/refund/delete/{uuid?}', [RefundController::class, 'refundDelete'])->name('refund.delete');
 
         Route::get('/admin/cancelation/view/{uuid?}', [AuctioneerManagementController::class, 'cancelationView'])->name('cancelation');
 	    Route::get('/admin/cancelation/detail/view/{uuid?}', [AuctioneerManagementController::class, 'cancelationDetail'])->name('cancelation.detail');
