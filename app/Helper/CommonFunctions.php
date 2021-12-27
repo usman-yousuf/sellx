@@ -63,7 +63,24 @@ if(!function_exists('isPhoneValid')){
 if( !function_exists('listNotficationTypes') ){
     function listNotficationTypes(){
         return [
-            'message_receive' =>'message_receive'
+            'feedback_sent' => 'feedback_sent' // feedback and support send by user.
+            , 'went_live' => 'went_live' // Auctioneer Started Live Auction it’ll send notification to all users.
+            , 'created_lot' => 'created_lot' // If Lot is created it’ll send notification to all users.
+            , 'won_a_lot' => 'won_a_lot' // If user won a lot it’ll send notification to that specific user.
+            , 'posted_a_status_update' => 'posted_a_status_update' // If auctioneer or user go live or post the status.
+            , 'refund_requested' => 'refund_requested' // If user request for refund it will send notification to admin
+            , 'followed_an_auctioneer' => 'followed_an_auctioneer' // if user follow to any auctioneer. the notification send to the auctioneer that this user started following you.
+            , 'rated_an_auctioneer' => 'rated_an_auctioneer' // if user send review/rating to the auctioneer. notification will send to that auctioneer that you have received ratings/review.
+            , 'updated_access_rights_setting' => 'updated_access_rights_setting' // If auctioneer change access settings of user to “auction support” or “Auctioneer”. it will send notification to that user.
+            , 'added_scheduled_auction' => 'added_scheduled_auction' // if auctioneer added schedule auction.
+            , 'removed_scheduled_auction' => 'removed_scheduled_auction' // if auctioneer remove any schedule auction from the auction list
+            , 'bought_product' => 'bought_product' // when user buy the product a notification should send to auction House that this user has bought this product.
+            , 'completed_payment' => 'completed_payment' // Notification for payment completed
+            , 'shipped_product' => 'shipped_product' // Notification for if product is shipped.
+            , 'request_aution_house_approval' => 'request_aution_house_approval' // If auction House is approved from the Admin a notification should be get to auctioneer so auctioneer profile must be updated.
+            , 'approved_aution_house' => 'approved_aution_house' // If auction House is approved from the Admin a notification should be get to auctioneer so auctioneer profile must be updated.
+
+            , 'message_receive' =>'message_receive'
             , 'post_like' => 'post_like'
             , 'post_comment' => 'post_comment'
             , 'post' => 'post'

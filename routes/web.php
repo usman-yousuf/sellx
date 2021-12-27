@@ -52,6 +52,10 @@ Route::any('/servicepricing', function () {
     return view('servicepricing');
 })->name('servicepricing');
 
+Route::any('/partnersterms', function () {
+    return view('partnersterms');
+})->name('partnersterms');
+
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'homeindex']);

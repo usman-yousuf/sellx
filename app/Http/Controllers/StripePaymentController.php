@@ -39,7 +39,7 @@ class StripePaymentController extends Controller
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $currency = (isset($request->currency) && ('' != $request->currency)) ? $request->currency : 'usd';
+        $currency = (isset($request->currency) && ('' != $request->currency)) ? $request->currency : 'aed';
 
         try{
             $token = Stripe\Token::create([

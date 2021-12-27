@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Sold;
 use App\Models\Auction;
-use App\Models\AuctionProduct;
 use App\Models\Bidding;
 use App\Models\Product;
 use App\Models\Profile;
-use App\Models\Sold;
-use Carbon\Carbon;
+use App\Models\Defaulter;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\PaymentOption;
+use App\Models\ShippingPrice;
+use App\Models\AuctionProduct;
+use App\Models\DeliveryOption;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Twilio\Rest\Api\V2010\Account\Call\PaymentOptions;
 
 class SoldController extends Controller
 {
@@ -38,6 +43,31 @@ class SoldController extends Controller
         }
 
         $sold  = Sold::orderBy('created_at', 'DESC');
+
+        // $defaulter_ids = Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
+        // // return Sold::orderBy('created_at', 'DESC')->where('status','on_hold')->where('created_at','<=',Carbon::now()->subDays(7))->pluck('profile_id')->toArray();
+        // foreach($defaulter_ids as $defaulter_profile_id) {
+
+        //     $defaulter = Defaulter::where('profile_id', $defaulter_profile_id)->first();
+
+        //     Profile::where('id',$defaulter_profile_id)->update([
+        //         'deposit' => 0,
+        //         'max_bid_limit' => 0,
+        //     ]);
+
+        //     if(NULL == $defaulter){
+        //         $defaulter                     = new Defaulter();
+        //         $defaulter->profile_id         = $defaulter_profile_id;
+        //         $defaulter->penalty_percentage = 4;
+        //     }
+        //     else{
+        //         $defaulter->penalty_percentage = (int) $defaulter->penalty_percentage * 2;
+        //     }
+            
+        //     $defaulter->save();
+        // }
+
+        // add to send back product
 
         if(isset($request->status)){
 
@@ -221,7 +251,7 @@ class SoldController extends Controller
 
             }
             DB::commit();
-            $profile = Profile::where('id',Auth::User()->profile->id)->first();
+            $profile = Profile::where('id',$request->User()->profile->id)->first();
             $profile->deposit -=  $total;
             $profile->save();
             return sendSuccess('Sold',$sold);
@@ -232,48 +262,88 @@ class SoldController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Sold $sold)
-    {
-        //
+    public function shipping_fee(Request $request){
+
+        $data       = new ShippingPrice();
+        $data->uuid = Str::uuid();
+        $data->name = $request->name ?? '';
+        $data->fee  = $request->fee ?? '';
+        $data->save();
+        
+        return sendSuccess('Fee Save',$data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sold $sold)
-    {
-        //
+    public function get_shipping_fee(Request $request){
+
+
+        if($request->local == 0)
+            $data = ShippingPrice::where('name','local')->get();
+        else            
+            $data = ShippingPrice::where('name','!=','local')->get();
+
+        return sendSuccess('Shipping Fee',$data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Sold $sold)
-    {
-        //
+    public function update_payment_options(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|required',        
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+
+        $payment_options = new PaymentOption();
+        $payment_options->uuid = Str::uuid();
+        $payment_options->name = $request->name;
+        $payment_options->desc = $request->desc;
+
+        $payment_options->save();
+
+        return sendSuccess('Payment Options Added', $payment_options);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Sold  $sold
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Sold $sold)
-    {
-        //
+    public function update_delivery_options(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|required',        
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+
+        $payment_options = new DeliveryOption();
+        $payment_options->uuid = Str::uuid();
+        $payment_options->name = $request->name ?? '';
+        $payment_options->desc = $request->desc ?? '';
+
+        $payment_options->save();
+
+        return sendSuccess('Payment Options Added', $payment_options);
     }
+
+    public function get_delivery_options(){
+
+        $data = DeliveryOption::get();
+
+        return sendSuccess('Delivery Options',$data);
+    }
+
+    public function get_payment_options(Request $request){
+
+        if(isset($request->pickup) && $request->pickup == 1)
+            $data = PaymentOption::where('desc',NULL)->get();
+        else
+            $data = PaymentOption::where('desc','!=',NULL)->get();
+
+        return sendSuccess('Payment Options',$data);
+
+    }
+
 }

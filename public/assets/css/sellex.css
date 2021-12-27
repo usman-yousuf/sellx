@@ -254,7 +254,7 @@ input {
 }
 
 .for_common_input button {
-    width: 250px;
+    width: 100%;
     color: #49aaef;
     height: 38px;
 }
@@ -715,7 +715,7 @@ input {
         margin-top: 20px;
     }
     .for_common_input button {
-        width: 363px;
+        width: 330px;
     }
     .sm_res_footer {
         width: 425px;
@@ -849,25 +849,25 @@ input {
         /* display: block; */
         position: absolute;
         /* margin-left: 14px; */
-        width: 440px;
+        width: 100%;
     }
     .for_slider_res {
         background: black;
         height: 440px;
         position: absolute;
         margin-top: 440px;
-        width: 440px;
+        width: 100%;
     }
     .for_block_two_main {
         padding-top: 20px;
-        /* margin-top: 425px; */
-        margin-left: 20px;
+        /* margin-top: 425px;
+        margin-left: 20px; */
     }
     .for_block_three_bg {
         background-color: #49aaef;
         padding: 30px;
         margin-top: 60px;
-        width: 425px;
+        width: 100%;
     }
     .for_bg_slider_css {
         /* background-color: #212529 !important;
@@ -893,7 +893,37 @@ input {
         margin-left: 49px;
         margin-bottom: 42px;
     }
+
+
+
+
 }
+
+
+@media (max-width: 359px) {
+
+
+.for_secoond_col_bg{
+    height:auto!important;
+} 
+
+.for_row_slider_responsive{
+    height: auto!important;
+}
+
+.for_block_two_main {
+    padding-top: 50;
+}
+
+.carousel-item img{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+}
+
+
 
 @media (min-width: 425px) and (max-width: 767px) {
     .top_nav {

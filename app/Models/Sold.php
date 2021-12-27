@@ -56,4 +56,9 @@ class Sold extends Model
     {
         return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
+
+    public function auction()
+    {
+        return $this->belongsTo(Auction::class, 'auction_id', 'id');
+    }
 }

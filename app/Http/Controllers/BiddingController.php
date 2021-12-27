@@ -206,15 +206,10 @@ class BiddingController extends Controller
                 'sold_date_time' => Carbon::now(),
             ];
 
-            $bid = Bidding::where('uuid', $request->bidding_uuid)
-                ->where('is_fixed_price',0)
-                ->where('deleted_at',NULL)
-                ->update($biddings);
+            $bid = Bidding::where('uuid', $request->bidding_uuid)->where('is_fixed_price',0)->where('deleted_at',NULL)->update($biddings);
 
-            if(!$bid){
-
-                return sendError('Data Missmatch',$bid);
-            }
+            if(!$bid)
+                return sendError('Internal Server Error',$bid);
 
             return sendSuccess("Sold",$bid);
         }
@@ -223,15 +218,13 @@ class BiddingController extends Controller
         $profile = Profile::where('uuid',$request->profile_uuid)->first();
         
 
-        $auction = Auction::where('uuid',$request->auction_uuid)->first();
+        $auction         = Auction::where('uuid',$request->auction_uuid)->first();
         $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
-        $product = Product::where('id',$auction_product->product_id)->first();
+        $product         = Product::where('id',$auction_product->product_id)->first();
 
         //Null Check as exist check even if model is soft deleted
-        if(NULL == $profile || NULL == $auction || NULL == $product || NULL == $auction_product){
-
+        if(NULL == $profile || NULL == $auction || NULL == $product || NULL == $auction_product)
             return sendError('Data Missmatch',[]);
-        }
 
         //Get Product Avalible Quantity
         $available = clone $product;
@@ -242,27 +235,22 @@ class BiddingController extends Controller
 
         }
 
-        //Work if is_fixed_price is not fixed
+        //Work if price is not fixed
         if(!isset($request->is_fixed_price)){
 
-
-
-            if($product->auction_type == 'fixed_price'){
-
+            if($product->auction_type == 'fixed_price')
                 return sendError('Fixed Price selected, Cant Bid',[]);
-            }
 
             if($request->bid_price > (int)$profile->max_bid_limit)
-                return sendError("Max bid limit exceeded",[]);
+                return sendError("You have Exceeded Your Max Bid Limit",[]);
+
             if($request->bid_price > $profile->deposit)
                 return sendError("Not enough deposit",[]);
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 
-            if($last_max_bid == 0 && $product->auction_type != 'from_zero'){ 
-
+            if($last_max_bid == 0 && $product->auction_type != 'from_zero')
             	$last_max_bid = $auction_product->product->start_bid; 
-            }
 
             $min_bid_value = $last_max_bid+$auction_product->product->min_bid;
             $max_bid_value = $last_max_bid+$auction_product->product->max_bid;
@@ -304,7 +292,7 @@ class BiddingController extends Controller
                 if(NULL == $price){
                     return sendError('Fix Price Not Set',[]);
                 }
-                if($request->$price < (int)$profile->max_bid_limit)
+                if($price > (int)$profile->max_bid_limit)
                     return sendError("Not enough deposit to buy this product",[]);
             }
             else{
@@ -345,8 +333,31 @@ class BiddingController extends Controller
      * @param  \App\Models\Bidding  $bidding
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bidding $bidding)
-    {
-        //
+    public function get_fix_price(Request $request){
+        $validator = Validator::make($request->all(), [
+            'auction_uuid'         => 'string|exists:auctions,uuid',
+            'auction_product_uuid' => 'string|exists:auction_products,uuid',
+        ]);
+
+        if ($validator->fails()) {
+
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $auction         = Auction::where('uuid',$request->auction_uuid)->first();
+        $auction_product = AuctionProduct::where('uuid',$request->auction_product_uuid)->first();
+
+        $data = Bidding::where('is_fixed_price',1);
+
+        if(NULL != $auction)
+            $data = $data->where('auction_id',$auction->id);
+
+        if(NULL != $auction_product)
+            $data = $data->where('auction_product_id',$auction_product->id);
+
+        $data = $data->get();
+
+        return sendSuccess('Fix price list',$data);
     }
 }

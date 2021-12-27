@@ -110,7 +110,8 @@ class Product extends Model
     public function getAvailableQuantityAttribute(){
 
         $res = DB::select("
-        SELECT available_quantity - (SELECT IF( (SUM(quantity) > 0), SUM(quantity), 0) FROM `solds` where status IN('paid') AND product_id = ?) AS available_qnty
+        SELECT available_quantity - (SELECT IF( (SUM(quantity) > 0), SUM(quantity), 0) FROM `solds` where status IN('paid','on_hold','shipped'
+        ,'completed') AND product_id = ?) AS available_qnty
             FROM products
             WHERE id = ?
         ", [$this->id, $this->id]);

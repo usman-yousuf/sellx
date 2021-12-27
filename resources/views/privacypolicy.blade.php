@@ -15,7 +15,7 @@
             <br>
             <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
             <br>
-            <a href="{{ route('termsandcondition') }}" class="">{{ __('Partners Terms')}}</a>
+            <a href="{{ route('partnersterms') }}" class="">{{ __('Partners Terms')}}</a>
           <br>
           <hr class="for_partners_bottom">
 

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Address;
 use App\Models\Profile;
 use App\Models\Reviews;
+use App\Models\Defaulter;
 use App\Models\Followers;
 use Illuminate\Http\Request;
 use App\Models\PasswordReset;
@@ -268,8 +269,7 @@ class UserController extends Controller
             return sendError('Invalid or Expired Information Provided', []);
         }
         if(isset($request->username)){
-
-            $foundModel = Profile::where('username', $request->username)->where('id','!=',$user->profile->id)->first();
+            $foundModel = Profile::where('username', $request->username)->where('id', '!=', $user->active_profile_id)->first();
             if(null != $foundModel){
                 if($foundModel->id != $user->active_profile_id){ // email belongs to some another user
                     return sendError('Username Already Exists', NULL);
@@ -571,11 +571,11 @@ class UserController extends Controller
     }
 
     public function updateCard(Request $request){
-        
+
 
         {
 
-        
+
 
             // \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -589,7 +589,7 @@ class UserController extends Controller
             //         ],
             //     ]);
 
-            
+
             // // $data['PaymentIntent'] = \Stripe\PaymentIntent::create([
             // //     'amount' => 1099,
             // //     'currency' => 'usd',
@@ -602,9 +602,9 @@ class UserController extends Controller
             //         "amount" => 100,
             //         "currency" => "usd",
             //         "source" => $stripe_card->id,
-            //         "description" => "Test payment from itsolutionstuff.com." 
+            //         "description" => "Test payment from itsolutionstuff.com."
             // ]);
-              
+
             // return $data;
 
             // $stripe = new \Stripe\StripeClient(
@@ -668,8 +668,8 @@ class UserController extends Controller
             //     'destination'    => '{{CONNECTED_STRIPE_ACCOUNT_ID}}',
             //     'transfer_group' => '{ORDER10}',
             // ]);
-            
-            
+
+
             // // Create a second Transfer to another connected account (later):
             // $data['transfer'] = \Stripe\Transfer::create([
             // 'amount' => 2000,
@@ -701,14 +701,14 @@ class UserController extends Controller
                     //         'cvc' => $request->cvc,
                     //     ],
                     // ]);
-        
+
             //     }catch (\Exception $e){
             //         Log::info($e->getMessage());
             //         return sendError($e->getMessage(), null);
             //     }
 
             //     if(isset($stripe_card->id));
-            //         $card->card_stripe_id = $stripe_card->id; 
+            //         $card->card_stripe_id = $stripe_card->id;
             // // }
 
             // if(isset($request->card_holder_name))
@@ -736,7 +736,7 @@ class UserController extends Controller
     }
 
     public function updateBank(Request $request){
-        
+
         $bank = Bank::where('profile_id',Auth::User()->profile->id)->first();
         if(null == $bank){
             $bank = new Bank();
@@ -766,7 +766,7 @@ class UserController extends Controller
     }
 
     public function addDeposit(Request $request){
-        
+
         $validator = Validator::make($request->all(), [
             'deposit_cash' => 'required|numeric|min:0',
             'profile_uuid' => 'exists:profiles,uuid',
@@ -777,27 +777,50 @@ class UserController extends Controller
             return sendError($validator->errors()->all()[0], $data);
         }
 
-        $profile = Profile::where('id',$request->profile_uuid)->first() ?? Auth::User()->profile;
+        $profile = Profile::where('uuid',$request->profile_uuid)->first() ?? Auth::User()->profile;
+
+
 
         $request->merge([
             'charges' => $request->deposit_cash,
         ]);
-        
+
         $charge  = $this->StripePaymentController->stripeCharge($request)->getData();
         if(!$charge->status){
             return sendError('internal server Error',$charge->data);
         }
 
-        
+        $defaulter = Defaulter::where('profile_id',$profile->id)->first();
+
         $profile->deposit += $request->deposit_cash;
         if($profile->deposit > 15000)
-            $profile->max_bid_limit = $profile->deposit*(2/100);
-        else 
+            $profile->max_bid_limit = $profile->deposit*(($defaulter->penalty_percentage ?? 2)/100);
+        else
             $profile->max_bid_limit = 15000;
 
 
         $profile->save();
 
         return sendSuccess('Deposit Added',$profile);
+    }
+
+    public function isDefault(Request $request){
+        $validator = Validator::make($request->all(), [
+            'profile_uuid' => 'exists:profiles,uuid|required',
+        ]);
+
+        if ($validator->fails()) {
+            $data['validation_error'] = $validator->getMessageBag();
+            return sendError($validator->errors()->all()[0], $data);
+        }
+
+        $profile = Profile::where('uuid',$request->profile_uuid)->first();
+
+        $defaulter = Defaulter::where('profile_id',$profile->id)->first();
+
+        if(null == $defaulter)
+            return sendSuccess('not defaulter',[]);
+
+        return sendSuccess('Defaulter',$defaulter);
     }
 }
