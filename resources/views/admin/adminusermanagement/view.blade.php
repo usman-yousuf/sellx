@@ -74,30 +74,32 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <table class="table table-striped">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>First Name</th>
-                                                                    <td>User Name</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Last Name</th>
-                                                                    <td>Admin User</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Email</th>
-                                                                    <td>admin@admin.com</td>
-                                                                </tr>
+                                                            @foreach($users as $user)
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>First Name</th>
+                                                                        <td>{{$user->profile->first_name ?? ''}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Last Name</th>
+                                                                        <td>{{$user->profile->last_name ?? ''}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Email</th>
+                                                                        <td>{{$user->email ?? ''}}</td>
+                                                                    </tr>
 
-                                                                <tr>
-                                                                    <th>Date of birth</th>
-                                                                    <td>2021-12-07</td>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <th>Date of birth</th>
+                                                                        <td>{{$user->profile->dob ?? ''}}</td>
+                                                                    </tr>
 
-                                                                <tr>
-                                                                    <th>Role Type</th>
-                                                                    <td>Admin</td>
-                                                                </tr>
-                                                            </tbody>
+                                                                    <tr>
+                                                                        <th>Role</th>
+                                                                        <td>{{$user->role ?? ''}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            @endforeach
                                                         </table>
                                                     </div>
                                                 </div>

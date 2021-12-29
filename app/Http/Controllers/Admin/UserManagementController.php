@@ -51,20 +51,26 @@ class UserManagementController extends Controller
 
     // admin users
     public function indexAdmin() {
-		$users = Profile::where('profile_type', 'buyer')->get();
-		return view('admin.adminusermanagement.index',compact('users',$users));
+		$users = User::where('role', 'super_admin')->with('profile')->get();
+
+		return view('admin.adminusermanagement.index',['users' => $users]);
 	}
 
     public function viewAdmin(){
+		$users = User::where('role', 'super_admin')->with('profile')->get();
 
-		return view('admin.adminusermanagement.view');
+		return view('admin.adminusermanagement.view',['users' => $users]);
 	}
 
-    public function addUpdateAdminUsersForm(){
+    public function updateAdminUsersForm(){
 
-		return view('admin.adminusermanagement.addupdate');
+		return view('admin.adminusermanagement.update');
 	}
 
+	public function addAdminUsersForm(){
+
+		return view('admin.adminusermanagement.add');
+	}
     // public function deleteAdmin(Request $request, $uuid){
 
 	// 	$profile = Profile::where('uuid', $uuid)->first();
