@@ -62,7 +62,7 @@
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
                                                     {{-- @dd($user_profile->profile_image) --}}
-                                                    <img class="img-fluid rounded-circle" src="{{ asset('assets/images/').'/'.$user_profile->profile_image}}" width="170" height="170" alt="" />
+                                                    <img class="rounded-circle" src="{{ asset('assets/images/').'/'.$user_profile->profile_image}}" width="170" height="170" alt="" />
                                                 </div>
                                             </div>
                                         </div>
