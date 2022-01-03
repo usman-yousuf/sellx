@@ -129,13 +129,7 @@ class RefundController extends Controller
     public function refundEdit(Request $request, $uuid){
         $refund_data = Refund::where('uuid', $uuid)->first();
         $profile = Profile::where('id',$refund_data->profile_id)->first();
-        // dd($profile);
-        // $user_name = [
-        //     'first_name' => $profile->first_name ?? 'NULL', 
-        //     'last_name' => $profile->first_name ?? 'NULL'
-        // ];
-        // dd($user_name);
-
+        
         return view('admin.refund_cancelation.refund.edit_refund', ['refund_data'=> $refund_data, 'profile' => $profile]);
 	}
 

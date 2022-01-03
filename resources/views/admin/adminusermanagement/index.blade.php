@@ -44,7 +44,7 @@
                         You can <code>Search</code>, <code>View</code> & <code>Delete</code> the specific User from here.
                     </div>
                      <div class="text-right text-white mr-3">
-                        <a href="{{route('admin.adminusers.add.form')}}" role="button" type="submit" class="btn btn-primary">Add User<i class="fa fa-user-plus ml-2"></i></a>
+                        <a href="{{route('admin.adminusers.add')}}" role="button" type="submit" class="btn btn-primary">Add User<i class="fa fa-user-plus ml-2"></i></a>
                     </div>
 
                     <table class="table datatable-show-all">
@@ -62,42 +62,36 @@
                         </thead>
                         <tbody>
                             @forelse($users as $user)
-                                <tr>
-                                    <td>{{$user->id ?? ''}}</td>
+                            @foreach($user->profiles as $profile)
+                            <tr>
+                                <td>{{$user->id ?? ''}}</td>
+                                <td><span class="ml-1">{{$profile->first_name ?? 'no name'}}</span></td>
+                                <td><span class="ml-1">{{$profile->last_name ?? 'no  name'}}</span></td>
+                                <td>{{$user->name ?? ''}}</td>
+                                <td><a href="javascript:(void)">{{$user->role ?? ''}}</a></td>
+                                <!-- @if($user->is_approved == 1)
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                @elseif($user->is_approved == 0)
+                                    <td><span class="badge badge-danger">Unapproved</span></td>
+                                @endif  -->
+                                <td>{{$user->email ?? ''}}</td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
 
-                                    <td>
-                                        <!-- <img src="{{ asset('admin/global_assets/images/user.png') }}" width="36" height="36" alt=""> -->
-                                        <span class="ml-1">{{$user->profile->first_name ?? ''}}</span>
-                                    </td>
-                                    <td>{{$user->profile->last_name ?? ''}}</td>
-                                    <td>{{$user->name ?? ''}}</td>
-                                    <td><a href="javascript:(void)">{{$user->role ?? ''}}</a></td>
-                                    <!-- @if($user->is_approved == 1)
-                                        <td><span class="badge badge-success">Approved</span></td>
-                                    @elseif($user->is_approved == 0)
-                                        <td><span class="badge badge-danger">Unapproved</span></td>
-                                    @endif  -->
-                                    <td>{{$user->email ?? ''}}</td>
-                                    <td class="text-center">
-                                        <div class="list-icons">
-                                            <div class="dropdown">
-                                                <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="{{route('admin.adminusers.view')}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
-
-                                                    {{-- an addition of user update in case of status and use the route of "approval request form" after some alteration --}}
-                                                    <!-- {{-- <a href="{{route('admin.adminusers.add.update.form', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a> --}} -->
-
-                                                    <a href="{{route('admin.adminusers.update.form')}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a>
-                                                    <a href="javascript:void(0)" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
-                                                </div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="{{route('admin.adminusers.view', $user->uuid)}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
+                                                <a href="{{route('admin.adminusers.update.view.form', $user->uuid)}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a>
+                                                <a href="{{route('admin.adminusers.delete', $user->uuid)}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                             </div>
                                         </div>
-                                    </td>
+                                    </div>
+                                </td>
                                 </tr>
+                                @endforeach
                             @empty
                                 <div class="text-center"><h6><b>No Record Found.</b></h6></div> 
                             @endforelse 

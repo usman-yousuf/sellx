@@ -61,7 +61,8 @@
                                         <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
-                                                    <img class="img-fluid rounded-circle" src="{{asset('admin/global_assets/images/user.png')}}" width="170" height="170" alt="">
+                                                    {{-- @dd($user_profile->profile_image) --}}
+                                                    <img class="img-fluid rounded-circle" src="{{ asset('assets/images/').'/'.$user_profile->profile_image}}" width="170" height="170" alt="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -74,32 +75,30 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <table class="table table-striped">
-                                                            @foreach($users as $user)
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th>First Name</th>
-                                                                        <td>{{$user->profile->first_name ?? ''}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Last Name</th>
-                                                                        <td>{{$user->profile->last_name ?? ''}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Email</th>
-                                                                        <td>{{$user->email ?? ''}}</td>
-                                                                    </tr>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>First Name</th>
+                                                                    <td>{{$user_profile->first_name ?? ''}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Last Name</th>
+                                                                    <td>{{$user_profile->last_name ?? ''}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Email</th>
+                                                                    <td>{{$users->email ?? ''}}</td>
+                                                                </tr>
 
-                                                                    <tr>
-                                                                        <th>Date of birth</th>
-                                                                        <td>{{$user->profile->dob ?? ''}}</td>
-                                                                    </tr>
+                                                                <tr>
+                                                                    <th>Date of birth</th>
+                                                                    <td>{{$user_profile->dob ?? ''}}</td>
+                                                                </tr>
 
-                                                                    <tr>
-                                                                        <th>Role</th>
-                                                                        <td>{{$user->role ?? ''}}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            @endforeach
+                                                                <tr>
+                                                                    <th>Role</th>
+                                                                    <td>{{$users->role ?? ''}}</td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>

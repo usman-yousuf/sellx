@@ -90,8 +90,10 @@ Route::group(['middleware' => 'auth'], function () {
         //ADMIN USERS ROUTE
         Route::get('/admin/adminusers', [UserManagementController::class, 'indexAdmin'])->name('adminusers');
 	    Route::get('/admin/adminusers/view/{uuid?}', [UserManagementController::class, 'viewAdmin'])->name('adminusers.view');
-	    Route::get('/admin/adminusers/add/form/{uuid?}', [UserManagementController::class, 'addAdminUsersForm'])->name('adminusers.add.form');
-	    Route::get('/admin/adminusers/update/form/{uuid?}', [UserManagementController::class, 'updateAdminUsersForm'])->name('adminusers.update.form');
+	    Route::get('/admin/adminusers/add/view', [UserManagementController::class, 'addAdminView'])->name('adminusers.add');
+	    Route::post('/admin/adminusers/add/form/{uuid?}', [UserManagementController::class, 'addAdminUsersForm'])->name('adminusers.add.form');
+	    Route::get('/admin/adminusers/update/view/{uuid?}', [UserManagementController::class, 'updateAdminUsersView'])->name('adminusers.update.view.form');
+	    Route::post('/admin/adminusers/update/form/{uuid?}', [UserManagementController::class, 'updateAdminUsersForm'])->name('adminusers.update.form');
 	    Route::get('/admin/adminusers/delete/{uuid?}', [UserManagementController::class, 'deleteAdmin'])->name('adminusers.delete');
 
 	    //AUCTIONEER MANAGEMENT ROUTES
