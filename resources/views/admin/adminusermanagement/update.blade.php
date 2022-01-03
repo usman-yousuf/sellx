@@ -113,7 +113,7 @@
                                         </div>
                                     </div> --}}
                                     <div class="col-12 mt-3">
-                                        <h6>Image</h6>
+                                        <h6>Update Image</h6>
                                         <div class="w-100 ">
                                             <label for="media12">
                                                 <img src="{{ asset('assets/images/upload_img.svg') ?? '' }}" class="w_inherit-s img-fluid" alt="upload img"/>
@@ -124,7 +124,7 @@
                                     <div class="col-12 mt-4 media_image-d d-none">
                                         {{-- <img src="{{ asset('assets/images/close.svg') ?? '' }}" class="remove_img-s position-absolute" alt="remove img"> --}}
                                         <div class="" >
-                                            <img class="img-fluid rounded-circle" id="previewImg" src="" width="170" height="150" />
+                                            <img src="{{ asset('assets/images/').'/'.$profile->profile_image}}" class="rounded-circle" id="previewImg" src="" width="170" height="170" />
                                         </div>
                                     </div>
                                 </fieldset>

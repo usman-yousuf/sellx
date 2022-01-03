@@ -71,13 +71,11 @@ class UserManagementController extends Controller
 	}
 
     public function viewAdmin($uuid,Request $request ){
-		// dd($uuid,$request->all());
-		// $users = User::where('uuid', $uuid)->where('role', 'admin')->with('profiles')->first();
+
 		$users = User::where('uuid', $uuid)->where('role', 'admin')->with('profiles')->first();
 		
-		// dd($users);
 		$user_profile = $users->profiles[0];
-		// dd($user_profile);
+
 		return view('admin.adminusermanagement.view',['users'=>$users, 'user_profile'=>$user_profile]);
 	}
 
@@ -105,6 +103,17 @@ class UserManagementController extends Controller
 		if(isset($request->dob))
 			$profile->dob = $request->dob;
 
+		if($request->hasFile('image'))
+		{
+			// dd($request->all());
+			$file = $request->file('image');
+			$extention = $file->getClientOriginalExtension();
+			$filename = time(). '.' .$extention;
+			$file->move('public/assets/images/', $filename);
+			$profile->profile_image = $filename;
+			
+		}
+
 		$profile->save();
 
 		if(isset($request->name))
@@ -115,9 +124,6 @@ class UserManagementController extends Controller
 			
 		if(isset($request->password))
 			$user->password = $request->password;
-
-		// if(isset($request->confirm_password))
-		// 	$user->confirm_password = $request->confirm_password;
 
 		$user->save();
 
@@ -169,7 +175,7 @@ class UserManagementController extends Controller
 				$file = $request->file('image');
 				$extention = $file->getClientOriginalExtension();
 				$filename = time(). '.' .$extention;
-				$file_route = $file->move('public/assets/images/', $filename);
+				$file->move('public/assets/images/', $filename);
 				// dd($file_route);
 				$admin->profile_image = $filename;
 				
@@ -183,8 +189,13 @@ class UserManagementController extends Controller
 	public function deleteAdmin($uuid, Request $request){
 		
 		$user = User::where('uuid', $uuid)->where('role', 'admin')->first();
-		$profile = Profile::where('user_id', $user->id)->first();
+		$profile = Profile::find('user_id', $user->id)->first();
 		// dd($profile);
+		// $image = Profile::find('user_id', $user->id);
+
+        unlink("public/assets/images/'".$profile->profile_image);
+
+        // Profile::where("id", $image->id)->delete();
 
 		if($user->delete() && $profile->delete()){
 			return redirect()->route('admin.adminusers');
