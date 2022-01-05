@@ -122,45 +122,45 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th>Email</th>
-                                                                    <td>{{$user->user->email}}</td>
+                                                                    <td>{{$user->email ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Phone code</th>
-                                                                    <td>{{$user->user->phone_code}}</td>
+                                                                    <td>{{$user->phone_code ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Phone Number</th>
-                                                                    <td>{{$user->user->phone_number}}</td>
+                                                                    <td>{{$user->phone_number ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social Login</th>
-                                                                    @if($user->user->is_social == 1)
+                                                                    @if($user->is_social == 1)
                                                                         <td><span class="badge badge-success">Yes</span></td>
-                                                                    @elseif($user->user->is_social == 0)
+                                                                    @elseif($user->is_social == 0)
                                                                         <td><span class="badge badge-danger">No</span></td>
                                                                     @endif
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social Platform</th>
-                                                                    @if($user->user->social_type != null)
-                                                                        <td>{{$user->user->social_type}}</td>
-                                                                    @elseif($user->user->social_type == null)
+                                                                    @if($user->social_type != null)
+                                                                        <td>{{$user->social_type}}</td>
+                                                                    @elseif($user->social_type == null)
                                                                         <td>Empty</td>
                                                                     @endif
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social Email</th>
-                                                                    @if($user->user->social_email != null)
-                                                                        <td>{{$user->user->social_email}}</td>
-                                                                    @elseif($user->user->social_email == null)
+                                                                    @if($user->social_email != null)
+                                                                        <td>{{$user->social_email}}</td>
+                                                                    @elseif($user->social_email == null)
                                                                         <td>Empty</td>
                                                                     @endif
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social ID</th>
-                                                                    @if($user->user->social_id != null)
-                                                                        <td>{{$user->user->social_id}}</td>
-                                                                    @elseif($user->user->social_id == null)
+                                                                    @if($user->social_id != null)
+                                                                        <td>{{$user->social_id}}</td>
+                                                                    @elseif($user->social_id == null)
                                                                         <td>Empty</td>
                                                                     @endif
                                                                 </tr>

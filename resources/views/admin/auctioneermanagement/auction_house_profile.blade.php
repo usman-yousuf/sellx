@@ -77,11 +77,11 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th>Auction House Name</th>
-                                                                    <td>Houslie</td>
+                                                                    <td>{{$profile->auction_house_name ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Profile Type</th>
-                                                                    <td>Auctioneer</td>
+                                                                    <td>{{$profile->profile_type ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Status</th>
@@ -97,11 +97,11 @@
                                                                 </tr>
                                                                  <tr>
                                                                     <th>Email</th>
-                                                                    <td>sellx@sellx.com</td>
+                                                                    <td>{{$user->email ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Phone Number</th>
-                                                                    <td> <span>+071</span> 328443324832</td>
+                                                                    <td> <span>+{{$user->phone_code ?? ''}}</span> {{$user->phone_number ?? ''}}</td>
                                                                 </tr>
                                                                  <tr>
                                                                     <th>Credentials</th>

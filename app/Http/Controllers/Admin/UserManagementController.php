@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use File;
 
 class UserManagementController extends Controller
 {
@@ -187,15 +188,13 @@ class UserManagementController extends Controller
 	}
     
 	public function deleteAdmin($uuid, Request $request){
+
 		
 		$user = User::where('uuid', $uuid)->where('role', 'admin')->first();
-		$profile = Profile::find('user_id', $user->id)->first();
-		// dd($profile);
-		// $image = Profile::find('user_id', $user->id);
+		$profile = Profile::where('user_id', $user->id)->first();
 
-        unlink("public/assets/images/'".$profile->profile_image);
-
-        // Profile::where("id", $image->id)->delete();
+		$path = public_path()."/assets/images/".$profile->profile_image;
+		unlink($path);
 
 		if($user->delete() && $profile->delete()){
 			return redirect()->route('admin.adminusers');

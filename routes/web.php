@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
 	    //AUCTIONEER MANAGEMENT ROUTES
 	    Route::get('/admin/auctioneer', [AuctioneerManagementController::class, 'index'])->name('auctioneer');
 	    Route::get('/admin/auction/houses', [AuctioneerManagementController::class, 'auctionHouseIndex'])->name('auction.houses');
-	    Route::get('/admin/auction/house/profile', [AuctioneerManagementController::class, 'auctionHouseProfile'])->name('auction.house.profile');
+	    Route::get('/admin/auction/house/profile/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseProfile'])->name('auction.house.profile');
 	    Route::get('/admin/auctioneer/view/{uuid}', [AuctioneerManagementController::class, 'view'])->name('auctioneer.view');
 	    Route::get('/admin/auctioneer/details/{uuid}', [AuctioneerManagementController::class, 'viewDetails'])->name('auctioneer.details');
 	    Route::get('/admin/auctioneer/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');

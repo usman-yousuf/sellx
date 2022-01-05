@@ -35,16 +35,19 @@ class AuctioneerManagementController extends Controller
 		$users = Profile::where('profile_type', 'auctioneer')->where('is_approved', 1)->get();
 		return view('admin.auctioneermanagement.auction_house_index',compact('users',$users));
 	}
-    // auction view
+    
+    // All auction house profile view
+    public function auctionHouseProfile($uuid, Request $request){
+		$profile = Profile::where('uuid', $uuid)->where('profile_type', 'auctioneer')->first();
+		$user = User::where('id', $profile->user_id)->first();
+
+		return view('admin.auctioneermanagement.auction_house_profile', ['profile'=>$profile, 'user'=>$user]);
+	}
+	// auction view
     public function auctionView(Request $request, $uuid = null){
 
 		$auction = Auction::get();
 		return view('admin.auctions.index',compact('auction',$auction));
-	}
-    // All auction house profile view
-    public function auctionHouseProfile(){
-
-		return view('admin.auctioneermanagement.auction_house_profile');
 	}
 
     // auction products detail view
