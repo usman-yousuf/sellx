@@ -102,7 +102,9 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/auction/house/profile/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseProfile'])->name('auction.house.profile');
 	    Route::get('/admin/auctioneer/view/{uuid}', [AuctioneerManagementController::class, 'view'])->name('auctioneer.view');
 	    Route::get('/admin/auctioneer/details/{uuid}', [AuctioneerManagementController::class, 'viewDetails'])->name('auctioneer.details');
-	    Route::get('/admin/auctioneer/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');
+	    Route::get('/admin/auctioneer/update/form/view/{uuid?}', [AuctioneerManagementController::class, 'updateUsersFormView'])->name('auctioneer.update.status.view');
+	    Route::post('/admin/auctioneer/update/status/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');
+		
 	    Route::get('/admin/auctioneer/delete/{uuid?}', [AuctioneerManagementController::class, 'delete'])->name('auctioneer.delete');
 	    Route::get('/admin/auctioneer/approvalrequest', [AuctioneerManagementController::class, 'approvalRequests'])->name('auctioneer.view_approval_request');
 	    Route::get('/admin/auctioneer/approvalrequest/form/{uuid?}', [AuctioneerManagementController::class, 'approvalRequestForm'])->name('auctioneer.view_approval_request.form');
@@ -110,7 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::post('/admin/auctioneer/approvalrequest/update/{uuid?}', [AuctioneerManagementController::class, 'updateApprovalRequests'])->name('auctioneer.update_approval_request');
 
         //AUCTIONS MANAGEMENT ROUTES
-	    Route::get('/admin/auction/view/{uuid?}', [AuctioneerManagementController::class, 'auctionView'])->name('auctions');
+	    Route::get('/admin/auction/view', [AuctioneerManagementController::class, 'auctionView'])->name('auctions');
 	    Route::get('/admin/auction/won/list/{uuid?}', [AuctioneerManagementController::class, 'wonList'])->name('auctions.wonlist');
 	    Route::get('/admin/auction/edit/{uuid?}', [AuctioneerManagementController::class, 'editAuction'])->name('auctions.edit.auctions');
 	    Route::get('/admin/auction/products/view/{uuid?}', [AuctioneerManagementController::class, 'auctionProductsDetail'])->name('auctions.products.detail');

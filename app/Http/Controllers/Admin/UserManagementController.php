@@ -53,12 +53,7 @@ class UserManagementController extends Controller
     // admin users
     public function indexAdmin() {
 		$users = User::where('role', 'admin')->with('profiles')->get();
-		// dd($users);
-		// $users = User::with('profiles')->get();
-		// $users = User::all();
-		// $users =  \DB::('users')->get();
-		// dd($users);
-		// dd($users[10]->profiles->first_name);
+		
 		$allUser = [];
 		$allProfile = [];
 		foreach($users as $user){

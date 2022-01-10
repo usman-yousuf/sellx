@@ -156,7 +156,7 @@ class Profile extends Model
     {
         return $this->belongsToMany('\App\Models\Category', 'profile_categories');
     }
-
+ 
     public function attachments()
     {
         return $this->hasMany('\App\Models\UploadMedia', 'profile_id', 'id');

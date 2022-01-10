@@ -33,4 +33,8 @@ class Category extends Model
         return $this->hasMany(SubCategories::class, 'cat_id', 'id');
     }
 
+    public function profile(){
+        return $this->belongsToMany('\App\Models\Profile', 'profile_categories');
+    }
+
 }

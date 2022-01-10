@@ -61,7 +61,11 @@
                                         <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
-                                                    <img class="img-fluid rounded-circle" src="{{$user->profile_image}}" width="170" height="170" alt="">
+                                                    @if ($user->profile_image)
+                                                        <img class="img-fluid rounded-circle" src="{{ asset('assets/images/').'/'.$user->profile_image}}" width="170" height="170">
+                                                    @elseif (!$user->profile_image)
+                                                        <img class="img-fluid rounded-circle" src="{{ asset('assets/images/attachment.png')}}" width="170" height="170">
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -77,11 +81,11 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th>Auction House Name</th>
-                                                                    <td>{{$user->auction_house_name}}</td>
+                                                                    <td>{{$user->auction_house_name ?? 'No name'}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Profile Type</th>
-                                                                    <td>{{$user->profile_type}}</td>
+                                                                    <td>{{$user->profile_type ?? 'no type'}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Status</th>
@@ -95,14 +99,7 @@
                                                                     <th>Category</th>
                                                                     <td>
                                                                         <div class="row">
-                                                                            <div class="col">Cars</div>
-                                                                            <div class="col">Watches</div>
-                                                                            <div class="col">Bikes</div>
-                                                                            <div class="col">Phone</div>
-                                                                            <div class="col">Watches</div>
-                                                                            <div class="col">Bikes</div>
-                                                                            <div class="col">Phone</div>
-                                                                            <div class="col">Cars</div>
+                                                                            <div class="col">{{$category->name ?? ''}}</div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>

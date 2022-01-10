@@ -61,8 +61,11 @@
                                         <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
-                                                    {{-- @dd($user_profile->profile_image) --}}
-                                                    <img class="rounded-circle" src="{{ asset('assets/images/').'/'.$user_profile->profile_image}}" width="170" height="170" alt="" />
+                                                    @if ($user_profile->profile_image)
+                                                        <img class="rounded-circle" src="{{ asset('assets/images/').'/'.$user_profile->profile_image}}" width="170" height="170" alt="" />
+                                                    @else
+                                                        <img class="rounded-circle" src="{{ asset('assets/images/attachment.png')}}" width="170" height="170" alt="" />
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

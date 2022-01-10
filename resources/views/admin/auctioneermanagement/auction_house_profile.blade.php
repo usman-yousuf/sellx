@@ -126,14 +126,7 @@
                                                                     <th>Category</th>
                                                                     <td>
                                                                         <div class="row">
-                                                                            <div class="col">Cars</div>
-                                                                            <div class="col">Watches</div>
-                                                                            <div class="col">Bikes</div>
-                                                                            <div class="col">Phone</div>
-                                                                            <div class="col">Watches</div>
-                                                                            <div class="col">Bikes</div>
-                                                                            <div class="col">Phone</div>
-                                                                            <div class="col">Cars</div>
+                                                                            <div class="col">{{$category->name ?? ''}}</div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
