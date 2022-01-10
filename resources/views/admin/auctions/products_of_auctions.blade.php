@@ -61,133 +61,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
-                                    <span class="ml-1">Car</span></td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td>My House Auction</td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-hourglass-start"></i> Start</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
-                                    <span class="ml-1">Car</span></td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td>My House Auction</td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-hourglass-start"></i> Start</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
-                                    <span class="ml-1">Car</span></td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td>My House Auction</td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-hourglass-start"></i> Start</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
-                                    <span class="ml-1">Car</span></td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td>My House Auction</td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-hourglass-start"></i> Start</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td> 
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
-                                    <span class="ml-1">Car</span></td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td>My House Auction</td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-hourglass-start"></i> Start</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td> 
-                            </tr>
-                            
-
+                           @forelse ($all_auctions as $all_auction )
+                                @forelse ($all_auctions as )
+                                    @forelse ( as )
+                                        
+                                    @empty
+                                        
+                                    @endforelse
+                                    
+                                @empty
+                                    
+                                @endforelse
+                               
+                           @empty
+                               
+                           @endforelse
                         </tbody>
                     </table>
                 </div>

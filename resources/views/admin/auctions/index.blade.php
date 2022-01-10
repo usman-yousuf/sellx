@@ -68,11 +68,11 @@
                                         <td>{{$auction->auction_house_name}}</td>
                                         <td><a href="#">{{$category->name}}</a></td>
                                         <td>{{$auction->updated_at}}</td> {{-- auction dateTime required delibrately left "$user->updated_at" to keep date time format as it is. --}}
-                                        @if($auction->is_approved == 1)
+                                        @if($auction->is_approved == 0)
                                             <td><span class="badge badge-danger">Upcoming</span></td>
-                                        @elseif($auction->is_approved == 0)
+                                        @elseif($auction->is_approved == 1)
                                             <td><span class="badge badge-success">Complete</span></td>
-                                        @elseif($auction->is_approved == 0)
+                                        @elseif($auction->is_approved == 2)
                                             <td><span class="badge badge-primary">Live</span></td>
                                         @endif
                                         <td class="text-center">
@@ -84,7 +84,7 @@
 
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a href="{{ route('admin.auctions.edit.auctions') }}" class="dropdown-item"><i class="icon-pencil3"></i> Edit</a>
-                                                        <a href="javascript:void(0)" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
+                                                        <a href="{{ route('admin.auctions.delete.auctions', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                         <a href="{{ route('admin.auctions.products.detail', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-eye2"></i> Detail View</a>
                                                         <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop Auction</a>
                                                         <a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-hourglass-start"></i> Start Auction</a>

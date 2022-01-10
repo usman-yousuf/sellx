@@ -39,7 +39,7 @@ class AuctioneerManagementController extends Controller
 	}
     // auction house index
     public function auctionHouseIndex() {
-		$users = Profile::where('profile_type', 'auctioneer')->get();
+		$users = Profile::where('profile_type', 'auctioneer')->where('is_approved', 1)->get();
 		return view('admin.auctioneermanagement.auction_house_index',compact('users',$users));
 	}
     
@@ -65,7 +65,7 @@ class AuctioneerManagementController extends Controller
     public function auctionProductsDetail($uuid, Request $request){
 		// dd($uuid);
 		$auction = Auction::where('uuid', $uuid)->first();
-		// dd($auction_detail);
+		// dd($auction);
 		$profile = Profile::where('id', $auction->auctioneer_id)->where('profile_type', 'auctioneer')->with('categories')->with('products')->first();
 		// dd($profile);
 		$auction_details = ['profile'=> $profile];
@@ -73,10 +73,26 @@ class AuctioneerManagementController extends Controller
 		return view('admin.auctions.auction_products_detail', ['auction_details'=> $auction_details]);
 	}
 
-    // All auctions products view
-    public function allAuctionsProducts(){
+	public function deleteAuction(Request $request, $uuid){
 
-		return view('admin.auctions.products_of_auctions');
+		$auction = Auction::where('uuid', $uuid)->first();
+		// dd($auction);
+		$profile = Profile::where('id', $auction->auctioneer_id)->first();
+
+		if($auction->delete() && $profile->delete()){
+			return redirect()->route('admin.auctions');
+		}
+
+	}
+
+    // All auctions products view
+    public function allAuctionsProducts(Request $request){
+
+		$auction = Auction::all();
+		// dd($auction);
+		$all_auction = Profile::where('id', $auction->auctioneer_id)->where('profile_type', 'auctioneer')->with('categories')->with('products')->get();
+
+		return view('admin.auctions.products_of_auctions', ['all_auctions'=> $all_auctions]);
 	}
 
     // All auctions deposits view
