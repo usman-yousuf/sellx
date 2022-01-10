@@ -42,6 +42,12 @@ class Profile extends Model
         'pendingsolds'
     ];
 
+    // for refund profile
+
+    // public function refund()
+    // {
+    //     return $this->hasOne('App\Models\Refund', 'profile_id', 'id');
+    // }
     protected $casts = [
         'deposit' => 'double',
         'max_bid_limit' => 'string',
@@ -106,7 +112,7 @@ class Profile extends Model
         return 0;
     }
 
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public function getIsFollowedAttribute(){
         $request = app('request');
@@ -152,7 +158,7 @@ class Profile extends Model
     {
         return $this->belongsToMany('\App\Models\Category', 'profile_categories');
     }
-
+ 
     public function attachments()
     {
         return $this->hasMany('\App\Models\UploadMedia', 'profile_id', 'id');

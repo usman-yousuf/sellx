@@ -56,30 +56,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>12</td>
-                                <td>Shahaan</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td>$ <span>300</span></td>
-                                <td><span class="badge badge-success">Approved</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
+                            @forelse($data as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->refundProfile->username ?? 'No Name'}}</td>
+                                    <td>{{$item->created_at ?? ''}}</td>
+                                    <td>$ <span>{{$item->refund_amount ?? ''}}</span></td>
+                                    @if($item->is_approved == 1)
+                                        <td><span class="badge badge-success">Approved</span></td>
+                                    @elseif($item->is_approved == 0)
+                                        <td><span class="badge badge-danger">Unapproved</span></td>
+                                    @endif
+                                    <td class="text-center">
+                                        <div class="list-icons">
+                                            <div class="dropdown">
+                                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
 
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('admin.refund.edit') }}" class="dropdown-item"><i class="icon-pencil3"></i> Eidt</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
-                                                <a href="{{ route('admin.refund.detail') }}" class="dropdown-item"><i class="icon-eye2"></i> Detail View</a>
-                                                <a href="" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="{{ route('admin.refund.edit', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-pencil3"></i> Eidt</a>
+                                                    <a href="{{ route('admin.refund.delete', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
+                                                    <a href="{{ route('admin.refund.detail', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-eye2"></i> Detail View</a>
+                                                    <a href="" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-
+                                    </td>
+                                </tr>
+                            @empty
+                                <div class="text-center"><h6><b>No Record Found.</b></h6></div>
+                            @endforelse
 
                         </tbody>
                     </table>

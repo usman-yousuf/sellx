@@ -29,43 +29,48 @@
             <div class="content">
 
                 <div class="card-body">
-
-                    <form id="create_category" action="" method="POST" enctype="multipart/form-data">
+                    <form id="create_category" action="{{ route('admin.adminusers.update.form', $user->uuid) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-
-                                     <div class="row">
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="name">First Name</label>
-                                                <input type="text" placeholder="Iso" id="txt_name-d" name="name" value="Fixess" class="form-control">
+                                                <label for="first_name">First Name</label>
+                                                <input type="text" placeholder="First name" id="txt_name-d" name="first_name" value="{{$profile->first_name ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="name">Last Name</label>
-                                                <input type="text" placeholder="Iso" id="txt_name-d" name="name" value="Fixess" class="form-control">
+                                                <label for="last_name">Last Name</label>
+                                                <input type="text" placeholder="Last name" id="txt_name-d" name="last_name" value="{{$profile->last_name ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="name">User Name</label>
-                                                <input type="text" placeholder="Iso" id="txt_name-d" name="name" value="Fixson-hel" class="form-control">
+                                                <label for="name">Username</label>
+                                                <input type="text" placeholder="username" id="txt_name-d" name="name" value="{{$user->name ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="dob">Date of Birth</label>
+                                                <input type="text" placeholder="Dob" id="txt_name-d" name="dob" value="{{$profile->dob ?? ''}}" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="text" placeholder="email" id="email-d" name="email" value="admin@admin.com" class="form-control">
+                                                <input type="text" placeholder="email" id="email-d" name="email" value="{{$user->email ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -73,24 +78,23 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="password">Password</label>
-                                                <input type="text" placeholder="password" id="password-d" name="password" value="******" class="form-control">
+                                                <input type="text" placeholder="password" id="password-d" name="password" value="{{$user->password ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="confirm_password">Confirm Password</label>
-                                                <input type="text" placeholder="confirm password" id="confirm_password-d" name="confirm_password" value="******" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="numcode">Role Type</label>
-                                                <select type="text" placeholder="Numcode" id="txt_numcode-d" name="numcode" value="status" class="form-control">
+                                                <label for="confirm_password">Confirm Password</label>
+                                                <input type="text" placeholder="confirm password" id="confirm_password-d" name="confirm_password" value="{{$user->password ?? ''}}" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="role">Role</label>
+                                                <select type="text" placeholder="Numcode" id="txt_numcode-d" name="role" value="" class="form-control">
                                                     <option value="1">Admin</option>
                                                     <option value="2">Super Admin</option>
                                                 </select>
@@ -100,36 +104,32 @@
                                     {{-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="img">Image</label>
-                                                <input type="file" placeholder="image" id="img-d" name="img" value="" class="form-control">
+                                                <label for="image">Image</label>
+                                                <input type="file" placeholder="image" id="img-d" name="image" value="" class="form-control">
                                             </div>
                                              <div class="form-group">
                                                 <img class="img-fluid rounded-circle" src="{{asset('admin/global_assets/images/user.png')}}" width="170" height="170" alt="">
                                             </div>
                                         </div>
                                     </div> --}}
-                                <div class="col-12 mt-3">
-                                    <h6>Image</h6>
-                                    <div class="w-100 ">
-                                        <label for="media12">
-                                            <img src="{{ asset('assets/images/upload_img.svg') }}" class="w_inherit-s img-fluid" alt="upload img"/>
-                                        </label>
-                                         <input id="media12" type="file" name="media"  style="display: none"/>
+                                    <div class="col-12 mt-3">
+                                        <h6>Update Image</h6>
+                                        <div class="w-100 ">
+                                            <label for="media12">
+                                                <img src="{{ asset('assets/images/upload_img.svg') ?? '' }}" class="w_inherit-s img-fluid" alt="upload img"/>
+                                            </label>
+                                            <input id="media12" type="file" name="image"  style="display: none"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 mt-4 media_image-d d-none">
-                                    {{-- <img src="{{ asset('assets/images/close.svg') }}" class="remove_img-s position-absolute" alt="remove img"> --}}
-                                    <div class="" >
-                                        <img class="img-fluid rounded-circle" id="previewImg" src="" width="170" height="170" />
+                                    <div class="col-12 mt-4 media_image-d d-none">
+                                        {{-- <img src="{{ asset('assets/images/close.svg') ?? '' }}" class="remove_img-s position-absolute" alt="remove img"> --}}
+                                        <div class="" >
+                                            <img src="{{ asset('assets/images/').'/'.$profile->profile_image}}" class="rounded-circle" id="previewImg" src="" width="170" height="170" />
+                                        </div>
                                     </div>
-                                </div>
-
-
-
                                 </fieldset>
                             </div>
                         </div>
-
                         <div class="text-right">
                             <input type="hidden" name='id' id='country_id' value="" />
                             <button type="submit" class="btn btn-primary">Submit form <i class="icon-paperplane ml-2"></i></button>

@@ -82,7 +82,7 @@
                                                     <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a>
 
                                                     {{-- an addition of user update in case of status and use the route of "approval request form" after some alteration --}}
-                                                    <a href="{{route('admin.users.update.form', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
+                                                    <a href="{{route('admin.auctioneer.update.status.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
 
                                                     {{-- <a href="{{route('admin.users.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-pencil3"></i> Update</a> --}}
                                                     <a href="{{route('admin.users.delete', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>

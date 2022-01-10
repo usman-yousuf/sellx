@@ -28,7 +28,7 @@
             <div class="content">
 
                 <div class="card-body">
-                    <form action="{{ route('admin.auctioneer.update_approval_request', ['uuid' => $users->uuid]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.auctioneer.update.status', ['uuid' => $users->uuid]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group">
                                 <h6><label>User's Status</label></h6>

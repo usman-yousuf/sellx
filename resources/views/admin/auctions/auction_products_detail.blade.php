@@ -58,79 +58,35 @@
                                 {{-- <th class="text-center">Actions</th> --}}
                             </tr>
                         </thead>
+                        {{-- {{dd($auction_details)}} --}}
                         <tbody>
-                            <tr>
-                                <td>12</td>
-                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
-                                </td>
-                                <td>Car</td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/bike.jpg') }}" width="36" height="36" alt="">
-                                </td>
-                                <td>Bike</td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/LCD.jpg') }}" width="36" height="36" alt="">
-                                </td>
-                                <td>LCD</td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/watch.jpg') }}" width="36" height="36" alt="">
-                                </td>
-                                <td>Watch</td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car1.jpg') }}" width="36" height="36" alt="">
-                                </td>
-                                <td>Car</td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
-                                </td>
-                                <td>Car</td>
-                                <td>Abscee</td>
-                                <td>Milky Auction House</td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
-                                <td><span class="badge badge-success">Complete</span></td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                            </tr>
+                            @forelse ($auction_details as $auction_detail)
+                                @forelse ($auction_detail->products as $product)
+                                    @forelse ($auction_detail->categories as $category)
+                                    <tr>
+                                        <td>{{$auction_detail->id}}</td>
+                                        <td>
+                                            <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                        </td>
+                                        <td>{{$product->title}}</td>
+                                        <td>{{$category->name}}</td>
+                                        <td>{{$auction_detail->auction_house_name}}</td>
+                                        <td><span>2021-06-14</span><span>11:12:13</span></td>
+                                        <td><span class="badge badge-success">Complete</span></td>
+                                        <td><span class="badge badge-danger">Pending</span></td>
+                                    </tr>
+                                    @empty
+                                        
+                                    @endforelse
+                                @empty
+                                    
+                                @endforelse
+                                
+                            @empty
+                                
+                            @endforelse
+                           
+                           
                         </tbody>
                     </table>
                 </div>

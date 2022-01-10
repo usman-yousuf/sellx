@@ -61,7 +61,11 @@
                                         <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
-                                                    <img class="img-fluid rounded-circle" src="{{asset('admin/global_assets/images/user.png')}}" width="170" height="170" alt="">
+                                                    @if ($user_profile->profile_image)
+                                                        <img class="rounded-circle" src="{{ asset('assets/images/').'/'.$user_profile->profile_image}}" width="170" height="170" alt="" />
+                                                    @else
+                                                        <img class="rounded-circle" src="{{ asset('assets/images/attachment.png')}}" width="170" height="170" alt="" />
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -77,25 +81,25 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th>First Name</th>
-                                                                    <td>User Name</td>
+                                                                    <td>{{$user_profile->first_name ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Last Name</th>
-                                                                    <td>Admin User</td>
+                                                                    <td>{{$user_profile->last_name ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Email</th>
-                                                                    <td>admin@admin.com</td>
+                                                                    <td>{{$users->email ?? ''}}</td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <th>Date of birth</th>
-                                                                    <td>2021-12-07</td>
+                                                                    <td>{{$user_profile->dob ?? ''}}</td>
                                                                 </tr>
 
                                                                 <tr>
-                                                                    <th>Role Type</th>
-                                                                    <td>Admin</td>
+                                                                    <th>Role</th>
+                                                                    <td>{{$users->role ?? ''}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

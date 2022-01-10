@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LanguagesManagementController;
 use App\Http\Controllers\Admin\AuctioneerManagementController;
 use App\Http\Controllers\Admin\CategoriesManagementController;
 use App\Http\Controllers\Admin\CurrenciesManagementController;
+use App\Http\Controllers\RefundController;
 
 
 
@@ -89,16 +90,21 @@ Route::group(['middleware' => 'auth'], function () {
         //ADMIN USERS ROUTE
         Route::get('/admin/adminusers', [UserManagementController::class, 'indexAdmin'])->name('adminusers');
 	    Route::get('/admin/adminusers/view/{uuid?}', [UserManagementController::class, 'viewAdmin'])->name('adminusers.view');
-	    Route::get('/admin/adminusers/update/form/{uuid?}', [UserManagementController::class, 'addUpdateAdminUsersForm'])->name('adminusers.add.update.form');
+	    Route::get('/admin/adminusers/add/view', [UserManagementController::class, 'addAdminView'])->name('adminusers.add');
+	    Route::post('/admin/adminusers/add/form/{uuid?}', [UserManagementController::class, 'addAdminUsersForm'])->name('adminusers.add.form');
+	    Route::get('/admin/adminusers/update/view/{uuid?}', [UserManagementController::class, 'updateAdminUsersView'])->name('adminusers.update.view.form');
+	    Route::post('/admin/adminusers/update/form/{uuid?}', [UserManagementController::class, 'updateAdminUsersForm'])->name('adminusers.update.form');
 	    Route::get('/admin/adminusers/delete/{uuid?}', [UserManagementController::class, 'deleteAdmin'])->name('adminusers.delete');
 
 	    //AUCTIONEER MANAGEMENT ROUTES
 	    Route::get('/admin/auctioneer', [AuctioneerManagementController::class, 'index'])->name('auctioneer');
 	    Route::get('/admin/auction/houses', [AuctioneerManagementController::class, 'auctionHouseIndex'])->name('auction.houses');
-	    Route::get('/admin/auction/house/profile', [AuctioneerManagementController::class, 'auctionHouseProfile'])->name('auction.house.profile');
+	    Route::get('/admin/auction/house/profile/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseProfile'])->name('auction.house.profile');
 	    Route::get('/admin/auctioneer/view/{uuid}', [AuctioneerManagementController::class, 'view'])->name('auctioneer.view');
 	    Route::get('/admin/auctioneer/details/{uuid}', [AuctioneerManagementController::class, 'viewDetails'])->name('auctioneer.details');
-	    Route::get('/admin/auctioneer/update/form/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');
+	    Route::get('/admin/auctioneer/update/form/view/{uuid?}', [AuctioneerManagementController::class, 'updateUsersFormView'])->name('auctioneer.update.status.view');
+	    Route::post('/admin/auctioneer/update/status/{uuid?}', [AuctioneerManagementController::class, 'updateAuctioneerForm'])->name('auctioneer.update.status');
+		
 	    Route::get('/admin/auctioneer/delete/{uuid?}', [AuctioneerManagementController::class, 'delete'])->name('auctioneer.delete');
 	    Route::get('/admin/auctioneer/approvalrequest', [AuctioneerManagementController::class, 'approvalRequests'])->name('auctioneer.view_approval_request');
 	    Route::get('/admin/auctioneer/approvalrequest/form/{uuid?}', [AuctioneerManagementController::class, 'approvalRequestForm'])->name('auctioneer.view_approval_request.form');
@@ -106,9 +112,10 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::post('/admin/auctioneer/approvalrequest/update/{uuid?}', [AuctioneerManagementController::class, 'updateApprovalRequests'])->name('auctioneer.update_approval_request');
 
         //AUCTIONS MANAGEMENT ROUTES
-	    Route::get('/admin/auction/view/{uuid?}', [AuctioneerManagementController::class, 'auctionView'])->name('auctions');
+	    Route::get('/admin/auction/view', [AuctioneerManagementController::class, 'auctionView'])->name('auctions');
 	    Route::get('/admin/auction/won/list/{uuid?}', [AuctioneerManagementController::class, 'wonList'])->name('auctions.wonlist');
 	    Route::get('/admin/auction/edit/{uuid?}', [AuctioneerManagementController::class, 'editAuction'])->name('auctions.edit.auctions');
+	    Route::get('/admin/auction/delete/{uuid?}', [AuctioneerManagementController::class, 'deleteAuction'])->name('auctions.delete.auctions');
 	    Route::get('/admin/auction/products/view/{uuid?}', [AuctioneerManagementController::class, 'auctionProductsDetail'])->name('auctions.products.detail');
 	    Route::get('/admin/auction/all/products/view/{uuid?}', [AuctioneerManagementController::class, 'allAuctionsProducts'])->name('auctions.products');
 
@@ -129,9 +136,11 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/return/detail/view/{uuid?}', [AuctioneerManagementController::class, 'returnDetail'])->name('return.detail');
 	    Route::get('/admin/return/edit/{uuid?}', [AuctioneerManagementController::class, 'returnEdit'])->name('return.edit');
 
-        Route::get('/admin/refund/view/{uuid?}', [AuctioneerManagementController::class, 'refundView'])->name('refund');
-	    Route::get('/admin/refund/detail/view/{uuid?}', [AuctioneerManagementController::class, 'refundDetail'])->name('refund.detail');
-	    Route::get('/admin/refund/edit/{uuid?}', [AuctioneerManagementController::class, 'refundEdit'])->name('refund.edit');
+        Route::get('/admin/refund/view/{uuid?}', [RefundController::class, 'getAdminRefundHistory'])->name('refund.list');
+	    Route::get('/admin/refund/detail/view/{uuid?}', [RefundController::class, 'refundDetail'])->name('refund.detail');
+	    Route::get('/admin/refund/edit/{uuid?}', [RefundController::class, 'refundEdit'])->name('refund.edit');
+	    Route::post('/admin/refund/update/{uuid?}', [RefundController::class, 'refundUpdate'])->name('refund.update');
+	    Route::get('/admin/refund/delete/{uuid?}', [RefundController::class, 'refundDelete'])->name('refund.delete');
 
         Route::get('/admin/cancelation/view/{uuid?}', [AuctioneerManagementController::class, 'cancelationView'])->name('cancelation');
 	    Route::get('/admin/cancelation/detail/view/{uuid?}', [AuctioneerManagementController::class, 'cancelationDetail'])->name('cancelation.detail');

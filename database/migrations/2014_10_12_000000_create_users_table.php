@@ -25,9 +25,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password')->nullable();
 
-            $table->enum('user_type', ['user', 'admin', 'super-admin'])->default('user');
-
             $table->integer('active_profile_id')->index()->nullable();
+            $table->enum('role', ['user', 'admin', 'super-admin'])->default('user');
 
             $table->boolean('is_social')->default(false);
             $table->string('social_id')->nullable();

@@ -553,7 +553,7 @@
 
                             <ul class="nav nav-group-sub" data-submenu-title="Themes">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.refund') }}" class="nav-link">
+                                    <a href="{{ route('admin.refund.list') }}" class="nav-link">
                                         <i class="fa fa-exchange-alt"></i>
                                         <span>
                                             Refund

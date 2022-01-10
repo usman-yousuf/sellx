@@ -136,46 +136,54 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <th>Email</th>
-                                                                    <td>{{$user->user->email}}</td>
+                                                                    <td>{{$user->user->email ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Phone code</th>
-                                                                    <td>{{$user->user->phone_code}}</td>
+                                                                    <td>{{$user->user->phone_code ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Phone Number</th>
-                                                                    <td>{{$user->user->phone_number}}</td>
+                                                                    <td>{{$user->user->phone_number ?? ''}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social Login</th>
+                                                                    @if(isset($user->user->is_social) && !empty($user->user->is_social))
                                                                     @if($user->user->is_social == 1)
                                                                         <td><span class="badge badge-success">Yes</span></td>
                                                                     @elseif($user->user->is_social == 0)
                                                                         <td><span class="badge badge-danger">No</span></td>
                                                                     @endif
+                                                                    @endif
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social Platform</th>
+                                                                    @if(isset($user->user->social_type) && !empty($user->user->social_type)) 
                                                                     @if($user->user->social_type != null)
                                                                         <td>{{$user->user->social_type}}</td>
                                                                     @elseif($user->user->social_type == null)
                                                                         <td>Empty</td>
                                                                     @endif
+                                                                    @endif
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social Email</th>
+                                                                    @if(isset($user->user->social_email) && !empty($user->user->social_email)) 
                                                                     @if($user->user->social_email != null)
                                                                         <td>{{$user->user->social_email}}</td>
                                                                     @elseif($user->user->social_email == null)
                                                                         <td>Empty</td>
+                                                                        @endif
                                                                     @endif
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Social ID</th>
+                                                                    @if(isset($user->user->social_id) && !empty($user->user->social_id)) 
                                                                     @if($user->user->social_id != null)
                                                                         <td>{{$user->user->social_id}}</td>
                                                                     @elseif($user->user->social_id == null)
                                                                         <td>Empty</td>
+                                                                    @endif
                                                                     @endif
                                                                 </tr>
                                                             </tbody>
@@ -218,39 +226,39 @@
                                                         <tbody>
                                                             <tr>
                                                                 <th>Address Name</th>
-                                                                <td>{{$address->address_name}}</td>
+                                                                <td>{{$address->address_name ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Reciever Name</th>
-                                                                <td>{{$address->reciever_name}}</td>
+                                                                <td>{{$address->reciever_name ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Phone Code</th>
-                                                                <td>{{$address->phone_code}}</td>
+                                                                <td>{{$address->phone_code ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Phone Number</th>
-                                                                <td>{{$address->phone_number}}</td>
+                                                                <td>{{$address->phone_number ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Address 1</th>
-                                                                <td>{{$address->address1}}</td>
+                                                                <td>{{$address->address1 ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Address 2</th>
-                                                                <td>{{$address->address2}}</td>
+                                                                <td>{{$address->address2 ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Zip</th>
-                                                                <td>{{$address->zip}}</td>
+                                                                <td>{{$address->zip ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>State</th>
-                                                                <td>{{$address->state}}</td>
+                                                                <td>{{$address->state ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>City</th>
-                                                                <td>{{$address->city}}</td>
+                                                                <td>{{$address->city ?? ''}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Country</th>

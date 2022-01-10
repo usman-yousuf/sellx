@@ -60,10 +60,10 @@
                             @forelse($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
-                                    <td>{{$user->first_name}}</td>
-                                    <td>{{$user->last_name}}</td>
-                                    <td><a href="#">{{$user->profile_type}}</a></td>
-                                    <td>{{$user->dob}}</td>
+                                    <td>{{$user->first_name ?? 'No Name'}}</td>
+                                    <td>{{$user->last_name ?? 'No Name'}}</td>
+                                    <td><a href="#">{{$user->profile_type ?? ''}}</a></td>
+                                    <td>{{$user->dob ?? 'No date'}}</td>
                                     @if($user->is_approved == 1)
                                         <td><span class="badge badge-success">Approved</span></td>
                                     @elseif($user->is_approved == 0)
@@ -79,7 +79,7 @@
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     {{-- <a href="{{route('admin.auctioneer.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> View</a> --}}
                                                     <a href="{{route('admin.auctioneer.details', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-eye2"></i> Auctioneer Details</a>
-                                                    <a href="{{route('admin.auctioneer.update.status', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
+                                                    <a href="{{route('admin.auctioneer.update.status.view', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
                                                     <a href="{{route('admin.auctioneer.delete', ['uuid' => $user->uuid])}}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                 </div>
                                             </div>
