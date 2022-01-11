@@ -55,10 +55,52 @@ class AuctioneerManagementController extends Controller
 	}
 	// auction view
     public function auctionView(Request $request){
-
 		$auctions = Profile::where('profile_type', 'auctioneer')->with('auction')->with('categories')->get();
 		// dd($auctions);
 		return view('admin.auctions.index', ['auctions'=> $auctions]);
+	}
+
+	// All auctions edit view
+    public function editAuctionView($uuid, $cat_id, Request $request){
+		$auction = Auction::where('uuid', $uuid)->first();
+		$profile = Profile::where('id', $auction->auctioneer_id)->where('profile_type', 'auctioneer')->first();
+		// dd($profile->id);
+		$profile_category = ProfileCategory::where('profile_id', $profile->id)->where('category_id', $cat_id)->first();
+		$category = Category::where('id', $profile_category->category_id)->first();
+		// dd($category);
+
+		return view('admin.auctions.edit_auction', ['auction'=> $auction, 'profile'=> $profile, 'category'=> $category]);
+	} 
+
+	// All auctions edit
+    public function editAuction($uuid, $cat_id, Request $request){
+		
+		$auction = Auction::where('uuid', $uuid)->first();
+		$profile = Profile::where('id', $auction->auctioneer_id)->where('profile_type', 'auctioneer')->first();
+
+		if(isset($request->auction_name))
+			$auction->title = $request->auction_name;
+
+		if(isset($request->auction_date))
+			$auction->scheduled_date_time = $request->auction_date;
+
+		$auction->save();
+
+
+		if(isset($request->auction_house_name))
+			$profile->auction_house_name = $request->auction_house_name;
+
+		$profile->save();
+
+		$profile_category = ProfileCategory::where('profile_id', $profile->id)->where('category_id', $cat_id)->first();
+		$category = Category::where('id', $profile_category->category_id)->first();
+
+		if(isset($request->category))
+			$category->name = $request->category;
+
+		$category->save();
+
+		return redirect()->route('admin.auctions');
 	}
 
     // auction products detail view
@@ -72,6 +114,7 @@ class AuctioneerManagementController extends Controller
 		// dd($auction_details);
 		return view('admin.auctions.auction_products_detail', ['auction_details'=> $auction_details]);
 	}
+
 
 	public function deleteAuction(Request $request, $uuid){
 
@@ -88,10 +131,8 @@ class AuctioneerManagementController extends Controller
     // All auctions products view
     public function allAuctionsProducts(Request $request){
 
-		$auction = Auction::all();
-		// dd($auction);
-		$all_auction = Profile::where('id', $auction->auctioneer_id)->where('profile_type', 'auctioneer')->with('categories')->with('products')->get();
-
+		$all_auctions = Profile::where('profile_type', 'auctioneer')->with('categories')->with('products')->with('auction')->get();
+		// dd($all_auctions);
 		return view('admin.auctions.products_of_auctions', ['all_auctions'=> $all_auctions]);
 	}
 
@@ -114,18 +155,16 @@ class AuctioneerManagementController extends Controller
 		return view('admin.deposit.edit_deposit');
 	}
 
-     // All auctions transactions view
+    // All auctions transactions view
     public function transactionsView(){
 
 		return view('admin.transactions.index');
 	}
 
 
-    // All auctions edit view
-    public function editAuction(){
+    
 
-		return view('admin.auctions.edit_auction');
-	}
+	
 
      // All auctions house account view
     public function auctionHouseAccountsView(){

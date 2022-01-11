@@ -30,17 +30,16 @@
 
                 <div class="card-body">
 
-                    <form id="create_category" action="" method="POST" enctype="multipart/form-data">
+                    <form id="create_category" action="{{ route('admin.auctions.edit.auctions',[ $auction->uuid, $category->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-
                                      <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="auction_name">Auction Name</label>
-                                                <input type="text" placeholder="Iso" id="txt_name-d" name="auction_name" value="Fixess" class="form-control">
+                                                <input type="text" placeholder="Iso" id="txt_name-d" name="auction_name" value="{{$auction->title ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -48,7 +47,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="house_name">Auction house</label>
-                                                <input type="text" placeholder="Name" id="txt_house_name-d" name="house_name" value="houslie" class="form-control">
+                                                <input type="text" placeholder="Name" id="txt_house_name-d" name="auction_house_name" value="{{$profile->auction_house_name ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +55,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="category">Category</label>
-                                                <input type="text" placeholder="category" id="txt_category-d" name="nicename" value="category" class="form-control">
+                                                <input type="text" placeholder="category" id="txt_category-d" name="category" value="{{$category->name ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +63,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="date">Auction Date</label>
-                                                <input type="text" placeholder="date" id="date-d" name="iso3" value="date" class="form-control">
+                                                <input type="text" placeholder="date" id="date-d" name="auction_date" value="{{$auction->scheduled_date_time}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>

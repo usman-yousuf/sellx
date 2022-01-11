@@ -83,7 +83,7 @@
                                                     </a>
 
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="{{ route('admin.auctions.edit.auctions') }}" class="dropdown-item"><i class="icon-pencil3"></i> Edit</a>
+                                                        <a href="{{ route('admin.auctions.edit.auctions.view', ['uuid' => $item->uuid, 'cat_id'=> $category->id]) }}" class="dropdown-item"><i class="icon-pencil3"></i> Edit</a>
                                                         <a href="{{ route('admin.auctions.delete.auctions', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                                         <a href="{{ route('admin.auctions.products.detail', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-eye2"></i> Detail View</a>
                                                         <a href="javascript:void(0)" class="dropdown-item"><i class="far fa-hand-paper"></i> Stop Auction</a>
