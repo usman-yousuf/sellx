@@ -30,17 +30,16 @@
 
                 <div class="card-body">
 
-                    <form id="create_category" action="" method="POST" enctype="multipart/form-data">
+                    <form id="create_category" action="{{route('admin.deposit.edit.deposit', $deposits->uuid)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-
                                      <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="name">User Name</label>
-                                                <input type="text" placeholder="Iso" id="txt_name-d" name="name" value="Fixess" class="form-control">
+                                                <label for="username">User Name</label>
+                                                <input type="text" id="txt_name-d" name="username" value="{{$deposits->username ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -49,7 +48,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="amount">Deposit Amount</label>
-                                                <input type="text" placeholder="category" id="txt_amount-d" name="amount" value="amount" class="form-control">
+                                                <input type="text" id="txt_amount-d" name="amount" value="{{$deposits->deposit ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -57,7 +56,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="date">Deposit Date</label>
-                                                <input type="text" placeholder="date" id="date-d" name="date" value="date" class="form-control">
+                                                <input type="text" id="date-d" name="date" value="{{$deposits->created_at ?? ''}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -65,7 +64,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="status">Deposit Status</label>
-                                                <select type="text" placeholder="Numcode" id="txt_status-d" name="status" value="status" class="form-control">
+                                                <select type="text" id="txt_status-d" name="status" value="status" class="form-control">
                                                     <option value="1">completed</option>
                                                     <option value="2">pending</option>
                                                 </select>

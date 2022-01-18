@@ -31,15 +31,15 @@ class RefundController extends Controller
         $curl = curl_init();
  
 		$post = [
-		    'format' => 'json',
+		    'format'  => 'json',
 		    'api_key' => '[YOUR_API_KEY]',
-		    'iban'   => $request->iban,
+		    'iban'    => $request->iban,
 		];
 		 
 		curl_setopt_array($curl, array(
-		    CURLOPT_URL => 'https://api.iban.com/clients/api/v4/iban/',
+		    CURLOPT_URL            => 'https://api.iban.com/clients/api/v4/iban/',
 		    CURLOPT_RETURNTRANSFER => true,
-		    CURLOPT_POSTFIELDS => $post
+		    CURLOPT_POSTFIELDS     => $post
 		));
 		 
 		$output = curl_exec($curl);
@@ -67,14 +67,14 @@ class RefundController extends Controller
 
 	public function refundRequest(Request $request){
 		$validator = Validator::make($request->all(), [
-            'refund_amount' => 'required',
-            'name' => 'required',
-            'iban' => 'required',
-            'swift_code' => 'required',
-            'branch_code' => 'required',
+            'refund_amount'  => 'required',
+            'name'           => 'required',
+            'iban'           => 'required',
+            'swift_code'     => 'required',
+            'branch_code'    => 'required',
             'branch_address' => 'required',
-            'city' => 'required',
-            'country' => 'required',
+            'city'           => 'required',
+            'country'        => 'required',
         ]);
         if ($validator->fails()) {
             $data['validation_error'] = $validator->getMessageBag();
@@ -88,17 +88,17 @@ class RefundController extends Controller
             return sendError('Invalid or Expired information provided', []);
         }
         
-        $refund = new Refund();
-        $refund->uuid = \Str::uuid();
-        $refund->profile_id = $profile->id;
-        $refund->refund_amount = $request->refund_amount;
-        $refund->name = $request->name;
-        $refund->iban = $request->iban;
-        $refund->swift_code = $request->swift_code;
-        $refund->branch_code = $request->branch_code;
+        $refund                 = new Refund();
+        $refund->uuid           = \Str::uuid();
+        $refund->profile_id     = $profile->id;
+        $refund->refund_amount  = $request->refund_amount;
+        $refund->name           = $request->name;
+        $refund->iban           = $request->iban;
+        $refund->swift_code     = $request->swift_code;
+        $refund->branch_code    = $request->branch_code;
         $refund->branch_address = $request->branch_address;
-        $refund->country = $request->country;
-        $refund->city = $request->city;
+        $refund->country        = $request->country;
+        $refund->city           = $request->city;
 
         if($refund->save()){
         	$data['refund'] = Refund::where('id', $refund->id)->first();

@@ -15,6 +15,7 @@ use App\Models\ProfileCategory;
 
 class AuctioneerManagementController extends Controller
 {
+
 	public function index() {
 		$users = Profile::where('profile_type', 'auctioneer')->where('is_approved', 1)->get();
 		return view('admin.auctioneermanagement.index',compact('users',$users));
@@ -136,31 +137,14 @@ class AuctioneerManagementController extends Controller
 		return view('admin.auctions.products_of_auctions', ['all_auctions'=> $all_auctions]);
 	}
 
-    // All auctions deposits view
-    public function depositView(){
-
-		return view('admin.deposit.index');
-	}
-
-    // All Won lists
+	// All Won lists
     public function wonList(){
 
 		return view('admin.auctions.wonlist');
 	}
 
 
-    // All auctions edit deposits view
-    public function editDeposit(){
-
-		return view('admin.deposit.edit_deposit');
-	}
-
-    // All auctions transactions view
-    public function transactionsView(){
-
-		return view('admin.transactions.index');
-	}
-
+    
 
     
 

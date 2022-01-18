@@ -138,10 +138,11 @@
                                         </div>
                                     </div> --}}
                                     <div class="col-12 mt-3">
-                                        <h6>Image</h6>
+                                        {{-- <h6>Image</h6> --}}
                                         <div class="w-100 ">
                                             <label for="media12">
-                                                <img src="{{ asset('assets/images/upload_img.svg') ?? '' }}" class="w_inherit-s img-fluid" alt="upload img"/>
+                                                <h3 class="btn btn-primary">Upload Image</h3>
+                                                {{-- <img src="{{ asset('assets/images/upload_img.svg') ?? '' }}" class="w_inherit-s img-fluid" alt="upload img"/> --}}
                                             </label>
                                             <input id="media12" type="file" name="image"  style="display: none"/>
                                         </div>

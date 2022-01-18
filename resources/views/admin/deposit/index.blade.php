@@ -56,11 +56,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($deposits as $deposit)
                             <tr>
-                                <td>12</td>
-                                <td>Shahaan</td>
-                                <td>$ <span>300</span></td>
-                                <td><span>2021-06-14</span><span>11:12:13</span></td>
+                                <td>{{$deposit->id ?? ''}}</td>
+                                <td>{{$deposit->username ?? ''}}</td>
+                                <td>$ <span>{{$deposit->deposit ?? ''}}</span></td>
+                                <td><span>{{$deposit->created_at ?? ''}}</span></td>
                                 <td><span class="badge badge-success">Complete</span></td>
                                 <td class="text-center">
                                     <div class="list-icons">
@@ -70,15 +71,16 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('admin.deposit.edit.deposit') }}" class="dropdown-item"><i class="icon-pencil3"></i> Eidt</a>
-                                                <a href="javascript:void(0)" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
+                                                <a href="{{ route('admin.deposit.edit.deposit.view', ['uuid'=>$deposit->uuid]) }}" class="dropdown-item"><i class="icon-pencil3"></i> Eidt</a>
+                                                <a href="{{ route('admin.deposit.delete.deposit', ['uuid'=>$deposit->uuid]) }}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-
-
+                            @empty
+                                
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

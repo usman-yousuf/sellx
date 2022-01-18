@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LanguagesManagementController;
 use App\Http\Controllers\Admin\AuctioneerManagementController;
 use App\Http\Controllers\Admin\CategoriesManagementController;
 use App\Http\Controllers\Admin\CurrenciesManagementController;
+use App\Http\Controllers\Admin\DepositController;
 use App\Http\Controllers\RefundController;
 
 
@@ -121,9 +122,11 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('/admin/auction/all/products/view/{uuid?}', [AuctioneerManagementController::class, 'allAuctionsProducts'])->name('auctions.products');
 
         // DEPOSIT AND TRANSACTIONS ROUTES
-	    Route::get('/admin/deposit/view/{uuid?}', [AuctioneerManagementController::class, 'depositView'])->name('deposit');
-	    Route::get('/admin/deposit/edit/{uuid?}', [AuctioneerManagementController::class, 'editDeposit'])->name('deposit.edit.deposit');
-	    Route::get('/admin/transactions/view/{uuid?}', [AuctioneerManagementController::class, 'transactionsView'])->name('transaction');
+	    Route::get('/admin/deposit/view/{uuid?}', [DepositController::class, 'depositView'])->name('deposit');
+	    Route::get('/admin/deposit/edit/view/{uuid?}', [DepositController::class, 'editDepositView'])->name('deposit.edit.deposit.view');
+	    Route::post('/admin/deposit/edit/{uuid?}', [DepositController::class, 'editDeposit'])->name('deposit.edit.deposit');
+	    Route::post('/admin/deposit/delete/{uuid?}', [DepositController::class, 'deleteDeposit'])->name('deposit.delete.deposit');
+	    Route::get('/admin/transactions/view/{uuid?}', [DepositController::class, 'transactionsView'])->name('transaction');
 
         // ACCOUNTS ROUTES
 	    Route::get('/admin/accounts/view/{uuid?}', [AuctioneerManagementController::class, 'auctionHouseAccountsView'])->name('accounts.auction.house.accounts');

@@ -75,9 +75,9 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="{{ route('admin.refund.edit', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-pencil3"></i> Eidt</a>
-                                                    <a href="{{ route('admin.refund.delete', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-trash-alt"></i> Delete</a>
-                                                    <a href="{{ route('admin.refund.detail', ['uuid' => $item->uuid]) }}" class="dropdown-item"><i class="icon-eye2"></i> Detail View</a>
+                                                    <a href = "{{ route('admin.refund.edit', ['uuid' => $item->uuid]) }}" class   = "dropdown-item"><i class = "icon-pencil3"></i> Eidt</a>
+                                                    <a href = "{{ route('admin.refund.delete', ['uuid' => $item->uuid]) }}" class = "dropdown-item"><i class = "icon-trash-alt"></i> Delete</a>
+                                                    <a href = "{{ route('admin.refund.detail', ['uuid' => $item->uuid]) }}" class = "dropdown-item"><i class = "icon-eye2"></i> Detail View</a>
                                                     <a href="" class="dropdown-item"><i class="fa fa-check"></i> Status</a>
                                                 </div>
                                             </div>
