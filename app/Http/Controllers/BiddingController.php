@@ -245,7 +245,7 @@ class BiddingController extends Controller
                 return sendError("You have Exceeded Your Max Bid Limit",[]);
 
             if($request->bid_price > $profile->deposit)
-                return sendError("Not enough deposit",[]);
+                // return sendError("Not enough deposit",[]);
 
             $last_max_bid = Bidding::where('auction_id',$auction->id)->where('auction_product_id',$auction_product->id)->max('bid_price');
 

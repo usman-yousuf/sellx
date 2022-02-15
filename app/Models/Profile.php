@@ -50,6 +50,8 @@ class Profile extends Model
     // }
     protected $casts = [
         'deposit' => 'double',
+        'max_bid_limit' => 'string',
+
     ];
 
     public function getIsOnlineAttribute(){
