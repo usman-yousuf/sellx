@@ -55,7 +55,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item text-right mt-2 active mx-lg-4">
-                        <a href="{{route('about')}}"> {{ __('About us') }} </a>
+                        <a class="scrollto" href="{{route('home')}}#about"> {{ __('About us') }} </a>
                 </li>
                 <li class="nav-item text-right mt-2 mx-lg-4">
                         <a href="{{route('contact')}}"> {{ __('Contact us') }} </a>
@@ -175,7 +175,7 @@
             </div>
             <div class="container">
               <div class="end_footer ">
-                <a href="https://www.instagram.com/sellxapp/">
+                <a target="_blank" href="https://www.instagram.com/sellxapp/">
                   <i class="fa fa-instagram fa-3x m-2" aria-hidden="true"></i>
                 </a>
                 <br>
@@ -188,7 +188,7 @@
                 {{-- <img src="{{asset('assets/images/Frame28.svg')}}" class="img-fluid"/> --}}
                 <span class="pull-right fox-text for_end_text">
                   <br />
-                  Sellx @ 2021 All rights reserved
+                  Sellx @ {{ now()->year }} All rights reserved
                 </span>
               </div>
           </div>

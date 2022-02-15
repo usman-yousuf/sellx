@@ -93,7 +93,7 @@
                   <i class="fa fa-apple" aria-hidden="true"></i>
 
                   <p>
-                    Coming Soon on
+                    Download now
                     <br />
                     <strong style="font-weight:bold;font-size: 150%">App Store</strong>
                   </p>
@@ -110,7 +110,7 @@
 
     <!-- After NavBar Block Two Start -->
     <div class="for_overflow">
-      <div class="container for_block_two_main">
+      <div class="container for_block_two_main" id="about">
         <div class="row">
           <div
             class="

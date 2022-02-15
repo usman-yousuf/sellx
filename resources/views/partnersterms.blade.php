@@ -21,8 +21,7 @@
 
           <div>
               <a href="{{route('contact')}}" class="">{{ __('Contact us') }}</a>
-              <br>
-              <a href="{{route('about')}}" class="">{{ __('About us') }}</a>
+           
 
               {{-- <a href="{{route('contact')}}" class="">{{ __('Comming Soon') }}</a> --}}
               <br>
