@@ -41,21 +41,21 @@ Route::any('/privacypolicy', function () {
     return view('privacypolicy');
 })->name('privacypolicy');
 
-Route::any('/refundandcancelation', function () {
-    return view('refundandcancelation');
-})->name('refundandcancelation');
+// Route::any('/refundandcancelation', function () {
+//     return view('refundandcancelation');
+// })->name('refundandcancelation');
 
-Route::any('/servicedeliverypolicy', function () {
-    return view('servicedeliverypolicy');
-})->name('servicedeliverypolicy');
+// Route::any('/servicedeliverypolicy', function () {
+//     return view('servicedeliverypolicy');
+// })->name('servicedeliverypolicy');
 
-Route::any('/servicepricing', function () {
-    return view('servicepricing');
-})->name('servicepricing');
+// Route::any('/servicepricing', function () {
+//     return view('servicepricing');
+// })->name('servicepricing');
 
-Route::any('/partnersterms', function () {
-    return view('partnersterms');
-})->name('partnersterms');
+// Route::any('/partnersterms', function () {
+//     return view('partnersterms');
+// })->name('partnersterms');
 
 Route::get('cms/tos', 'App\Http\Controllers\CMSController@tos_page');
 Route::get('cms/privacy', 'App\Http\Controllers\CMSController@privacy_page');

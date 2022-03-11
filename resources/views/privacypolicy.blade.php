@@ -9,13 +9,13 @@
             <br>
             <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
             <br>
-            <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
+            {{-- <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
             <br>
             <a href="{{ route('servicedeliverypolicy') }}">{{ __('Service Delivery Policy')}}</a>
             <br>
             <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
             <br>
-            <a href="{{ route('partnersterms') }}" class="">{{ __('Partners Terms')}}</a>
+            <a href="{{ route('partnersterms') }}" class="">{{ __('Partners Terms')}}</a> --}}
           <br>
           <hr class="for_partners_bottom">
 

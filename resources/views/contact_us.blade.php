@@ -18,13 +18,13 @@
                 <br>
                 <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
                 <br>
-                <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
+                {{-- <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
                 <br>
                 <a href="{{ route('servicedeliverypolicy') }}">{{ __('Service Delivery Policy')}}</a>
                 <br>
                 <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
                 <br>
-                <a href="{{ route('termsandcondition') }}" class="">{{ __('Partners Terms')}}</a>
+                <a href="{{ route('termsandcondition') }}" class="">{{ __('Partners Terms')}}</a> --}}
                 {{-- <a href="#">{{ __('Comming Soon') }}</a>
                 <br>
                 <a href="#">{{ __('Comming Soon')}}</a>
