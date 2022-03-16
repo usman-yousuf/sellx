@@ -296,10 +296,10 @@ class AuthController extends Controller
                 if ($request->is_social == 1) { // its a social media signup
                     return $this->socialLogin($request);
                 } else { // send verification code
-                    if(!$this->sendVerificationToken($user, $code, $request)){
-                        DB::rollBack();
-                        return sendError('Something went wrong while sending Activation Code.', []);
-                    }
+                  //  if(!$this->sendVerificationToken($user, $code, $request)){
+                  //      DB::rollBack();
+                   //     return sendError('Something went wrong while sending Activation Code.', []);
+                    //}
 
                     Log::info($code);
 
