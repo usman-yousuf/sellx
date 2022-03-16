@@ -303,10 +303,10 @@ class UserController extends Controller
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
         try {
-            //Mail::send('email_template.feedback', ['email' => $request->email, 'name' => $profile->first_name, 'message_body' => $request->message], function ($m) use ($profile) {
-            //    $m->from(config('mail.from.address'), config('mail.from.name'));
-           //     $m->to(config('mail.from.address'))->subject('Feedback');
-          //  });
+            Mail::send('email_template.feedback', ['email' => $request->email, 'name' => $profile->first_name, 'message_body' => $request->message], function ($m) use ($profile) {
+                $m->from(config('mail.from.address'), config('mail.from.name'));
+                $m->to(config('mail.from.address'))->subject('Feedback');
+            });
 
             // Live server - For later use
             // Mail::send('email_template.feedback', ['email' => $request->email, 'name' => $profile->first_name, 'message_body' => $request->message], function ($m) use ($request, $profile) {

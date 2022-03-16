@@ -296,10 +296,10 @@ class AuthController extends Controller
                 if ($request->is_social == 1) { // its a social media signup
                     return $this->socialLogin($request);
                 } else { // send verification code
-                  //  if(!$this->sendVerificationToken($user, $code, $request)){
-                  //      DB::rollBack();
-                   //     return sendError('Something went wrong while sending Activation Code.', []);
-                    //}
+                    if(!$this->sendVerificationToken($user, $code, $request)){
+                        DB::rollBack();
+                        return sendError('Something went wrong while sending Activation Code.', []);
+                    }
 
                     Log::info($code);
 
@@ -341,10 +341,10 @@ class AuthController extends Controller
             $verificationModel->email = null;
         } else {
             $email_address = (null != $user->email)? $user->email : $request->email;
-           // Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
-            //    $m->from(config('mail.from.address'), config('mail.from.name'));
-            //    $m->to($email_address)->subject('Verification');
-           // });
+            Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
+                $m->from(config('mail.from.address'), config('mail.from.name'));
+                $m->to($email_address)->subject('Verification');
+            });
             $verificationModel->type = 'email';
             $verificationModel->email = $request->email;
             $verificationModel->phone = null;
