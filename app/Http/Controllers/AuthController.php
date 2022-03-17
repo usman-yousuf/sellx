@@ -341,10 +341,10 @@ class AuthController extends Controller
             $verificationModel->email = null;
         } else {
             $email_address = (null != $user->email)? $user->email : $request->email;
-            Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
-                $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to($email_address)->subject('Verification');
-            });
+            //Mail::send('email_template.verification_code', ['code' => $code], function ($m) use ($email_address) {
+            //    $m->from(config('mail.from.address'), config('mail.from.name'));
+            //    $m->to($email_address)->subject('Verification');
+           // });
             $verificationModel->type = 'email';
             $verificationModel->email = $request->email;
             $verificationModel->phone = null;
@@ -617,10 +617,10 @@ class AuthController extends Controller
 
         // send token at email|phone number
         if(isset($request->email) && $request->email != ''){
-            Mail::send('email_template.forgot_password', ['code' => $code], function ($m) use ($user) {
-                $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to($user->email)->subject('Verification');
-            });
+           // Mail::send('email_template.forgot_password', ['code' => $code], function ($m) use ($user) {
+           //     $m->from(config('mail.from.address'), config('mail.from.name'));
+            //    $m->to($user->email)->subject('Verification');
+           // });
         }
         else{
             // $twilio = new TwilioController;
