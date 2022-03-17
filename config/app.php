@@ -58,7 +58,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', null),
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -71,8 +71,8 @@ return [
     |
     */
 
-    // 'TWILIO_ACCOUNT_SID' => env('TWILIO_ACCOUNT_SID', 'AC75295b51cfd52dfa539139f99d61f0e7'),
-    // 'TWILIO_AUTH_TOKEN' => env('TWILIO_AUTH_TOKEN', 'fc7f2ad8b860c3529205ce48a3f5641b'),
+     'TWILIO_ACCOUNT_SID' => env('TWILIO_ACCOUNT_SID', 'AC75295b51cfd52dfa539139f99d61f0e7'),
+     'TWILIO_AUTH_TOKEN' => env('TWILIO_AUTH_TOKEN', 'fc7f2ad8b860c3529205ce48a3f5641b'),
 
     //aleem.kodextech@gmail.com
     // 'TWILIO_ACCOUNT_SID' => env('TWILIO_ACCOUNT_SID', 'AC52d8b133010e0ea03425703455dc5a12'),
