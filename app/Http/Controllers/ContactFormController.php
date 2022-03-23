@@ -49,7 +49,7 @@ class ContactFormController extends Controller
                 'message_body' => $request->message
             ], function ($m) use ($request) {
                 $m->from(config('mail.from.address'), config('mail.from.name'));
-                $m->to('info@sellx.ae')->subject('Contact Information');
+                $m->to(config('mail.To.Contactaddress'))->subject('Contact Information');
             });
 
             return Response::json(['success' => '1']);
