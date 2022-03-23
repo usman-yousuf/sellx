@@ -84,12 +84,12 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@sellx.ae'),
+        'name' => env('MAIL_FROM_NAME', 'Sellx'),
     ],
 
     'To' => [
-        'Contactaddress' => env('MAIL_Contact_ADDRESS', 'hello@example.com')
+        'Contactaddress' => env('MAIL_CONTACT_ADDRESS', 'info@sellx.ae')
     ],
 
     /*
