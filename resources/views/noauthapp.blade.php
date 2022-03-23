@@ -7,13 +7,13 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Sellx is a live auction platform</title>
-  <link sizes="10x5" rel="shortcut icon" href="{{asset('assets\images\sellx-01.png')}}" rel="icon" type="image/png">
+  <link sizes="10x5" rel="shortcut icon" href="{{asset('public/assets\images\sellx-01.png')}}" rel="icon" type="image/png">
   <!-- <link rel="icon" type="image/png" href="http://localhost/sellx/public/assets/images/favicon.png" sizes="16x16" /> -->
    <!-- <meta name="description" content="Sellx is a live auction platform"> -->
    <!-- <meta name="Keywords" content="Sellx is a live auction platform"> -->
 
   <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="{{ asset('public/js/app.js') }}" defer></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous"/>
-  <link rel="stylesheet" href="{{asset('assets/css/sellex.css')}}" />
+  <link rel="stylesheet" href="{{asset('public/assets/css/sellex.css')}}" />
 
   <!-- JS Scripts -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -42,7 +42,7 @@
     <nav class="navbar navbar-expand-lg navbar-light for_navbar_bg shadow">
         <a href="{{route('home')}}">
                 <img
-                    src="{{asset('assets/images/Layer1.svg')}}"
+                    src="{{asset('public/assets/images/Layer1.svg')}}"
                     class="img-fluid for_nav_bar_logo"
                 />
                 <span>Sellx</span>
@@ -82,7 +82,7 @@
       <div class="shadow p-3 bg-body rounded for_navbar_bg">
         <a href="{{route('home')}}">
           <img
-            src="{{asset('assets/images/Layer1.svg')}}"
+            src="{{asset('public/assets/images/Layer1.svg')}}"
             class="img-fluid for_nav_bar_logo"
           />
           <span>Sellx</span>
@@ -159,7 +159,7 @@
                       {{-- <a href="#">{{ __('Comming Soon') }}</a> --}}
 
                       <span class="pull-right footer_logo"
-                        ><img src="{{asset('assets/images/Frame27.svg')}}" class="img-fluid"
+                        ><img src="{{asset('public/assets/images/Frame27.svg')}}" class="img-fluid"
                       /></span>
                     </p>
                     <p>
@@ -185,7 +185,7 @@
                 <i class="fa fa-cc-visa fa-3x m-2" aria-hidden="true"></i>
                 <i class="fa fa-cc-mastercard fa-3x m-2" aria-hidden="true"></i>
                 </span>
-                {{-- <img src="{{asset('assets/images/Frame28.svg')}}" class="img-fluid"/> --}}
+                {{-- <img src="{{asset('public/assets/images/Frame28.svg')}}" class="img-fluid"/> --}}
                 <span class="pull-right fox-text for_end_text">
                   <br />
                   Sellx @ {{ now()->year }} All rights reserved

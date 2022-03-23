@@ -303,7 +303,7 @@ class ChatsController extends Controller
             $file_name = 'message_' . $message->id . '.' . $file->getClientOriginalExtension();
             $uploaded_path = public_path() . '/assets/messages';
             $file->move($uploaded_path, $file_name);
-            $message->file_path = asset('assets/messages').'/' . $file_name;
+            $message->file_path = asset('public/assets/messages').'/' . $file_name;
             $message->file_ratio = $request->ratio;
             $message->file_type = $request->type;
             $message->save();
@@ -314,7 +314,7 @@ class ChatsController extends Controller
             $file_name = 'message_thumb_' . $message->id . '_' .time().  '.' . $file->getClientOriginalExtension();
             $uploaded_path = public_path() . '/assets/messages';
             $file->move($uploaded_path, $file_name);
-            $message->thumbnail = asset('assets/messages').'/' . $file_name;
+            $message->thumbnail = asset('public/assets/messages').'/' . $file_name;
             $message->save();
         }*/
         $chatMember = ChatMember::where('chat_id', (int)$request->chat_id)

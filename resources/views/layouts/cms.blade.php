@@ -6,14 +6,14 @@
 
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="" href="">
-    <link rel="shortcut icon" type="image/png" href="{{asset('lib/user/')}}/images/fevicon.png" />
+    <link rel="shortcut icon" type="image/png" href="{{asset('public/lib/user/')}}/images/fevicon.png" />
 
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('lib/user/')}}/css/owl.carousel.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('lib/user/')}}/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('public/lib/user/')}}/css/owl.carousel.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('public/lib/user/')}}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     @yield('head')

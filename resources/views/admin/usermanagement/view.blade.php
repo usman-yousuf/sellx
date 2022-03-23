@@ -58,7 +58,7 @@
                             <div class="card">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
+                                        <div class="card bg-slate-600" style="background-image: url({{asset('public/admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
                                                     <img class="img-fluid rounded-circle" src="{{$user->profile_image}}" width="170" height="170" alt="">

@@ -34,7 +34,7 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <img
-                                    src="{{asset('assets/images/1.svg')}}"
+                                    src="{{asset('public/assets/images/1.svg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="{{asset('assets/images/2.svg')}}"
+                                    src="{{asset('public/assets/images/2.svg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="{{asset('assets/images/5.svg')}}"
+                                    src="{{asset('public/assets/images/5.svg')}}"
                                     class="d-block w-100"
                                     alt="..."
                                     style="object-fit:contain;"
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <img
-                                    src="{{asset('assets/images/6.svg')}}"
+                                    src="{{asset('public/assets/images/6.svg')}}"
                                     align="middle"
                                     class="d-block w-100"
                                     alt="..."
@@ -121,7 +121,7 @@
             "
           >
             <img
-              src="{{asset('assets/images/Illustration1.svg')}}"
+              src="{{asset('public/assets/images/Illustration1.svg')}}"
               class="img-fluid"
               alt=""
             />
@@ -134,7 +134,7 @@
           </div>
 
           <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res text-center">
-            <img src="{{asset('assets/images/Illustration2.svg')}}" class="img-fluid" />
+            <img src="{{asset('public/assets/images/Illustration2.svg')}}" class="img-fluid" />
           </div>
 
           <div class="col-lg-3 col-md-6 for_sellex_textt order-md-2 text-center text-md-left">
@@ -151,7 +151,7 @@
             class="col-lg-3 col-md-6 order-md-1 order-lg-0 for_common_img_res text-center"
           >
             <img
-              src="{{asset('assets/images/Illustration3.svg')}}"
+              src="{{asset('public/assets/images/Illustration3.svg')}}"
               class="img-fluid"
               alt=""
             />
@@ -164,7 +164,7 @@
           </div>
 
           <div class="col-lg-3 col-md-6 order-md-1 for_common_img_res text-center">
-            <img src="{{asset('assets/images/Illustration5.svg')}}" class="img-fluid" />
+            <img src="{{asset('public/assets/images/Illustration5.svg')}}" class="img-fluid" />
           </div>
 
           <div class="col-lg-3 col-md-6 for_sellex_textt md_register_responsive order-md-2 text-center text-md-left">
@@ -192,7 +192,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text img_index_height">
                     <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
-                    <img src="{{asset('assets/images/Mail1.svg')}}" class="img-fluid" />
+                    <img src="{{asset('public/assets/images/Mail1.svg')}}" class="img-fluid" />
 
                   </span>
                 </div>

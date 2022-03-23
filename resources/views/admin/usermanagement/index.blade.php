@@ -62,7 +62,7 @@
                                     <td>{{$user->id}}</td>
 
                                     <td>
-                                        <img src="{{ asset('admin/global_assets/images/user.png') }}" width="36" height="36" alt="">
+                                        <img src="{{ asset('public/admin/global_assets/images/user.png') }}" width="36" height="36" alt="">
                                         <span class="ml-1">{{$user->first_name}}</span></td>
                                     <td><a href="#">{{$user->profile_type}}</a></td>
                                     <td>{{$user->dob}}</td>
