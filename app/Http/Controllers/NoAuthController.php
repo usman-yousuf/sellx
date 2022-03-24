@@ -75,7 +75,7 @@ class NoAuthController extends Controller
 	}
 
 	public function getCountries(Request $request){
-		$country = array('bahrain','kuwait', 'oman', 'qatar', 'saudi Arabia', 'united arab emirates'); 
+		$country = array('bahrain','kuwait', 'oman', 'qatar', 'saudi Arabia', 'united arab emirates', 'pakistan'); 
 		$countries = Country::whereIn('name', $country)->get();
 
 		if($countries){
