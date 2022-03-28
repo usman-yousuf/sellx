@@ -18,13 +18,13 @@
                 <br>
                 <a href="{{ route('privacypolicy') }}">{{ __('Privacy & Data Policy')}}</a>
                 <br>
-                <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
+                {{-- <a href="{{ route('refundandcancelation') }}">{{ __('Refunds and Cancellations') }}</a>
                 <br>
                 <a href="{{ route('servicedeliverypolicy') }}">{{ __('Service Delivery Policy')}}</a>
                 <br>
                 <a href="{{ route('servicepricing') }}">{{ __('Service Pricing') }}</a>
                 <br>
-                <a href="{{ route('termsandcondition') }}" class="">{{ __('Partners Terms')}}</a>
+                <a href="{{ route('termsandcondition') }}" class="">{{ __('Partners Terms')}}</a> --}}
                 {{-- <a href="#">{{ __('Comming Soon') }}</a>
                 <br>
                 <a href="#">{{ __('Comming Soon')}}</a>
@@ -55,18 +55,18 @@
 
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 order-lg-2 order-md-2 order-1">
-                 <h1>Contact Us</h1>
+                 <h1>{{ __('Contact us') }}</h1>
                 <div class="row for_row_main">
                     <div class="col-lg-6 col-md-12 for_border_bottom">
                         <div class="for_first_col_main ">
-                            <h3>Contact Information</h3>
+                            <h3>{{ __('Contact Information') }}</h3>
 
                         </div>
                         <hr>
 
                         <div class="row for_border_bottom">
                             <div class="col-lg-5 col-md-5 for_child_row_col_one">
-                                <p>Get in touch:</p>
+                                <p>{{ __('Get in touch') }}:</p>
                             </div>
 
                             <div class="col-lg-7 col-md-7 for_child_row_col_two">
@@ -80,7 +80,7 @@
                         <hr>
                         <div class="row for_border_bottom">
                           <div class="col-lg-5 col-md-5 for_child_row_col_one">
-                              <p>Support:</p>
+                              <p>{{ __('Support') }}:</p>
                           </div>
 
                           <div class="col-lg-7 col-md-7 for_child_row_col_two">
@@ -95,7 +95,7 @@
                       <hr>
                       <div class="row for_border_bottom">
                         <div class="col-lg-5 col-md-5 for_child_row_col_one">
-                            <p>Phone: (What'sApp)</p>
+                            <p>{{__("Phone: (What'sApp)")}}</p>
                         </div>
 
                         <div class="col-lg-7 col-md-7 for_child_row_col_two">
@@ -110,7 +110,7 @@
                       <hr>
                       <div class="row for_border_bottom">
                         <div class="col-lg-5 col-md-5 for_child_row_col_one">
-                            <p>Mailing address:</p>
+                            <p>{{__('Mailing address')}}:</p>
                         </div>
 
                         <div class="col-lg-7 col-md-7 for_child_row_col_two for_location_special">
@@ -132,7 +132,7 @@
                     <div class="col-lg-6 col-md-12   ">
                         <div class="for_first_col_main row_one_col_two_main ">
                           <form id="basic-form" method="post" enctype="multipart/form-data">
-                            <h3>Contact Form</h3>
+                            <h3>{{__('Contact Form')}}</h3>
                             <div class="sm-res_buttons">
 
                               <div class="for_col_two_bg">
@@ -143,19 +143,19 @@
                                       <label class="btn border type shadow bg-white fg_primary-s sub_plans-d bidder_position_css" data-plan="bidder">
                                           <input type="radio" class="form-check-input valid" value="bidder" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
                                           <span class="for_bidder_span">
-                                            Bidder
+                                            {{__('Bidder')}}
                                           </span>
                                       </label>
                                       <label class="btn type border shadow bg-white fg_primary-s auctioneer_position_css sub_plans-d" data-plan="auctioneer">
                                           <input type="radio" class="form-check-input valid" value="auctioneer" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
                                           <span class="auctioneer_span_css">
-                                            Auctioneer
+                                            {{__('Auctioneer')}}
                                             </span>
                                       </label>
                                       <label class="btn type border shadow bg-white fg_primary-s sub_plans-d other_position_css" data-plan="other">
                                           <input type="radio" class="form-check-input valid" value="other" name="type" style="display:none" id="rb_type-d" aria-invalid="false">
                                            <span class="other_span_css">
-                                            Other
+                                            {{__('Other')}}
                                            </span>
                                       </label>
                                   </div>
