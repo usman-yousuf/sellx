@@ -72,7 +72,7 @@
                             <div class="col-lg-7 col-md-7 for_child_row_col_two">
                                 <p>
                                     <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
-                                    <img src="{{asset('assets/images/Mail.svg')}}" />
+                                    <img src="{{asset('public/assets/images/Mail.svg')}}" />
                                     <span>info@sellx.ae</span>
                                 </p>
                             </div>
@@ -86,7 +86,7 @@
                           <div class="col-lg-7 col-md-7 for_child_row_col_two">
                               <p>
                                   <!-- <i class="fa fa-life-ring" aria-hidden="true"></i> -->
-                                  <img src="{{asset('assets/images/Support.svg')}}" />
+                                  <img src="{{asset('public/assets/images/Support.svg')}}" />
                                   <span>help@sellx.ae</span>
                               </p>
                           </div>
@@ -101,7 +101,7 @@
                         <div class="col-lg-7 col-md-7 for_child_row_col_two">
                             <p>
                                 <!-- <i class="fa fa-phone" aria-hidden="true"></i> -->
-                                <img src="{{asset('assets/images/Phone.svg')}}" />
+                                <img src="{{asset('public/assets/images/Phone.svg')}}" />
                                 <span>+971 50 4777055</span>
                             </p>
                         </div>
@@ -115,7 +115,7 @@
 
                         <div class="col-lg-7 col-md-7 for_child_row_col_two for_location_special">
                             <p>
-                                <img src="{{asset('assets/images/Location.svg')}}" />
+                                <img src="{{asset('public/assets/images/Location.svg')}}" />
                                 <span>Hamdan Incubator<br>
                                   <span class="for_dubai_text_common">
                                     Dubai, UAE,
@@ -165,7 +165,7 @@
                                         <div class="input-group mb-3 for_input_fields">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text">
-                                              <img src="{{asset('assets/images/User.svg')}}" class="img-fluid" />
+                                              <img src="{{asset('public/assets/images/User.svg')}}" class="img-fluid" />
 
                                               </span>
                                             </div>
@@ -176,7 +176,7 @@
                                         <div class="input-group mb-3 for_input_fields">
                                             <div class="input-group-prepend">
                                               <span class="input-group-text">
-                                                <img src="{{asset('assets/images/Mail1.svg')}}" class="img-fluid" />
+                                                <img src="{{asset('public/assets/images/Mail1.svg')}}" class="img-fluid" />
 
                                               </span>
                                             </div>

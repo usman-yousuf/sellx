@@ -133,7 +133,7 @@
                                                 <input type="file" placeholder="image" id="img-d" name="image" value="" class="form-control">
                                             </div>
                                              <div class="form-group">
-                                                <img class="img-fluid rounded-circle" src="{{asset('admin/global_assets/images/user.png')}}" width="170" height="170" alt="">
+                                                <img class="img-fluid rounded-circle" src="{{asset('public/admin/global_assets/images/user.png')}}" width="170" height="170" alt="">
                                             </div>
                                         </div>
                                     </div> --}}
@@ -142,13 +142,13 @@
                                         <div class="w-100 ">
                                             <label for="media12">
                                                 <h3 class="btn btn-primary">Upload Image</h3>
-                                                {{-- <img src="{{ asset('assets/images/upload_img.svg') ?? '' }}" class="w_inherit-s img-fluid" alt="upload img"/> --}}
+                                                {{-- <img src="{{ asset('public/assets/images/upload_img.svg') ?? '' }}" class="w_inherit-s img-fluid" alt="upload img"/> --}}
                                             </label>
                                             <input id="media12" type="file" name="image"  style="display: none"/>
                                         </div>
                                     </div>
                                     <div class="col-12 mt-4 media_image-d d-none">
-                                        {{-- <img src="{{ asset('assets/images/close.svg') ?? '' }}" class="remove_img-s position-absolute" alt="remove img"> --}}
+                                        {{-- <img src="{{ asset('public/assets/images/close.svg') ?? '' }}" class="remove_img-s position-absolute" alt="remove img"> --}}
                                         <div class="" >
                                             <img class="rounded-circle" id="previewImg" src="" width="170" height="170" />
                                         </div>

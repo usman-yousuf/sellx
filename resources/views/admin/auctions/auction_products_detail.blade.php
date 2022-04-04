@@ -66,7 +66,7 @@
                                     <tr>
                                         <td>{{$auction_detail->id}}</td>
                                         <td>
-                                            <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
+                                            <img src="{{ asset('public/admin/global_assets/images/car.jpg') }}" width="36" height="36" alt="">
                                         </td>
                                         <td>{{$product->title}}</td>
                                         <td>{{$category->name}}</td>

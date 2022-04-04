@@ -64,7 +64,7 @@
                                 <td>12</td>
 
                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
+                                    <img src="{{ asset('public/admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -89,7 +89,7 @@
                                 <td>12</td>
 
                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
+                                    <img src="{{ asset('public/admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -114,7 +114,7 @@
                                 <td>12</td>
 
                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
+                                    <img src="{{ asset('public/admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -139,7 +139,7 @@
                                 <td>12</td>
 
                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
+                                    <img src="{{ asset('public/admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>
@@ -164,7 +164,7 @@
                                 <td>12</td>
 
                                 <td>
-                                    <img src="{{ asset('admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
+                                    <img src="{{ asset('public/admin/global_assets/images/car.jpg') }}" width="30" height="30" alt="">
                                     <span class="ml-1">Car</span></td>
                                 <td>Abscee</td>
                                 <td>Milky Auction House</td>

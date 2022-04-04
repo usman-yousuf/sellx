@@ -58,10 +58,10 @@
                             <div class="card">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="card bg-slate-600" style="background-image: url({{asset('admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
+                                        <div class="card bg-slate-600" style="background-image: url({{asset('public/admin/global_assets/images/backgrounds/panel_bg.png')}}); background-size: contain;">
                                             <div class="card-body text-center">
                                                 <div class="card-img-actions d-inline-block mb-3">
-                                                    <img class="img-fluid rounded-circle" src="{{ asset('admin/global_assets/images/image.png') }}" width="170" height="170" alt="">
+                                                    <img class="img-fluid rounded-circle" src="{{ asset('public/admin/global_assets/images/image.png') }}" width="170" height="170" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -108,16 +108,16 @@
                                                                     <td>
                                                                         <div class="row">
                                                                             <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
+                                                                                <img src="{{asset('public/admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
                                                                             </div>
                                                                             <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
+                                                                                <img src="{{asset('public/admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
                                                                             </div>
                                                                             <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
+                                                                                <img src="{{asset('public/admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
                                                                             </div>
                                                                             <div class="col-3">
-                                                                                <img src="{{asset('admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
+                                                                                <img src="{{asset('public/admin/global_assets/images/placeholders/placeholder.jpg')}}" width="60" height="70" alt="">
                                                                             </div>
                                                                         </div>
                                                                     </td>
