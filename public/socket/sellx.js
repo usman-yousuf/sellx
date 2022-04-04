@@ -1,94 +1,120 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var db = require('./db.js');
-var mydb = new db();
+var https = require('https');
+var fs = require('fs');
+var express = require('express');
+var options = {
+    key: fs.readFileSync('/etc/ssl/private/kjora.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/ea341d94f8a0dee9.crt'),
+    ca: fs.readFileSync('/etc/ssl/certs/gd_bundle-g2-g1.crt'),
 
-app.get('/', function(req, res) {
-    res.send('Working Fine');
+    requestCert: false,
+    rejectUnauthorized: false
+}
+const app = express();
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
 });
+//const socket = require('socket.io');
+
+const cors = require('cors');
+//const app = express();
+let port = process.env.PORT || 1055;
+
+//app.use(express.static('public'));
+app.use(cors());
+var server = https.createServer(options, app);
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*'
+    }
+});
+let clients = 0
+//const io = socket(server);
 var sockets = {};
 var arr = [];
-io.on('connection', function(socket) {
+io.sockets.on('connection', function (socket) {
 
-    socket.on('for_all_send', function(data) {
+    socket.on('for_all_send', function (data) {
         io.emit('for_all_recieve', {
             type: data.type,
             additional_data: data.additional_data,
         });
     });
 
-    socket.on('message_send', function(data) {
+    socket.on('message_send', function (data) {
         io.emit('message_receive', {
             data: data,
         });
     });
 
 
-    socket.on('timer_send', function(data) {
+    socket.on('timer_send', function (data) {
         io.emit('timer_reciver', {
             data: data,
         });
     });
 
-    socket.on('new_product_added_send', function(data) {
+    socket.on('new_product_added_send', function (data) {
         io.emit('new_product_added_recived', {
             data: data,
         });
     });
 
-    socket.on('online', function(data) {
+    socket.on('online', function (data) {
         io.emit('offline', {
             data: data,
         });
     });
 
-    socket.on('comment_send', function(data) {
+    socket.on('comment_send', function (data) {
         io.emit('comment_receive', {
             data: data,
         });
     });
 
-    socket.on('chat_message_send', function(data) {
+    socket.on('chat_message_send', function (data) {
         io.emit('chat_message_receive', {
             data: data,
         });
     });
 
-    socket.on('delete_chat_message_send', function(data) {
+    socket.on('delete_chat_message_send', function (data) {
         io.emit('delete_chat_message_receive', {
             data: data,
         });
     });
 
-    socket.on('bid_send', function(data) {
+    socket.on('bid_send', function (data) {
         io.emit('bid_recived', {
             data: data,
         });
     });
 
-    socket.on('place_lot_for_bidding_send', function(data) {
+    socket.on('place_lot_for_bidding_send', function (data) {
         io.emit('place_lot_for_bidding_recived', {
             data: data,
         });
     });
 
-    socket.on('place_a_bid_send', function(data) {
+    socket.on('place_a_bid_send', function (data) {
         io.emit('place_a_bid_recived', {
             data: data,
         });
     });
 
-    socket.on('time_end_bidding_send', function(data) {
+    socket.on('time_end_bidding_send', function (data) {
         io.emit('time_end_bidding_recived', {
             data: data,
         });
     });
 
 
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function () {
         if (sockets[socket.id] != undefined) {
-            mydb.releaseRequest(sockets[socket.id].user_id).then(function(result) {
+            mydb.releaseRequest(sockets[socket.id].user_id).then(function (result) {
                 console.log('disconected: ' + sockets[socket.id].request_id);
                 io.emit('request-released', {
                     'request_id': sockets[socket.id].request_id
@@ -97,21 +123,8 @@ io.on('connection', function(socket) {
             });
         }
     });
+    // code goes here...
 });
-
-http.listen(1029, function() {
-    console.log('working fine');
+server.listen(port, function () {
+    console.log('Express server listening on port ' + server.address().port);
 });
-
-    // socket.on('comment_send', function(data) {
-    //     io.emit('comment_receive', {
-    //         'comment_id': data.comment_id,
-    //         'post_id': data.post_id,
-    //         'user_id': data.user_id,
-    //         'user_name': data.user_name,
-    //         'user_image': data.user_image,
-    //         'comment': data.comment,
-    //         'created_at': data.created_at,
-    //         // 'comments_count': data.comments_count
-    //     });
-    // });
